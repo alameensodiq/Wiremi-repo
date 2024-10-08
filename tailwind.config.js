@@ -21,7 +21,8 @@ module.exports = {
         textblack: "#242329",
         lighttextblack: "#475467",
         textinputtext: "#999999",
-        forgotsuccesslight: "#727579"
+        forgotsuccesslight: "#727579",
+        chooseaccounttext: "#0A0A0A"
       },
       borderRadius: {
         ten: "10px",

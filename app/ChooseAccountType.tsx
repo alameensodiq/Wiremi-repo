@@ -15,11 +15,10 @@ import {
   import Wiremi from "../assets/splash.svg";
   import Back from "../assets/Back.svg";
   import Logo from "../assets/Logo.svg";
-  import Face from "../assets/Face.svg";
-  import Finger from "../assets/Finger.svg";
-  import TextLabelBox from "@/components/TextLabelBox";
-  import BlueSignInButton from "@/components/BlueSignInButton";
-  import { CheckBox } from "@rneui/themed";
+  import Person from "../assets/person.svg";
+  import Business from "../assets/business.svg";
+  import RightCarat from "../assets/rightcarat.svg";
+ 
 
 const ChooseAccountType = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -64,7 +63,7 @@ const ChooseAccountType = () => {
                 borderTopRightRadius: 40,
                 paddingTop: height * 0.04,
                 paddingHorizontal: width * 0.04,
-                gap: 15
+                gap: 19
               }}
             >
               <View className="flex-row justify-between items-center">
@@ -78,10 +77,26 @@ const ChooseAccountType = () => {
                 <Logo />
               </View>
               <View className="flex-col items-center justify-center gap-2">
-                <Text className="text-textblack text-[18px]">Choose your account type</Text>
+                <Text className="text-textblack text-[18px] font-bold">Choose your account type</Text>
               </View>
-             
-    
+              <View style={{paddingHorizontal: height * 0.03}} className="flex-row items-center justify-between">
+                <View className="flex-row items-center gap-2">
+                    <Person/>
+                    <Text className="text-chooseaccounttext text-[13px]">Personal account</Text>
+                </View>
+                <View>
+                    <RightCarat />
+                </View>
+              </View>
+              <View style={{paddingHorizontal: height * 0.03}} className="flex-row items-center justify-between">
+                <View className="flex-row items-center gap-2">
+                    <Business/>
+                    <Text className="text-chooseaccounttext text-[13px]">Business account</Text>
+                </View>
+                <View>
+                    <RightCarat />
+                </View>
+              </View>
             </View>
           </View>
         </SafeAreaView>
