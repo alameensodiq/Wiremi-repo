@@ -47,6 +47,10 @@ export default function RootLayout() {
         name="ForgetSuccess"
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="ChooseAccountType"
+        options={{ headerShown: false }}
+      />
     </Stack>
     // </ThemeProvider>
   );

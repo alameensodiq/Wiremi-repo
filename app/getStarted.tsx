@@ -157,7 +157,7 @@ const GetStarted = () => {
                 <Text className="text-lighttextdark text-[14px]">making everything seamless just for you</Text>
               </View>
               <View style={{height: height * 0.07, paddingTop: height * 0.02}} className="bg-white items-center justify-center">
-                <LongButton title='Get Started' onPress={() => console.log('Ebuka')}/>
+                <LongButton title='Get Started' onPress={() => router.push('/ChooseAccountType')}/>
               </View>
               <View style={{height: height * 0.07}} className="bg-white items-center justify-center">
                 <SignInLongButton title='Sign in' onPress={() => router.push('/SignInPage')}/>
