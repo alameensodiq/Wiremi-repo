@@ -70,7 +70,7 @@ import {
                   gap: 8
                 }}
               >
-                <View className="flex-row justify-between items-center">
+                <View style={{gap: width * 0.24}} className="flex-row justify-start items-center">
                   {process === 1 ? (
                     <TouchableOpacity onPress={() => router.back()}>
                       <Back />
