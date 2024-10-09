@@ -56,6 +56,10 @@ export default function RootLayout() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name="PersonalAccount"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="BusinessSuccess"
         options={{ headerShown: false }}
       />

@@ -80,25 +80,29 @@ const ChooseAccountType = () => {
                   Choose your account type
                 </Text>
               </View>
-              <View
-                style={{ paddingHorizontal: height * 0.03 }}
-                className="flex-row items-center justify-between"
-              >
-                <View className="flex-row items-center gap-2">
-                  <Person />
-                  <Text className="text-chooseaccounttext text-[13px]">
-                    Personal account
-                  </Text>
+              <TouchableOpacity onPress={() => router.push("/PersonalAccount")}>
+                <View
+                  style={{ paddingHorizontal: height * 0.03 }}
+                  className="flex-row items-center justify-between"
+                >
+                  <View className="flex-row items-center gap-2">
+                    <Person />
+                    <Text className="text-chooseaccounttext text-[13px]">
+                      Personal account
+                    </Text>
+                  </View>
+                  <View>
+                    <RightCarat />
+                  </View>
                 </View>
-                <View>
-                  <RightCarat />
-                </View>
-              </View>
-              <TouchableOpacity onPress={() => router.push("/BusinessAccountFirstStep")}>
-              <View
-                style={{ paddingHorizontal: height * 0.03 }}
-                className="flex-row items-center justify-between"
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => router.push("/BusinessAccountFirstStep")}
               >
+                <View
+                  style={{ paddingHorizontal: height * 0.03 }}
+                  className="flex-row items-center justify-between"
+                >
                   <View className="flex-row items-center gap-2">
                     <Business />
                     <Text className="text-chooseaccounttext text-[13px]">
@@ -108,8 +112,7 @@ const ChooseAccountType = () => {
                   <View>
                     <RightCarat />
                   </View>
-
-              </View>
+                </View>
               </TouchableOpacity>
             </View>
           </View>
