@@ -8,7 +8,11 @@ import { TextInput } from "react-native";
 const optionSelect = ["Option 1"];
 const options = ["Option 1", "Option 2", "Option 3"];
 
-const SelectAndText = () => {
+interface SelectAndTextProps {
+  title ?: string
+}
+
+const SelectAndText = ({title}: SelectAndTextProps) => {
   const { height, width } = Dimensions.get("window");
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
@@ -18,7 +22,8 @@ const SelectAndText = () => {
     setDropdownVisible(false);
   };
   return (
-    <View className="flex-row">
+    <View className="flex-col items-start gap-2">
+      <Text className="text-textblack">{title}</Text>
       <View className="flex-row">
         <View style={{ width: width * 0.21 }}>
           <FlatList

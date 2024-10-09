@@ -51,6 +51,14 @@ export default function RootLayout() {
         name="ChooseAccountType"
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="BusinessAccountFirstStep"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="BusinessSuccess"
+        options={{ headerShown: false }}
+      />
     </Stack>
     // </ThemeProvider>
   );

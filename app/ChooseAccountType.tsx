@@ -1,31 +1,30 @@
 import {
-    View,
-    Text,
-    ImageBackground,
-    SafeAreaView,
-    StatusBar as RNStatusBar,
-    Dimensions,
-    Platform,
-    TouchableOpacity
-  } from "react-native";
-  import React from "react";
-  import LandingPageImage from "../assets/LandingScreen.png";
-  import { StatusBar } from "expo-status-bar";
-  import { useRouter } from "expo-router";
-  import Wiremi from "../assets/splash.svg";
-  import Back from "../assets/Back.svg";
-  import Logo from "../assets/Logo.svg";
-  import Person from "../assets/person.svg";
-  import Business from "../assets/business.svg";
-  import RightCarat from "../assets/rightcarat.svg";
- 
+  View,
+  Text,
+  ImageBackground,
+  SafeAreaView,
+  StatusBar as RNStatusBar,
+  Dimensions,
+  Platform,
+  TouchableOpacity
+} from "react-native";
+import React from "react";
+import LandingPageImage from "../assets/LandingScreen.png";
+import { StatusBar } from "expo-status-bar";
+import { useRouter } from "expo-router";
+import Wiremi from "../assets/splash.svg";
+import Back from "../assets/Back.svg";
+import Logo from "../assets/Logo.svg";
+import Person from "../assets/person.svg";
+import Business from "../assets/business.svg";
+import RightCarat from "../assets/rightcarat.svg";
 
 const ChooseAccountType = () => {
-    const statusBarHeight = RNStatusBar.currentHeight || 0;
-    const { height, width } = Dimensions.get("window");
-    const router = useRouter();
-    const [checked, setChecked] = React.useState(true);
-    const toggleCheckbox = () => setChecked(!checked);
+  const statusBarHeight = RNStatusBar.currentHeight || 0;
+  const { height, width } = Dimensions.get("window");
+  const router = useRouter();
+  const [checked, setChecked] = React.useState(true);
+  const toggleCheckbox = () => setChecked(!checked);
   return (
     <View className="flex-1 ">
       <ImageBackground
@@ -77,32 +76,47 @@ const ChooseAccountType = () => {
                 <Logo />
               </View>
               <View className="flex-col items-center justify-center gap-2">
-                <Text className="text-textblack text-[18px] font-bold">Choose your account type</Text>
+                <Text className="text-textblack text-[18px] font-bold">
+                  Choose your account type
+                </Text>
               </View>
-              <View style={{paddingHorizontal: height * 0.03}} className="flex-row items-center justify-between">
+              <View
+                style={{ paddingHorizontal: height * 0.03 }}
+                className="flex-row items-center justify-between"
+              >
                 <View className="flex-row items-center gap-2">
-                    <Person/>
-                    <Text className="text-chooseaccounttext text-[13px]">Personal account</Text>
+                  <Person />
+                  <Text className="text-chooseaccounttext text-[13px]">
+                    Personal account
+                  </Text>
                 </View>
                 <View>
-                    <RightCarat />
+                  <RightCarat />
                 </View>
               </View>
-              <View style={{paddingHorizontal: height * 0.03}} className="flex-row items-center justify-between">
-                <View className="flex-row items-center gap-2">
-                    <Business/>
-                    <Text className="text-chooseaccounttext text-[13px]">Business account</Text>
-                </View>
-                <View>
+              <TouchableOpacity onPress={() => router.push("/BusinessAccountFirstStep")}>
+              <View
+                style={{ paddingHorizontal: height * 0.03 }}
+                className="flex-row items-center justify-between"
+              >
+                  <View className="flex-row items-center gap-2">
+                    <Business />
+                    <Text className="text-chooseaccounttext text-[13px]">
+                      Business account
+                    </Text>
+                  </View>
+                  <View>
                     <RightCarat />
-                </View>
+                  </View>
+
               </View>
+              </TouchableOpacity>
             </View>
           </View>
         </SafeAreaView>
       </ImageBackground>
     </View>
-  )
-}
+  );
+};
 
-export default ChooseAccountType
+export default ChooseAccountType;
