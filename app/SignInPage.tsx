@@ -129,7 +129,9 @@ const SignInPage = () => {
                 <Text className="text-textinputtext">
                   Don’t have an account?{" "}
                 </Text>
+                <TouchableOpacity onPress={() => router.push('/ChooseAccountType')}>
                 <Text className="text-buttonprimary">Sign up</Text>
+                </TouchableOpacity>
               </View>
               <View className="flex-col justify-end items-center">
                 {Platform.OS === "ios" ? (
