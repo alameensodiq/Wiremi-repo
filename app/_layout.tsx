@@ -53,6 +53,7 @@ export default function RootLayout() {
       <Stack.Screen name="BusinessSuccess" options={{ headerShown: false }} />
       <Stack.Screen name="PersonalAccountReg" options={{ headerShown: false }} />
       <Stack.Screen name="(PersonalAccount)" options={{ headerShown: false }} />
+      <Stack.Screen name="TransactionDeposit" options={{ headerShown: false }} />
     </Stack>
     // </ThemeProvider>
   );

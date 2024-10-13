@@ -26,10 +26,12 @@ import frame3 from "../../assets/frame3.png";
 import DashboardTransactionButton from "@/components/DashboardTransactionButton";
 import Carousel from "react-native-reanimated-carousel";
 import { SectionList } from "react-native";
+import { useRouter } from "expo-router";
 
 const Dashboard = () => {
   const { height, width } = Dimensions.get("window");
   const statusBarHeight = RNStatusBar.currentHeight || 0;
+  const router = useRouter();
 
   const images = [frame1, frame2, frame3];
 
@@ -112,7 +114,7 @@ const Dashboard = () => {
               />
               <DashboardTransactionButton
                 title="Deposit"
-                onPress={() => console.log("sodiq")}
+                onPress={() => router.push('/TransactionDeposit/ListofDeposits')}
               />
             </View>
           </View>

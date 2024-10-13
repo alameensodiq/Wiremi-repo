@@ -28,7 +28,9 @@ module.exports = {
         failedtrans: "#DE1E04",
         transdate: "#9B9C9D",
         sectionheader: "#3D3F43",
-        faintline: "#EBEBEB"
+        faintline: "#EBEBEB",
+        pagetitle: "#242329",
+        deposistsub: "#4B4B4B"
       },
       borderRadius: {
         ten: "10px",
