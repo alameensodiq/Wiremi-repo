@@ -80,7 +80,7 @@ const ChooseAccountType = () => {
                   Choose your account type
                 </Text>
               </View>
-              <TouchableOpacity onPress={() => router.push("/PersonalAccount")}>
+              <TouchableOpacity onPress={() => router.push("/PersonalAccountReg")}>
                 <View
                   style={{ paddingHorizontal: height * 0.03 }}
                   className="flex-row items-center justify-between"

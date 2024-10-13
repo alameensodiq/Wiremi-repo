@@ -3,17 +3,19 @@ import {
   Text,
   StatusBar as RNStatusBar,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import Forgotsuccess from "../assets/forgotsuccess.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import { useRouter } from "expo-router";
 import SixDigits from "@/components/SixDigits";
 import { ImageBackground } from "react-native";
-import LandingPageImage from "../assets/LandingScreen.png";
+import SuccessLand from "../assets/forgetsuccesland.png";
+import Eng from "../assets/success.gif";
+import LottieView from "lottie-react-native";
 
 const BusinessSuccess = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -22,7 +24,7 @@ const BusinessSuccess = () => {
   return (
     <View className="flex-1 ">
       <ImageBackground
-        source={LandingPageImage}
+        source={SuccessLand}
         resizeMode="cover"
         className="flex-1"
       >
@@ -44,6 +46,28 @@ const BusinessSuccess = () => {
               style={{ height: height * 0.7 }}
               className="flex-col items-center justify-center gap-2"
             >
+              {/* <FastImage
+                style={{ width: width * 0.4, height: height * 0.1 }}
+                source={{
+                  uri: "../assets/success.gif",
+                  // headers: { Authorization: "someAuthToken" },
+                  priority: FastImage.priority.normal
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+              /> */}
+              <Image
+                source={Eng}
+                style={{ width: 100, height: 100, zIndex: 1000 }}
+                resizeMode="contain"
+              />
+              {/* <LottieView
+                style={{ height: 150, width: 550, marginTop: -60 }}
+                // ref={animationRef}
+                source={require("../assets/success.gif")}
+                // onAnimationFinish={handleAnimationFinish}
+                autoPlay
+                loop={false}
+              /> */}
               <Text className="text-white text-[18px] font-bold">
                 Successful
               </Text>
@@ -59,7 +83,7 @@ const BusinessSuccess = () => {
               <BlueSignInButton
                 title="Proceed to Dashboard"
                 color1
-                onPress={() => console.log('Dashboard')}
+                onPress={() => router.push('/Dashboard')}
               />
             </View>
           </View>

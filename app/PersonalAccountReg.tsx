@@ -23,7 +23,7 @@ import {
   import TransparentSelectButton from "@/components/TransparentSelectButton";
   import SixDigits from "@/components/SixDigits";
   
-  const PersonalAccount = () => {
+  const PersonalAccountReg = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
@@ -212,5 +212,5 @@ import {
     );
   };
   
-  export default PersonalAccount;
+  export default PersonalAccountReg;
   

@@ -22,11 +22,18 @@ module.exports = {
         lighttextblack: "#475467",
         textinputtext: "#999999",
         forgotsuccesslight: "#727579",
-        chooseaccounttext: "#0A0A0A"
+        chooseaccounttext: "#0A0A0A",
+        dashboardtransbutton: "#B2CDFD",
+        successtrans: "#00A85A",
+        failedtrans: "#DE1E04",
+        transdate: "#9B9C9D",
+        sectionheader: "#3D3F43",
+        faintline: "#EBEBEB"
       },
       borderRadius: {
         ten: "10px",
         six: "6px",
+        thirty: "30px",
         "custom-router": "4px",
         "t-l": "40px 40px 0 0",
         "t-l-b-l": "6px 0 0 6px",
@@ -35,7 +42,8 @@ module.exports = {
       },
       borderWidth: {
         borderwith: "0.5px",
-        1: "1px"
+        1: "1px",
+        2: "2px"
       },
       borderColor: {
         landingdrop: "#EBEBEB",
