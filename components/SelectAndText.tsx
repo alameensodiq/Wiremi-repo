@@ -9,10 +9,10 @@ const optionSelect = ["Option 1"];
 const options = ["Option 1", "Option 2", "Option 3"];
 
 interface SelectAndTextProps {
-  title ?: string
+  title?: string;
 }
 
-const SelectAndText = ({title}: SelectAndTextProps) => {
+const SelectAndText = ({ title }: SelectAndTextProps) => {
   const { height, width } = Dimensions.get("window");
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
@@ -25,7 +25,19 @@ const SelectAndText = ({title}: SelectAndTextProps) => {
     <View className="flex-col items-start gap-2">
       <Text className="text-textblack">{title}</Text>
       <View className="flex-row">
-        <View style={{ width: width * 0.21 }}>
+        <View
+          style={{
+            width: width * 0.21,
+            borderWidth: 1,
+            height: height * 0.05,
+            shadowColor: "#101828",
+            shadowOffset: { width: 0, height: 1 },
+            shadowOpacity: 0.05,
+            shadowRadius: 2,
+            elevation: 3
+          }}
+          className="flex-col text-textinputtext text-[14px] rounded-t-l-b-l justify-center  border-customgray items-center"
+        >
           <FlatList
             data={optionSelect}
             keyExtractor={(item) => item}
@@ -34,20 +46,24 @@ const SelectAndText = ({title}: SelectAndTextProps) => {
               <TouchableOpacity
                 onPress={() => setDropdownVisible(!isDropdownVisible)}
               >
-                <Text
+                <View
                   style={{
-                    height: height * 0.06,
-                    width: width * 0.23,
-                    textAlign: "center",
-                    lineHeight: height * 0.05,
-                    borderWidth: 1,
+                    height: height * 0.05,
+                    width: width * 0.21,
                     borderTopLeftRadius: 10,
-                    borderBottomLeftRadius: 10
+                    borderBottomLeftRadius: 10,
+                    paddingLeft: 2,
+                    paddingTop: 3,
+                    flexDirection: "row", // Use flexDirection here
+                    alignItems: "center", // Align items vertically
+                    justifyContent: "center"
                   }}
-                  className="text-textinputtext items-center text-[14px] border-custom-gray justify-center"
+                  className="flex-row text-textinputtext items-center text-[14px] border-customgray justify-center"
                 >
-                  <Image source={eng} /> Eng <Image source={downcarat} />
-                </Text>
+                  <Image source={eng} />
+                  <Text style={{ marginHorizontal: 2 }}>Eng</Text>
+                  <Image source={downcarat} />
+                </View>
               </TouchableOpacity>
             )}
             horizontal // Set FlatList to horizontal
@@ -55,36 +71,49 @@ const SelectAndText = ({title}: SelectAndTextProps) => {
           />
           {isDropdownVisible && (
             <View
-              className="flex-row z-30"
+              className="flex-row z-1000"
               style={{
-                paddingHorizontal: width * 0.13,
-                marginTop: height * 0.02
+                paddingHorizontal: width * 0.1,
+                marginTop: height * 0.01,
               }}
             >
               <FlatList
                 data={options}
                 keyExtractor={(item) => item}
-                className="absolute rounded shadow-lg"
+                className="rounded shadow-lg"
                 renderItem={({ item }) => (
                   <TouchableOpacity onPress={() => handleSelect(item)}>
-                    <Text
+                    <View
                       style={{
-                        height: height * 0.06,
-                        width: width * 0.23,
-                        textAlign: "center",
-                        lineHeight: height * 0.04,
+                        height: height * 0.05,
                         borderWidth: 1,
-                        borderTopLeftRadius: 10,
-                        borderBottomLeftRadius: 10,
-                        zIndex: 1000
+                        width: width * 0.21,
+                        // borderTopLeftRadius: 10,
+                        // borderBottomLeftRadius: 10,
+                        paddingLeft: 2,
+                        paddingTop: 3,
+                        flexDirection: "row", // Use flexDirection here
+                        alignItems: "center", // Align items vertically
+                        justifyContent: "center"
                       }}
-                      className="justify-center items-center rounded-six border-landingdrop border-borderwith text-textinputtext bg-white"
+                      className="flex-row text-textinputtext items-center text-[14px] border-customgray justify-center bg-primary"
                     >
-                      <Image source={eng} /> Eng{" "}
-                    </Text>
+                      <Image source={eng} />
+                      <Text
+                        style={{ marginHorizontal: 2 }}
+                        className="text-white"
+                      >
+                        Eng
+                      </Text>
+                      <Image source={downcarat} />
+                    </View>
                   </TouchableOpacity>
                 )}
-                style={{ maxHeight: 150 }}
+                style={{
+                  maxHeight: 150,
+                  position: "absolute", // Absolute positioning
+                  zIndex: 1001 // Ensure it appears above other components
+                }}
               />
             </View>
           )}
@@ -93,10 +122,10 @@ const SelectAndText = ({title}: SelectAndTextProps) => {
           style={{
             width: width * 0.7,
             borderWidth: 1,
-            height: height * 0.06,
+            height: height * 0.05,
             paddingLeft: 30
           }}
-          className="text-textinputtext text-[14px] rounded-t-r-b-l  border-custom-gray p-2"
+          className="text-textinputtext text-[14px] rounded-t-r-b-l  border-customgray p-2"
           placeholder={"Enter your phone number"}
         />
       </View>

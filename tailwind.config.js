@@ -49,7 +49,7 @@ module.exports = {
       },
       borderColor: {
         landingdrop: "#EBEBEB",
-        "custom-gray": "#D0D5DD"
+        customgray: "#D0D5DD"
       },
       fontFamily: {
         vietnam: ["Be Vietnam Pro"]

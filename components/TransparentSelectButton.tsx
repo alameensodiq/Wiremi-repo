@@ -15,7 +15,7 @@ const TransparentSelectButton = ({ label, placeholder }: TextLabelBoxProps) => {
       <Text className="text-textblack">{label}</Text>
       <View
         style={{ width: width * 0.9, borderWidth: 1 }}
-        className="flex-row text-textinputtext text-[14px] rounded-ten border-custom-gray  p-2 justify-between items-center"
+        className="flex-row text-textinputtext text-[14px] rounded-ten border-customgray  p-2 justify-between items-center"
       ><Text className="text-textinputtext text-[14px]  p-2 justify-between items-center">{placeholder}</Text><CaratDown /></View>
     </View>
   )

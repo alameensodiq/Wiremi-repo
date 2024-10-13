@@ -50,7 +50,7 @@ import {
               <View
                 className="bg-white absolute"
                 style={{
-                  height: height * 0.96,
+                  height: height * 0.92,
                   width: width * 0.91,
                   borderTopLeftRadius: 40, // Directly apply top-left radius
                   borderTopRightRadius: 40,
@@ -60,7 +60,7 @@ import {
               <View
                 className="bg-creamwhite"
                 style={{
-                  height: height * 0.94,
+                  height: height * 0.90,
                   zIndex: 1000,
                   width: width,
                   borderTopLeftRadius: 40,
@@ -119,7 +119,8 @@ import {
                       width: width,
                       paddingTop: height * 0.03,
                       paddingHorizontal: width * 0.04,
-                      gap: 6
+                      gap: 6,
+                      position: 'relative', 
                     }}
                     className="flex-col gap-2"
                   >

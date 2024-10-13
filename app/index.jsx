@@ -10,7 +10,7 @@ const Index = () => {
   const animationRef = useRef(null);
 
   const handleAnimationFinish = () => {
-    router.push("/firstIndex");
+    router.replace("/firstIndex");
     console.log("Ebuka");
   };
 
