@@ -38,7 +38,9 @@ const ListofDeposits = () => {
           <Text className="text-[20px] text-pagetitle">Deposit</Text>
           <Text></Text>
         </View>
-        <TouchableOpacity onPress={() => router.push('/TransactionDeposit/CardDeposits')}>
+        <TouchableOpacity
+          onPress={() => router.push("/TransactionDeposit/CardDeposits")}
+        >
           <View
             style={{
               paddingHorizontal: width * 0.03
@@ -95,54 +97,65 @@ const ListofDeposits = () => {
             <Rightcarat />
           </View>
         </View>
-        <View
-          style={{
-            paddingHorizontal: width * 0.03
-          }}
-          className="flex-row justify-between items-center"
+        <TouchableOpacity
+          onPress={() => router.push("/TransactionDeposit/Banks")}
         >
-          <View className="flex-row gap-3 items-center">
-            <View
-              style={{
-                backgroundColor: "#2A94F40D",
-                borderRadius: 100,
-                width: width * 0.1,
-                height: height * 0.05
-              }}
-              className="justify-center items-center"
-            >
-              <Cards />
+          <View
+            style={{
+              paddingHorizontal: width * 0.03
+            }}
+            className="flex-row justify-between items-center"
+          >
+            <View className="flex-row gap-3 items-center">
+              <View
+                style={{
+                  backgroundColor: "#2A94F40D",
+                  borderRadius: 100,
+                  width: width * 0.1,
+                  height: height * 0.05
+                }}
+                className="justify-center items-center"
+              >
+                <Cards />
+              </View>
+              <Text className="text-[14px] font-bold text-black">Banks</Text>
             </View>
-            <Text className="text-[14px] font-bold text-black">Banks</Text>
+            <View>
+              <Rightcarat />
+            </View>
           </View>
-          <View>
-            <Rightcarat />
-          </View>
-        </View>
-        <View
-          style={{
-            paddingHorizontal: width * 0.03
-          }}
-          className="flex-row justify-between items-center"
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/TransactionDeposit/Ewallets")}
         >
-          <View className="flex-row gap-3 items-center">
-            <View
-              style={{
-                backgroundColor: "#2A94F40D",
-                borderRadius: 100,
-                width: width * 0.1,
-                height: height * 0.05
-              }}
-              className="justify-center items-center"
-            >
-              <Cards />
+          <View
+            style={{
+              paddingHorizontal: width * 0.03
+            }}
+            className="flex-row justify-between items-center"
+          >
+            <View className="flex-row gap-3 items-center">
+              <View
+                style={{
+                  backgroundColor: "#2A94F40D",
+                  borderRadius: 100,
+                  width: width * 0.1,
+                  height: height * 0.05
+                }}
+                className="justify-center items-center"
+              >
+                <Cards />
+              </View>
+              <Text className="text-[14px] font-bold text-black">
+                E-wallets
+              </Text>
             </View>
-            <Text className="text-[14px] font-bold text-black">E-wallets</Text>
+            <View>
+              <Rightcarat />
+            </View>
           </View>
-          <View>
-            <Rightcarat />
-          </View>
-        </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push('/TransactionDeposit/MobileMoney')}>
         <View
           style={{
             paddingHorizontal: width * 0.03
@@ -169,6 +182,7 @@ const ListofDeposits = () => {
             <Rightcarat />
           </View>
         </View>
+        </TouchableOpacity>
         <View
           style={{
             paddingHorizontal: width * 0.03

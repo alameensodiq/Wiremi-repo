@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
 import CardIcon from "../../components/CardIcon";
+import HomeIcon from "@/components/HomeIcon";
 
 
 const TabsLayout = () => {
@@ -21,7 +22,7 @@ const TabsLayout = () => {
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color, focused }) => (
-              <CardIcon
+              <HomeIcon
               width={24} 
               height={24}
               fill={focused ? "#105CE2" : "#989AAF"} 

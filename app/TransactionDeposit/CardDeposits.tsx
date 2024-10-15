@@ -35,7 +35,7 @@ const CardDeposits = () => {
           <TouchableOpacity onPress={() => router.back()}>
             <Back />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Deposit</Text>
+          <Text className="text-[20px] text-pagetitle">Cards</Text>
           <Text></Text>
         </View>
         <View

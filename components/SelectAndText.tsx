@@ -87,7 +87,7 @@ const SelectAndText = ({ title }: SelectAndTextProps) => {
                   right: 0,
                   zIndex: 1001 // Ensure it appears above other components
                 }}
-                reducedTransparencyFallbackColor="gray"
+                
                 intensity={100} // Adjust the intensity of the blur
                 tint="dark" // You can use 'light', 'dark', or 'default'
               >
