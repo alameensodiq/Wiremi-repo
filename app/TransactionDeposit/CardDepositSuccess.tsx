@@ -62,7 +62,7 @@ const CardDepositSuccess = () => {
               <ShortWhiteButton
                 title="View receipt"
                 color1
-                onPress={() => console.log('Next Route')}
+                onPress={() => router.push('/TransactionDeposit/TransactionReceipt')}
               />
             </View>
           </View>
