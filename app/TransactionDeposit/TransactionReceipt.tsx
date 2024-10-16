@@ -13,6 +13,7 @@ import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import Forgotsuccess from "../../assets/forgotsuccess.svg";
+import ReceiptWiremi from "../../assets/receiptwiremi.svg";
 import Copy from "../../assets/copy.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
 
@@ -143,7 +144,10 @@ const TransactionReceipt = () => {
               <Text className="text-buttonprimary font-bold">$500.00</Text>
             </View>
           </View>
-          <View className="flex-col gap-2 pl-2" style={{marginBottom: height * 0.03}}>
+          <View
+            className="flex-col gap-2 pl-2"
+            style={{ marginBottom: height * 0.03 }}
+          >
             <Text className="text-[12px] text-lighttextdark">
               Transaction status
             </Text>
@@ -160,21 +164,31 @@ const TransactionReceipt = () => {
               <Text style={{ color: "#00A85A", fontSize: 16 }}>Successful</Text>
             </View>
           </View>
-          <View className="flex-col gap-2 pl-2" style={{marginBottom: height * 0.03}}>
+          <View
+            className="flex-col gap-2 pl-2"
+            style={{ marginBottom: height * 0.03 }}
+          >
             <Text className="text-[12px] text-lighttextdark">Note</Text>
             <View className="flex-col">
               <Text className="font-bold text-dark">
                 we have successfully deposited the amount
               </Text>
-              <Text className="font-bold text-dark">to the recipient account</Text>
+              <Text className="font-bold text-dark">
+                to the recipient account
+              </Text>
             </View>
           </View>
           <View className="items-center justify-center">
-          <BlueSignInButton
-            title="Share receipt"
-            onPress={() => router.push('/TransactionDeposit/TransactionSummary')}
-          />
-        </View>
+            <BlueSignInButton
+              title="Share receipt"
+              onPress={() =>
+                router.push("/TransactionDeposit/TransactionSummary")
+              }
+            />
+          </View>
+          <View className="items-center justify-center mt-4">
+            <ReceiptWiremi/>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </View>
