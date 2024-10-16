@@ -37,7 +37,9 @@ const ListofDeposits = () => {
         className="gap-8"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push('/(PersonalAccount)/Dashboard')}>
+          <TouchableOpacity
+            onPress={() => router.push("/(PersonalAccount)/Dashboard")}
+          >
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Deposit</Text>
@@ -71,37 +73,39 @@ const ListofDeposits = () => {
             </View>
           </View>
         </TouchableOpacity>
-        <View
-          style={{
-            paddingHorizontal: width * 0.03
-          }}
-          className="flex-row justify-between items-center"
-        >
-          <View className="flex-row gap-3 items-center">
-            <View
-              style={{
-                backgroundColor: "#2A94F40D",
-                borderRadius: 100,
-                width: width * 0.1,
-                height: height * 0.05
-              }}
-              className="justify-center items-center"
-            >
-              <Interac />
+        <TouchableOpacity onPress={() => router.push("/TransactionDeposit/InteracDetails")}>
+          <View
+            style={{
+              paddingHorizontal: width * 0.03
+            }}
+            className="flex-row justify-between items-center"
+          >
+            <View className="flex-row gap-3 items-center">
+              <View
+                style={{
+                  backgroundColor: "#2A94F40D",
+                  borderRadius: 100,
+                  width: width * 0.1,
+                  height: height * 0.05
+                }}
+                className="justify-center items-center"
+              >
+                <Interac />
+              </View>
+              <View className="items-start">
+                <Text className="text-[14px] font-bold text-black">
+                  Interac e-transfer{" "}
+                </Text>
+                <Text className="text-[10px] text-deposistsub">
+                  Get up to $10,000 within 1 hour
+                </Text>
+              </View>
             </View>
-            <View className="items-start">
-              <Text className="text-[14px] font-bold text-black">
-                Interac e-transfer{" "}
-              </Text>
-              <Text className="text-[10px] text-deposistsub">
-                Get up to $10,000 within 1 hour
-              </Text>
+            <View>
+              <Rightcarat />
             </View>
           </View>
-          <View>
-            <Rightcarat />
-          </View>
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => router.push("/TransactionDeposit/Banks")}
         >
@@ -160,33 +164,35 @@ const ListofDeposits = () => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/TransactionDeposit/MobileMoney')}>
-        <View
-          style={{
-            paddingHorizontal: width * 0.03
-          }}
-          className="flex-row justify-between items-center"
+        <TouchableOpacity
+          onPress={() => router.push("/TransactionDeposit/MobileMoney")}
         >
-          <View className="flex-row gap-3 items-center">
-            <View
-              style={{
-                backgroundColor: "#2A94F40D",
-                borderRadius: 100,
-                width: width * 0.1,
-                height: height * 0.05
-              }}
-              className="justify-center items-center"
-            >
-              <MobileMoney />
+          <View
+            style={{
+              paddingHorizontal: width * 0.03
+            }}
+            className="flex-row justify-between items-center"
+          >
+            <View className="flex-row gap-3 items-center">
+              <View
+                style={{
+                  backgroundColor: "#2A94F40D",
+                  borderRadius: 100,
+                  width: width * 0.1,
+                  height: height * 0.05
+                }}
+                className="justify-center items-center"
+              >
+                <MobileMoney />
+              </View>
+              <Text className="text-[14px] font-bold text-black">
+                Mobile Money
+              </Text>
             </View>
-            <Text className="text-[14px] font-bold text-black">
-              Mobile Money
-            </Text>
+            <View>
+              <Rightcarat />
+            </View>
           </View>
-          <View>
-            <Rightcarat />
-          </View>
-        </View>
         </TouchableOpacity>
         <View
           style={{
