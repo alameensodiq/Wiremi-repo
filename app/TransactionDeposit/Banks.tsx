@@ -33,12 +33,13 @@ const Banks = () => {
         className="gap-8"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.back()}>
+          <TouchableOpacity onPress={() => router.push('/TransactionDeposit/ListofDeposits')}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Banks</Text>
           <Text></Text>
         </View>
+        <TouchableOpacity onPress={() => router.push('/TransactionDeposit/BankDepositDetails')}>
         <View
           style={{
             paddingHorizontal: width * 0.03
@@ -70,6 +71,8 @@ const Banks = () => {
             <Rightcarat />
           </View>
         </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push('/TransactionDeposit/LinkBankDetails')}>
         <View
           style={{
             paddingHorizontal: width * 0.03
@@ -101,6 +104,7 @@ const Banks = () => {
             <Rightcarat />
           </View>
         </View>
+        </TouchableOpacity>
       </SafeAreaView>
     </View>
   );
