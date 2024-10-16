@@ -30,7 +30,8 @@ module.exports = {
         sectionheader: "#3D3F43",
         faintline: "#EBEBEB",
         pagetitle: "#242329",
-        deposistsub: "#4B4B4B"
+        deposistsub: "#4B4B4B",
+        creditcard: "#EDE8E8"
       },
       borderRadius: {
         ten: "10px",

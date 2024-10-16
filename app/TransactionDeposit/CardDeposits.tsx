@@ -38,7 +38,8 @@ const CardDeposits = () => {
           <Text className="text-[20px] text-pagetitle">Cards</Text>
           <Text></Text>
         </View>
-        <View
+       <TouchableOpacity onPress={() => router.push('/TransactionDeposit/CardDepositDetails')}>
+       <View
           style={{
             paddingHorizontal: width * 0.03
           }}
@@ -65,6 +66,7 @@ const CardDeposits = () => {
             <Rightcarat />
           </View>
         </View>
+       </TouchableOpacity>
       </SafeAreaView>
     </View>
   )

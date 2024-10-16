@@ -10,6 +10,10 @@ const TransactionDeposit = () => {
       <Stack.Screen name="Banks" options={{ headerShown: false }} />
       <Stack.Screen name="Ewallets" options={{ headerShown: false }} />
       <Stack.Screen name="MobileMoney" options={{ headerShown: false }} />
+      <Stack.Screen name="CardDepositDetails" options={{ headerShown: false }} />
+      <Stack.Screen name="TransactionSummary" options={{ headerShown: false }} />
+      <Stack.Screen name="CreditCard" options={{ headerShown: false }} />
+      <Stack.Screen name="CardDepositSuccess" options={{ headerShown: false }} />
       {/* Add other screens if necessary */}
     </Stack>
   );

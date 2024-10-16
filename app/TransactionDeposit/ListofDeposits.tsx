@@ -13,6 +13,11 @@ import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import Cards from "../../assets/cards.svg";
+import Interac from "../../assets/interac.svg";
+import Bank from "../../assets/bank.svg";
+import Ewallet from "../../assets/ewallet.svg";
+import MobileMoney from "../../assets/mobilemoney.svg";
+import Request from "../../assets/request.svg";
 import Rightcarat from "../../assets/rightcarat.svg";
 
 const ListofDeposits = () => {
@@ -82,7 +87,7 @@ const ListofDeposits = () => {
               }}
               className="justify-center items-center"
             >
-              <Cards />
+              <Interac />
             </View>
             <View className="items-start">
               <Text className="text-[14px] font-bold text-black">
@@ -116,7 +121,7 @@ const ListofDeposits = () => {
                 }}
                 className="justify-center items-center"
               >
-                <Cards />
+                <Bank />
               </View>
               <Text className="text-[14px] font-bold text-black">Banks</Text>
             </View>
@@ -144,7 +149,7 @@ const ListofDeposits = () => {
                 }}
                 className="justify-center items-center"
               >
-                <Cards />
+                <Ewallet />
               </View>
               <Text className="text-[14px] font-bold text-black">
                 E-wallets
@@ -172,7 +177,7 @@ const ListofDeposits = () => {
               }}
               className="justify-center items-center"
             >
-              <Cards />
+              <MobileMoney />
             </View>
             <Text className="text-[14px] font-bold text-black">
               Mobile Money
@@ -199,7 +204,7 @@ const ListofDeposits = () => {
               }}
               className="justify-center items-center"
             >
-              <Cards />
+              <Request />
             </View>
             <Text className="text-[14px] font-bold text-black">
               Request Money
