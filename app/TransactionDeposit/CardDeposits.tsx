@@ -32,7 +32,7 @@ const CardDeposits = () => {
         className="gap-8"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.back()}>
+          <TouchableOpacity onPress={() => router.push('/TransactionDeposit/ListofDeposits')}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Cards</Text>

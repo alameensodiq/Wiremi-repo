@@ -59,7 +59,7 @@ const CreditCard = () => {
         className="gap-6"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.back()}>
+          <TouchableOpacity onPress={() => router.push('/TransactionDeposit/CardDepositDetails')}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Credit Card</Text>

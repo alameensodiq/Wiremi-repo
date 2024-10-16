@@ -37,7 +37,7 @@ const ListofDeposits = () => {
         className="gap-8"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.back()}>
+          <TouchableOpacity onPress={() => router.push('/(PersonalAccount)/Dashboard')}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Deposit</Text>
