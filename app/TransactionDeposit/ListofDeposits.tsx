@@ -194,6 +194,7 @@ const ListofDeposits = () => {
             </View>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push('/TransactionDeposit/RequestDetails')}>
         <View
           style={{
             paddingHorizontal: width * 0.03
@@ -220,6 +221,7 @@ const ListofDeposits = () => {
             <Rightcarat />
           </View>
         </View>
+        </TouchableOpacity>
       </SafeAreaView>
     </View>
   );

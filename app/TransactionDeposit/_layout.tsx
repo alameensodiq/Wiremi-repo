@@ -37,6 +37,9 @@ const TransactionDeposit = () => {
       <Stack.Screen name="MobileSummary" options={{ headerShown: false }} />
       <Stack.Screen name="MobileSuccess" options={{ headerShown: false }} />
       <Stack.Screen name="MobileReceipt" options={{ headerShown: false }} />
+      <Stack.Screen name="RequestReceipt" options={{ headerShown: false }} />
+      <Stack.Screen name="RequestSuccess" options={{ headerShown: false }} />
+      <Stack.Screen name="RequestDetails" options={{ headerShown: false }} />
       {/* Add other screens if necessary */}
     </Stack>
 
