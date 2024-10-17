@@ -27,7 +27,6 @@ const TransactionSummary = () => {
         style={{
           flex: 1,
           marginTop: statusBarHeight,
-          paddingTop: height * 0.02,
           paddingHorizontal: width * 0.03
         }}
         className="gap-6"

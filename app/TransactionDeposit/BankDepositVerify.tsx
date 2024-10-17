@@ -12,12 +12,8 @@ import React from "react";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
-import Cards from "../../assets/cards.svg";
-import Rightcarat from "../../assets/rightcarat.svg";
-import BlueSignInButton from "@/components/BlueSignInButton";
-import TransactionTextLabel from "@/components/TransactionTextLabel";
 
-const CardDepositDetails = () => {
+const BankDepositVerify = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -30,30 +26,23 @@ const CardDepositDetails = () => {
           marginTop: statusBarHeight,
           paddingHorizontal: width * 0.03
         }}
-        className="gap-8"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push('/TransactionDeposit/CardDeposits')}>
+          <TouchableOpacity
+            onPress={() => router.push("/TransactionDeposit/Banks")}
+          >
             <Back />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Card deposit</Text>
+          <Text className="text-[20px] text-pagetitle">Verifying</Text>
           <Text></Text>
         </View>
-        <View className="items-center justify-center">
-          <TransactionTextLabel
-            label="Amount"
-            placeholder="Enter amount $0.00"
-          />
-        </View>
-        <View className="items-center justify-center">
-          <BlueSignInButton
-            title="Proceed"
-            onPress={() => router.push('/TransactionDeposit/TransactionSummary')}
-          />
+        <View style={{height: height * 0.5}} className="justify-center items-center">
+            <Text className="font-[14px] text-lighttextdark">We are verifying your payment and you will get</Text>
+            <Text className="font-[14px] text-lighttextdark">notified in few seconds once confirmed.</Text>
         </View>
       </SafeAreaView>
     </View>
   );
 };
 
-export default CardDepositDetails;
+export default BankDepositVerify;

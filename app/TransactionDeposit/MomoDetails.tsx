@@ -17,7 +17,7 @@ import {
   import BlueSignInButton from "@/components/BlueSignInButton";
   import TransactionTextLabel from "@/components/TransactionTextLabel";
   
-  const InteracDetails = () => {
+  const MomoDetails = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
@@ -33,10 +33,10 @@ import {
           className="gap-8"
         >
           <View className="flex-row justify-between items-center mb-1">
-            <TouchableOpacity onPress={() => router.push('/TransactionDeposit/ListofDeposits')}>
+            <TouchableOpacity onPress={() => router.push('/TransactionDeposit/MobileMoney')}>
               <Back />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Interac</Text>
+            <Text className="text-[20px] text-pagetitle">Momo USSD</Text>
             <Text></Text>
           </View>
           <View className="items-center justify-center">
@@ -48,7 +48,7 @@ import {
           <View className="items-center justify-center">
             <BlueSignInButton
               title="Proceed"
-              onPress={() => router.push('/TransactionDeposit/InteracTransactionSummary')}
+              onPress={() => router.push('/TransactionDeposit/MomoSummary')}
             />
           </View>
         </SafeAreaView>
@@ -56,5 +56,5 @@ import {
     );
   };
   
-  export default InteracDetails;
+  export default MomoDetails;
   

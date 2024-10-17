@@ -30,13 +30,12 @@ const Ewallets = () => {
       style={{
         flex: 1,
         marginTop: statusBarHeight,
-        paddingTop: height * 0.02,
         paddingHorizontal: width * 0.03
       }}
       className="gap-8"
     >
       <View className="flex-row justify-between items-center mb-1">
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => router.push('/TransactionDeposit/ListofDeposits')}>
           <Back />
         </TouchableOpacity>
         <Text className="text-[20px] text-pagetitle">E-wallets</Text>
@@ -48,6 +47,7 @@ const Ewallets = () => {
         }}
         className="flex-row justify-between items-center"
       >
+        <TouchableOpacity onPress={() => router.push('/TransactionDeposit/EwalletCreditCard')}>
         <View className="flex-row gap-3 items-center">
           <View
             style={{
@@ -65,6 +65,7 @@ const Ewallets = () => {
             <Text className="text-[10px] text-deposistsub">Get up to $10,000 within 1 hour</Text>
           </View>
         </View>
+        </TouchableOpacity>
         <View>
           <Rightcarat />
         </View>

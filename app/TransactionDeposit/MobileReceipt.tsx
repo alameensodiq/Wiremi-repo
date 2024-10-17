@@ -17,7 +17,7 @@ import {
   import Copy from "../../assets/copy.svg";
   import BlueSignInButton from "@/components/BlueSignInButton";
   
-  const InteracTransactionReceipt = () => {
+  const MobileReceipt = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
@@ -33,7 +33,7 @@ import {
           className="gap-6"
         >
           <View className="flex-row justify-between items-center mb-1">
-            <TouchableOpacity onPress={() => router.back()}>
+            <TouchableOpacity onPress={() => router.push('/TransactionDeposit/MobileSuccess')}>
               <Back />
             </TouchableOpacity>
             <Text className="text-[20px] text-pagetitle">
@@ -116,7 +116,7 @@ import {
                   Description
                 </Text>
                 <Text className="text-darktext font-bold">
-                  Interac deposit
+                  Mobile money deposit
                 </Text>
               </View>
               <View className="flex-row items-center justify-between p-3">
@@ -181,7 +181,7 @@ import {
               <BlueSignInButton
                 title="Share receipt"
                 onPress={() =>
-                  router.push("/TransactionDeposit/TransactionSummary")
+                  router.push("/TransactionDeposit/MobileSuccess")
                 }
               />
             </View>
@@ -194,5 +194,5 @@ import {
     );
   };
   
-  export default InteracTransactionReceipt;
+  export default MobileReceipt;
   

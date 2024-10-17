@@ -16,7 +16,7 @@ import {
   import BlueSignInButton from "@/components/BlueSignInButton";
   import TransactionTextLabel from "@/components/TransactionTextLabel";
   
-  const InteracTransactionSummary = () => {
+  const MobileSummary = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
@@ -32,7 +32,7 @@ import {
           className="gap-6"
         >
           <View className="flex-row justify-between items-center mb-1">
-            <TouchableOpacity onPress={() => router.push('/TransactionDeposit/InteracDetails')}>
+            <TouchableOpacity onPress={() => router.push('/TransactionDeposit/MobilemoneyDetails')}>
               <Back />
             </TouchableOpacity>
             <Text className="text-[20px] text-pagetitle">
@@ -66,7 +66,14 @@ import {
             className="flex-row items-center justify-between p-3"
           >
             <Text className="text-lighttextdark font-[14px]">Deposit type</Text>
-            <Text className="text-darktext font-bold">Interac</Text>
+            <Text className="text-darktext font-bold">Mobile Money</Text>
+          </View>
+          <View
+            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+            className="flex-row items-center justify-between p-3"
+          >
+            <Text className="text-lighttextdark font-[14px]">Institute</Text>
+            <Text className="text-darktext font-bold">Orange</Text>
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
@@ -78,7 +85,7 @@ import {
           <View className="items-center justify-center">
             <BlueSignInButton
               title="Proceed"
-              onPress={() => router.push('/TransactionDeposit/InteracSuccess')}
+              onPress={() => router.push('/TransactionDeposit/MobileSuccess')}
             />
           </View>
         </SafeAreaView>
@@ -86,5 +93,5 @@ import {
     );
   };
   
-  export default InteracTransactionSummary;
+  export default MobileSummary;
   

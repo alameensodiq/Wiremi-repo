@@ -49,7 +49,7 @@ import {
           <View className="items-center justify-center">
             <BlueSignInButton
               title="Link bank account"
-              onPress={() => console.log('link bank acccount')}
+              onPress={() => router.push('/TransactionDeposit/ExistingBankDetails')}
             />
           </View>
         </SafeAreaView>

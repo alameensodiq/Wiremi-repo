@@ -27,18 +27,18 @@ const MobileMoney = () => {
       style={{
         flex: 1,
         marginTop: statusBarHeight,
-        paddingTop: height * 0.02,
         paddingHorizontal: width * 0.03
       }}
       className="gap-8"
     >
       <View className="flex-row justify-between items-center mb-1">
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => router.push('/TransactionDeposit/ListofDeposits')}>
           <Back />
         </TouchableOpacity>
         <Text className="text-[20px] text-pagetitle">Mobile money</Text>
         <Text></Text>
       </View>
+      <TouchableOpacity onPress={() => router.push('/TransactionDeposit/MomoDetails')}>
       <View
         style={{
           paddingHorizontal: width * 0.03
@@ -66,6 +66,8 @@ const MobileMoney = () => {
           <Rightcarat />
         </View>
       </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => router.push('/TransactionDeposit/MobilemoneyDetails')}>
       <View
         style={{
           paddingHorizontal: width * 0.03
@@ -93,6 +95,7 @@ const MobileMoney = () => {
           <Rightcarat />
         </View>
       </View>
+      </TouchableOpacity>
     </SafeAreaView>
   </View>
   )

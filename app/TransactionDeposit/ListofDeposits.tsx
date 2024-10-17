@@ -31,7 +31,7 @@ const ListofDeposits = () => {
         style={{
           flex: 1,
           marginTop: statusBarHeight,
-          paddingTop: height * 0.02,
+          paddingTop: height * 0.01,
           paddingHorizontal: width * 0.03
         }}
         className="gap-8"

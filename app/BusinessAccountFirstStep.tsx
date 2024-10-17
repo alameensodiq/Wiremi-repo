@@ -12,7 +12,6 @@ import React from "react";
 import LandingPageImage from "../assets/LandingScreen.png";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
-import Wiremi from "../assets/splash.svg";
 import Back from "../assets/Back.svg";
 import Logo from "../assets/Logo.svg";
 import BusOne from "../assets/busframeone.svg";

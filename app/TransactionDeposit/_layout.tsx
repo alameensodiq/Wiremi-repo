@@ -22,8 +22,24 @@ const TransactionDeposit = () => {
       <Stack.Screen name="BankDepositDetails" options={{ headerShown: false }} />
       <Stack.Screen name="LinkBankDetails" options={{ headerShown: false }} />
       <Stack.Screen name="BankDepositSummary" options={{ headerShown: false }} />
+      <Stack.Screen name="BankDepositVerify" options={{ headerShown: false }} />
+      <Stack.Screen name="BankDepositSuccess" options={{ headerShown: false }} />
+      <Stack.Screen name="BankDepositReceipt" options={{ headerShown: false }} />
+      <Stack.Screen name="ExistingBankDetails" options={{ headerShown: false }} />
+      <Stack.Screen name="EwalletCreditCard" options={{ headerShown: false }} />
+      <Stack.Screen name="EwalletSuccess" options={{ headerShown: false }} />
+      <Stack.Screen name="EwalletReceipt" options={{ headerShown: false }} />
+      <Stack.Screen name="MomoDetails" options={{ headerShown: false }} />
+      <Stack.Screen name="MobilemoneyDetails" options={{ headerShown: false }} />
+      <Stack.Screen name="MomoSummary" options={{ headerShown: false }} />
+      <Stack.Screen name="MomoSuccess" options={{ headerShown: false }} />
+      <Stack.Screen name="MomoReceipt" options={{ headerShown: false }} />
+      <Stack.Screen name="MobileSummary" options={{ headerShown: false }} />
+      <Stack.Screen name="MobileSuccess" options={{ headerShown: false }} />
+      <Stack.Screen name="MobileReceipt" options={{ headerShown: false }} />
       {/* Add other screens if necessary */}
     </Stack>
+
   );
 };
 

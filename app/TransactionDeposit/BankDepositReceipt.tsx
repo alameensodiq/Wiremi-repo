@@ -17,7 +17,7 @@ import {
   import Copy from "../../assets/copy.svg";
   import BlueSignInButton from "@/components/BlueSignInButton";
   
-  const InteracTransactionReceipt = () => {
+  const BankDepositReceipt = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
@@ -116,7 +116,7 @@ import {
                   Description
                 </Text>
                 <Text className="text-darktext font-bold">
-                  Interac deposit
+                  Credit card deposit
                 </Text>
               </View>
               <View className="flex-row items-center justify-between p-3">
@@ -181,7 +181,8 @@ import {
               <BlueSignInButton
                 title="Share receipt"
                 onPress={() =>
-                  router.push("/TransactionDeposit/TransactionSummary")
+                    console.log('Share')
+                //   router.push("/TransactionDeposit/BankDepositSummary")
                 }
               />
             </View>
@@ -194,5 +195,5 @@ import {
     );
   };
   
-  export default InteracTransactionReceipt;
+  export default BankDepositReceipt;
   
