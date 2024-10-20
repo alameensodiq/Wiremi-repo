@@ -92,7 +92,7 @@ const ListSendMoney = () => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push("/TransactionDeposit/InteracDetails")}
+          onPress={() => router.push("/TransactionSendMoney/WiremiDetails")}
         >
           <View
             style={{
@@ -127,7 +127,7 @@ const ListSendMoney = () => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push("/TransactionDeposit/InteracDetails")}
+          onPress={() => router.push("/TransactionSendMoney/MobileMoneySend")}
         >
           <View
             style={{
