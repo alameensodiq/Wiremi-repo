@@ -33,14 +33,12 @@ const ListSendMoney = () => {
   const [selectedIndex, setIndex] = React.useState<number>(0);
   const ref = useRef<BottomSheetRef>(null);
 
-
-
   const handleCloseModal = () => {
     ref.current?.close();
   };
 
   return (
-    <View style={{backgroundColor:"#ffffff"}} className="flex-1">
+    <View style={{ backgroundColor: "#ffffff" }} className="flex-1">
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
@@ -233,10 +231,12 @@ const ListSendMoney = () => {
               />
             </View>
             <View>
-              <TouchableOpacity onPress={() => {
-                router.push('/TransactionSendMoney/DirectTransferDetails')
-                handleCloseModal
-              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  router.push("/TransactionSendMoney/DirectTransferDetails");
+                  handleCloseModal;
+                }}
+              >
                 <View className="items-center flex-row gap-4 mb-4">
                   <View
                     style={{
@@ -254,22 +254,29 @@ const ListSendMoney = () => {
                   </Text>
                 </View>
               </TouchableOpacity>
-              <View className="items-center flex-row gap-4">
-                <View
-                  style={{
-                    backgroundColor: "#2A94F40D",
-                    borderRadius: 100,
-                    width: width * 0.1,
-                    height: height * 0.05
-                  }}
-                  className="justify-center items-center"
-                >
-                  <Wire />
+              <TouchableOpacity
+                onPress={() => {
+                  router.push("/TransactionSendMoney/BankWireDetails");
+                  handleCloseModal;
+                }}
+              >
+                <View className="items-center flex-row gap-4">
+                  <View
+                    style={{
+                      backgroundColor: "#2A94F40D",
+                      borderRadius: 100,
+                      width: width * 0.1,
+                      height: height * 0.05
+                    }}
+                    className="justify-center items-center"
+                  >
+                    <Wire />
+                  </View>
+                  <Text style={{ color: "#413D43", fontSize: 16 }}>
+                    Bank Wire
+                  </Text>
                 </View>
-                <Text style={{ color: "#413D43", fontSize: 16 }}>
-                  Bank Wire
-                </Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         </BottomSheet>

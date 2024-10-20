@@ -17,7 +17,7 @@ import {
   import Copy from "../../assets/copy.svg";
   import BlueSignInButton from "@/components/BlueSignInButton";
   
-  const DirectTransferReceipt = () => {
+  const BankWireReceipt = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
@@ -101,13 +101,31 @@ import {
                 <Text className="text-lighttextdark font-[14px]">
                   Transfer type
                 </Text>
-                <Text className="text-darktext font-bold">Direct transfer</Text>
+                <Text className="text-darktext font-bold">Bank wire</Text>
+              </View>
+              <View className="flex-row items-center justify-between p-3">
+                <Text className="text-lighttextdark font-[14px]">
+                  Routing name
+                </Text>
+                <Text className="text-darktext font-bold">123456</Text>
               </View>
               <View className="flex-row items-center justify-between p-3">
                 <Text className="text-lighttextdark font-[14px]">
                   Country
                 </Text>
                 <Text className="text-darktext font-bold">Nigeria</Text>
+              </View>
+              <View className="flex-row items-center justify-between p-3">
+                <Text className="text-lighttextdark font-[14px]">
+                  Branch code
+                </Text>
+                <Text className="text-darktext font-bold">2345422</Text>
+              </View>
+              <View className="flex-row items-center justify-between p-3">
+                <Text className="text-lighttextdark font-[14px]">
+                  Swift code
+                </Text>
+                <Text className="text-darktext font-bold">US8B5533</Text>
               </View>
               <View className="flex-row items-center justify-between p-3">
                 <Text className="text-lighttextdark font-[14px]">Date</Text>
@@ -118,17 +136,9 @@ import {
                 <Text className="text-darktext font-bold">12:09:10AM</Text>
               </View>
               <View className="flex-row items-center justify-between p-3">
-                <Text className="text-lighttextdark font-[14px]">Address</Text>
+                <Text className="text-lighttextdark font-[14px]">Beneficiary address</Text>
                 <Text className="text-darktext font-bold">
                   No 32a Berkely Street
-                </Text>
-              </View>
-              <View className="flex-row items-center justify-between p-3">
-                <Text className="text-lighttextdark font-[14px]">
-                  Description
-                </Text>
-                <Text className="text-darktext font-bold">
-                  Direct bank transfer
                 </Text>
               </View>
               <View className="flex-row items-center justify-between p-3">
@@ -207,5 +217,5 @@ import {
     );
   };
   
-  export default DirectTransferReceipt;
+  export default BankWireReceipt;
   

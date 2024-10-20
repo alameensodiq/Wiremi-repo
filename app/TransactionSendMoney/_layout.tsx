@@ -11,6 +11,10 @@ const TransactionSendMoney = () => {
       <Stack.Screen name="DirectTransferSummary" options={{ headerShown: false }} />
       <Stack.Screen name="DirectTransferSuccess" options={{ headerShown: false }} />
       <Stack.Screen name="DirectTransferReceipt" options={{ headerShown: false }} />
+      <Stack.Screen name="BankWireDetails" options={{ headerShown: false }} />
+      <Stack.Screen name="BankWireSummary" options={{ headerShown: false }} />
+      <Stack.Screen name="BankWireSuccess" options={{ headerShown: false }} />
+      <Stack.Screen name="BankWireReceipt" options={{ headerShown: false }} />
       {/* Add other screens if necessary */}
     </Stack>
   );

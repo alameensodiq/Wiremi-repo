@@ -14,7 +14,7 @@ import {
   import ShortBlueButton from "@/components/ShortBlueButton";
   import ShortWhiteButton from "@/components/ShortWhiteButton";
   
-  const DirectTransferSuccess = () => {
+  const BankWireSuccess = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
@@ -57,12 +57,12 @@ import {
                 <ShortBlueButton
                   title="Done"
                   color1
-                  onPress={() => router.push("/TransactionSendMoney/DirectTransferSummary")}
+                  onPress={() => router.push("/TransactionSendMoney/BankWireSummary")}
                 />
                 <ShortWhiteButton
                   title="View receipt"
                   color1
-                  onPress={() => router.push('/TransactionSendMoney/DirectTransferReceipt')}
+                  onPress={() => router.push('/TransactionSendMoney/BankWireReceipt')}
                 />
               </View>
             </View>
@@ -72,5 +72,5 @@ import {
     );
   };
   
-  export default DirectTransferSuccess;
+  export default BankWireSuccess;
   
