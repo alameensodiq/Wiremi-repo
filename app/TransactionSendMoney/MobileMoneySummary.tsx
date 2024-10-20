@@ -131,7 +131,7 @@ import {
                 <View className="flex-row justify-between items-center">
                   <TouchableOpacity
                     onPress={() => {
-                      router.push("/TransactionSendMoney/WiremiSuccess");
+                      router.push("/TransactionSendMoney/MobileMoneySuccess");
                       handleCloseModal();
                     }}
                   >
@@ -146,9 +146,9 @@ import {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      router.push("/TransactionSendMoney/WiremiSuccess");
-                      handleCloseModal();
-                    }}
+                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        handleCloseModal();
+                      }}
                   >
                     <View>
                       <Text
@@ -161,9 +161,9 @@ import {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      router.push("/TransactionSendMoney/WiremiSuccess");
-                      handleCloseModal();
-                    }}
+                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        handleCloseModal();
+                      }}
                   >
                     <View>
                       <Text
@@ -178,9 +178,9 @@ import {
                 <View className="flex-row justify-between items-center">
                   <TouchableOpacity
                     onPress={() => {
-                      router.push("/TransactionSendMoney/WiremiSuccess");
-                      handleCloseModal();
-                    }}
+                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        handleCloseModal();
+                      }}
                   >
                     <View>
                       <Text
@@ -193,9 +193,9 @@ import {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      router.push("/TransactionSendMoney/WiremiSuccess");
-                      handleCloseModal();
-                    }}
+                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        handleCloseModal();
+                      }}
                   >
                     <View>
                       <Text
@@ -208,9 +208,9 @@ import {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      router.push("/TransactionSendMoney/WiremiSuccess");
-                      handleCloseModal();
-                    }}
+                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        handleCloseModal();
+                      }}
                   >
                     <View>
                       <Text
@@ -224,10 +224,10 @@ import {
                 </View>
                 <View className="flex-row justify-between items-center">
                   <TouchableOpacity
-                    onPress={() => {
-                      router.push("/TransactionSendMoney/WiremiSuccess");
-                      handleCloseModal();
-                    }}
+                   onPress={() => {
+                    router.push("/TransactionSendMoney/MobileMoneySuccess");
+                    handleCloseModal();
+                  }}
                   >
                     <View>
                       <Text
@@ -240,9 +240,9 @@ import {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      router.push("/TransactionSendMoney/WiremiSuccess");
-                      handleCloseModal();
-                    }}
+                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        handleCloseModal();
+                      }}
                   >
                     <View>
                       <Text
@@ -255,9 +255,9 @@ import {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      router.push("/TransactionSendMoney/WiremiSuccess");
-                      handleCloseModal();
-                    }}
+                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        handleCloseModal();
+                      }}
                   >
                     <View>
                       <Text
@@ -275,9 +275,9 @@ import {
                   </View>
                   <TouchableOpacity
                     onPress={() => {
-                      router.push("/TransactionSendMoney/WiremiSuccess");
-                      handleCloseModal();
-                    }}
+                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        handleCloseModal();
+                      }}
                   >
                     <View>
                       <Text

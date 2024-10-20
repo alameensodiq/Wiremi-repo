@@ -21,6 +21,8 @@ const TransactionSendMoney = () => {
       <Stack.Screen name="WiremiReceipt" options={{ headerShown: false }} />
       <Stack.Screen name="MobileMoneySend" options={{ headerShown: false }} />
       <Stack.Screen name="MobileMoneySummary" options={{ headerShown: false }} />
+      <Stack.Screen name="MobileMoneySuccess" options={{ headerShown: false }} />
+      <Stack.Screen name="MobileMoneyReceipt" options={{ headerShown: false }} />
       {/* Add other screens if necessary */}
     </Stack>
   );
