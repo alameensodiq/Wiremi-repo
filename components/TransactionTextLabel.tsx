@@ -27,7 +27,7 @@ const TransactionTextLabel = ({
         style={{
           width: width * 0.9,
           borderWidth: 1,
-          height: height * 0.05,
+          height: height * 0.06,
           position: "relative",
           shadowColor: "#101828",
           shadowOffset: { width: 0, height: 1 },

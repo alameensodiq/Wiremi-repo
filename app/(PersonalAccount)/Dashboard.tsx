@@ -110,7 +110,7 @@ const Dashboard = () => {
               <DashboardTransactionButton
                 color1
                 title="Send money"
-                onPress={() => console.log("sodiq")}
+                onPress={() => router.push('/TransactionSendMoney/ListSendMoney')}
               />
               <DashboardTransactionButton
                 title="Deposit"

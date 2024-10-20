@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import {
   DarkTheme,
   DefaultTheme,
@@ -8,8 +9,10 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -29,6 +32,8 @@ export default function RootLayout() {
 
   return (
     //
+    <GestureHandlerRootView>
+          <BottomSheetModalProvider>
     <Stack>
       {/* <Stack.Screen name="PersonalAccount" options={{ headerShown: false }} /> */}
       <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -54,7 +59,9 @@ export default function RootLayout() {
       <Stack.Screen name="PersonalAccountReg" options={{ headerShown: false }} />
       <Stack.Screen name="(PersonalAccount)" options={{ headerShown: false }} />
       <Stack.Screen name="TransactionDeposit" options={{ headerShown: false }} />
+      <Stack.Screen name="TransactionSendMoney" options={{ headerShown: false }} />
     </Stack>
-    // </ThemeProvider>
+    </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 }
