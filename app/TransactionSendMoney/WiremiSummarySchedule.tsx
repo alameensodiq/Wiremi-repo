@@ -25,7 +25,7 @@ import {
     // Add any other methods you expect from the BottomSheet component
   };
   
-  const MobileMoneySummary = () => {
+  const WiremiSummarySchedule = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
@@ -48,7 +48,7 @@ import {
           <View className="flex-row justify-between items-center mb-1">
             <TouchableOpacity
               onPress={() =>
-                router.push("/TransactionSendMoney/MobileMoneySend")
+                router.push("/TransactionSendMoney/WiremiDetailsSchedule")
               }
             >
               <Back />
@@ -57,6 +57,13 @@ import {
               Transaction Summary
             </Text>
             <Text></Text>
+          </View>
+          <View
+            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+            className="flex-row items-center justify-between p-3"
+          >
+            <Text className="text-lighttextdark font-[14px]">Transfer type</Text>
+            <Text className="text-darktext font-bold">Wiremi user</Text>
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
@@ -76,31 +83,31 @@ import {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Tax</Text>
-            <Text className="text-darktext font-bold">$0.00</Text>
+            <Text className="text-lighttextdark font-[14px]">Rate</Text>
+            <Text className="text-darktext font-bold">$1=₦1,650.00</Text>
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Country</Text>
-            <Text className="text-darktext font-bold">Nigeria</Text>
-          </View>
-          <View
-            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
-            className="flex-row items-center justify-between p-3"
-          >
-            <Text className="text-lighttextdark font-[14px]">Deposit type</Text>
-            <Text className="text-darktext font-bold">Mobile money</Text>
+            <Text className="text-lighttextdark font-[14px]">Recipient gets</Text>
+            <Text className="text-darktext font-bold">₦806,320.00</Text>
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
             <Text className="text-lighttextdark font-[14px]">
-              Institute
+              Recipient account
             </Text>
-            <Text className="text-darktext font-bold">Orange</Text>
+            <Text className="text-darktext font-bold">2391028711</Text>
+          </View>
+          <View
+            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+            className="flex-row items-center justify-between p-3"
+          >
+            <Text className="text-lighttextdark font-[14px]">Recipient name</Text>
+            <Text className="text-darktext font-bold">Susan Sheidu</Text>
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
@@ -131,9 +138,9 @@ import {
                 <View className="flex-row justify-between items-center">
                   <TouchableOpacity
                     onPress={() => {
-                      router.push("/TransactionSendMoney/MobileMoneySuccess");
-                      handleCloseModal();
-                    }}
+                        router.push("/TransactionSendMoney/WiremiSuccessSchedule");
+                        handleCloseModal();
+                      }}
                   >
                     <View>
                       <Text
@@ -146,7 +153,7 @@ import {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        router.push("/TransactionSendMoney/WiremiSuccessSchedule");
                         handleCloseModal();
                       }}
                   >
@@ -161,7 +168,7 @@ import {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        router.push("/TransactionSendMoney/WiremiSuccessSchedule");
                         handleCloseModal();
                       }}
                   >
@@ -178,7 +185,7 @@ import {
                 <View className="flex-row justify-between items-center">
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        router.push("/TransactionSendMoney/WiremiSuccessSchedule");
                         handleCloseModal();
                       }}
                   >
@@ -193,7 +200,7 @@ import {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        router.push("/TransactionSendMoney/WiremiSuccessSchedule");
                         handleCloseModal();
                       }}
                   >
@@ -207,8 +214,8 @@ import {
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() => {
-                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                     onPress={() => {
+                        router.push("/TransactionSendMoney/WiremiSuccessSchedule");
                         handleCloseModal();
                       }}
                   >
@@ -224,10 +231,10 @@ import {
                 </View>
                 <View className="flex-row justify-between items-center">
                   <TouchableOpacity
-                   onPress={() => {
-                    router.push("/TransactionSendMoney/MobileMoneySuccess");
-                    handleCloseModal();
-                  }}
+                    onPress={() => {
+                        router.push("/TransactionSendMoney/WiremiSuccessSchedule");
+                        handleCloseModal();
+                      }}
                   >
                     <View>
                       <Text
@@ -240,7 +247,7 @@ import {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                        router.push("/TransactionSendMoney/WiremiSuccessSchedule");
                         handleCloseModal();
                       }}
                   >
@@ -254,8 +261,8 @@ import {
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() => {
-                        router.push("/TransactionSendMoney/MobileMoneySuccess");
+                     onPress={() => {
+                        router.push("/TransactionSendMoney/WiremiSuccessSchedule");
                         handleCloseModal();
                       }}
                   >
@@ -275,9 +282,9 @@ import {
                   </View>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/TransactionSendMoney/MobileMoneySuccess");
-                        handleCloseModal();
-                      }}
+                      router.push("/TransactionSendMoney/WiremiSuccessSchedule");
+                      handleCloseModal();
+                    }}
                   >
                     <View>
                       <Text
@@ -300,5 +307,5 @@ import {
     );
   };
   
-  export default MobileMoneySummary;
+  export default WiremiSummarySchedule;
   

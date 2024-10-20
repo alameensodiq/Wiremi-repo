@@ -25,7 +25,7 @@ type BottomSheetRef = {
   // Add any other methods you expect from the BottomSheet component
 };
 
-const WiremiSummary = () => {
+const BankWireSummarySchedule = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -35,7 +35,11 @@ const WiremiSummary = () => {
     ref.current?.close();
   };
   return (
-    <ScrollView style={{ backgroundColor: "#ffffff" }} className="flex-1">
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={{ backgroundColor: "#ffffff" }}
+      className="flex-1"
+    >
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
@@ -48,7 +52,7 @@ const WiremiSummary = () => {
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
             onPress={() =>
-              router.push("/TransactionSendMoney/WiremiDetails")
+              router.push("/TransactionSendMoney/BankWireDetailsSchedule")
             }
           >
             <Back />
@@ -63,7 +67,7 @@ const WiremiSummary = () => {
           className="flex-row items-center justify-between p-3"
         >
           <Text className="text-lighttextdark font-[14px]">Transfer type</Text>
-          <Text className="text-darktext font-bold">Wiremi user</Text>
+          <Text className="text-darktext font-bold">Bank wire</Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
@@ -97,9 +101,37 @@ const WiremiSummary = () => {
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
+          <Text className="text-lighttextdark font-[14px]">Country</Text>
+          <Text className="text-darktext font-bold">Nigeria</Text>
+        </View>
+        <View
+          style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+          className="flex-row items-center justify-between p-3"
+        >
+          <Text className="text-lighttextdark font-[14px]">Recipient bank</Text>
+          <Text className="text-darktext font-bold">Sterling bank</Text>
+        </View>
+        <View
+          style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+          className="flex-row items-center justify-between p-3"
+        >
           <Text className="text-lighttextdark font-[14px]">
-            Recipient account
+            Recipient IBAN/account number
           </Text>
+          <Text className="text-darktext font-bold">2391028711</Text>
+        </View>
+        <View
+          style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+          className="flex-row items-center justify-between p-3"
+        >
+          <Text className="text-lighttextdark font-[14px]">Branch code</Text>
+          <Text className="text-darktext font-bold">2391028711</Text>
+        </View>
+        <View
+          style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+          className="flex-row items-center justify-between p-3"
+        >
+          <Text className="text-lighttextdark font-[14px]">BSB number</Text>
           <Text className="text-darktext font-bold">2391028711</Text>
         </View>
         <View
@@ -138,7 +170,9 @@ const WiremiSummary = () => {
               <View className="flex-row justify-between items-center">
                 <TouchableOpacity
                   onPress={() => {
-                    router.push("/TransactionSendMoney/WiremiSuccess");
+                    router.push(
+                      "/TransactionSendMoney/BankWireSuccessSchedule"
+                    );
                     handleCloseModal();
                   }}
                 >
@@ -153,7 +187,9 @@ const WiremiSummary = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push("/TransactionSendMoney/WiremiSuccess");
+                    router.push(
+                      "/TransactionSendMoney/BankWireSuccessSchedule"
+                    );
                     handleCloseModal();
                   }}
                 >
@@ -168,7 +204,9 @@ const WiremiSummary = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push("/TransactionSendMoney/WiremiSuccess");
+                    router.push(
+                      "/TransactionSendMoney/BankWireSuccessSchedule"
+                    );
                     handleCloseModal();
                   }}
                 >
@@ -185,7 +223,9 @@ const WiremiSummary = () => {
               <View className="flex-row justify-between items-center">
                 <TouchableOpacity
                   onPress={() => {
-                    router.push("/TransactionSendMoney/WiremiSuccess");
+                    router.push(
+                      "/TransactionSendMoney/BankWireSuccessSchedule"
+                    );
                     handleCloseModal();
                   }}
                 >
@@ -200,7 +240,9 @@ const WiremiSummary = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push("/TransactionSendMoney/WiremiSuccess");
+                    router.push(
+                      "/TransactionSendMoney/BankWireSuccessSchedule"
+                    );
                     handleCloseModal();
                   }}
                 >
@@ -215,7 +257,9 @@ const WiremiSummary = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push("/TransactionSendMoney/WiremiSuccess");
+                    router.push(
+                      "/TransactionSendMoney/BankWireSuccessSchedule"
+                    );
                     handleCloseModal();
                   }}
                 >
@@ -232,7 +276,9 @@ const WiremiSummary = () => {
               <View className="flex-row justify-between items-center">
                 <TouchableOpacity
                   onPress={() => {
-                    router.push("/TransactionSendMoney/WiremiSuccess");
+                    router.push(
+                      "/TransactionSendMoney/BankWireSuccessSchedule"
+                    );
                     handleCloseModal();
                   }}
                 >
@@ -247,7 +293,9 @@ const WiremiSummary = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push("/TransactionSendMoney/WiremiSuccess");
+                    router.push(
+                      "/TransactionSendMoney/BankWireSuccessSchedule"
+                    );
                     handleCloseModal();
                   }}
                 >
@@ -262,7 +310,9 @@ const WiremiSummary = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push("/TransactionSendMoney/WiremiSuccess");
+                    router.push(
+                      "/TransactionSendMoney/BankWireSuccessSchedule"
+                    );
                     handleCloseModal();
                   }}
                 >
@@ -282,7 +332,9 @@ const WiremiSummary = () => {
                 </View>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push("/TransactionSendMoney/WiremiSuccess");
+                    router.push(
+                      "/TransactionSendMoney/BankWireSuccessSchedule"
+                    );
                     handleCloseModal();
                   }}
                 >
@@ -307,4 +359,4 @@ const WiremiSummary = () => {
   );
 };
 
-export default WiremiSummary;
+export default BankWireSummarySchedule;
