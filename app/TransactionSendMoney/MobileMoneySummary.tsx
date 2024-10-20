@@ -62,13 +62,6 @@ import {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Transfer type</Text>
-            <Text className="text-darktext font-bold">Wiremi user</Text>
-          </View>
-          <View
-            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
-            className="flex-row items-center justify-between p-3"
-          >
             <Text className="text-lighttextdark font-[14px]">Amount</Text>
             <Text className="text-darktext font-bold">$500</Text>
           </View>
@@ -83,31 +76,31 @@ import {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Rate</Text>
-            <Text className="text-darktext font-bold">$1=₦1,650.00</Text>
+            <Text className="text-lighttextdark font-[14px]">Tax</Text>
+            <Text className="text-darktext font-bold">$0.00</Text>
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Recipient gets</Text>
-            <Text className="text-darktext font-bold">₦806,320.00</Text>
+            <Text className="text-lighttextdark font-[14px]">Country</Text>
+            <Text className="text-darktext font-bold">Nigeria</Text>
+          </View>
+          <View
+            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+            className="flex-row items-center justify-between p-3"
+          >
+            <Text className="text-lighttextdark font-[14px]">Deposit type</Text>
+            <Text className="text-darktext font-bold">Mobile money</Text>
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
             <Text className="text-lighttextdark font-[14px]">
-              Recipient account
+              Institute
             </Text>
-            <Text className="text-darktext font-bold">2391028711</Text>
-          </View>
-          <View
-            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
-            className="flex-row items-center justify-between p-3"
-          >
-            <Text className="text-lighttextdark font-[14px]">Recipient name</Text>
-            <Text className="text-darktext font-bold">Susan Sheidu</Text>
+            <Text className="text-darktext font-bold">Orange</Text>
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
