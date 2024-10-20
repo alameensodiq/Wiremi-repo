@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   Dimensions,
   StatusBar as RNStatusBar,
-  Image,
   ScrollView
 } from "react-native";
 import React from "react";
@@ -27,6 +26,7 @@ import DashboardTransactionButton from "@/components/DashboardTransactionButton"
 import Carousel from "react-native-reanimated-carousel";
 import { SectionList } from "react-native";
 import { useRouter } from "expo-router";
+import { Image } from "expo-image";
 
 const Dashboard = () => {
   const { height, width } = Dimensions.get("window");

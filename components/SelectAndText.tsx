@@ -1,10 +1,11 @@
-import { View, Text, Dimensions, TouchableOpacity, Image } from "react-native";
+import { View, Text, Dimensions, TouchableOpacity} from "react-native";
 import React, { useState } from "react";
 import { FlatList } from "react-native";
 import downcarat from "../assets/downcarat.png";
 import eng from "../assets/eng.png";
 import { TextInput } from "react-native";
 import { BlurView } from "expo-blur";
+import { Image } from "expo-image";
 
 const optionSelect = ["Option 1"];
 const options = ["Option 1", "Option 2", "Option 3"];
