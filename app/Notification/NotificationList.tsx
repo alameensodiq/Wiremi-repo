@@ -35,7 +35,7 @@ const NotificationList = () => {
     ref.current?.close();
   };
 
-  const data = [1, 2, 3, 4, 5, 6];
+  const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
     <View style={{ backgroundColor: "#ffffff" }} className="flex-1">
       <StatusBar hidden={false} style="dark" />
