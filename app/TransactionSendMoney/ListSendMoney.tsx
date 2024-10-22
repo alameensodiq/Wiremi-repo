@@ -124,10 +124,10 @@ const ListSendMoney = () => {
               </View>
               <View className="items-start">
                 <Text className="text-[14px] font-bold text-black">
-                  Wiremi{" "}
+                  Wiremi{" "} User
                 </Text>
                 <Text className="text-[10px] text-deposistsub">
-                  Seamless transfer to wiremi user
+                  Instant & Free
                 </Text>
               </View>
             </View>

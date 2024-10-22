@@ -43,7 +43,7 @@ const WiremiSummary = () => {
           marginTop: statusBarHeight,
           paddingHorizontal: width * 0.03
         }}
-        className="gap-6"
+        className="gap-3"
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
@@ -83,14 +83,14 @@ const WiremiSummary = () => {
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Rate</Text>
+          <Text className="text-lighttextdark font-[14px]">Exchange Rate</Text>
           <Text className="text-darktext font-bold">$1=₦1,650.00</Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Recipient gets</Text>
+          <Text className="text-lighttextdark font-[14px]">Recipient amount</Text>
           <Text className="text-darktext font-bold">₦806,320.00</Text>
         </View>
         <View

@@ -129,7 +129,7 @@ const DirectTransferDetails = () => {
               <Text
                 style={{ fontSize: 18, color: "#2A94F4", fontWeight: "bold" }}
               >
-                Linked bank accounts
+                Select your bank
               </Text>
             </View>
             <View>

@@ -58,7 +58,7 @@ const CardDeposits = () => {
             </View>
             <View className="items-start">
               <Text className="text-[14px] font-bold text-black">Cards deposit</Text>
-              <Text className="text-[10px] text-deposistsub">Fund with card to get $50</Text>
+              <Text className="text-[10px] text-deposistsub">Instant deposit 3.9% + 0.5</Text>
             </View>
           </View>
           <View>

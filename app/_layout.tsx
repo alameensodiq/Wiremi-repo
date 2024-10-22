@@ -33,35 +33,60 @@ export default function RootLayout() {
   return (
     //
     <GestureHandlerRootView>
-          <BottomSheetModalProvider>
-    <Stack>
-      {/* <Stack.Screen name="PersonalAccount" options={{ headerShown: false }} /> */}
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="firstIndex" options={{ headerShown: false }} />
-      <Stack.Screen name="getStarted" options={{ headerShown: false }} />
-      <Stack.Screen name="SignInPage" options={{ headerShown: false }} />
-      <Stack.Screen name="MainForgotPinCode" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="MainForgotSixDigitPinCode"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="MainForgotConfirmSixDigit"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="ForgetSuccess" options={{ headerShown: false }} />
-      <Stack.Screen name="ChooseAccountType" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="BusinessAccountFirstStep"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="BusinessSuccess" options={{ headerShown: false }} />
-      <Stack.Screen name="PersonalAccountReg" options={{ headerShown: false }} />
-      <Stack.Screen name="(PersonalAccount)" options={{ headerShown: false }} />
-      <Stack.Screen name="TransactionDeposit" options={{ headerShown: false }} />
-      <Stack.Screen name="TransactionSendMoney" options={{ headerShown: false }} />
-    </Stack>
-    </BottomSheetModalProvider>
+      <BottomSheetModalProvider>
+        <Stack>
+          {/* <Stack.Screen name="PersonalAccount" options={{ headerShown: false }} /> */}
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="firstIndex" options={{ headerShown: false }} />
+          <Stack.Screen name="getStarted" options={{ headerShown: false }} />
+          <Stack.Screen name="SignInPage" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="MainForgotPinCode"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MainForgotSixDigitPinCode"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MainForgotConfirmSixDigit"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="ForgetSuccess" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="ChooseAccountType"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="BusinessAccountFirstStep"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="BusinessSuccess"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PersonalAccountReg"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="(PersonalAccount)"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="TransactionDeposit"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="TransactionSendMoney"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Notification"
+            options={{ headerShown: false }}
+          />
+        </Stack>
+      </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
 }

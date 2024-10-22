@@ -4,7 +4,8 @@ import {
   SafeAreaView,
   Dimensions,
   StatusBar as RNStatusBar,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
@@ -89,7 +90,9 @@ const Dashboard = () => {
               </View>
               <View className="flex-row gap-2 items-center">
                 <Barcode />
-                <Notification />
+                <TouchableOpacity onPress={() => router.push('/Notification/NotificationList')}>
+                  <Notification />
+                </TouchableOpacity>
               </View>
             </View>
             <View className="flex-col justify-center items-center gap-1">
@@ -110,11 +113,15 @@ const Dashboard = () => {
               <DashboardTransactionButton
                 color1
                 title="Send money"
-                onPress={() => router.push('/TransactionSendMoney/ListSendMoney')}
+                onPress={() =>
+                  router.push("/TransactionSendMoney/ListSendMoney")
+                }
               />
               <DashboardTransactionButton
                 title="Deposit"
-                onPress={() => router.push('/TransactionDeposit/ListofDeposits')}
+                onPress={() =>
+                  router.push("/TransactionDeposit/ListofDeposits")
+                }
               />
             </View>
           </View>

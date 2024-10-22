@@ -56,7 +56,7 @@ import {
             marginTop: statusBarHeight,
             paddingHorizontal: width * 0.03
           }}
-          className="gap-4"
+          className="gap-3"
         >
           <View className="flex-row justify-between items-center mb-1">
             <TouchableOpacity

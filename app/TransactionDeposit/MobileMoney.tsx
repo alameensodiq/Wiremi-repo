@@ -59,7 +59,7 @@ const MobileMoney = () => {
           </View>
           <View className="items-start">
             <Text className="text-[14px] font-bold text-black">Momo USSD</Text>
-            <Text className="text-[10px] text-deposistsub">Dialing codes made easy</Text>
+            <Text className="text-[10px] text-deposistsub">Manual deposit 1% Charges</Text>
           </View>
         </View>
         <View>
@@ -88,7 +88,7 @@ const MobileMoney = () => {
           </View>
           <View className="items-start">
             <Text className="text-[14px] font-bold text-black">Mobile money</Text>
-            <Text className="text-[10px] text-deposistsub">Easily access your funds anytime</Text>
+            <Text className="text-[10px] text-deposistsub">Instant deposit 2.1% Charges</Text>
           </View>
         </View>
         <View>
