@@ -5,6 +5,7 @@ const Notification = () => {
   return (
     <Stack>
       <Stack.Screen name="NotificationList" options={{ headerShown: false }} />
+      <Stack.Screen name="NotificationDetails" options={{ headerShown: false }} />
       {/* <Stack.Screen name="CardDeposits" options={{ headerShown: false }} /> */}
     </Stack>
 

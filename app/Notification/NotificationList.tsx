@@ -88,7 +88,9 @@ const NotificationList = () => {
                   <Text style={{ color: "#606162" }} className="font-[10px]">
                     Today 07:42PM
                   </Text>
+                  <TouchableOpacity onPress={() => router.push('/Notification/NotificationDetails')}>
                   <Text className="text-buttonprimary">View</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             )}
