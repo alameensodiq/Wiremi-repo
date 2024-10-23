@@ -90,7 +90,9 @@ const Dashboard = () => {
               </View>
               <View className="flex-row gap-2 items-center">
                 <Barcode />
-                <TouchableOpacity onPress={() => router.push('/Notification/NotificationList')}>
+                <TouchableOpacity
+                  onPress={() => router.push("/Notification/NotificationList")}
+                >
                   <Notification />
                 </TouchableOpacity>
               </View>
@@ -197,26 +199,28 @@ const Dashboard = () => {
                 </View>
                 <Text>Invest</Text>
               </View>
-              <View className="flex-col gap-1 justify-center items-center">
-                <View
-                  style={{
-                    width: 70, // Set the width according to the icon size
-                    height: 70, // Set the height according to the icon size
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "white",
-                    borderRadius: 50,
-                    shadowColor: "#0A0A0A",
-                    shadowOffset: { width: 0, height: 0.58 },
-                    shadowOpacity: 0.17,
-                    shadowRadius: 1.16,
-                    elevation: 2 // For Android
-                  }}
-                >
-                  <More />
+              <TouchableOpacity onPress={() => router.push("/More/MoreList")}>
+                <View className="flex-col gap-1 justify-center items-center">
+                  <View
+                    style={{
+                      width: 70, // Set the width according to the icon size
+                      height: 70, // Set the height according to the icon size
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "white",
+                      borderRadius: 50,
+                      shadowColor: "#0A0A0A",
+                      shadowOffset: { width: 0, height: 0.58 },
+                      shadowOpacity: 0.17,
+                      shadowRadius: 1.16,
+                      elevation: 2 // For Android
+                    }}
+                  >
+                    <More />
+                  </View>
+                  <Text>More</Text>
                 </View>
-                <Text>More</Text>
-              </View>
+              </TouchableOpacity>
             </View>
             <View className="flex-row justify-center">
               <Carousel

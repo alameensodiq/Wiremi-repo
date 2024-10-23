@@ -85,6 +85,10 @@ export default function RootLayout() {
             name="Notification"
             options={{ headerShown: false }}
           />
+           <Stack.Screen
+            name="More"
+            options={{ headerShown: false }}
+          />
         </Stack>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
