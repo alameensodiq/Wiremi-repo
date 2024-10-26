@@ -30,6 +30,19 @@ const TabsLayout = () => {
             )
           }}
         />
+        <Tabs.Screen
+          name="VirtualCard"
+          options={{
+            tabBarLabel: "Cards",
+            tabBarIcon: ({ color, focused }) => (
+              <CardIcon
+              width={24} 
+              height={24}
+              fill={focused ? "#105CE2" : "#989AAF"} 
+              />
+            )
+          }}
+        />
       </Tabs>
     );
   };

@@ -89,6 +89,10 @@ export default function RootLayout() {
             name="More"
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="Cards"
+            options={{ headerShown: false }}
+          />
         </Stack>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
