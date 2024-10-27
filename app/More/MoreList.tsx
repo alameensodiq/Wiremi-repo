@@ -45,26 +45,28 @@ const MoreList = () => {
           <Text></Text>
         </View>
         <View className="flex-row items-center justify-between">
-          <View className="flex-col gap-1 justify-center items-center">
-            <View
-              style={{
-                width: 70, // Set the width according to the icon size
-                height: 70, // Set the height according to the icon size
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "white",
-                borderRadius: 50,
-                shadowColor: "#0A0A0A",
-                shadowOffset: { width: 0, height: 0.58 },
-                shadowOpacity: 0.17,
-                shadowRadius: 1.16,
-                elevation: 2 // For Android
-              }}
-            >
-              <Crypto width={70} height={70} />
+          <TouchableOpacity onPress={() => router.push('/More/Crypto/CryptoDashboard')}>
+            <View className="flex-col gap-1 justify-center items-center">
+              <View
+                style={{
+                  width: 70, // Set the width according to the icon size
+                  height: 70, // Set the height according to the icon size
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "white",
+                  borderRadius: 50,
+                  shadowColor: "#0A0A0A",
+                  shadowOffset: { width: 0, height: 0.58 },
+                  shadowOpacity: 0.17,
+                  shadowRadius: 1.16,
+                  elevation: 2 // For Android
+                }}
+              >
+                <Crypto width={70} height={70} />
+              </View>
+              <Text>Crypto</Text>
             </View>
-            <Text>Crypto</Text>
-          </View>
+          </TouchableOpacity>
           <View className="flex-col gap-1 justify-center items-center">
             <View
               style={{
