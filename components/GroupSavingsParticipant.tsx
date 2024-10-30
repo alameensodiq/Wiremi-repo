@@ -1,13 +1,14 @@
 import { View, Text, TextInput, Dimensions } from "react-native";
 import React from "react";
+import Plus from '../assets/plussavings.svg'
 
-interface TextLabelBoxProps {
+interface GroupSavingsParticipantProps {
   label: string;
   placeholder: string;
   reduce?:string;
 }
 
-const TextLabelBox = ({ label, placeholder, reduce }: TextLabelBoxProps) => {
+const GroupSavingsParticipant = ({ label, placeholder, reduce }: GroupSavingsParticipantProps) => {
   const { height, width } = Dimensions.get("window");
 
   return (
@@ -23,12 +24,15 @@ const TextLabelBox = ({ label, placeholder, reduce }: TextLabelBoxProps) => {
     >
       <Text className="text-textblack">{label}</Text>
       <TextInput
-        style={{ width: reduce ? width * 0.4   : width * 0.9, borderWidth: 1, height: height * 0.06}}
+        style={{ width: reduce ? width * 0.4   : width * 0.9, borderWidth: 1, height: height * 0.06, position: 'relative'}}
         className="text-textinputtext text-[14px] rounded-ten border-customgray  p-2"
         placeholder={placeholder}
       />
+      <View style={{position:'absolute', top: 43, right: 10}}>
+        <Plus/>
+      </View>
     </View>
   );
 };
 
-export default TextLabelBox;
+export default GroupSavingsParticipant;

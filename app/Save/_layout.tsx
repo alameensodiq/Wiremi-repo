@@ -5,8 +5,11 @@ const Save = () => {
   return (
     <Stack>
       <Stack.Screen name="SaveDashboard" options={{ headerShown: false }} />
-      {/* <Stack.Screen name="NotificationDetails" options={{ headerShown: false }} /> */}
-      {/* <Stack.Screen name="CardDeposits" options={{ headerShown: false }} /> */}
+      <Stack.Screen name="CreateSavingsList" options={{ headerShown: false }} />
+      <Stack.Screen name="RegularSavings" options={{ headerShown: false }} />
+      <Stack.Screen name="BlockSavings" options={{ headerShown: false }} />
+      <Stack.Screen name="RecurrentSavings" options={{ headerShown: false }} />
+      <Stack.Screen name="GroupSavings" options={{ headerShown: false }} />
     </Stack>
 
   );
