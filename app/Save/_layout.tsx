@@ -10,6 +10,13 @@ const Save = () => {
       <Stack.Screen name="BlockSavings" options={{ headerShown: false }} />
       <Stack.Screen name="RecurrentSavings" options={{ headerShown: false }} />
       <Stack.Screen name="GroupSavings" options={{ headerShown: false }} />
+      <Stack.Screen name="RegularSavingsSummary" options={{ headerShown: false }} />
+      <Stack.Screen name="RegularEditInstance" options={{ headerShown: false }} />
+      <Stack.Screen name="RegularInstanceSuccess" options={{ headerShown: false }} />
+      {/* <Stack.Screen name="RegularSavingsSummary" options={{ headerShown: false }} /> */}
+      {/* <Stack.Screen name="RegularSavingsSummary" options={{ headerShown: false }} /> */}
+      {/* <Stack.Screen name="RegularSavingsSummary" options={{ headerShown: false }} /> */}
+
     </Stack>
 
   );

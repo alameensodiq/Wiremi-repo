@@ -2,7 +2,7 @@ import {
   View,
   Text,
   ImageBackground,
-  SafeAreaView,
+  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -34,6 +34,7 @@ import HSBC from "../../assets/hsbc.svg";
 import TDBANK from "../../assets/tdbank.svg";
 import Scotia from "../../assets/scotiabank.svg";
 import BMO from "../../assets/bmo.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type BottomSheetRef = {
   open: () => void;
@@ -185,7 +186,7 @@ const RegularSavings = () => {
         >
           <BlueSignInButton
             title="Proceed"
-            onPress={() => console.log("sodiq")}
+            onPress={() => router.push('/Save/RegularSavingsSummary')}
           />
         </View>
         <BottomSheet height={350} ref={ref}>

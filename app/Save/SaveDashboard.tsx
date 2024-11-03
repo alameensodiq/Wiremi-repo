@@ -2,7 +2,7 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SafeAreaView,
+  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   ScrollView
@@ -19,6 +19,7 @@ import CreateSavings from "@/components/CreateSavings";
 import CreateSavingsBlue from "@/components/CreateSavingsBlue";
 import PieChart from "react-native-pie-chart";
 import { BarChart, LineChart } from "react-native-gifted-charts";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const SaveDashboard = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;

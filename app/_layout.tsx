@@ -12,7 +12,8 @@ import "react-native-reanimated";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+// import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -32,8 +33,9 @@ export default function RootLayout() {
 
   return (
     //
-    <GestureHandlerRootView>
-      <BottomSheetModalProvider>
+    // <GestureHandlerRootView>
+    //   <BottomSheetModalProvider>
+    <SafeAreaProvider className="flex-1">
         <Stack>
           {/* <Stack.Screen name="PersonalAccount" options={{ headerShown: false }} /> */}
           <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -98,7 +100,8 @@ export default function RootLayout() {
             options={{ headerShown: false }}
           />
         </Stack>
-      </BottomSheetModalProvider>
-    </GestureHandlerRootView>
+        </SafeAreaProvider>
+    //   </BottomSheetModalProvider>
+    // </GestureHandlerRootView>
   );
 }

@@ -2,7 +2,7 @@ import {
   View,
   Text,
   ImageBackground,
-  SafeAreaView,
+  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -28,6 +28,7 @@ import TDBANK from "../../assets/tdbank.svg";
 import Scotia from "../../assets/scotiabank.svg";
 import BMO from "../../assets/bmo.svg";
 import SearchLabelBox from "@/components/SearchLabelBox";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type BottomSheetRef = {
   open: () => void;
@@ -48,11 +49,10 @@ const BankWireDetails = () => {
     ref.current?.close();
   };
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: "#ffffff" }} className="flex-1">
+    <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} style={{ backgroundColor: "#ffffff" }} className="flex-1">
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
-          flex: 1,
           marginTop: statusBarHeight,
           paddingHorizontal: width * 0.03
         }}
