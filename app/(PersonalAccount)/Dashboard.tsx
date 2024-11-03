@@ -160,6 +160,7 @@ const Dashboard = () => {
                   <Text>Save</Text>
                 </View>
               </TouchableOpacity>
+              <TouchableOpacity onPress={() => router.push('/Loan')}>
               <View className="flex-col gap-1 justify-center items-center">
                 <View
                   style={{
@@ -181,6 +182,7 @@ const Dashboard = () => {
 
                 <Text>Loan</Text>
               </View>
+              </TouchableOpacity>
               <View className="flex-col gap-1 justify-center items-center">
                 <View
                   style={{

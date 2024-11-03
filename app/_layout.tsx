@@ -99,6 +99,10 @@ export default function RootLayout() {
             name="Save"
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="Loan"
+            options={{ headerShown: false }}
+          />
         </Stack>
         </SafeAreaProvider>
     //   </BottomSheetModalProvider>
