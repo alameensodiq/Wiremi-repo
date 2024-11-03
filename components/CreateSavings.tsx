@@ -18,7 +18,7 @@ const CreateSavings = ({ title, onPress, color1 }: CreateSavingsProps) => {
     >
       <TouchableOpacity onPress={onPress} className="flex-row items-center">
         <Create />
-        <Text className="font-bold text-[14px] text-buttonprimary">
+        <Text className="font-bold text-[14px] text-buttonprimary ml-2">
           {title}
         </Text>
       </TouchableOpacity>

@@ -108,8 +108,8 @@ const SaveDashboard = () => {
               onPress={() => router.push('/Save/CreateSavingsList')}
             />
             <CreateSavingsBlue
-              title="Create savings"
-              onPress={() => console.log("sodiq")}
+              title="Simulate savings"
+              onPress={() => router.push('/Save/SimulateSavings')}
             />
           </View>
           <View className="flex-row items-center gap-2">

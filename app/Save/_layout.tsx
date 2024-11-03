@@ -39,10 +39,13 @@ const Save = () => {
       />
       <Stack.Screen name="GroupHistory" options={{ headerShown: false }} />
       <Stack.Screen name="GroupEditInstance" options={{ headerShown: false }} />
-      <Stack.Screen name="GroupInstanceSuccess" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="GroupInstanceSuccess"
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Delete" options={{ headerShown: false }} />
-        {/* <Stack.Screen name="GroupSavingsSummary" options={{ headerShown: false }} /> */}
-          {/* <Stack.Screen name="GroupSavingsSummary" options={{ headerShown: false }} /> */}
+      <Stack.Screen name="SimulateSavings" options={{ headerShown: false }} />
+      {/* <Stack.Screen name="GroupSavingsSummary" options={{ headerShown: false }} /> */}
     </Stack>
   );
 };
