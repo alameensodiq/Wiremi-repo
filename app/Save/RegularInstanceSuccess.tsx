@@ -69,7 +69,7 @@ const RegularInstanceSuccess = () => {
             <View className="items-center justify-between flex-row p-4">
               <BlueSignInButton
                 title="View"
-                onPress={() => router.push("/Save/RegularInstanceSuccess")}
+                onPress={() => router.push("/Save/RegularSavingsSummary")}
               />
             </View>
           </View>

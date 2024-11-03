@@ -206,7 +206,7 @@ const GroupSavings = () => {
           <View className="flex-row justify-center">
             <BlueSignInButton
               title="Proceed"
-              onPress={() => console.log("sodiq")}
+              onPress={() => router.push('/Save/GroupSavingsSummary')}
             />
           </View>
           <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>

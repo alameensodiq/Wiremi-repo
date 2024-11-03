@@ -24,11 +24,12 @@ import Drop from "../../assets/calendardrop.svg";
 import Cakecalendar from "../../assets/cakecalendar.svg";
 import Rightdrop from "../../assets/rightdrop.svg";
 import Leftdrop from "../../assets/leftdrop.svg";
+import Rightcarat from "../../assets/bluerightcarat.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BarChart } from "react-native-gifted-charts";
-import { BottomSheet } from "@/components/Bottom";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import WhiteSignInButton from "@/components/WhiteSignInButton";
+import { BottomSheet } from "@/components/Bottom";
 
 type BottomSheetRef = {
   open: () => void;
@@ -36,7 +37,7 @@ type BottomSheetRef = {
   // Add any other methods you expect from the BottomSheet component
 };
 
-const RegularSavingsSummary = () => {
+const GroupSavingsSummary = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -81,7 +82,7 @@ const RegularSavingsSummary = () => {
             paddingTop: height * 0.03,
             alignItems: "flex-end"
           }}
-        //   onPress={() => setIsVisible(false)}
+          onPress={() => setIsVisible(false)}
         >
           <View
             style={{
@@ -135,7 +136,7 @@ const RegularSavingsSummary = () => {
           <TouchableOpacity onPress={() => router.push("/Save/SaveDashboard")}>
             <Back />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Tuition</Text>
+          <Text className="text-[20px] text-pagetitle">House rent</Text>
           <Pressable
             onPress={() => {
               setIsVisible(!isVisible);
@@ -195,7 +196,9 @@ const RegularSavingsSummary = () => {
             <View className="flex-col items-center gap-3 mb-4">
               <Text style={{ color: "#00A85A", fontSize: 9 }}>Active</Text>
               <View className="flex-col items-center">
-                <Text className="text-buttonprimary text-[12px]">Balance</Text>
+                <Text className="text-buttonprimary text-[12px]">
+                  Group Savings Balance
+                </Text>
                 <Text className="text-buttonprimary text-[24px] font-bold">
                   $2,112.23
                 </Text>
@@ -223,9 +226,68 @@ const RegularSavingsSummary = () => {
                 </View>
               </View>
             </View>
-            <View className="flex-row justify-center gap-4">
+            <View
+              style={{ height: height * 0.15 }}
+              className="flex-row justify-center pt-4 gap-4"
+            >
+              <View className="flex-col gap-1">
+                <Text style={{ color: "#505050" }} className="text-[14px]">
+                  My Contribution
+                </Text>
+                <Text className="text-buttonprimary text-[16px] font-bold">
+                  $2,112.23
+                </Text>
+                <Text style={{ color: "#505050" }} className="text-[10px]">
+                  Last saved 11/09
+                </Text>
+              </View>
+              <View className="flex-col gap-1">
+                <Text style={{ color: "#505050" }} className="text-[14px]">
+                  Accumulated fine
+                </Text>
+                <Text className="text-buttonprimary text-[16px] font-bold">
+                  $112.23
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                height: height * 0.15,
+                backgroundColor: "#fff",
+                borderRadius: 6,
+                shadowColor: "#0A0A0A",
+                shadowOffset: {
+                  width: 0,
+                  height: 4
+                },
+                shadowOpacity: 0.1,
+                shadowRadius: 4,
+                elevation: 5
+              }}
+              className="flex-column justify-center p-2"
+            >
+              <Pressable onPress={() => router.push("/Save/GroupMembers")}>
+                <View className="flex-row justify-between items-center">
+                  <Text className="text-[14px] text-buttonprimary font-bold">
+                    See all group members
+                  </Text>
+                  <Rightcarat />
+                </View>
+              </Pressable>
               <Pressable
-                onPress={() => router.push("/Save/RegularEditInstance")}
+                onPress={() => router.push("/Save/NonContributionMember")}
+              >
+                <View className="flex-row justify-between items-center mt-4">
+                  <Text className="text-[14px] text-buttonprimary font-bold">
+                    Members yet to contribute
+                  </Text>
+                  <Rightcarat />
+                </View>
+              </Pressable>
+            </View>
+            <View className="flex-row justify-center gap-4 pt-4">
+              <Pressable
+                onPress={() => router.push("/Save/GroupEditInstance")}
               >
                 <View className="flex-col gap-1 items-center">
                   <EditInstance />
@@ -237,18 +299,7 @@ const RegularSavingsSummary = () => {
                   </Text>
                 </View>
               </Pressable>
-              <Pressable onPress={() => router.push("/Save/RegularWithdraw")}>
-                <View className="flex-col gap-1 items-center">
-                  <SaveWithdraw />
-                  <Text
-                    style={{ color: "#292D32" }}
-                    className="text-[14px] font-bold"
-                  >
-                    Withdraw
-                  </Text>
-                </View>
-              </Pressable>
-              <Pressable onPress={() => router.push("/Save/RegularHistory")}>
+              <Pressable onPress={() => router.push("/Save/GroupHistory")}>
                 <View className="flex-col gap-1 items-center">
                   <SaveHistory />
                   <Text
@@ -487,7 +538,12 @@ const RegularSavingsSummary = () => {
               }}
             >
               <View className="flex-col gap-1">
-                <Text style={{ color: "#00091E", fontSize: 14}} className="font-bold">$2112.23</Text>
+                <Text
+                  style={{ color: "#00091E", fontSize: 14 }}
+                  className="font-bold"
+                >
+                  $2112.23
+                </Text>
                 <Text style={{ color: "#98A2B3", fontSize: 12 }}>
                   Total interest ($367.00)
                 </Text>
@@ -566,4 +622,4 @@ const RegularSavingsSummary = () => {
   );
 };
 
-export default RegularSavingsSummary;
+export default GroupSavingsSummary;
