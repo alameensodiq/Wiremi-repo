@@ -10,7 +10,8 @@ import {
   ScrollView,
   Pressable,
   Modal,
-  SectionList
+  SectionList,
+  FlatList
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { useRouter } from "expo-router";
@@ -24,15 +25,17 @@ import SaveHistory from "../../assets/savehistory.svg";
 import Drop from "../../assets/calendardrop.svg";
 import Cakecalendar from "../../assets/cakecalendar.svg";
 import Rightdrop from "../../assets/rightdrop.svg";
-import Leftdrop from "../../assets/leftdrop.svg";
+import Lightdown from "../../assets/lightdown.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BarChart } from "react-native-gifted-charts";
 import { BottomSheet } from "@/components/Bottom";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import WhiteSignInButton from "@/components/WhiteSignInButton";
-import SlantArrow from "../../assets/slantarrow.svg";
+import Warning from "../../assets/lightwarning.svg";
 import PieChart from "react-native-pie-chart";
 import Rightcarat from "../../assets/rightcaratblue.svg";
+import ShortBlueButton from "@/components/ShortBlueButton";
+import ShortWhiteButton from "@/components/ShortWhiteButton";
 
 type BottomSheetRef = {
   open: () => void;
@@ -40,7 +43,8 @@ type BottomSheetRef = {
   // Add any other methods you expect from the BottomSheet component
 };
 
-const LoanDashboard = () => {
+const LoanOffer = () => {
+  const [selectedCircle, setSelectedCircle] = useState(1);
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -91,6 +95,37 @@ const LoanDashboard = () => {
     }
   ];
 
+  const options = [
+    {
+      id: 1,
+      name: "Option 1",
+      amount: "$1700"
+    },
+    {
+      id: 2,
+      name: "Option 2",
+      amount: "$1100"
+    },
+    {
+      id: 3,
+      name: "Option 3",
+      amount: "$800"
+    },
+    {
+      id: 4,
+      name: "Option 4",
+      amount: "$1000"
+    },
+    {
+      id: 5,
+      name: "Option 5",
+      amount: "$1200"
+    }
+  ];
+  const handlePress = (index: any) => {
+    setSelectedCircle(index);
+  };
+
   return (
     <ScrollView
       style={{ backgroundColor: "#ffffff" }}
@@ -107,7 +142,7 @@ const LoanDashboard = () => {
         // className="gap-3"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/Dashboard")}>
+          <TouchableOpacity onPress={() => router.back()}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Loan</Text>
@@ -159,110 +194,110 @@ const LoanDashboard = () => {
           </Pressable>
         </View>
         {color ? (
-          <View className="pt-2 flex-col gap-10">
-            <View className="flex-col items-center gap-4">
-              <Pressable>
+          <View className="pt-6 flex-col gap-10">
+            <View className="flex-row justify-start">
+              <Text className="text-[16px]" style={{ color: "#413D43" }}>
+                Below are your loan offers
+              </Text>
+            </View>
+            <View className="w-[90%] flex-col">
+              <FlatList
+                data={options}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => {
+                  const isSelected = selectedCircle === item.id;
+
+                  return (
+                    <Pressable onPress={() => setSelectedCircle(item.id)}>
+                      <View
+                        className={`${
+                          isSelected
+                            ? "bg-buttonprimary w-[120] h-[120] rounded-[65px] flex-row items-center justify-center"
+                            : "bg-white w-[100] h-[100] text-[12px] rounded-[65px] flex-row items-center justify-center shadow-sm"
+                        }`}
+                        style={
+                          !isSelected
+                            ? {
+                                // Apply custom shadow for non-selected items
+                                shadowColor: "#0A0A0A", // Shadow color
+                                shadowOffset: { width: 0, height: 4 },
+                                shadowOpacity: 0.04, // Shadow transparency
+                                shadowRadius: 4, // Shadow blur radius
+                                elevation: 4 // For Android shadow support
+                              }
+                            : null
+                        }
+                      >
+                        <Text
+                          className={`${
+                            isSelected
+                              ? "text-white text-[16px]"
+                              : "text-[12px]"
+                          }`}
+                        >
+                          {item?.amount}
+                        </Text>
+                      </View>
+                    </Pressable>
+                  );
+                }}
+                contentContainerStyle={{ alignItems: "center" }}
+                ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
+                style={{ maxHeight: 150 }}
+              />
+              <View className="flex-row items-center justify-center] w-[100%] mt-4">
                 <View
-                  className="flex-row items-center rounded-[8px] justify-center"
-                  style={{
-                    backgroundColor: "#105CE280",
-                    opacity: 0.5,
-                    width: width * 0.65,
-                    height: height * 0.04
-                  }}
+                  style={{ backgroundColor: "#F8F6F6", height: height * 0.1 }}
+                  className="w-[100%] flex-col justify-start items-start rounded-[10px] pl-2 pt-4"
                 >
-                  <SlantArrow />
-                  <Text className="ml-2 text-buttonprimary text-[14px]">
-                    <Text className="text-buttonprimary font-bold mr-1 text-[14px]">
-                      Up 4 points {""}
-                    </Text>
-                    since last month
+                  <View className="flex-row gap-2 items-center">
+                    <Text style={{ color: "#9FA0A2" }}>Select loan terms</Text>
+                    <Lightdown />
+                  </View>
+                  <Text
+                    className="mt-2 text-[14px]"
+                    style={{ color: "#00091E" }}
+                  >
+                    6 months payment
                   </Text>
                 </View>
-              </Pressable>
-              <Text style={{ color: "#0091E", fontSize: 14 }}>
-                Looking good
-              </Text>
-              <View>
-                <PieChart
-                  widthAndHeight={widthAndHeight}
-                  series={series}
-                  sliceColor={sliceColor}
-                  coverRadius={0.7}
-                  coverFill={"#F2F4F7"}
+              </View>
+              <View
+                style={{ borderBottomColor: "#EBEBEB" }}
+                className="flex-col gap-2 items-start mt-4 border-b-1 pb-6"
+              >
+                <View className="flex-row items-center  justify-between w-[50%]">
+                  <Text style={{ color: "#5F5F5F" }}>Interest</Text>
+                  <Text style={{ color: "#5F5F5F" }}>$1,000</Text>
+                </View>
+                <View className="flex-row items-center justify-between w-[50%]">
+                  <Text style={{ color: "#5F5F5F" }}>Total amount due</Text>
+                  <Text style={{ color: "#5F5F5F" }}>$6,000</Text>
+                </View>
+              </View>
+              <View className="flex-row items-center mt-3 gap-2 pt-3">
+                <Warning />
+                <Text style={{ color: "#606162" }} className="text-[14px]">
+                  Offer valid for 24 hours
+                </Text>
+              </View>
+              <View
+                style={{ height: height * 0.2 }}
+                className="items-end justify-between flex-row p-1"
+              >
+                <ShortBlueButton
+                  title="Accept"
+                  color1
+                  onPress={() => router.push("/Loan/LoanAccepted")}
+                />
+                <ShortWhiteButton
+                  title="Reject"
+                  color1
+                  onPress={() => console.log("sodiq")}
                 />
               </View>
-              <Pressable onPress={() => router.push('/Loan/LoanOffer')}>
-                <View className="flex-row items-center">
-                  <Text className="text-[14px] text-buttonprimary font-bold">
-                    View loan offers
-                  </Text>
-                  <Rightcarat />
-                </View>
-              </Pressable>
-            </View>
-            <View className="flex-col gap-2 mt-10">
-              <Text>Credit score range:</Text>
-              <View className="flex-col">
-                <View className="flex-row mt-2 w-[70%]  justify-between">
-                  <Text style={{ color: "#242329", fontSize: 14 }}>
-                    Excellent
-                  </Text>
-                  <Text
-                    style={{ color: "#00091E" }}
-                    className="font-bold text-[14px]"
-                  >
-                    100-80%
-                  </Text>
-                </View>
-                <View className="flex-row mt-4 w-[70%]  justify-between">
-                  <Text style={{ color: "#242329", fontSize: 14 }}>
-                    Very Good
-                  </Text>
-                  <Text
-                    style={{ color: "#00091E" }}
-                    className="font-bold text-[14px]"
-                  >
-                    79-70%
-                  </Text>
-                </View>
-                <View className="flex-row mt-4 w-[70%]  justify-between">
-                  <Text style={{ color: "#242329", fontSize: 14 }}>Good</Text>
-                  <Text
-                    style={{ color: "#00091E" }}
-                    className="font-bold text-[14px]"
-                  >
-                    69-50%
-                  </Text>
-                </View>
-                <View className="flex-row mt-4 w-[70%]  justify-between">
-                  <Text style={{ color: "#242329", fontSize: 14 }}>Fair</Text>
-                  <Text
-                    style={{ color: "#00091E" }}
-                    className="font-bold text-[14px]"
-                  >
-                    49-20%
-                  </Text>
-                </View>
-                <View className="flex-row mt-4 w-[70%]  justify-between">
-                  <Text style={{ color: "#242329", fontSize: 14 }}>Poor</Text>
-                  <Text
-                    style={{ color: "#00091E" }}
-                    className="font-bold text-[14px]"
-                  >
-                    19-0%
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View className="items-center justify-center">
-              <BlueSignInButton
-                title="Apply for Loan"
-                onPress={
-                  () => 
-                  router.push("/Loan/Loans")
-                }
-              />
             </View>
           </View>
         ) : (
@@ -294,12 +329,16 @@ const LoanDashboard = () => {
                       }}
                       className="flex-row items-center justify-center"
                     >
-                      <Text
-                        className="text-[12px]"
-                        style={{ color: "#00A85A" }}
+                      <Pressable
+                        onPress={() => router.push("/Loan/LoanDetails")}
                       >
-                        Closed
-                      </Text>
+                        <Text
+                          className="text-[12px]"
+                          style={{ color: "#00A85A" }}
+                        >
+                          Closed
+                        </Text>
+                      </Pressable>
                     </View>
                   </View>
                   <View
@@ -383,4 +422,4 @@ const LoanDashboard = () => {
   );
 };
 
-export default LoanDashboard;
+export default LoanOffer;

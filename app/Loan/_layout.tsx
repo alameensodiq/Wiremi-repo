@@ -5,16 +5,17 @@ const Loan = () => {
   return (
     <Stack>
       <Stack.Screen name="LoanDashboard" options={{ headerShown: false }} />
-      {/* <Stack.Screen name="CreateSavingsList" options={{ headerShown: false }} /> */}
-      {/* <Stack.Screen name="RegularSavings" options={{ headerShown: false }} /> */}
-      {/* <Stack.Screen name="BlockSavings" options={{ headerShown: false }} /> */}
-      {/* <Stack.Screen name="RecurrentSavings" options={{ headerShown: false }} /> */}
-      {/* <Stack.Screen name="GroupSavings" options={{ headerShown: false }} /> */}
-      {/* <Stack.Screen
-        name="RegularWithdrawSuccess"
+      <Stack.Screen name="LoanOffer" options={{ headerShown: false }} />
+      <Stack.Screen name="LoanAccepted" options={{ headerShown: false }} />
+      <Stack.Screen name="Loans" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="ApplicationSummary"
         options={{ headerShown: false }}
-      /> */}
-      {/* <Stack.Screen name="GroupSavingsSummary" options={{ headerShown: false }} /> */}
+      />
+      <Stack.Screen name="LoanSuccessful" options={{ headerShown: false }} />
+      <Stack.Screen name="LoanStatus" options={{ headerShown: false }} />
+      <Stack.Screen name="LoanDetails" options={{ headerShown: false }} />
+      <Stack.Screen name="LoanPayment" options={{ headerShown: false }} />
     </Stack>
   );
 };

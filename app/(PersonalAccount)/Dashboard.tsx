@@ -1,7 +1,7 @@
 import {
   View,
   Text,
-  SafeAreaView,
+  // SafeAreaView,
   Dimensions,
   StatusBar as RNStatusBar,
   ScrollView,
@@ -28,6 +28,7 @@ import Carousel from "react-native-reanimated-carousel";
 import { SectionList } from "react-native";
 import { useRouter } from "expo-router";
 import { Image } from "expo-image";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Dashboard = () => {
   const { height, width } = Dimensions.get("window");
@@ -64,9 +65,10 @@ const Dashboard = () => {
   return (
     <View className="flex-1 bg-buttonprimary">
       <StatusBar hidden={false} style="light" />
-      <SafeAreaView style={{ flex: 1, marginTop: statusBarHeight }}>
+      <SafeAreaView  style={{ flex: 1, marginTop: statusBarHeight }}>
         <ScrollView
           className="bg-white"
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 10 }}
         >
           <View
