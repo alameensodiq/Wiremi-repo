@@ -127,9 +127,8 @@ const LoanOffer = () => {
   };
 
   return (
-    <ScrollView
+    <View
       style={{ backgroundColor: "#ffffff" }}
-      showsVerticalScrollIndicator={false}
       className="flex-1"
     >
       <StatusBar hidden={false} style="dark" />
@@ -418,7 +417,7 @@ const LoanOffer = () => {
           </View>
         </BottomSheet>
       </SafeAreaView>
-    </ScrollView>
+    </View>
   );
 };
 
