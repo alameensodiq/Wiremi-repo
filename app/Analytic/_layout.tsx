@@ -6,10 +6,10 @@ import { Stack } from 'expo-router';
 const AnalyticLayout = () => {
   return (
     <Stack>
-      <Stack.Screen name="Analyticdashboard" options={{ headerShown: false }} />
-      {/* <Stack.Screen name="CardSuccess" options={{ headerShown: false }} />
-      <Stack.Screen name="MyCard" options={{ headerShown: false }} />
-      <Stack.Screen name="ChangeCardPin" options={{ headerShown: false }} /> */}
+      <Stack.Screen name="SetBudget" options={{ headerShown: false }} />
+      <Stack.Screen name="SetBudgetSuccess" options={{ headerShown: false }} />
+      <Stack.Screen name="Expenses" options={{ headerShown: false }} />
+      {/* <Stack.Screen name="ChangeCardPin" options={{ headerShown: false }} /> */}
     </Stack>
   );
 };
