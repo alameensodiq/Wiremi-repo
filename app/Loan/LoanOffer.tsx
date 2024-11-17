@@ -53,12 +53,6 @@ const LoanOffer = () => {
   const [color, setColor] = useState(true);
   const [selectedIndex, setIndex] = useState(0);
   const ref = useRef<BottomSheetRef>(null);
-  const ref2 = useRef<BottomSheetRef>(null);
-  const ref3 = useRef<BottomSheetRef>(null);
-  const ref4 = useRef<BottomSheetRef>(null);
-  const ref5 = useRef<BottomSheetRef>(null);
-  const ref6 = useRef<BottomSheetRef>(null);
-  const ref7 = useRef<BottomSheetRef>(null);
   const router = useRouter();
   const data = [
     { value: 150 },

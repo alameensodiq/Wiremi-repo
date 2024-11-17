@@ -67,6 +67,7 @@ const MoreList = () => {
               <Text>Crypto</Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push('/More/Escrow/EscrowDashboard')}>
           <View className="flex-col gap-1 justify-center items-center">
             <View
               style={{
@@ -87,6 +88,7 @@ const MoreList = () => {
             </View>
             <Text>Escrow</Text>
           </View>
+          </TouchableOpacity>
           <View className="flex-col gap-1 justify-center items-center">
             <View
               style={{

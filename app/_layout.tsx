@@ -96,6 +96,10 @@ export default function RootLayout() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name="Analytic"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="Save"
             options={{ headerShown: false }}
           />

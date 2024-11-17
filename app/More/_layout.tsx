@@ -9,6 +9,7 @@ const MoreLayout = () => {
       <Stack.Screen name="MoreList" options={{ headerShown: false }} />
       <Stack.Screen name="Withdraw" options={{ headerShown: false }} />
       <Stack.Screen name="Crypto" options={{ headerShown: false }} />
+      <Stack.Screen name="Escrow" options={{ headerShown: false }} />
     </Stack>
   );
 };
