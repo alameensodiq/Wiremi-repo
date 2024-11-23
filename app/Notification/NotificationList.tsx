@@ -2,7 +2,7 @@ import {
   View,
   Text,
   ImageBackground,
-  SafeAreaView,
+  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -18,6 +18,7 @@ import SendMoneyWiremi from "../../assets/sendmoneywiremi.svg";
 import Filter from "../../assets/filter.svg";
 import SearchLabelBox from "@/components/SearchLabelBox";
 import NotificationSearchLabel from "@/components/NotificaionSearchLabel";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type BottomSheetRef = {
   open: () => void;
