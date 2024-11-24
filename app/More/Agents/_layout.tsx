@@ -4,6 +4,7 @@ import { Stack } from "expo-router";
 const Agents = () => {
   return (
     <Stack>
+        <Stack.Screen name="AgentApproval" options={{ headerShown: false }} />
       <Stack.Screen name="AgentDashboard" options={{ headerShown: false }} />
       <Stack.Screen name="AgentFundWallet" options={{ headerShown: false }} />
       <Stack.Screen name="AgentFundSuccess" options={{ headerShown: false }} />

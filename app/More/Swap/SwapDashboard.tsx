@@ -2,7 +2,7 @@ import {
   View,
   Text,
   ImageBackground,
-  SafeAreaView,
+//   SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -29,6 +29,7 @@ import BMO from "../../../assets/bmo.svg";
 import SearchLabelBox from "@/components/SearchLabelBox";
 import Wire from "../../../assets/wire.svg";
 import DirectTransfer from "../../../assets/directtransfer.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type BottomSheetRef = {
   open: () => void;

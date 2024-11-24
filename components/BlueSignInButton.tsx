@@ -5,14 +5,23 @@ interface LongButtonProps {
   onPress: () => void;
   title: string;
   color1?: boolean;
+  reduce?: boolean;
 }
 
 const { height, width } = Dimensions.get("window");
 
-const BlueSignInButton = ({ title, onPress, color1 }: LongButtonProps) => {
+const BlueSignInButton = ({
+  title,
+  onPress,
+  color1,
+  reduce
+}: LongButtonProps) => {
   return (
     <View
-      style={{ height: height * 0.055, width: width * 0.9 }}
+      style={{
+        height: height * 0.055,
+        width: reduce ? width * 0.82 : width * 0.9
+      }}
       className={`${
         color1 ? "bg-white" : "bg-buttonprimary"
       } rounded-ten items-center justify-center`}

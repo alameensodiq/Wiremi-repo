@@ -110,6 +110,7 @@ const MoreList = () => {
               <Text>Escrow</Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/More/Flight")}>
           <View className="flex-col gap-1 justify-center items-center">
             <View
               style={{
@@ -130,6 +131,7 @@ const MoreList = () => {
             </View>
             <Text>Flight</Text>
           </View>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => router.push("/More/Withdraw/WithdrawList")}
           >
