@@ -129,7 +129,7 @@ const MoreList = () => {
             >
               <Flight width={70} height={70} />
             </View>
-            <Text>Flight</Text>
+            <Text>Travel</Text>
           </View>
           </TouchableOpacity>
           <TouchableOpacity

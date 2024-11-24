@@ -100,6 +100,10 @@ export default function RootLayout() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name="Profiles"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="Save"
             options={{ headerShown: false }}
           />

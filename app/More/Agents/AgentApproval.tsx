@@ -18,7 +18,7 @@ import ShortWhiteButton from "@/components/ShortWhiteButton";
 import BlueSignInButton from "@/components/BlueSignInButton";
 
 const AgentApproval = () => {
-  const [status, setStatus] = useState<boolean>(false);
+  const [status, setStatus] = useState<boolean>(true);
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();

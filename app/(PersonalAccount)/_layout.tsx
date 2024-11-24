@@ -4,6 +4,7 @@ import { Tabs } from "expo-router";
 import CardIcon from "../../components/CardIcon";
 import HomeIcon from "@/components/HomeIcon";
 import AnalyticsIcon from "@/components/AnalyticsIcon";
+import ProfileIcon from "@/components/ProfileIcon";
 
 const TabsLayout = () => {
   return (
@@ -49,6 +50,20 @@ const TabsLayout = () => {
           tabBarLabel: "Analytics",
           tabBarIcon: ({ color, focused }) => (
             <AnalyticsIcon
+              width={24}
+              height={24}
+              // color=focused ? "#105CE2" : "#989AAF"}
+              color={focused ? "#105CE2" : "#989AAF"}
+            />
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        options={{
+          tabBarLabel: "Profile",
+          tabBarIcon: ({ color, focused }) => (
+            <ProfileIcon
               width={24}
               height={24}
               // color=focused ? "#105CE2" : "#989AAF"}
