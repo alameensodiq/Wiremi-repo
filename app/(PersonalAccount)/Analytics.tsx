@@ -231,6 +231,7 @@ const Analytics = () => {
               <RightCarat />
             </View>
           </Pressable>
+          <Pressable onPress={() => router.push('/Invest/InvestDashboard')}>
           <View className="flex-row items-center justify-between pl-3">
             <View className="flex-row gap-1">
               <PieChart
@@ -254,6 +255,7 @@ const Analytics = () => {
             </View>
             <RightCarat />
           </View>
+          </Pressable>
           <Pressable onPress={() => router.push('/Analytic/Expenses')}>
             <View className="flex-row items-center justify-between pl-3">
               <View className="flex-row gap-1">

@@ -65,7 +65,7 @@ const Dashboard = () => {
   return (
     <View className="flex-1 bg-buttonprimary">
       <StatusBar hidden={false} style="light" />
-      <SafeAreaView  style={{ flex: 1, marginTop: statusBarHeight }}>
+      <SafeAreaView style={{ flex: 1, marginTop: statusBarHeight }}>
         <ScrollView
           className="bg-white"
           showsVerticalScrollIndicator={false}
@@ -140,7 +140,9 @@ const Dashboard = () => {
               <Text className="text-darktext">Quick services</Text>
             </View>
             <View className="flex-row justify-between">
-              <TouchableOpacity onPress={() => router.push('/Save/SaveDashboard')}>
+              <TouchableOpacity
+                onPress={() => router.push("/Save/SaveDashboard")}
+              >
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
                     style={{
@@ -162,49 +164,51 @@ const Dashboard = () => {
                   <Text>Save</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/Loan')}>
-              <View className="flex-col gap-1 justify-center items-center">
-                <View
-                  style={{
-                    width: 70, // Set the width according to the icon size
-                    height: 70, // Set the height according to the icon size
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "white",
-                    borderRadius: 50,
-                    shadowColor: "#0A0A0A",
-                    shadowOffset: { width: 0, height: 0.58 },
-                    shadowOpacity: 0.17,
-                    shadowRadius: 1.16,
-                    elevation: 2 // For Android
-                  }}
-                >
-                  <Loan />
-                </View>
+              <TouchableOpacity onPress={() => router.push("/Loan")}>
+                <View className="flex-col gap-1 justify-center items-center">
+                  <View
+                    style={{
+                      width: 70, // Set the width according to the icon size
+                      height: 70, // Set the height according to the icon size
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "white",
+                      borderRadius: 50,
+                      shadowColor: "#0A0A0A",
+                      shadowOffset: { width: 0, height: 0.58 },
+                      shadowOpacity: 0.17,
+                      shadowRadius: 1.16,
+                      elevation: 2 // For Android
+                    }}
+                  >
+                    <Loan />
+                  </View>
 
-                <Text>Loan</Text>
-              </View>
-              </TouchableOpacity>
-              <View className="flex-col gap-1 justify-center items-center">
-                <View
-                  style={{
-                    width: 70, // Set the width according to the icon size
-                    height: 70, // Set the height according to the icon size
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "white",
-                    borderRadius: 50,
-                    shadowColor: "#0A0A0A",
-                    shadowOffset: { width: 0, height: 0.58 },
-                    shadowOpacity: 0.17,
-                    shadowRadius: 1.16,
-                    elevation: 2 // For Android
-                  }}
-                >
-                  <Invest />
+                  <Text>Loan</Text>
                 </View>
-                <Text>Invest</Text>
-              </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => router.push('/Invest')}>
+                <View className="flex-col gap-1 justify-center items-center">
+                  <View
+                    style={{
+                      width: 70, // Set the width according to the icon size
+                      height: 70, // Set the height according to the icon size
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "white",
+                      borderRadius: 50,
+                      shadowColor: "#0A0A0A",
+                      shadowOffset: { width: 0, height: 0.58 },
+                      shadowOpacity: 0.17,
+                      shadowRadius: 1.16,
+                      elevation: 2 // For Android
+                    }}
+                  >
+                    <Invest />
+                  </View>
+                  <Text>Invest</Text>
+                </View>
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => router.push("/More/MoreList")}>
                 <View className="flex-col gap-1 justify-center items-center">
                   <View

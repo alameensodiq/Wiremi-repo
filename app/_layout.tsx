@@ -111,6 +111,10 @@ export default function RootLayout() {
             name="Loan"
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="Invest"
+            options={{ headerShown: false }}
+          />
         </Stack>
         </SafeAreaProvider>
     //   </BottomSheetModalProvider>
