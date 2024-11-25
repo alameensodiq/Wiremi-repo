@@ -40,10 +40,9 @@ const TuitionFaculty = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const [checked, setChecked] = React.useState(true);
+  const [selectedIndex, setIndex] = React.useState<number>(0);
   const toggleCheckbox = () => setChecked(!checked);
   const router = useRouter();
-
-  const [selectedIndex, setIndex] = React.useState<number>(0);
   const ref2 = useRef<BottomSheetRef>(null);
   const ref3 = useRef<BottomSheetRef>(null);
 

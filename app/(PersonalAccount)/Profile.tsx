@@ -70,10 +70,12 @@ const Profile = () => {
               </View>
             </View>
             <View className="flex-col justify-end">
-              <View className="flex-row gap-1">
-                <Upgrade />
-                <Text className="text-white text-[12px]">Upgrade plan</Text>
-              </View>
+              <Pressable onPress={() => router.push("/Profiles/Upgrade")}>
+                <View className="flex-row gap-1">
+                  <Upgrade />
+                  <Text className="text-white text-[12px]">Upgrade plan</Text>
+                </View>
+              </Pressable>
             </View>
           </View>
         </View>
@@ -93,7 +95,7 @@ const Profile = () => {
               <Mark />
               <Text style={{ color: "#6F7071" }}>Account Information</Text>
             </View>
-            <Pressable onPress={() => router.push('/Profiles/ProfileInfo')}>
+            <Pressable onPress={() => router.push("/Profiles/ProfileInfo")}>
               <View className="flex-row justify-between items-center">
                 <View className="flex-row justify-start items-center gap-2">
                   <ProfInfo />
@@ -104,120 +106,148 @@ const Profile = () => {
                 <RightDarkCarat />
               </View>
             </Pressable>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <Kyc />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>
-                  Update KYC information
-                </Text>
+            <Pressable onPress={() => router.push("/Profiles/ProfileKyc")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <Kyc />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    Update KYC information
+                  </Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <ProfInfo />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>
-                  Payment settings
-                </Text>
+            </Pressable>
+            <Pressable onPress={() => router.push("/Profiles/PaymentSettings")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <ProfInfo />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    Payment settings
+                  </Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <Invite />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>
-                  Invite a friend
-                </Text>
+            </Pressable>
+            <Pressable onPress={() => router.push("/Profiles/InviteFriend")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <Invite />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    Invite a friend
+                  </Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
+            </Pressable>
           </View>
           <View className="flex-col gap-5">
             <View className="flex-row justify-start items-center">
               <Mark />
               <Text style={{ color: "#6F7071" }}>Finances</Text>
             </View>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <Transhist />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>
-                  Transaction history
-                </Text>
+            <Pressable onPress={() => router.push("/Profiles/TransactionHist")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <Transhist />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    Transaction history
+                  </Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <Wallet />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>Wallets</Text>
+            </Pressable>
+            <Pressable onPress={() => router.push("/Profiles/Wallet")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <Wallet />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    Wallets
+                  </Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
+            </Pressable>
           </View>
           <View className="flex-col gap-5">
             <View className="flex-row justify-start items-center">
               <Mark />
               <Text style={{ color: "#6F7071" }}>Security</Text>
             </View>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <Transhist />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>
-                  Transaction pin
-                </Text>
+            <Pressable onPress={() => router.push("/Profiles/TransactionPin")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <Transhist />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    Transaction pin
+                  </Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <Profchangepin />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>
-                  Change pincode
-                </Text>
+            </Pressable>
+            <Pressable onPress={() => router.push("/Profiles/ChangePin")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <Profchangepin />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    Change pincode
+                  </Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <Profbiometric />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>
-                  Biometrics
-                </Text>
+            </Pressable>
+            <Pressable onPress={() => router.push("/Profiles/Biometric")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <Profbiometric />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    Biometrics
+                  </Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <Proflang />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>Language</Text>
+            </Pressable>
+            <Pressable onPress={() => router.push("/Profiles/Language")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <Proflang />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    Language
+                  </Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <Proftheme />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>Theme</Text>
+            </Pressable>
+            <Pressable onPress={() => router.push("/Profiles/Theme")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <Proftheme />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>Theme</Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <Profhelp />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>
-                  Help & Support
-                </Text>
+            </Pressable>
+            <Pressable onPress={() => router.push("/Profiles/HelpSupport")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <Profhelp />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    Help & Support
+                  </Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
-            <View className="flex-row justify-between items-center">
-              <View className="flex-row justify-start items-center gap-2">
-                <Profabout />
-                <Text style={{ color: "#00091E", fontSize: 16 }}>
-                  About Wiremi
-                </Text>
+            </Pressable>
+            <Pressable onPress={() => router.push("/Profiles/About")}>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-row justify-start items-center gap-2">
+                  <Profabout />
+                  <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    About Wiremi
+                  </Text>
+                </View>
+                <RightDarkCarat />
               </View>
-              <RightDarkCarat />
-            </View>
+            </Pressable>
           </View>
           <View className="flex-col gap-5">
             <View className="flex-row justify-start items-center">
