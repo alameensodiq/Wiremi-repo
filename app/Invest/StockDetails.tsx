@@ -46,7 +46,7 @@ const StockDetails = () => {
         className="gap-2"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/Profile")}>
+          <TouchableOpacity onPress={() => router.push("/Invest/InvestDashboard")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Invest</Text>

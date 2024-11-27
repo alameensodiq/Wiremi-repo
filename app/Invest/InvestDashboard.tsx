@@ -125,7 +125,7 @@ const InvestDashboard = () => {
             />
             <ApplyFundraise
               title="Apply for fundraise"
-              onPress={() => router.push("/Save/SimulateSavings")}
+              onPress={() => router.push("/Invest/FundraiseInput")}
             />
           </View>
           <View className="flex-row items-center gap-2">
@@ -137,72 +137,86 @@ const InvestDashboard = () => {
             />
             <View className="flex-col gap-3">
               <View className="flex-col gap-2 justify-between">
-                <View className="flex-row items-center gap-2">
-                  <View
-                    style={{
-                      height: 50,
-                      width: 10,
-                      backgroundColor: "#105CE2",
-                      borderRadius: 2
-                    }}
-                  ></View>
-                  <View className="flex-col">
-                    <View className="flex-row items-center">
-                      <Text
-                        style={{ color: "#7B7B7B" }}
-                        className="text-[14px]"
-                      >
-                        Stocks
+                <TouchableOpacity
+                  onPress={() => router.push("/Invest/StockHistory")}
+                >
+                  <View className="flex-row items-center gap-2">
+                    <View
+                      style={{
+                        height: 50,
+                        width: 10,
+                        backgroundColor: "#105CE2",
+                        borderRadius: 2
+                      }}
+                    ></View>
+                    <View className="flex-col">
+                      <View className="flex-row items-center">
+                        <Text
+                          style={{ color: "#7B7B7B" }}
+                          className="text-[14px]"
+                        >
+                          Stocks
+                        </Text>
+                        <Decrease />
+                      </View>
+                      <Text className="text-[14px] font-bold">
+                        42% ($1,300)
                       </Text>
-                      <Decrease />
                     </View>
-                    <Text className="text-[14px] font-bold">42% ($1,300)</Text>
                   </View>
-                </View>
-                <View className="flex-row items-center gap-2">
-                  <View
-                    style={{
-                      height: 50,
-                      width: 10,
-                      backgroundColor: "#012461",
-                      borderRadius: 2
-                    }}
-                  ></View>
-                  <View className="flex-col">
-                    <View className="flex-row items-center">
-                      <Text
-                        style={{ color: "#7B7B7B" }}
-                        className="text-[14px]"
-                      >
-                        ETF’s
-                      </Text>
-                      <Increase />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => router.push("/Invest/StockHistory")}
+                >
+                  <View className="flex-row items-center gap-2">
+                    <View
+                      style={{
+                        height: 50,
+                        width: 10,
+                        backgroundColor: "#012461",
+                        borderRadius: 2
+                      }}
+                    ></View>
+                    <View className="flex-col">
+                      <View className="flex-row items-center">
+                        <Text
+                          style={{ color: "#7B7B7B" }}
+                          className="text-[14px]"
+                        >
+                          ETF’s
+                        </Text>
+                        <Increase />
+                      </View>
+                      <Text className="text-[14px] font-bold">25% ($900)</Text>
                     </View>
-                    <Text className="text-[14px] font-bold">25% ($900)</Text>
                   </View>
-                </View>
-                <View className="flex-row items-center gap-2">
-                  <View
-                    style={{
-                      height: 50,
-                      width: 10,
-                      backgroundColor: "#7507E3",
-                      borderRadius: 2
-                    }}
-                  ></View>
-                  <View className="flex-col">
-                    <View className="flex-row items-center">
-                      <Text
-                        style={{ color: "#7B7B7B" }}
-                        className="text-[14px]"
-                      >
-                        Wire ventures
-                      </Text>
-                      <Increase />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => router.push("/Invest/StockHistory")}
+                >
+                  <View className="flex-row items-center gap-2">
+                    <View
+                      style={{
+                        height: 50,
+                        width: 10,
+                        backgroundColor: "#7507E3",
+                        borderRadius: 2
+                      }}
+                    ></View>
+                    <View className="flex-col">
+                      <View className="flex-row items-center">
+                        <Text
+                          style={{ color: "#7B7B7B" }}
+                          className="text-[14px]"
+                        >
+                          Wire ventures
+                        </Text>
+                        <Increase />
+                      </View>
+                      <Text className="text-[14px] font-bold">33% ($800)</Text>
                     </View>
-                    <Text className="text-[14px] font-bold">33% ($800)</Text>
                   </View>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -231,46 +245,50 @@ const InvestDashboard = () => {
               showsVerticalScrollIndicator={false}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
-                <View
-                  className="flex-col gap-2"
-                  style={{
-                    borderBottomColor: "#EBEBEB",
-                    borderBottomWidth: 1,
-                    paddingBottom: 15
-                  }}
+                <TouchableOpacity
+                  onPress={() => router.push("/Invest/BuyandSell")}
                 >
-                  <View className="flex-row justify-between items-center">
-                    <View className="flex-row gap-1 items-start">
-                      <Apple />
-                      <View className="flex-col gap-2 items-start">
-                        <Text
-                          className="text-[12px]"
-                          style={{ color: "#00091E" }}
-                        >
-                          Apple (Apple Inc)
-                        </Text>
-                        <Text
-                          className="text-[12px]"
-                          style={{ color: "#6E6E6E" }}
-                        >
-                          3 Shares $284.90
-                        </Text>
+                  <View
+                    className="flex-col gap-2"
+                    style={{
+                      borderBottomColor: "#EBEBEB",
+                      borderBottomWidth: 1,
+                      paddingBottom: 15
+                    }}
+                  >
+                    <View className="flex-row justify-between items-center">
+                      <View className="flex-row gap-1 items-start">
+                        <Apple />
+                        <View className="flex-col gap-2 items-start">
+                          <Text
+                            className="text-[12px]"
+                            style={{ color: "#00091E" }}
+                          >
+                            Apple (Apple Inc)
+                          </Text>
+                          <Text
+                            className="text-[12px]"
+                            style={{ color: "#6E6E6E" }}
+                          >
+                            3 Shares $284.90
+                          </Text>
+                        </View>
                       </View>
-                    </View>
-                    <View className="flex-col justify-end items-end">
-                      <Text>$1,230.74</Text>
-                      <View className="flex-row">
-                        <Text
-                          style={{ color: "#00A85A" }}
-                          className="text-[10px]"
-                        >
-                          2.3%
-                        </Text>
-                        <Arrow />
+                      <View className="flex-col justify-end items-end">
+                        <Text>$1,230.74</Text>
+                        <View className="flex-row">
+                          <Text
+                            style={{ color: "#00A85A" }}
+                            className="text-[10px]"
+                          >
+                            2.3%
+                          </Text>
+                          <Arrow />
+                        </View>
                       </View>
                     </View>
                   </View>
-                </View>
+                </TouchableOpacity>
               )}
               // contentContainerStyle={{
               //     gap: 30

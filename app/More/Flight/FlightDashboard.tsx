@@ -39,7 +39,7 @@ const FlightDashboard = () => {
           style={{ height: height * 0.4, paddingHorizontal: width * 0.03 }}
         >
           <View className="flex-row justify-between items-center mb-1">
-            <TouchableOpacity onPress={() => router.push("/More")}>
+            <TouchableOpacity onPress={() => router.push("/More/MoreList")}>
               <Back />
             </TouchableOpacity>
             <Text className="text-[20px] text-white">Flight</Text>

@@ -12,6 +12,7 @@ const { height, width } = Dimensions.get("window");
 
 const ApplyFundraise = ({ title, onPress, color1 }: ApplyFundraiseProps) => {
   return (
+    <TouchableOpacity onPress={onPress} className="flex-row items-center">
     <View
       style={{
         height: height * 0.05,
@@ -22,11 +23,10 @@ const ApplyFundraise = ({ title, onPress, color1 }: ApplyFundraiseProps) => {
       }}
       className="text-white rounded-ten items-center justify-center flex-row"
     >
-      <TouchableOpacity onPress={onPress} className="flex-row items-center">
         <Fund />
         <Text className="font-bold text-[14px] text-white">{title}</Text>
-      </TouchableOpacity>
     </View>
+    </TouchableOpacity>
   );
 };
 

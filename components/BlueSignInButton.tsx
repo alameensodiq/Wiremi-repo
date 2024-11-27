@@ -6,6 +6,7 @@ interface LongButtonProps {
   title: string;
   color1?: boolean;
   reduce?: boolean;
+  black?: boolean;
 }
 
 const { height, width } = Dimensions.get("window");
@@ -14,19 +15,20 @@ const BlueSignInButton = ({
   title,
   onPress,
   color1,
-  reduce
+  reduce,
+  black
 }: LongButtonProps) => {
   return (
+    <TouchableOpacity onPress={onPress}>
     <View
       style={{
         height: height * 0.055,
         width: reduce ? width * 0.82 : width * 0.9
       }}
       className={`${
-        color1 ? "bg-white" : "bg-buttonprimary"
+        color1 ? "bg-white" : black  ? "bg-black" : "bg-buttonprimary"
       } rounded-ten items-center justify-center`}
     >
-      <TouchableOpacity onPress={onPress}>
         <Text
           className={`font-bold text-[14px] ${
             color1 ? "text-primary" : "text-white"
@@ -34,8 +36,8 @@ const BlueSignInButton = ({
         >
           {title}
         </Text>
-      </TouchableOpacity>
     </View>
+    </TouchableOpacity>
   );
 };
 

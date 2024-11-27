@@ -11,16 +11,16 @@ const { height, width } = Dimensions.get("window");
 
 const DarkLongButton = ({ onPress, color1 }: DarkLongButtonProps) => {
   return (
+    <TouchableOpacity onPress={onPress}>
     <View
       style={{ height: height * 0.055, width: width * 0.9, opacity: 0.2 }}
       className={`${
         color1 ? "bg-white" : "bg-black"
       } rounded-ten items-center justify-center`}
     >
-      <TouchableOpacity onPress={onPress}>
          <Pay />
-      </TouchableOpacity>
     </View>
+    </TouchableOpacity>
   );
 };
 

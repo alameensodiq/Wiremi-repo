@@ -66,10 +66,10 @@ const Dashboard = () => {
     <View className="flex-1 bg-buttonprimary">
       <StatusBar hidden={false} style="light" />
       <SafeAreaView style={{ flex: 1, marginTop: statusBarHeight }}>
-        <ScrollView
+        <View
           className="bg-white"
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 10 }}
+          // showsVerticalScrollIndicator={false}
+          // contentContainerStyle={{ paddingBottom: 10 }}
         >
           <View
             style={{
@@ -132,7 +132,8 @@ const Dashboard = () => {
           <View
             style={{
               paddingHorizontal: width * 0.05,
-              paddingTop: height * 0.02
+              paddingTop: height * 0.02,
+              height: height * 0.8
             }}
             className="text-[14px] gap-2"
           >
@@ -249,9 +250,9 @@ const Dashboard = () => {
               </Text>
               <Text className="text-buttonprimary text-[12px]">See all</Text>
             </View>
-            <View style={{ maxHeight: height * 0.8 }}>
+            <View style={{ height: height * 0.15  }}>
               <SectionList
-                scrollEnabled={false}
+                // scrollEnabled={false}
                 sections={DATA}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
@@ -307,7 +308,7 @@ const Dashboard = () => {
               />
             </View>
           </View>
-        </ScrollView>
+        </View>
       </SafeAreaView>
     </View>
   );

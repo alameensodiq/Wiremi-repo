@@ -20,8 +20,8 @@ import BlueSignInButton from "@/components/BlueSignInButton";
 const FlightDetails = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
-  const [number, setNumber] = useState<number>(0);
   const router = useRouter();
+  const [number, setNumber] = useState<number>(0);
   const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
   return (
     <ScrollView

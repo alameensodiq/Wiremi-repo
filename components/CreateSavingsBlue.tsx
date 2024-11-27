@@ -12,6 +12,7 @@ const { height, width } = Dimensions.get("window");
 
 const CreateSavingsBlue = ({ title, onPress, color1 }: CreateSavingsProps) => {
   return (
+    <TouchableOpacity onPress={onPress} className="flex-row items-center">
     <View
       style={{
         height: height * 0.05,
@@ -22,11 +23,10 @@ const CreateSavingsBlue = ({ title, onPress, color1 }: CreateSavingsProps) => {
       }}
       className="text-white rounded-ten items-center justify-center flex-row"
     >
-      <TouchableOpacity onPress={onPress} className="flex-row items-center">
         <Simulate />
         <Text className="font-bold text-[14px] text-white">{title}</Text>
-      </TouchableOpacity>
     </View>
+    </TouchableOpacity>
   );
 };
 

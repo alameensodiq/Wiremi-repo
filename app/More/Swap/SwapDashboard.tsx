@@ -68,7 +68,7 @@ const SwapDashboard = () => {
         className="gap-3"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/More")}>
+          <TouchableOpacity onPress={() => router.push("/More/MoreList")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Swap</Text>

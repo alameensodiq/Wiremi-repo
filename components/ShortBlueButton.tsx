@@ -5,22 +5,23 @@ interface ShortBlueButtonProps {
   onPress: () => void;
   title: string;
   color1?: boolean;
+  black?: boolean;
 }
 
 const { height, width } = Dimensions.get("window");
 
-const ShortBlueButton = ({ title, onPress, color1 }: ShortBlueButtonProps) => {
+const ShortBlueButton = ({ title, onPress, color1, black }: ShortBlueButtonProps) => {
   return (
+    <TouchableOpacity onPress={onPress}>
     <View
       style={{ height: height * 0.05, width: width * 0.4 }}
-      className="bg-buttonprimary rounded-ten items-center justify-center"
+      className={`${ black ? "bg-black" : 'bg-buttonprimary'} rounded-ten items-center justify-center`}
     >
-      <TouchableOpacity onPress={onPress}>
         <Text className="font-bold text-[14px] text-white">
           {title}
         </Text>
-      </TouchableOpacity>
     </View>
+    </TouchableOpacity>
   );
 };
 

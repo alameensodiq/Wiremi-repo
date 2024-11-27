@@ -52,8 +52,8 @@ const SearchFlights = () => {
             <Text className="text-[20px] text-white">Result search</Text>
             <Text></Text>
           </View>
-          <View className="flex-row justify-between items-center px-3 mt-3">
-            <View className="flex-col justify-between gap-2">
+          <View  className="flex-row justify-between items-center px-2 mt-3">
+            <View className="flex-col justify-between">
               <Text style={{ color: "#FFFFFF", fontSize: 13 }}>07:00AM</Text>
               <Text style={{ color: "#FFFFFF", fontSize: 10 }}>
                 Alaska United States
@@ -66,9 +66,9 @@ const SearchFlights = () => {
                 </Text>
               </View>
               <View className="flex-row items-center gap-2">
-                <Text style={{ color: "#777A7E" }}>--------------</Text>
+                <Text style={{ color: "#777A7E" }}>---</Text>
                 <FlightLogo />
-                <Text style={{ color: "#777A7E" }}>--------------</Text>
+                <Text style={{ color: "#777A7E" }}>---</Text>
               </View>
               <View>
                 <Text style={{ color: "#FFFFFF", fontSize: 10 }}>
@@ -76,7 +76,7 @@ const SearchFlights = () => {
                 </Text>
               </View>
             </View>
-            <View className="flex-col justify-between gap-2">
+            <View className="flex-col justify-between">
               <Text style={{ color: "#FFFFFF", fontSize: 13 }}>07:00AM</Text>
               <Text style={{ color: "#FFFFFF", fontSize: 10 }}>
                 Banda Badru

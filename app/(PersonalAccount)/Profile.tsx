@@ -34,19 +34,21 @@ const Profile = () => {
   return (
     <ScrollView
       className="flex-1"
-      style={{ backgroundColor: "#105CE2" }}
+      style={{ backgroundColor: "#105CE2", height: height }}
       showsVerticalScrollIndicator={false}
     >
       <StatusBar hidden={false} style="light" />
       <SafeAreaView
         style={{
           flex: 1,
-          marginTop: statusBarHeight
+          marginTop: statusBarHeight,
+          height: height 
           // paddingHorizontal: width * 0.03
         }}
         className="gap-1"
       >
-        <View
+       <ScrollView  showsVerticalScrollIndicator={false} style={{height: height * 0.9}}>
+       <View
           style={{
             height: height * 0.15,
             backgroundColor: "#105CE2",
@@ -87,7 +89,8 @@ const Profile = () => {
             borderTopRightRadius: 40,
             paddingHorizontal: width * 0.03,
             paddingVertical: height * 0.05,
-            gap: 50
+            gap: 50,
+            height: height
           }}
         >
           <View className="flex-col gap-5">
@@ -256,6 +259,7 @@ const Profile = () => {
             </View>
           </View>
         </View>
+       </ScrollView>
       </SafeAreaView>
     </ScrollView>
   );

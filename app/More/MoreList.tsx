@@ -61,7 +61,7 @@ const MoreList = () => {
           <Text className="text-[20px] text-pagetitle">More</Text>
           <Text></Text>
         </View>
-        <View className="flex-row items-center justify-between">
+        <View className="flex-row px-2 items-center justify-between">
           <TouchableOpacity
             onPress={() => router.push("/More/Crypto/CryptoDashboard")}
           >
@@ -110,7 +110,7 @@ const MoreList = () => {
               <Text>Escrow</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/More/Flight")}>
+          <TouchableOpacity onPress={() => router.push("/More/Flight/FlightDashboard")}>
           <View className="flex-col gap-1 justify-center items-center">
             <View
               style={{
@@ -157,9 +157,9 @@ const MoreList = () => {
             </View>
           </TouchableOpacity>
         </View>
-        <View className="flex-row items-center justify-start">
-          <TouchableOpacity onPress={() => router.push("/More/PayQr")}>
-            <View className="flex-col gap-1 justify-center items-center mr-8">
+        <View className="flex-row px-2 items-center justify-between">
+          <TouchableOpacity onPress={() => router.push("/More/PayQr/PayQrScan")}>
+            <View className="flex-col gap-1 justify-center items-center">
               <View
                 style={{
                   width: 70, // Set the width according to the icon size
@@ -180,8 +180,8 @@ const MoreList = () => {
               <Text>Pay QR</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/More/Swap")}>
-            <View className="flex-col gap-1 justify-center items-center mr-8">
+          <TouchableOpacity onPress={() => router.push("/More/Swap/SwapDashboard")}>
+            <View className="flex-col gap-1 justify-center items-center">
               <View
                 style={{
                   width: 70, // Set the width according to the icon size
@@ -224,8 +224,8 @@ const MoreList = () => {
               <Text>Agents</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/More/Tuition")}>
-            <View className="flex-col gap-1 justify-center items-center ml-8">
+          <TouchableOpacity onPress={() => router.push("/More/Tuition/TuitionDashboard")}>
+            <View className="flex-col gap-1 justify-center items-center">
               <View
                 style={{
                   width: 70, // Set the width according to the icon size
