@@ -32,10 +32,10 @@ const Profile = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   return (
-    <ScrollView
+    <View
       className="flex-1"
-      style={{ backgroundColor: "#105CE2", height: height }}
-      showsVerticalScrollIndicator={false}
+      style={{ backgroundColor: "#105CE2"}}
+      // showsVerticalScrollIndicator={false}
     >
       <StatusBar hidden={false} style="light" />
       <SafeAreaView
@@ -47,7 +47,7 @@ const Profile = () => {
         }}
         className="gap-1"
       >
-       <ScrollView  showsVerticalScrollIndicator={false} style={{height: height * 0.9}}>
+       <ScrollView  showsVerticalScrollIndicator={false} style={{height: height}}>
        <View
           style={{
             height: height * 0.15,
@@ -261,7 +261,7 @@ const Profile = () => {
         </View>
        </ScrollView>
       </SafeAreaView>
-    </ScrollView>
+    </View>
   );
 };
 
