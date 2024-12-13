@@ -1,17 +1,13 @@
 import {
   View,
   Text,
-  ImageBackground,
-  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
   TouchableOpacity,
   ScrollView,
   Pressable,
-  Modal,
   SectionList,
-  FlatList
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { useRouter } from "expo-router";
@@ -19,7 +15,6 @@ import Back from "../../assets/Back.svg";
 import Loantick from "../../assets/loantick.svg";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { BarChart } from "react-native-gifted-charts";
 import { BottomSheet } from "@/components/Bottom";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import WhiteSignInButton from "@/components/WhiteSignInButton";

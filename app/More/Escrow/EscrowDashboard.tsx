@@ -162,7 +162,7 @@ const EscrowDashboard = () => {
                 onPress={() => router.push('/More/Escrow/EscrowTypes')}
               />
             </View>
-            <View className="flex-row justify-between items-center px-4 mt-4">
+            <View className="flex-row justify-between items-center px-6 mt-4">
               <Text
                 style={{ color: "#00091E" }}
                 className="text-[14px] font-bold"
@@ -179,7 +179,7 @@ const EscrowDashboard = () => {
               style={{
                 height: height * 0.5,
                 marginTop: 20,
-                paddingHorizontal: 20
+                paddingHorizontal: width * 0.07
               }}
             >
               <FlatList

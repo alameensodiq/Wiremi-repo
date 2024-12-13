@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   TouchableOpacity
@@ -12,6 +11,7 @@ import BlueSignInButton from "@/components/BlueSignInButton";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import Back from "../assets/Back.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const MainForgotConfirmSixDigit = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;

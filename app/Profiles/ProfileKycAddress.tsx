@@ -1,8 +1,6 @@
 import {
     View,
     Text,
-    ImageBackground,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     Platform,
@@ -10,6 +8,7 @@ import {
   } from "react-native";
   import React, { useRef } from "react";
   import { useRouter } from "expo-router";
+  import { SafeAreaView } from "react-native-safe-area-context";
   import Back from "../../assets/Back.svg";
   import { StatusBar } from "expo-status-bar";
   import BlueSignInButton from "@/components/BlueSignInButton";
@@ -18,16 +17,6 @@ import {
   import TextLabelBox from "@/components/TextLabelBox";
   import { CheckBox } from "@rneui/themed";
   import { BottomSheet } from "@/components/Bottom";
-  import Royal from "../../assets/royalbank.svg";
-  import Chase from "../../assets/chase.svg";
-  import BankAmerica from "../../assets/bankamerica.svg";
-  import Barclays from "../../assets/barclays.svg";
-  import HSBC from "../../assets/hsbc.svg";
-  import TDBANK from "../../assets/tdbank.svg";
-  import Scotia from "../../assets/scotiabank.svg";
-  import BMO from "../../assets/bmo.svg";
-  import SearchLabelBox from "@/components/SearchLabelBox";
-  import Wire from "../../assets/wire.svg";
   import TuitionProfile from "../../assets/tuitionprofile.svg";
   
   type BottomSheetRef = {

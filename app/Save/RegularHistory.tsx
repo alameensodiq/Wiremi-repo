@@ -15,11 +15,8 @@ import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import { useRef } from "react";
-import SendMoneyWiremi from "../../assets/sendmoneywiremi.svg";
-import Filter from "../../assets/filter.svg";
 import SearchLabelBox from "@/components/SearchLabelBox";
 import Card from '../../assets/historycard.svg'
-import NotificationSearchLabel from "@/components/NotificaionSearchLabel";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type BottomSheetRef = {

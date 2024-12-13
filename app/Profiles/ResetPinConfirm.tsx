@@ -1,7 +1,6 @@
 import {
     View,
     Text,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     TouchableOpacity,
@@ -9,6 +8,7 @@ import {
   } from "react-native";
   import React from "react";
   import SixDigits from "@/components/SixDigits";
+  import { SafeAreaView } from "react-native-safe-area-context";
   import BlueSignInButton from "@/components/BlueSignInButton";
   import { StatusBar } from "expo-status-bar";
   import { useRouter } from "expo-router";

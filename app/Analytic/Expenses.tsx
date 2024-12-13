@@ -1,11 +1,8 @@
 import {
   View,
   Text,
-  ImageBackground,
-  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity
 } from "react-native";
 import React, { useRef } from "react";
@@ -13,14 +10,7 @@ import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import PieChart from "react-native-pie-chart";
-import RightCarat from "../../assets/rightcarat.svg";
-import BlueSignInButton from "@/components/BlueSignInButton";
-import TransactionTextLabel from "@/components/TransactionTextLabel";
-
-import TextLabelBox from "@/components/TextLabelBox";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { BottomSheet } from "@/components/Bottom";
-import WhiteSignInButton from "@/components/WhiteSignInButton";
 
 type BottomSheetRef = {
   open: () => void;
@@ -55,7 +45,7 @@ const Expenses = () => {
         className="gap-4"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/Analytics")}>
+          <TouchableOpacity onPress={() => router.push("/(PersonalAccount)/Analytics")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Expenses</Text>

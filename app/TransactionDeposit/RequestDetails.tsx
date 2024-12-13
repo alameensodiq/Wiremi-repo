@@ -1,8 +1,6 @@
 import {
     View,
     Text,
-    ImageBackground,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     Platform,
@@ -11,9 +9,8 @@ import {
   import React from "react";
   import { useRouter } from "expo-router";
   import Back from "../../assets/Back.svg";
+  import { SafeAreaView } from "react-native-safe-area-context";
   import { StatusBar } from "expo-status-bar";
-  import Cards from "../../assets/cards.svg";
-  import Rightcarat from "../../assets/rightcarat.svg";
   import BlueSignInButton from "@/components/BlueSignInButton";
   import TransactionTextLabel from "@/components/TransactionTextLabel";
 import TextLabelBox from "@/components/TextLabelBox";

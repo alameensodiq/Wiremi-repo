@@ -2,7 +2,6 @@ import {
   View,
   Text,
   ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -15,16 +14,13 @@ import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import BlueSignInButton from "@/components/BlueSignInButton";
+import { SafeAreaView } from "react-native-safe-area-context";
 import TransactionTextLabel from "@/components/TransactionTextLabel";
 import TransparentSelectButton from "@/components/TransparentSelectButton";
 import TextLabelBox from "@/components/TextLabelBox";
 import { CheckBox } from "@rneui/themed";
 import { BottomSheet } from "@/components/Bottom";
 import Calendar from "../../assets/calendar.svg";
-import Cards from "../../assets/savingscard.svg";
-import Bank from "../../assets/savingsbank.svg";
-import Momo from "../../assets/savingsmomo.svg";
-import Wiremi from "../../assets/savingswiremi.svg";
 import { FlatList } from "react-native";
 import Rotary from "../../assets/rotarysavings.svg";
 import Warning from "../../assets/warningsavings.svg";

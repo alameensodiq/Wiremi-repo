@@ -14,9 +14,7 @@ import BlueSignInButton from "@/components/BlueSignInButton";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import Pending from "../../assets/pendingsuccess.svg";
-import Rejected from "../../assets/rejectedsuccess.svg";
 import Approved from "../../assets/approvedsuccess.svg";
-import SixDigits from "@/components/SixDigits";
 
 const LoanStatus = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;

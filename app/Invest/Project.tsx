@@ -4,11 +4,10 @@ import {
   StatusBar as RNStatusBar,
   Dimensions,
   TouchableOpacity,
-  Image,
   Pressable
 } from "react-native";
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
@@ -17,11 +16,7 @@ import Dollar from "../../assets/dollarinvest.svg";
 import Profile from "../../assets/profileinvest.svg";
 import Days from "../../assets/daysinvest.svg";
 import Lonely from "../../assets/lonely.svg";
-import ShortBlueButton from "@/components/ShortBlueButton";
-import ShortWhiteButton from "@/components/ShortWhiteButton";
-import BlueSignInButton from "@/components/BlueSignInButton";
 import InvestNow from "@/components/InvestNow";
-import ApplyFundraise from "@/components/ApplyFundraise";
 import { FlatList } from "react-native";
 
 const Project = () => {

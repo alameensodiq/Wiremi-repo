@@ -1,8 +1,6 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -16,6 +14,7 @@ import PayNumber from "../../assets/paynumber.svg";
 import BankHouse from "../../assets/bankhouse.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import Copyname from "../../assets/copyname.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const BankDepositSummary = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;

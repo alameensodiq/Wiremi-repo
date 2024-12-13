@@ -1,11 +1,8 @@
 import {
     View,
     Text,
-    ImageBackground,
-    // SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
-    Platform,
     TouchableOpacity,
     ScrollView,
     Pressable,
@@ -15,17 +12,10 @@ import {
   import { useRouter } from "expo-router";
   import Back from "../../assets/Back.svg";
   import { StatusBar } from "expo-status-bar";
-  import Actions from "../../assets/actions.svg";
   import Decrease from "../../assets/Arrowdown.svg";
-  import EditInstance from "../../assets/editinstance.svg";
   import SaveWithdraw from "../../assets/savewithdraw.svg";
   import SaveHistory from "../../assets/savehistory.svg";
-  import Drop from "../../assets/calendardrop.svg";
-  import Cakecalendar from "../../assets/cakecalendar.svg";
-  import Rightdrop from "../../assets/rightdrop.svg";
-  import Leftdrop from "../../assets/leftdrop.svg";
   import { SafeAreaView } from "react-native-safe-area-context";
-  import { BarChart } from "react-native-gifted-charts";
   import { BottomSheet } from "@/components/Bottom";
   import BlueSignInButton from "@/components/BlueSignInButton";
   import WhiteSignInButton from "@/components/WhiteSignInButton";

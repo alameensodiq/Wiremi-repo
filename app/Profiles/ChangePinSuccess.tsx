@@ -10,10 +10,7 @@ import {
   import { SafeAreaView } from "react-native";
   import { StatusBar } from "expo-status-bar";
   import { useRouter } from "expo-router";
-  import Back from "../../assets/Back.svg";
   import Forgotsuccess from "../../assets/forgotsuccess.svg";
-  import ShortBlueButton from "@/components/ShortBlueButton";
-  import ShortWhiteButton from "@/components/ShortWhiteButton";
   import BlueSignInButton from "@/components/BlueSignInButton";
   
   const ChangePinSuccess = () => {

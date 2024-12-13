@@ -4,22 +4,13 @@ import {
   StatusBar as RNStatusBar,
   Dimensions,
   TouchableOpacity,
-  FlatList,
-  Pressable,
   ScrollView
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Back from "../../assets/whiteback.svg";
-import Escrowtick from "../../assets/escrowtick.svg";
-import EscrowCircle from "../../assets/escrowcircle.svg";
-import Double from "../../assets/doublecarat.svg";
-import Right from "../../assets/rightcarat.svg";
 import { useRouter } from "expo-router";
 import BlueSignInButton from "@/components/BlueSignInButton";
-import ShortBlueButton from "@/components/ShortBlueButton";
-import ShortWhiteButton from "@/components/ShortWhiteButton";
 import { BottomSheet } from "@/components/Bottom";
 import WhiteSignInButton from "@/components/WhiteSignInButton";
 import { ImageBackground } from "expo-image";

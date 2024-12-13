@@ -1,13 +1,13 @@
 import {
     View,
     Text,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     TouchableOpacity,
     Pressable
   } from "react-native";
   import React from "react";
+  import { SafeAreaView } from "react-native-safe-area-context";
   import SixDigits from "@/components/SixDigits";
   import BlueSignInButton from "@/components/BlueSignInButton";
   import { StatusBar } from "expo-status-bar";

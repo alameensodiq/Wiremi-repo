@@ -13,7 +13,6 @@ import Acceptedsuccess from "../../assets/forgotsuccess.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
-import SixDigits from "@/components/SixDigits";
 
 const LoanPayment = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;

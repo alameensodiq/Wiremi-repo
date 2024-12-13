@@ -1,8 +1,6 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -14,15 +12,14 @@ import { useRouter } from "expo-router";
 import Back from "../../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import BlueSignInButton from "@/components/BlueSignInButton";
-import TransactionTextLabel from "@/components/TransactionTextLabel";
 import TransparentSelectButton from "@/components/TransparentSelectButton";
 import TextLabelBox from "@/components/TextLabelBox";
-import { CheckBox } from "@rneui/themed";
 import { BottomSheet } from "@/components/Bottom";
 import TetherCrypto from "../../../assets/tethercrypto.svg";
 import TronCrypto from "../../../assets/troncrypto.svg";
 import SolanaCrypto from "../../../assets/solanacrypto.svg";
 import SearchLabelBox from "@/components/SearchLabelBox";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type BottomSheetRef = {
   open: () => void;

@@ -1,11 +1,8 @@
 import {
     View,
     Text,
-    ImageBackground,
-    // SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
-    Platform,
     TouchableOpacity
   } from "react-native";
   import React, { useRef } from "react";
@@ -14,11 +11,7 @@ import {
   import { StatusBar } from "expo-status-bar";
   import BlueSignInButton from "@/components/BlueSignInButton";
   import TransactionTextLabel from "@/components/TransactionTextLabel";
-  
-  import TextLabelBox from "@/components/TextLabelBox";
   import { SafeAreaView } from "react-native-safe-area-context";
-  import { BottomSheet } from "@/components/Bottom";
-  import WhiteSignInButton from "@/components/WhiteSignInButton";
   
   type BottomSheetRef = {
     open: () => void;
@@ -46,7 +39,7 @@ import {
         >
           <View className="flex-row justify-between items-center mb-1">
             <TouchableOpacity
-              onPress={() => router.push("/Analytics")}
+              onPress={() => router.push("/(PersonalAccount)/Analytics")}
             >
               <Back />
             </TouchableOpacity>

@@ -1,11 +1,8 @@
 import {
     View,
     Text,
-    ImageBackground,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
-    Platform,
     TouchableOpacity,
     ScrollView
   } from "react-native";
@@ -15,6 +12,7 @@ import {
   import { StatusBar } from "expo-status-bar";
   import BlueSignInButton from "@/components/BlueSignInButton";
   import CardDigits from "@/components/CardDigits";
+  import { SafeAreaView } from "react-native-safe-area-context";
   
   type BottomSheetRef = {
     open: () => void;

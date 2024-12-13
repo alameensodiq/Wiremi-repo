@@ -1,12 +1,22 @@
 import { View, Text } from "react-native";
-import React from "react";
-import { Tabs } from "expo-router";
+import React, { useEffect } from "react";
+import { Redirect, Tabs } from "expo-router";
 import CardIcon from "../../components/CardIcon";
 import HomeIcon from "@/components/HomeIcon";
 import AnalyticsIcon from "@/components/AnalyticsIcon";
 import ProfileIcon from "@/components/ProfileIcon";
+import { useAppContext } from "@/Context/useAppContext";
 
 const TabsLayout = () => {
+  const {isAuthenticated, checkUser} = useAppContext()
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+  if (isAuthenticated === undefined){
+    return <Redirect href="/SignInPage" />;
+  }
+
   return (
     <Tabs
       screenOptions={{

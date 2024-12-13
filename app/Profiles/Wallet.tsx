@@ -1,8 +1,6 @@
 import {
   View,
   Text,
-  ImageBackground,
-  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -13,17 +11,11 @@ import {
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
-import PayName from "../../assets/payname.svg";
-import PayNumber from "../../assets/paynumber.svg";
-import BankHouse from "../../assets/bankhouse.svg";
-import BlueSignInButton from "@/components/BlueSignInButton";
-import On from "../../assets/on.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRef, useState } from "react";
 import { BottomSheet } from "@/components/Bottom";
 import Pluswallet from "../../assets/pluswallet.svg";
 import Usa from "../../assets/usa.svg";
-import FourDigits from "@/components/FourDigits";
 import { FlatList } from "react-native";
 import { CheckBox } from "@rneui/themed";
 

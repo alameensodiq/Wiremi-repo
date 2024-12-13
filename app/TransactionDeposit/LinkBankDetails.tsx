@@ -1,8 +1,6 @@
 import {
     View,
     Text,
-    ImageBackground,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     Platform,
@@ -12,10 +10,9 @@ import {
   import { useRouter } from "expo-router";
   import Back from "../../assets/Back.svg";
   import { StatusBar } from "expo-status-bar";
-  import Cards from "../../assets/cards.svg";
-  import Rightcarat from "../../assets/rightcarat.svg";
   import BlueSignInButton from "@/components/BlueSignInButton";
   import TransactionTextLabel from "@/components/TransactionTextLabel";
+  import { SafeAreaView } from "react-native-safe-area-context";
   
   const LinkBankDetails = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;

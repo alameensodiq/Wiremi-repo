@@ -7,14 +7,12 @@ import {
   Image
 } from "react-native";
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import Back from "../../../assets/Back.svg";
 import AgentApprove from "../../../assets/agentapproval.svg";
 import AgentPending from "../../../assets/agentpending.svg";
-import ShortBlueButton from "@/components/ShortBlueButton";
-import ShortWhiteButton from "@/components/ShortWhiteButton";
 import BlueSignInButton from "@/components/BlueSignInButton";
 
 const AgentApproval = () => {

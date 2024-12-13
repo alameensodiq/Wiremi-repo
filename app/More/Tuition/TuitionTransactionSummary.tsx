@@ -1,11 +1,8 @@
 import {
   View,
   Text,
-  ImageBackground,
-  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
   ScrollView
 } from "react-native";
@@ -23,6 +20,7 @@ import { BottomSheet } from "@/components/Bottom";
 import Redrightcarat from "../../../assets/redrightcarat.svg";
 import Fingerprint from "../../../assets/fingerprint.svg";
 import FourDigits from "@/components/FourDigits";
+
 
 type BottomSheetRef = {
   open: () => void;

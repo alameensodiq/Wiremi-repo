@@ -1,14 +1,10 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
   ScrollView,
-  Pressable
 } from "react-native";
 import React, { useRef } from "react";
 import { useRouter } from "expo-router";
@@ -21,6 +17,7 @@ import Fingerprint from "../../../assets/fingerprint.svg";
 import FourDigits from "@/components/FourDigits";
 import { StatusBar } from "expo-status-bar";
 import { BottomSheet } from "@/components/Bottom";
+import { SafeAreaView } from "react-native-safe-area-context";
 import BlueSignInButton from "@/components/BlueSignInButton";
 
 type BottomSheetRef = {
@@ -60,7 +57,7 @@ const PayQrAmountPay = () => {
         className="gap-3"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/More")}>
+          <TouchableOpacity onPress={() => router.push("/More/PayQr/PayQrScan")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Pay QR</Text>

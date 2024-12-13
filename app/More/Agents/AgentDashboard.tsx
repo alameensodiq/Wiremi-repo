@@ -1,14 +1,10 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
   SectionList,
-  ScrollView,
   Pressable
 } from "react-native";
 import React, { useRef } from "react";
@@ -23,23 +19,11 @@ import AgentTransfer from "../../../assets/agenttransfer.svg";
 import AgentWithdrawal from "../../../assets/agentwithdrawal.svg";
 import Ladypics from "../../../assets/ladypics.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
-import TransactionTextLabel from "@/components/TransactionTextLabel";
-import TransparentSelectButton from "@/components/TransparentSelectButton";
 import TextLabelBox from "@/components/TextLabelBox";
-import { CheckBox } from "@rneui/themed";
 import { BottomSheet } from "@/components/Bottom";
-import Royal from "../../../assets/royalbank.svg";
-import Chase from "../../../assets/chase.svg";
-import BankAmerica from "../../../assets/bankamerica.svg";
-import HSBC from "../../../assets/hsbc.svg";
-import TDBANK from "../../../assets/tdbank.svg";
-import Scotia from "../../../assets/scotiabank.svg";
-import BMO from "../../../assets/bmo.svg";
-import SearchLabelBox from "@/components/SearchLabelBox";
-import Wire from "../../../assets/wire.svg";
-import TuitionProfile from "../../../assets/tuitionprofile.svg";
 import GradientBackground from "@/components/GradientBackground";
 import TextLabelBoxBarcode from "@/components/TextLabelBoxBarcode";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type BottomSheetRef = {
   open: () => void;
@@ -100,7 +84,7 @@ const AgentDashboard = () => {
         className="gap-3"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/More")}>
+          <TouchableOpacity onPress={() => router.push("/More/MoreList")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Agents</Text>
@@ -203,7 +187,7 @@ const AgentDashboard = () => {
                 </View>
               </GradientBackground>
             </View>
-            <View className="flex-row items-center justify-between">
+            <View className="flex-row items-center justify-between px-2">
               <Text className="text-darktext text-[14px] font-bold">
                 Recent Transactions
               </Text>
@@ -212,7 +196,7 @@ const AgentDashboard = () => {
               </Pressable>
             </View>
           </View>
-          <View style={{ height: height * 0.4, paddingTop: 10 }}>
+          <View className="px-2" style={{ height: height * 0.4, paddingTop: 10 }}>
             <SectionList
               sections={DATA}
               showsHorizontalScrollIndicator={false}

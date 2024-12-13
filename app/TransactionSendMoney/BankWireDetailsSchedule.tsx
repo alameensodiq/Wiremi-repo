@@ -1,8 +1,6 @@
 import {
     View,
     Text,
-    ImageBackground,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     Platform,
@@ -17,17 +15,8 @@ import {
   import TransactionTextLabel from "@/components/TransactionTextLabel";
   import TransparentSelectButton from "@/components/TransparentSelectButton";
   import TextLabelBox from "@/components/TextLabelBox";
-  import { CheckBox } from "@rneui/themed";
-  import { BottomSheet } from "@/components/Bottom";
-  import Royal from "../../assets/royalbank.svg";
-  import Chase from "../../assets/chase.svg";
-  import BankAmerica from "../../assets/bankamerica.svg";
-  import Barclays from "../../assets/barclays.svg";
-  import HSBC from "../../assets/hsbc.svg";
-  import TDBANK from "../../assets/tdbank.svg";
-  import Scotia from "../../assets/scotiabank.svg";
-  import BMO from "../../assets/bmo.svg";
-  import SearchLabelBox from "@/components/SearchLabelBox";
+  import { SafeAreaView } from "react-native-safe-area-context";
+
   
   type BottomSheetRef = {
     open: () => void;

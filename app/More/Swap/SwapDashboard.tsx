@@ -1,11 +1,8 @@
 import {
   View,
   Text,
-  ImageBackground,
-//   SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity
 } from "react-native";
 import React, { useRef } from "react";

@@ -14,7 +14,6 @@ import {
   import { StatusBar } from "expo-status-bar";
   import BlueSignInButton from "@/components/BlueSignInButton";
   import TransactionTextLabel from "@/components/TransactionTextLabel";
-  
   import TextLabelBox from "@/components/TextLabelBox";
   import { SafeAreaView } from "react-native-safe-area-context";
   

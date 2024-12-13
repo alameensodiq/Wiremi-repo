@@ -1,23 +1,17 @@
 import {
   View,
   Text,
-  ImageBackground,
-  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
   TouchableOpacity,
-  ScrollView,
-  FlatList,
   SectionList
 } from "react-native";
 import { useRouter } from "expo-router";
 import Back from "../../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import { useRef } from "react";
-import SendMoneyWiremi from "../../../assets/sendmoneywiremi.svg";
 import Filter from "../../../assets/filter.svg";
-import SearchLabelBox from "@/components/SearchLabelBox";
 import NotificationSearchLabel from "@/components/NotificaionSearchLabel";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FlightLogo from "../../../assets/flightlogo.svg";
@@ -49,7 +43,7 @@ const AllFlights = () => {
     }
   ];
   return (
-    <View style={{ backgroundColor: "#ffffff" }} className="flex-1">
+    <View style={{ backgroundColor: "#ffffff" }} className="flex-1 px-2">
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{

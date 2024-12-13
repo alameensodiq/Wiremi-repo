@@ -1,23 +1,16 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
-  TouchableOpacity,
   ScrollView,
-  Pressable
 } from "react-native";
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
-import Back from "../../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
-import Cards from "../../../assets/cards.svg";
 import Virtual from "../../assets/virtualcard.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
-import TransactionTextLabel from "@/components/TransactionTextLabel";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const VirtualCard = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;

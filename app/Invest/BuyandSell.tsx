@@ -1,13 +1,9 @@
 import {
   View,
   Text,
-  ImageBackground,
-  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
-  ScrollView,
   FlatList,
   Pressable
 } from "react-native";
@@ -17,9 +13,6 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRef, useState } from "react";
 import Tesla from "../../assets/tesladetails.svg";
-import NotConfirm from "../../assets/Notconfirm.svg";
-import BlueSignInButton from "@/components/BlueSignInButton";
-import ShortWhiteButton from "@/components/ShortWhiteButton";
 import ShortBlueButton from "@/components/ShortBlueButton";
 import { LineChart } from "react-native-gifted-charts";
 

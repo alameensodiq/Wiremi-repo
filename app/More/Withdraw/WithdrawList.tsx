@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   TouchableOpacity
@@ -10,6 +9,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { useRouter } from "expo-router";
 import Back from "../../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 import SendMoneyAccount from "../../../assets/sendmoneyaccount.svg";
 import Interac from "../../../assets/interac.svg";
 import Venmo from "../../../assets/venmo.svg";

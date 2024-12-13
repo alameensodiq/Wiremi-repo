@@ -12,19 +12,10 @@ import {
   import { useRouter } from "expo-router";
   import Back from "../../assets/Back.svg";
   import { StatusBar } from "expo-status-bar";
-  import PayName from "../../assets/payname.svg";
-  import PayNumber from "../../assets/paynumber.svg";
-  import BankHouse from "../../assets/bankhouse.svg";
   import BlueSignInButton from "@/components/BlueSignInButton";
   import Copyname from "../../assets/copyname.svg";
   import { SafeAreaView } from "react-native-safe-area-context";
   import { useRef } from "react";
-  import { BottomSheet } from "@/components/Bottom";
-  import Redrightcarat from "../../assets/redrightcarat.svg";
-  import Fingerprint from "../../assets/fingerprint.svg";
-  import Profileinfopics from "../../assets/profileinfopics.svg";
-  import FourDigits from "@/components/FourDigits";
-  import TextLabelBox from "@/components/TextLabelBox";
   import SelectAndText from "@/components/SelectAndText";
   
   type BottomSheetRef = {

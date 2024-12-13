@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  SafeAreaView,
   ImageBackground,
   TouchableOpacity,
   Dimensions,
@@ -12,6 +11,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 import LandingPageImage from "../assets/LandingScreen.png";
 import LandingGroup from "../assets/LandGroup.png";
 import downcarat from "../assets/downcarat.png";

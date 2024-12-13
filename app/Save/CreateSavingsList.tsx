@@ -2,7 +2,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   ScrollView
@@ -13,6 +12,7 @@ import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import Message from "../../assets/messageicon.svg";
 import RightCarat from "../../assets/rightcarat.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const CreateSavingsList = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;

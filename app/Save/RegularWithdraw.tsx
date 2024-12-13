@@ -14,8 +14,6 @@ import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import TransactionTextLabel from "@/components/TransactionTextLabel";
-
-import TextLabelBox from "@/components/TextLabelBox";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BottomSheet } from "@/components/Bottom";
 import WhiteSignInButton from "@/components/WhiteSignInButton";

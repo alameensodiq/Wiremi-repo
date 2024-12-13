@@ -4,8 +4,6 @@ import {
   StatusBar as RNStatusBar,
   Dimensions,
   TouchableOpacity,
-  FlatList,
-  Pressable,
   ScrollView,
   TextInput
 } from "react-native";

@@ -1,8 +1,6 @@
 import {
     View,
     Text,
-    ImageBackground,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     Platform,
@@ -16,6 +14,7 @@ import {
   import ReceiptWiremi from "../../assets/receiptwiremi.svg";
   import Copy from "../../assets/copy.svg";
   import BlueSignInButton from "@/components/BlueSignInButton";
+  import { SafeAreaView } from "react-native-safe-area-context";
   
   const BankDepositReceipt = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;

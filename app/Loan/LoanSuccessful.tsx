@@ -6,14 +6,12 @@ import {
     TouchableOpacity
   } from "react-native";
   import React from "react";
-  //   import { SafeAreaView } from "react-native";
   import { SafeAreaView } from "react-native-safe-area-context";
   import { StatusBar } from "expo-status-bar";
   import Acceptedsuccess from "../../assets/forgotsuccess.svg";
   import BlueSignInButton from "@/components/BlueSignInButton";
   import { useRouter } from "expo-router";
   import Back from "../../assets/Back.svg";
-  import SixDigits from "@/components/SixDigits";
   
   const LoanSuccessful = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;

@@ -14,8 +14,6 @@ import {
   import { StatusBar } from "expo-status-bar";
   import { SafeAreaView } from "react-native-safe-area-context";
   import { useRef } from "react";
-  import Confirm from "../../assets/Confirm.svg";
-  import NotConfirm from "../../assets/Notconfirm.svg";
   
   type BottomSheetRef = {
     open: () => void;
@@ -45,13 +43,13 @@ import {
           className="gap-2"
         >
           <View className="flex-row justify-between items-center mb-1">
-            <TouchableOpacity onPress={() => router.push("/Profile")}>
+            <TouchableOpacity onPress={() => router.push("/(PersonalAccount)/Profile")}>
               <Back />
             </TouchableOpacity>
             <Text className="text-[20px] text-pagetitle">About wiremi</Text>
             <Text></Text>
           </View>
-          <View className="flex-col gap-3">
+          <View className="flex-col gap-3 items-center">
                 <View className="flex-col items-start">
                     <Text style={{color:'#868E96', fontSize: 14}}>At Wiremi, we understand that each client has needs</Text>
                     <Text style={{color:'#868E96', fontSize: 14}}>peculiar to them, to either fix cash flow issues or to grow</Text>

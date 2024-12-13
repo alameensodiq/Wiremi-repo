@@ -1,11 +1,8 @@
 import {
     View,
     Text,
-    ImageBackground,
-    // SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
-    Platform,
     TouchableOpacity,
     ScrollView
   } from "react-native";
@@ -14,26 +11,12 @@ import {
   import Back from "../../assets/Back.svg";
   import { StatusBar } from "expo-status-bar";
   import BlueSignInButton from "@/components/BlueSignInButton";
-  import TransactionTextLabel from "@/components/TransactionTextLabel";
-  import TransparentSelectButton from "@/components/TransparentSelectButton";
   import TextLabelBox from "@/components/TextLabelBox";
-  import { CheckBox } from "@rneui/themed";
-  import { BottomSheet } from "@/components/Bottom";
   import Calendar from "../../assets/calendar.svg";
   import Cards from "../../assets/savingscard.svg";
   import Bank from "../../assets/savingsbank.svg";
   import Momo from "../../assets/savingsmomo.svg";
   import Wiremi from "../../assets/savingswiremi.svg";
-  import { FlatList } from "react-native";
-  import SearchLabelBox from "@/components/SearchLabelBox";
-  import Royal from "../../assets/royalbank.svg";
-  import Chase from "../../assets/chase.svg";
-  import BankAmerica from "../../assets/bankamerica.svg";
-  import Barclays from "../../assets/barclays.svg";
-  import HSBC from "../../assets/hsbc.svg";
-  import TDBANK from "../../assets/tdbank.svg";
-  import Scotia from "../../assets/scotiabank.svg";
-  import BMO from "../../assets/bmo.svg";
   import { SafeAreaView } from "react-native-safe-area-context";
   
   type BottomSheetRef = {

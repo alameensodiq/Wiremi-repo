@@ -1,8 +1,6 @@
 import {
   View,
   Text,
-  ImageBackground,
-  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -14,7 +12,6 @@ import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import TransactionTextLabel from "@/components/TransactionTextLabel";
-
 import TextLabelBox from "@/components/TextLabelBox";
 import { SafeAreaView } from "react-native-safe-area-context";
 

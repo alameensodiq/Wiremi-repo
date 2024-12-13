@@ -1,8 +1,6 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -14,6 +12,7 @@ import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import Cards from "../../assets/cards.svg";
 import Interac from "../../assets/interac.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Bank from "../../assets/bank.svg";
 import Ewallet from "../../assets/ewallet.svg";
 import MobileMoney from "../../assets/mobilemoney.svg";

@@ -12,10 +12,6 @@ import {
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
-import PayName from "../../assets/payname.svg";
-import PayNumber from "../../assets/paynumber.svg";
-import BankHouse from "../../assets/bankhouse.svg";
-import BlueSignInButton from "@/components/BlueSignInButton";
 import On from "../../assets/on.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRef } from "react";

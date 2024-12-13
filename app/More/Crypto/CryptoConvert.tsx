@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   TouchableOpacity,
@@ -18,7 +17,7 @@ import SearchLabelBox from "@/components/SearchLabelBox";
 import TetherCrypto from "../../../assets/tethercrypto.svg";
 import TronCrypto from "../../../assets/troncrypto.svg";
 import SolanaCrypto from "../../../assets/solanacrypto.svg";
-import Solana from "../../../assets/solanacryto.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Down from "../../../assets/down.svg";
 import SwapIcon from "../../../assets/swapicon.svg";
 import USD from "../../../assets/usd.svg";

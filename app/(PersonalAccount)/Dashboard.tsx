@@ -4,7 +4,6 @@ import {
   // SafeAreaView,
   Dimensions,
   StatusBar as RNStatusBar,
-  ScrollView,
   TouchableOpacity
 } from "react-native";
 import React from "react";
@@ -135,7 +134,7 @@ const Dashboard = () => {
               paddingTop: height * 0.02,
               height: height * 0.8
             }}
-            className="text-[14px] gap-2"
+            className="text-[14px] gap-1"
           >
             <View>
               <Text className="text-darktext">Quick services</Text>
@@ -165,7 +164,7 @@ const Dashboard = () => {
                   <Text>Save</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push("/Loan")}>
+              <TouchableOpacity onPress={() => router.push("/Loan/LoanDashboard")}>
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
                     style={{
@@ -188,7 +187,7 @@ const Dashboard = () => {
                   <Text>Loan</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/Invest')}>
+              <TouchableOpacity onPress={() => router.push('/Invest/InvestDashboard')}>
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
                     style={{
@@ -237,7 +236,7 @@ const Dashboard = () => {
               <Carousel
                 loop
                 width={width * 0.9}
-                height={height * 0.2} // Adjust height as needed
+                height={height * 0.15} // Adjust height as needed
                 autoPlay={true}
                 data={images}
                 renderItem={renderItem}
@@ -250,7 +249,7 @@ const Dashboard = () => {
               </Text>
               <Text className="text-buttonprimary text-[12px]">See all</Text>
             </View>
-            <View style={{ height: height * 0.15  }}>
+            <View style={{ height: height * 0.20  }}>
               <SectionList
                 // scrollEnabled={false}
                 sections={DATA}

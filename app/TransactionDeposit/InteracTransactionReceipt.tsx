@@ -1,8 +1,6 @@
 import {
     View,
     Text,
-    ImageBackground,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     Platform,
@@ -15,6 +13,7 @@ import {
   import Forgotsuccess from "../../assets/forgotsuccess.svg";
   import ReceiptWiremi from "../../assets/receiptwiremi.svg";
   import Copy from "../../assets/copy.svg";
+  import { SafeAreaView } from "react-native-safe-area-context";
   import BlueSignInButton from "@/components/BlueSignInButton";
   
   const InteracTransactionReceipt = () => {

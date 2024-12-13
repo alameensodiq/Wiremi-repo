@@ -1,13 +1,9 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
-  ScrollView,
   FlatList
 } from "react-native";
 import { useRouter } from "expo-router";
@@ -15,9 +11,8 @@ import Back from "../../../assets/Back.svg";
 import RightCarat from "../../../assets/rightcaratblue.svg";
 import { StatusBar } from "expo-status-bar";
 import { useRef } from "react";
-import SendMoneyWiremi from "../../../assets/sendmoneywiremi.svg";
 import Filter from "../../../assets/filter.svg";
-import SearchLabelBox from "@/components/SearchLabelBox";
+import { SafeAreaView } from "react-native-safe-area-context";
 import NotificationSearchLabel from "@/components/NotificaionSearchLabel";
 
 type BottomSheetRef = {
@@ -97,7 +92,8 @@ const EscrowNotification = () => {
                 style={{
                   borderBottomColor: "#EBEBEB",
                   borderBottomWidth: 1,
-                  paddingBottom: 15
+                  paddingBottom: 15,
+                  paddingHorizontal: width * 0.03
                 }}
               >
                 <View className="flex-row justify-between items-center">

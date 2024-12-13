@@ -1,18 +1,15 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
   ScrollView
 } from "react-native";
 import { useRouter } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Back from "../../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
-import Cards from "../../../assets/cards.svg";
 import Redrightcarat from "../../../assets/redrightcarat.svg";
 import Fingerprint from "../../../assets/fingerprint.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";

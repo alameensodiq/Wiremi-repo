@@ -1,11 +1,8 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
   ScrollView
 } from "react-native";
@@ -14,7 +11,7 @@ import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import BlueSignInButton from "@/components/BlueSignInButton";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 import TransparentSelectButton from "@/components/TransparentSelectButton";
 import TextLabelBox from "@/components/TextLabelBox";
 

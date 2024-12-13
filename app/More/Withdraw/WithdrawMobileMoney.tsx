@@ -1,8 +1,6 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -16,6 +14,7 @@ import BlueSignInButton from "@/components/BlueSignInButton";
 import TransactionTextLabel from "@/components/TransactionTextLabel";
 import TransparentSelectButton from "@/components/TransparentSelectButton";
 import TextLabelBox from "@/components/TextLabelBox";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { CheckBox } from "@rneui/themed";
 import { BottomSheet } from "@/components/Bottom";
 import Royal from "../../../assets/royalbank.svg";

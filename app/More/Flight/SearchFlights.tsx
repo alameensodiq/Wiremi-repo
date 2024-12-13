@@ -12,14 +12,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import Back from "../../../assets/whiteback.svg";
-import DownCarat from "../../../assets/downcarat.svg";
-import Location from "../../../assets/location.svg";
-import Filter from "../../../assets/flightfilter.svg";
 import FlightProfile from "../../../assets/flightprofile.svg";
 import MiddleFilter from "../../../assets/middlefilter.svg";
 import Arik from "../../../assets/arik.svg";
 import FlightLogo from "../../../assets/flightlogo.svg";
-import BlueSignInButton from "@/components/BlueSignInButton";
+
 
 const SearchFlights = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -52,7 +49,7 @@ const SearchFlights = () => {
             <Text className="text-[20px] text-white">Result search</Text>
             <Text></Text>
           </View>
-          <View  className="flex-row justify-between items-center px-2 mt-3">
+          <View  className="flex-row justify-evenly items-center px-2 mt-3">
             <View className="flex-col justify-between">
               <Text style={{ color: "#FFFFFF", fontSize: 13 }}>07:00AM</Text>
               <Text style={{ color: "#FFFFFF", fontSize: 10 }}>
@@ -251,14 +248,15 @@ const SearchFlights = () => {
             borderTopRightRadius: 8
           }}
         >
-          <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center justify-between px-4">
             <Text className="text-darktext text-[14px] font-bold">
               Result Flight
             </Text>
             <Pressable
-              onPress={() => router.push("/More/Agents/AgentTransactions")}
+              // onPress={() => router.push("/More/Agents/AgentTransactions")}
+              onPress={() => console.log('all')}
             >
-              <Text className="text-buttonprimary text-[12px]">See all</Text>
+              <Text className="text-buttonprimary text-[12px]">View all</Text>
             </Pressable>
           </View>
           <View className="flex-col mt-10 pb-4">
@@ -281,7 +279,7 @@ const SearchFlights = () => {
                 </Text>
               </View>
             </View>
-            <View className="flex-row justify-between items-center px-3 mt-3">
+            <View className="flex-row justify-between items-center px-4 mt-3">
               <View className="flex-col justify-between gap-2">
                 <Text style={{ color: "#6E6E6E", fontSize: 13 }}>07:00AM</Text>
                 <Text style={{ color: "#413D43", fontSize: 12 }}>BNA</Text>

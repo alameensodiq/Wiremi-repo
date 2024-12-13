@@ -1,18 +1,15 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
   ScrollView
 } from "react-native";
 import React, { useRef } from "react";
 import { useRouter } from "expo-router";
 import Back from "../../../assets/Back.svg";
-import Payqr from "../../../assets/payqrlogo.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Payqrprofile from "../../../assets/payqrprofile.svg";
 import Wiremi from "../../../assets/wiremipayqr.svg";
 import { StatusBar } from "expo-status-bar";
@@ -56,7 +53,7 @@ const PayQrAmount = () => {
         className="gap-3"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/More")}>
+          <TouchableOpacity onPress={() => router.push("/More/PayQr/PayQrScan")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Pay QR</Text>

@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   TouchableOpacity
@@ -12,6 +11,7 @@ import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import SendMoneyAccount from "../../assets/sendmoneyaccount.svg";
 import SendMoneyWiremi from "../../assets/sendmoneywiremi.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Scheduletransfer from "../../assets/scheduletransfer.svg";
 import Rightcarat from "../../assets/rightcarat.svg";
 import MobileMoney from "../../assets/mobilemoney.svg";

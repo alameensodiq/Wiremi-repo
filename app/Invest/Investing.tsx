@@ -2,7 +2,6 @@ import {
     View,
     Text,
     TouchableOpacity,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     ScrollView
@@ -14,7 +13,7 @@ import {
   import Stocks from "../../assets/stocks.svg";
   import Etf from "../../assets/etf.svg";
   import Wire from "../../assets/wireventures.svg";
-  import Residency from "../../assets/kycresidency.svg";
+  import { SafeAreaView } from "react-native-safe-area-context";
   import RightCarat from "../../assets/rightcarat.svg";
   
   const Investing = () => {

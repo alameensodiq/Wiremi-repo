@@ -1,7 +1,6 @@
 import {
     View,
     Text,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     TouchableOpacity,
@@ -9,6 +8,7 @@ import {
   } from "react-native";
   import { useRouter } from "expo-router";
   import Back from "../../assets/Back.svg";
+  import { SafeAreaView } from "react-native-safe-area-context";
   import Paypal from "../../assets/paypalcard.svg";
   import Venmo from "../../assets/venmocard.svg";
   import Wise from "../../assets/wise.svg";

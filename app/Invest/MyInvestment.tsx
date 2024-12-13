@@ -1,22 +1,16 @@
 import {
     View,
     Text,
-    ImageBackground,
-    // SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
-    Platform,
     TouchableOpacity,
-    ScrollView,
     FlatList
   } from "react-native";
   import { useRouter } from "expo-router";
   import Back from "../../assets/Back.svg";
   import { StatusBar } from "expo-status-bar";
   import { useRef } from "react";
-  import SendMoneyWiremi from "../../assets/sendmoneywiremi.svg";
   import Tesla from "../../assets/tesla.svg";
-  import SearchLabelBox from "@/components/SearchLabelBox";
   import NotificationSearchLabel from "@/components/NotificaionSearchLabel";
   import { SafeAreaView } from "react-native-safe-area-context";
   

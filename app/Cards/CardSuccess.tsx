@@ -1,79 +1,74 @@
 import {
-    View,
-    Text,
-    StatusBar as RNStatusBar,
-    Dimensions,
-    TouchableOpacity,
-    Image,
-    ScrollView
-  } from "react-native";
-  import React from "react";
-  import { SafeAreaView } from "react-native";
-  import { StatusBar } from "expo-status-bar";
-  import { useRouter } from "expo-router";
-  import Forgotsuccess from "../../assets/forgotsuccess.svg";
-  import ShortBlueButton from "@/components/ShortBlueButton";
-  import ShortWhiteButton from "@/components/ShortWhiteButton";
+  View,
+  Text,
+  StatusBar as RNStatusBar,
+  Dimensions,
+  ScrollView
+} from "react-native";
+import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import { useRouter } from "expo-router";
+import Forgotsuccess from "../../assets/forgotsuccess.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
-  
-  const CardSuccess = () => {
-    const statusBarHeight = RNStatusBar.currentHeight || 0;
-    const { height, width } = Dimensions.get("window");
-    const router = useRouter();
-    return (
-      <ScrollView className="flex-1 ">
-        <View className="flex-1 bg-white">
-          <StatusBar hidden={false} style="dark" />
-          <SafeAreaView
-            className="justify-between"
-            style={{
-              flex: 1,
-              marginTop: statusBarHeight,
-              paddingTop: height * 0.02
-            }}
+
+const CardSuccess = () => {
+  const statusBarHeight = RNStatusBar.currentHeight || 0;
+  const { height, width } = Dimensions.get("window");
+  const router = useRouter();
+  return (
+    <ScrollView className="flex-1 ">
+      <View className="flex-1 bg-white">
+        <StatusBar hidden={false} style="dark" />
+        <SafeAreaView
+          className="justify-between"
+          style={{
+            flex: 1,
+            marginTop: statusBarHeight,
+            paddingTop: height * 0.02
+          }}
+        >
+          <View
+            style={{ paddingHorizontal: 8, paddingBottom: height * 0.03 }}
+            className="flex-1  justify-between gap-6"
           >
+            <View className="flex-row justify-center items-center">
+              <Text style={{ color: "#242329" }} className="text-[18px]">
+                Create virtual card
+              </Text>
+            </View>
             <View
-              style={{ paddingHorizontal: 8, paddingBottom: height * 0.03 }}
-              className="flex-1  justify-between gap-6"
+              style={{ height: height * 0.7 }}
+              className="flex-col items-center justify-center gap-6"
             >
-              <View className="flex-row justify-center items-center">
-                <Text style={{color:'#242329'}} className="text-[18px]">Create virtual card</Text>
-              </View>
-              <View
-                style={{ height: height * 0.7 }}
-                className="flex-col items-center justify-center gap-6"
-              >
-                <View className="flex-col gap-3">
-                  <Forgotsuccess />
-                  <Text
-                    style={{ color: "#1E1B39" }}
-                    className="text text-[18px] font-bold"
-                  >
-                    Successful
-                  </Text>
-                </View>
-                <Text className="text-forgotsuccesslight text-[13px]">
-                Your virtual card has been created successfully. 
+              <View className="flex-col gap-3">
+                <Forgotsuccess />
+                <Text
+                  style={{ color: "#1E1B39" }}
+                  className="text text-[18px] font-bold"
+                >
+                  Successful
                 </Text>
               </View>
-  
-              <View
-            style={{ height: height * 0.2 }}
-            className="items-center justify-center"
-          >
-            <BlueSignInButton
-              title="View Card"
-              onPress={() =>
-                router.push("/Cards/MyCard")
-              }
-            />
-          </View>
+              <Text className="text-forgotsuccesslight text-[13px]">
+                Your virtual card has been created successfully.
+              </Text>
             </View>
-          </SafeAreaView>
-        </View>
-      </ScrollView>
-    );
-  };
-  
-  export default CardSuccess;
-  
+
+            <View
+              style={{ height: height * 0.2 }}
+              className="items-center justify-center"
+            >
+              <BlueSignInButton
+                title="View Card"
+                onPress={() => router.push("/Cards/MyCard")}
+              />
+            </View>
+          </View>
+        </SafeAreaView>
+      </View>
+    </ScrollView>
+  );
+};
+
+export default CardSuccess;

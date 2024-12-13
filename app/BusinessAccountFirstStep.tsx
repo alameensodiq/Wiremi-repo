@@ -2,7 +2,6 @@ import {
   View,
   Text,
   ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -11,6 +10,7 @@ import {
 import React from "react";
 import LandingPageImage from "../assets/LandingScreen.png";
 import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import Back from "../assets/Back.svg";
 import Logo from "../assets/Logo.svg";

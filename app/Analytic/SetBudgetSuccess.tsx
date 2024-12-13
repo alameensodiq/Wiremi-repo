@@ -3,18 +3,13 @@ import {
   Text,
   StatusBar as RNStatusBar,
   Dimensions,
-  TouchableOpacity,
-  Image
 } from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import Forgotsuccess from "../../assets/forgotsuccess.svg";
-import ShortBlueButton from "@/components/ShortBlueButton";
-import ShortWhiteButton from "@/components/ShortWhiteButton";
 import BlueSignInButton from "@/components/BlueSignInButton";
-import Back from "../../assets/Back.svg";
 
 const SetBudgetSuccess = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -67,7 +62,7 @@ const SetBudgetSuccess = () => {
             <View className="items-center justify-between flex-row p-4">
               <BlueSignInButton
                 title="Done"
-                onPress={() => router.push("/Analytics")}
+                onPress={() => router.push("/(PersonalAccount)/Analytics")}
               />
             </View>
           </View>

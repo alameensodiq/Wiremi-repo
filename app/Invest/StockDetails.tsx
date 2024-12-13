@@ -1,13 +1,9 @@
 import {
   View,
   Text,
-  ImageBackground,
-  // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
-  ScrollView
 } from "react-native";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
@@ -15,7 +11,6 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRef } from "react";
 import Tesla from "../../assets/tesladetails.svg";
-import NotConfirm from "../../assets/Notconfirm.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
 
 type BottomSheetRef = {

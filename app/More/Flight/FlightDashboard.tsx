@@ -239,14 +239,14 @@ const FlightDashboard = () => {
             borderTopRightRadius: 8
           }}
         >
-          <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center justify-between px-3">
             <Text className="text-darktext text-[14px] font-bold">
               All flights
             </Text>
             <Pressable
               onPress={() => router.push("/More/Flight/AllFlights")}
             >
-              <Text className="text-buttonprimary text-[12px]">See all</Text>
+              <Text className="text-buttonprimary text-[12px]">View all</Text>
             </Pressable>
           </View>
           <View className="flex-row justify-between items-center px-3 mt-3">

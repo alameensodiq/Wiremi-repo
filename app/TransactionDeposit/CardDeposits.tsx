@@ -1,8 +1,6 @@
 import {
     View,
     Text,
-    ImageBackground,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     Platform,
@@ -14,6 +12,7 @@ import {
   import { StatusBar } from "expo-status-bar";
   import Cards from "../../assets/cards.svg";
   import Rightcarat from "../../assets/rightcarat.svg";
+  import { SafeAreaView } from "react-native-safe-area-context";
 
 const CardDeposits = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;

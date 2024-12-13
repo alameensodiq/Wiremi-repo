@@ -4,18 +4,12 @@ import {
   StatusBar as RNStatusBar,
   Dimensions,
   TouchableOpacity,
-  FlatList,
-  Pressable,
   ScrollView,
-  TextInput
 } from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Back from "../../assets/whiteback.svg";
-import BigChat from "../../assets/BigChat.svg";
-import Ladypics from "../../assets/ladypics.svg";
-import Filelive from "../../assets/filelive.svg";
 import Left from "../../assets/leftredcarat.svg";
 import Tesla from "../../assets/tesla.svg";
 import { useRouter } from "expo-router";

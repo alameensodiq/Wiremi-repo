@@ -1,8 +1,6 @@
 import {
     View,
     Text,
-    ImageBackground,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     Platform,
@@ -13,7 +11,7 @@ import {
   import Back from "../../../assets/Back.svg";
   import { StatusBar } from "expo-status-bar";
   import BlueSignInButton from "@/components/BlueSignInButton";
-  import TransactionTextLabel from "@/components/TransactionTextLabel";
+  import { SafeAreaView } from "react-native-safe-area-context";
   import TransparentSelectButton from "@/components/TransparentSelectButton";
   import TextLabelBox from "@/components/TextLabelBox";
   import { CheckBox } from "@rneui/themed";
@@ -27,8 +25,7 @@ import {
   import Scotia from "../../../assets/scotiabank.svg";
   import BMO from "../../../assets/bmo.svg";
   import SearchLabelBox from "@/components/SearchLabelBox";
-  import Wire from "../../../assets/wire.svg";
-  import TuitionProfile from "../../../assets/tuitionprofile.svg";
+
   
   type BottomSheetRef = {
     open: () => void;
@@ -71,7 +68,7 @@ import {
           className="gap-3"
         >
           <View className="flex-row justify-between items-center mb-1">
-            <TouchableOpacity onPress={() => router.push("/More")}>
+            <TouchableOpacity onPress={() => router.push("/More/MoreList")}>
               <Back />
             </TouchableOpacity>
             <Text className="text-[20px] text-pagetitle">Tuition</Text>

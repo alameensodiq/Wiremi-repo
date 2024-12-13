@@ -1,18 +1,15 @@
 import {
     View,
     Text,
-    ImageBackground,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
-    Platform,
     TouchableOpacity,
     ScrollView,
-    FlatList
   } from "react-native";
   import { useRouter } from "expo-router";
   import Back from "../../../assets/Back.svg";
   import { StatusBar } from "expo-status-bar";
+  import { SafeAreaView } from "react-native-safe-area-context";
   import { useRef } from "react";
   import MobileMoney from "../../../assets/mobilemoney.svg";
   import Mark from "../../../assets/successmark.svg";

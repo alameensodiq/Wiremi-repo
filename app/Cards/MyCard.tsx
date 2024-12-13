@@ -1,11 +1,8 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
   ScrollView,
   SectionList,
@@ -18,15 +15,13 @@ import Back from "../../assets/Back.svg";
 import Connection from "../../assets/Conection.svg";
 import Cardwiremi from "../../assets/cardwiremi.svg";
 import Chip from "../../assets/Chip.svg";
-import StandConnection from "../../assets/standconnection.svg";
-import Standwiremi from "../../assets/standwiremi.svg";
-import StandChip from "../../assets/standchip.svg";
 import Coloredcarat from "../../assets/coloredcarat.svg";
 import Sendheader from "../../assets/sendheading.svg";
 import Cardcopy from "../../assets/cardcopy.svg";
 import Actions from "../../assets/actions.svg";
 import { StatusBar } from "expo-status-bar";
 import GradientBackground from "@/components/GradientBackground";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type BottomSheetRef = {
   open: () => void;

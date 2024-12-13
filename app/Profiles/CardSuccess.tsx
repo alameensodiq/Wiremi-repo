@@ -7,12 +7,10 @@ import {
     Image
   } from "react-native";
   import React from "react";
-  import { SafeAreaView } from "react-native";
+  import { SafeAreaView } from "react-native-safe-area-context";
   import { StatusBar } from "expo-status-bar";
   import { useRouter } from "expo-router";
   import Forgotsuccess from "../../assets/forgotsuccess.svg";
-  import ShortBlueButton from "@/components/ShortBlueButton";
-  import ShortWhiteButton from "@/components/ShortWhiteButton";
   import BlueSignInButton from "@/components/BlueSignInButton";
   import Back from "../../assets/Back.svg";
   

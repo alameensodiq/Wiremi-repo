@@ -1,11 +1,8 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
   ScrollView
 } from "react-native";
@@ -13,8 +10,7 @@ import React, { useRef } from "react";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
-import BlueSignInButton from "@/components/BlueSignInButton";
-import CardDigits from "@/components/CardDigits";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Warning from "../../assets/warning.svg";
 import Tick from "../../assets/tick.svg";
 import ShortBlueButton from "@/components/ShortBlueButton";

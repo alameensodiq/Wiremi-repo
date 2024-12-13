@@ -5,8 +5,6 @@ import {
   StatusBar as RNStatusBar,
   TouchableOpacity,
   ScrollView,
-  FlatList,
-  Pressable
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";

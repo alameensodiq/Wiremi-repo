@@ -1,13 +1,9 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity,
-  FlatList
 } from "react-native";
 import React, { useRef } from "react";
 import { useRouter } from "expo-router";
@@ -19,6 +15,7 @@ import SolanaCrypto from "../../../assets/solanacrypto.svg";
 import Barcode from "../../../assets/receivebarcode.svg";
 import Copy from "../../../assets/copycrypto.svg";
 import Share from "../../../assets/share.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type BottomSheetRef = {
   open: () => void;

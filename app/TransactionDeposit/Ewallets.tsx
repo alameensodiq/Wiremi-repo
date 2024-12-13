@@ -1,8 +1,6 @@
 import {
     View,
     Text,
-    ImageBackground,
-    SafeAreaView,
     StatusBar as RNStatusBar,
     Dimensions,
     Platform,
@@ -12,6 +10,7 @@ import {
   import { useRouter } from "expo-router";
   import Back from "../../assets/Back.svg";
   import { StatusBar } from "expo-status-bar";
+  import { SafeAreaView } from "react-native-safe-area-context";
   import Wise from "../../assets/wise.svg";
   import Paypal from "../../assets/paypal.svg";
   import Venmo from "../../assets/venmo.svg";

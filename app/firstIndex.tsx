@@ -1,7 +1,5 @@
 import {
   ImageBackground,
-  SafeAreaView,
-  StyleSheet,
   Text,
   View,
   FlatList,
@@ -13,6 +11,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 import skipOne from "@/assets/skipOne.png";
 import skipTwo from "@/assets/skipTwo.png";
 import skipThree from "@/assets/skipThree.png";

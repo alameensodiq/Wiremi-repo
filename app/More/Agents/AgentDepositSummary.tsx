@@ -1,25 +1,20 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  Platform,
   TouchableOpacity
 } from "react-native";
 import { useRouter } from "expo-router";
 import Back from "../../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
-import Cards from "../../../assets/cards.svg";
-import Rightcarat from "../../../assets/rightcarat.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
-import TransactionTextLabel from "@/components/TransactionTextLabel";
 import { useRef } from "react";
 import { BottomSheet } from "@/components/Bottom";
 import Redrightcarat from "../../../assets/redrightcarat.svg";
 import Fingerprint from "../../../assets/fingerprint.svg";
 import FourDigits from "@/components/FourDigits";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type BottomSheetRef = {
   open: () => void;

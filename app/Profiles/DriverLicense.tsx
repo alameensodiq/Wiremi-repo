@@ -2,18 +2,15 @@ import {
   View,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   ScrollView
 } from "react-native";
 import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
-import Driver from "../../assets/kycdriver.svg";
-import Card from "../../assets/kyccard.svg";
-import Passport from "../../assets/kycpassport.svg";
 import Scan from "../../assets/scan.svg";
 import Capture from "../../assets/capture.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";

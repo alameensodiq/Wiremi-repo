@@ -1,8 +1,6 @@
 import {
   View,
   Text,
-  ScrollView,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   TouchableOpacity
@@ -19,7 +17,7 @@ import Convert from "../../../assets/convertcrypto.svg";
 import TetherCrypto from "../../../assets/tethercrypto.svg";
 import TronCrypto from "../../../assets/troncrypto.svg";
 import SolanaCrypto from "../../../assets/solanacrypto.svg";
-import { Image } from "expo-image";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList } from "react-native";
 import { BottomSheet } from "@/components/Bottom";
 import SearchLabelBox from "@/components/SearchLabelBox";

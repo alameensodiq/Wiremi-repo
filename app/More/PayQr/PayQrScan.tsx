@@ -1,8 +1,6 @@
 import {
   View,
   Text,
-  ImageBackground,
-  SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -17,6 +15,7 @@ import Payqr from "../../../assets/payqrlogo.svg";
 import Barcode from "../../../assets/Payqrscan.svg";
 import Wiremi from "../../../assets/wiremipayqr.svg";
 import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 type BottomSheetRef = {

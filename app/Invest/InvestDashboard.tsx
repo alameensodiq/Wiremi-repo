@@ -5,7 +5,6 @@ import {
   // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  ScrollView,
   FlatList
 } from "react-native";
 import React from "react";
@@ -16,10 +15,7 @@ import Decrease from "../../assets/decerease.svg";
 import Increase from "../../assets/increase.svg";
 import Apple from "../../assets/appleinvest.svg";
 import Arrow from "../../assets/greenarrowup.svg";
-import CreateSavings from "@/components/CreateSavings";
-import CreateSavingsBlue from "@/components/CreateSavingsBlue";
 import PieChart from "react-native-pie-chart";
-import { BarChart, LineChart } from "react-native-gifted-charts";
 import { SafeAreaView } from "react-native-safe-area-context";
 import InvestNow from "@/components/InvestNow";
 import ApplyFundraise from "@/components/ApplyFundraise";
