@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import BlueSignInButton from "@/components/BlueSignInButton";
@@ -16,11 +16,33 @@ import { ImageBackground } from "react-native";
 import SuccessLand from "../assets/forgetsuccesland.png";
 import Eng from "../assets/success.gif";
 import LottieView from "lottie-react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const BusinessSuccess = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const [firstname, setFirstname] = useState<string | null>(null);
+  const [lastname, setLastname] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchNames = async () => {
+      try {
+        const storedFirstname = await AsyncStorage.getItem("firstname");
+        const storedLastname = await AsyncStorage.getItem("lastname");
+
+        setFirstname(storedFirstname);
+        setLastname(storedLastname);
+      } catch (error) {
+        console.error("Error fetching names:", error);
+      }
+    };
+
+    fetchNames();
+  }, []);
+
+  // const name = {firstname}{lastname}
+
   return (
     <View className="flex-1 ">
       <ImageBackground
@@ -72,7 +94,7 @@ const BusinessSuccess = () => {
                 Successful
               </Text>
               <Text className="text-white text-[13px]">
-                Welcome Susan Sheidu
+                Welcome {firstname} {lastname}
               </Text>
               <Text className="text-white text-[9px]">
                 Proceed to enjoy all the benefits our platform has to offer.
@@ -83,7 +105,11 @@ const BusinessSuccess = () => {
               <BlueSignInButton
                 title="Proceed to Dashboard"
                 color1
-                onPress={() => router.push('/Dashboard')}
+                onPress={() => {
+                  AsyncStorage.removeItem("firstname")
+                  AsyncStorage.removeItem("lastname")
+                  router.push('/SignInPage')
+                }}
               />
             </View>
           </View>

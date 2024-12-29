@@ -1,9 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+// import {EXPO_PUBLIC_API_URL} from "@env";
 
-interface AccountantPayload {
-  name: string;
-  email: string;
+interface LoginPayload {
+  pin: string;
+  account_id: string;
 }
 
 interface APIResponse {
@@ -13,46 +15,42 @@ interface APIResponse {
 }
 
 export const Login = createAsyncThunk<
-  APIResponse, 
-  AccountantPayload, 
+  APIResponse,
+  LoginPayload,
   { rejectValue: { error: string; status?: number } }
->(
-  "login",
-  async ({ name,email}, thunkAPI) => {
-    // const BASE_URL = process.env.REACT_APP_BASE_URL;
-    // const accessToken = sessionStorage.getItem("token");
+>("login", async ({ pin, account_id }, thunkAPI) => {
+  const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+  // const accessToken = sessionStorage.getItem("token");
 
-    try {
-      const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}admin/create-accountant`, {
-        method: "POST",
+  try {
+    const response = await axios.post<APIResponse>(
+      `${BASE_URL}auth/login`,
+      {
+        pin: "999999",
+        account_id: "WI082400121",
+      },
+      {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-        //   Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify({ name, email}),
-      });
-
-      const data: APIResponse = await response.json();
-
-      if (!response.ok) {
-        return thunkAPI.rejectWithValue({
-          error: data.message || "An error occurred.",
-          status: response.status,
-        });
       }
+    );
 
-    //   if (data.status) {
-    //     toast.success(data.message);
-    //   } else {
-    //     toast.error(data.message);
-    //   }
-    AsyncStorage.setItem("token", data?.data?.token);
-      return data;
-    } catch (e: any) {
-      return thunkAPI.rejectWithValue({
-        error: e.message || "Failed to connect to the server.",
-      });
-    }
+    console.log("Axios Response:", response.data);
+
+    // if (!response.data.status) {
+    //   // If the API returned an error status
+    //   return thunkAPI.rejectWithValue({
+    //     error: response.data.message || "An error occurred.",
+    //     status: response.status,
+    //   });
+    // }
+
+    return response.data;
+  } catch (e: any) {
+    return thunkAPI.rejectWithValue({
+      error: e.message || "Failed to connect to the server.",
+    });
   }
-);
+});

@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       colors: {
         primary: "#2A94F4",
+        loaderbg: "rgba(11, 11, 11, 0.3)",
         buttonprimary: "#105CE2",
         signbutton: "#105CE224",
         grey: "#5e5d5e",
@@ -26,6 +27,7 @@ module.exports = {
         dashboardtransbutton: "#B2CDFD",
         successtrans: "#00A85A",
         failedtrans: "#DE1E04",
+        pendingtrans: "#999637",
         transdate: "#9B9C9D",
         sectionheader: "#3D3F43",
         faintline: "#EBEBEB",

@@ -2,16 +2,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {Login} from '../Apis/Login';
 
 interface LoginState {
-  login: any | null;
-  authenticating: boolean;
+  logins: any | null;
+  authenticatinglogin: boolean;
   authenticated: boolean;
   isError: boolean;
   errors: { error: string; status?: number } | null;
 }
 
 const initialState: LoginState = {
-  login: null,
-  authenticating: false,
+  logins: null,
+  authenticatinglogin: false,
   authenticated: false,
   isError: false,
   errors: null,
@@ -21,9 +21,9 @@ export const LoginSlice = createSlice({
   name: "logins",
   initialState,
   reducers: {
-    clearState: (state) => {
-      state.login = null;
-      state.authenticating = false;
+    clearStatelogin: (state) => {
+      state.logins = null;
+      state.authenticatinglogin = false;
       state.authenticated = false;
       state.isError = false;
       state.errors = null;
@@ -32,18 +32,18 @@ export const LoginSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(Login.pending, (state) => {
-        state.authenticating = true;
+        state.authenticatinglogin = true;
         state.authenticated = false;
         state.isError = false;
         state.errors = null;
       })
       .addCase(Login.fulfilled, (state, action: PayloadAction<any>) => {
-        state.authenticating = false;
+        state.authenticatinglogin = false;
         state.authenticated = true;
-        state.login = action.payload;
+        state.logins = action.payload;
       })
       .addCase(Login.rejected, (state, action) => {
-        state.authenticating = false;
+        state.authenticatinglogin = false;
         state.authenticated = false;
         state.isError = true;
         state.errors = action.payload || { error: "Unknown error occurred." };
@@ -51,9 +51,9 @@ export const LoginSlice = createSlice({
   },
 });
 
-export const { clearState } = LoginSlice.actions;
+export const { clearStatelogin } = LoginSlice.actions;
 
-export const LoginSelector = (state: { login: LoginState }) =>
-  state.login;
+export const LoginSelector = (state: { logins: LoginState }) =>
+  state.logins;
 
 export default LoginSlice.reducer;

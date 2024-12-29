@@ -5,9 +5,12 @@ interface TextLabelBoxProps {
   label: string;
   placeholder: string;
   reduce?:string;
+  onChangeText?: (text: string) => void;
+  disabled?:boolean;
+  value?: string;
 }
 
-const TextLabelBox = ({ label, placeholder, reduce }: TextLabelBoxProps) => {
+const TextLabelBox = ({ label, placeholder, reduce, onChangeText, disabled, value }: TextLabelBoxProps) => {
   const { height, width } = Dimensions.get("window");
 
   return (
@@ -26,6 +29,9 @@ const TextLabelBox = ({ label, placeholder, reduce }: TextLabelBoxProps) => {
         style={{ width: reduce ? width * 0.4   : width * 0.9, borderWidth: 1, height: height * 0.06}}
         className="text-textinputtext text-[14px] rounded-ten border-customgray  p-2"
         placeholder={placeholder}
+        editable={!disabled}
+        value={value}
+        onChangeText={onChangeText}
       />
     </View>
   );

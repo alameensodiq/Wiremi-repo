@@ -19,6 +19,9 @@ import eng from "../assets/eng.png";
 import LongButton from "@/components/LongButton";
 import SignInLongButton from "@/components/SignInLongButton";
 import { useRouter } from "expo-router";
+import { clearState } from "@/Store/Reducers/AccountRegister";
+import { clearStateregister } from "@/Store/Reducers/RegisterUser";
+import { useAppDispatch } from "@/Store/ConfigureStore";
 
 const options = ["Option 1", "Option 2", "Option 3"];
 const optionSelect = ["Option 1"];
@@ -30,6 +33,7 @@ const GetStarted = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const [selectedValue, setSelectedValue] = useState("");
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleSelect = (value: any) => {
     setSelectedValue(value);
@@ -157,7 +161,11 @@ const GetStarted = () => {
                 <Text className="text-lighttextdark text-[14px]">making everything seamless just for you</Text>
               </View>
               <View style={{height: height * 0.07, paddingTop: height * 0.02}} className="bg-white items-center justify-center">
-                <LongButton title='Get Started' onPress={() => router.push('/ChooseAccountType')}/>
+                <LongButton title='Get Started' onPress={() => {
+                   dispatch(clearState());
+                   dispatch(clearStateregister());
+                  router.push('/ChooseAccountType')
+                }}/>
               </View>
               <View style={{height: height * 0.07}} className="bg-white items-center justify-center">
                 <SignInLongButton title='Sign in' onPress={() => router.push('/SignInPage')}/>

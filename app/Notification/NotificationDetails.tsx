@@ -6,16 +6,23 @@ import {
   Platform,
   TouchableOpacity,
   ScrollView,
-  FlatList
+  FlatList,
+  ActivityIndicator
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import MobileMoney from "../../assets/mobilemoney.svg";
 import Mark from "../../assets/successmark.svg";
 import Copy from "../../assets/copy.svg";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { SingleNotification } from "@/Store/Apis/SingleNotification";
+import { clearStateallnotification } from "@/Store/Reducers/AllNotification";
+import { clearStatesinglenotification } from "@/Store/Reducers/SingleNotification";
+import { OpenedNotification } from "@/Store/Apis/OpenedNotification";
+import { clearStateopenednotification } from "@/Store/Reducers/OpenedNotification";
 
 type BottomSheetRef = {
   open: () => void;
@@ -28,12 +35,71 @@ const NotificationDetails = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const ref = useRef<BottomSheetRef>(null);
+  const dispatch = useAppDispatch();
+  const { notificationid } = useLocalSearchParams();
+  console.log(notificationid);
+  const notificationIdNumber = +notificationid; 
 
   const handleCloseModal = () => {
     ref.current?.close();
   };
 
+  const { singlenotification, authenticatingsinglenotification } =
+    useAppSelector((state) => state.singlenotification);
+
+  console.log(singlenotification, "data");
+
+  const {  openednotification, authenticatingopenednotification } =
+  useAppSelector((state) => state. openednotification);
+
+console.log( openednotification, "opened");
+
+ 
+
   const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  const formatDateWithTime = (isoString: any) => {
+    const date = new Date(isoString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${hours}:${minutes}`;
+    
+
+    // return `${day}-${month}-${year} ${hours}:${minutes}`;
+  };
+
+
+  const formatDate = (isoString: any) => {
+    const date = new Date(isoString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    
+
+    return `${day}/${month}/${year}`;
+  };
+
+
+  useEffect(() => {
+    dispatch(clearStateallnotification());
+    dispatch(OpenedNotification());
+    dispatch(SingleNotification({ notificationid: notificationIdNumber }));
+    return () => {
+      dispatch(clearStatesinglenotification());
+      dispatch(clearStateopenednotification());
+    };
+  }, []);
   return (
     <ScrollView style={{ backgroundColor: "#ffffff" }} className="flex-1">
       <StatusBar hidden={false} style="dark" />
@@ -45,6 +111,14 @@ const NotificationDetails = () => {
         }}
         className="gap-6"
       >
+        {!singlenotification?.data &&  !openednotification && (
+          <View
+            style={{ height: height, width: width }}
+            className="absolute inset-0 bg-loaderbg bg-opacity-60 z-50 flex-col items-center justify-center"
+          >
+            <ActivityIndicator size={200} color="#ffffff" />
+          </View>
+        )}
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
             onPress={() => router.push("/Notification/NotificationList")}
@@ -57,50 +131,91 @@ const NotificationDetails = () => {
         <View className="items-center justify-center gap-3">
           <MobileMoney />
           <Text style={{ color: "#5F5F5F" }}>
-            <Text style={{ color: "#5F5F5F" }}>Transfer to</Text>{" "}
-            <Text className="font-bold">Mike Doe</Text>
+            {/* <Text style={{ color: "#5F5F5F" }}>Transfer to</Text>{" "} */}
+            <Text className="font-bold">{singlenotification?.data[0]?.title}</Text>
           </Text>
-          <Text style={{ color: "#00091E",fontSize: 18 }} className="font-bold">
+          {/* <Text
+            style={{ color: "#00091E", fontSize: 18 }}
+            className="font-bold"
+          >
             $510.00
-          </Text>
+          </Text> */}
           <View className="flex-row items-center gap-2">
-            <Mark/>
-            <Text style={{color:'#00A85A',fontSize:16}}>Successful</Text>
+            <Mark />
+            <Text style={{ color: "#00A85A", fontSize: 16 }}>Successful</Text>
           </View>
         </View>
         <View className="pr-2 pt-10 gap-5">
-            <Text style={{color:'#00091E',fontSize: 14}} className="font-bold">Transaction details</Text>
-            <View className="flex-row justify-between items-center">
-                <Text style={{color:'#6E6E6E',fontSize: 14}}>Transaction type</Text>
-                <Text style={{color:'#00091E',fontSize: 14, fontWeight: 'bold'}}>Transfer</Text>
+          <Text
+            style={{ color: "#00091E", fontSize: 14 }}
+            className="font-bold"
+          >
+            Transaction details
+          </Text>
+          {/* <View className="flex-row justify-between items-center">
+            <Text style={{ color: "#6E6E6E", fontSize: 14 }}>
+              Transaction type
+            </Text>
+            <Text
+              style={{ color: "#00091E", fontSize: 14, fontWeight: "bold" }}
+            >
+              Transfer
+            </Text>
+          </View> */}
+          {/* <View className="flex-row justify-between items-center">
+            <Text style={{ color: "#6E6E6E", fontSize: 14 }}>
+              Sender details
+            </Text>
+            <Text
+              style={{ color: "#00091E", fontSize: 14, fontWeight: "bold" }}
+            >
+              Susan Sheidu |WI234489120
+            </Text>
+          </View> */}
+          <View className="flex-row justify-between items-center">
+            <Text style={{ color: "#6E6E6E", fontSize: 14 }}>Remark</Text>
+            <Text
+              style={{ color: "#00091E", fontSize: 14, fontWeight: "bold", width: width * 0.4 }}
+            >
+              {singlenotification?.data[0]?.message}
+            </Text>
+          </View>
+          <View className="flex-row justify-between items-center">
+            <Text style={{ color: "#6E6E6E", fontSize: 14 }}>
+              Transaction date
+            </Text>
+            <Text
+              style={{ color: "#00091E", fontSize: 14, fontWeight: "bold" }}
+            >
+              {formatDate(singlenotification?.data[0]?.createdAt)}
+            </Text>
+          </View>
+          <View className="flex-row justify-between items-center">
+            <Text style={{ color: "#6E6E6E", fontSize: 14 }}>
+              Transaction time
+            </Text>
+            <Text
+              style={{ color: "#00091E", fontSize: 14, fontWeight: "bold" }}
+            >
+                {formatDateWithTime(singlenotification?.data[0]?.createdAt)}
+            </Text>
+          </View>
+          {/* <View className="flex-row justify-between items-center">
+            <Text style={{ color: "#6E6E6E", fontSize: 14 }}>
+              Transaction reference
+            </Text>
+            <View className="flex-row items-center gap-2">
+              <Text style={{ fontWeight: "bold" }}>55678878900765342561</Text>
+              <Copy />
             </View>
-            <View className="flex-row justify-between items-center">
-                <Text style={{color:'#6E6E6E',fontSize: 14}}>Sender details</Text>
-                <Text style={{color:'#00091E',fontSize: 14, fontWeight: 'bold'}}>Susan Sheidu |WI234489120</Text>
-            </View>
-            <View className="flex-row justify-between items-center">
-                <Text style={{color:'#6E6E6E',fontSize: 14}}>Remark</Text>
-                <Text style={{color:'#00091E',fontSize: 14, fontWeight: 'bold'}}>Trf from Susan Sheidu to Biola Moses</Text>
-            </View>
-            <View className="flex-row justify-between items-center">
-                <Text style={{color:'#6E6E6E',fontSize: 14}}>Transaction date</Text>
-                <Text style={{color:'#00091E',fontSize: 14, fontWeight: 'bold'}}>12/09/2024</Text>
-            </View>
-            <View className="flex-row justify-between items-center">
-                <Text style={{color:'#6E6E6E',fontSize: 14}}>Transaction time</Text>
-                <Text style={{color:'#00091E',fontSize: 14, fontWeight: 'bold'}}>12:12:09PM</Text>
-            </View>
-            <View className="flex-row justify-between items-center">
-                <Text style={{color:'#6E6E6E',fontSize: 14}}>Transaction reference</Text>
-                <View className="flex-row items-center gap-2">
-                    <Text style={{fontWeight: 'bold'}}>55678878900765342561</Text>
-                    <Copy/>
-                </View>
-            </View>
+          </View> */}
         </View>
         <View className="pr-2 pl-4 pt-6">
-            <Text className="text-buttonprimary">Note:</Text>
-            <Text style={{color:'#8D8F91',lineHeight: 24}}>This transaction is recorded for reference. Please verify details and keep for future financial tracking or reconciliation.</Text>
+          <Text className="text-buttonprimary">Note:</Text>
+          <Text style={{ color: "#8D8F91", lineHeight: 24 }}>
+            This transaction is recorded for reference. Please verify details
+            and keep for future financial tracking or reconciliation.
+          </Text>
         </View>
       </SafeAreaView>
     </ScrollView>

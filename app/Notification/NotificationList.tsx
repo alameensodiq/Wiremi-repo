@@ -6,17 +6,26 @@ import {
   Platform,
   TouchableOpacity,
   ScrollView,
-  FlatList
+  FlatList,
+  ActivityIndicator
 } from "react-native";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
-import { useRef } from "react";
-import SendMoneyWiremi from "../../assets/sendmoneywiremi.svg";
+import { useEffect, useRef } from "react";
+import SendMoneyWiremi from "../../assets/Closednotify.svg";
 import Filter from "../../assets/filter.svg";
+import Openednotify from "../../assets/Openednotify.svg";
 import SearchLabelBox from "@/components/SearchLabelBox";
 import NotificationSearchLabel from "@/components/NotificaionSearchLabel";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { AllNotification } from "@/Store/Apis/AllNotification";
+import { clearStatemainwallet } from "@/Store/Reducers/Mainwallet";
+import { clearStateusertransactions } from "@/Store/Reducers/UserTransactions";
+import { clearStateallnotification } from "@/Store/Reducers/AllNotification";
+import { clearStatesinglenotification } from "@/Store/Reducers/SingleNotification";
+import { clearStateopenednotification } from "@/Store/Reducers/OpenedNotification";
 
 type BottomSheetRef = {
   open: () => void;
@@ -29,12 +38,45 @@ const NotificationList = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const ref = useRef<BottomSheetRef>(null);
+  const dispatch = useAppDispatch();
 
   const handleCloseModal = () => {
     ref.current?.close();
   };
 
-  const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const formatDateWithTime = (isoString: any) => {
+    const date = new Date(isoString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${hours}:${minutes}`;
+
+    // return `${day}-${month}-${year} ${hours}:${minutes}`;
+  };
+
+  const { allnotification, authenticatingallnotification } = useAppSelector(
+    (state) => state.allnotification
+  );
+
+  console.log(allnotification);
+
+  useEffect(() => {
+    dispatch(AllNotification());
+    dispatch(clearStatemainwallet());
+    dispatch(clearStateusertransactions());
+    dispatch(clearStatesinglenotification());
+    dispatch(clearStateopenednotification());
+    return () => {
+      dispatch(clearStateallnotification());
+    };
+  }, []);
+
+  const data = allnotification?.data;
   return (
     <View style={{ backgroundColor: "#ffffff" }} className="flex-1">
       <StatusBar hidden={false} style="dark" />
@@ -42,10 +84,18 @@ const NotificationList = () => {
         style={{
           flex: 1,
           marginTop: statusBarHeight,
-          paddingHorizontal: width * 0.03
+          paddingHorizontal: width * 0.05
         }}
         className="gap-6"
       >
+        {!allnotification?.data && (
+          <View
+            style={{ height: height, width: width }}
+            className="absolute inset-0 bg-loaderbg bg-opacity-60 z-50 flex-col items-center justify-center"
+          >
+            <ActivityIndicator size={200} color="#ffffff" />
+          </View>
+        )}
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Dashboard")}>
             <Back />
@@ -54,7 +104,7 @@ const NotificationList = () => {
           <Text></Text>
         </View>
         <View className="flex-row">
-          <NotificationSearchLabel  placeholder="Search" />
+          <NotificationSearchLabel placeholder="Search" />
           <Filter />
         </View>
         <View style={{ height: height * 0.72 }}>
@@ -72,30 +122,34 @@ const NotificationList = () => {
                     }}
                     className="justify-center items-center"
                   >
-                    <SendMoneyWiremi />
+                    {item?.opened ? <Openednotify /> : <SendMoneyWiremi />}
                   </View>
                   <View>
                     <Text className="text-black font-[13px]">
-                      Outgoing transfer successful
+                      {item?.title}
                     </Text>
-                    <Text style={{ color: "#989AAF" }}>
-                      You have successfully sent $500 to Mike Doe
-                    </Text>
+                    <Text style={{ color: "#989AAF" }}>{item?.message}</Text>
                   </View>
                 </View>
                 <View className="flex-row justify-between px-2">
                   <Text style={{ color: "#606162" }} className="font-[10px]">
-                    Today 07:42PM
+                    {formatDateWithTime(item?.createdAt)}
                   </Text>
-                  <TouchableOpacity onPress={() => router.push('/Notification/NotificationDetails')}>
-                  <Text className="text-buttonprimary">View</Text>
+                  <TouchableOpacity
+                    onPress={() =>
+                      router.push(
+                        `/Notification/NotificationDetails?notificationid=${item.id}`
+                      )
+                    }
+                  >
+                    <Text className="text-buttonprimary">View</Text>
                   </TouchableOpacity>
                 </View>
               </View>
             )}
             showsVerticalScrollIndicator={false}
             bounces={false}
-            keyExtractor={(item) => item.toString()}
+            keyExtractor={(item) => item?.id?.toString()}
             contentContainerStyle={{
               gap: 50,
               paddingHorizontal: width * 0.03

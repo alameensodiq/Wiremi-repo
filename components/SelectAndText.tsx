@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, TouchableOpacity} from "react-native";
+import { View, Text, Dimensions, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { FlatList } from "react-native";
 import downcarat from "../assets/downcarat.png";
@@ -6,17 +6,23 @@ import eng from "../assets/eng.png";
 import { TextInput } from "react-native";
 import { BlurView } from "expo-blur";
 import { Image } from "expo-image";
-import Downcaratkyc from '../assets/downcaratkyc.svg';
-import USA from '../assets/usa.svg'
+import Downcaratkyc from "../assets/downcaratkyc.svg";
+import USA from "../assets/usa.svg";
 
 const optionSelect = ["Option 1"];
 const options = ["Option 1", "Option 2", "Option 3"];
 
 interface SelectAndTextProps {
   title?: string;
+  onChangeText?: (text: string) => void;
+  onPress?: () => void;
 }
 
-const SelectAndText = ({ title }: SelectAndTextProps) => {
+const SelectAndText = ({
+  title,
+  onPress,
+  onChangeText
+}: SelectAndTextProps) => {
   const { height, width } = Dimensions.get("window");
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
@@ -34,7 +40,7 @@ const SelectAndText = ({ title }: SelectAndTextProps) => {
             width: width * 0.21,
             borderWidth: 1,
             height: height * 0.05,
-            zIndex: 1000,
+            zIndex: 1000
             // shadowColor: "#101828",
             // shadowOffset: { width: 0, height: 1 },
             // shadowOpacity: 0.05,
@@ -49,7 +55,8 @@ const SelectAndText = ({ title }: SelectAndTextProps) => {
             className="rounded shadow-lg"
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => setDropdownVisible(!isDropdownVisible)}
+                // onPress={() => setDropdownVisible(!isDropdownVisible)}
+                onPress={onPress}
               >
                 <View
                   style={{
@@ -66,9 +73,9 @@ const SelectAndText = ({ title }: SelectAndTextProps) => {
                   className="flex-row text-textinputtext items-center text-[14px] border-customgray justify-center gap-1"
                 >
                   {/* <Image source={eng} /> */}
-                  <USA/>
+                  <USA />
                   {/* <Text style={{ marginHorizontal: 2 }}>Eng</Text> */}
-                  <Downcaratkyc/>
+                  <Downcaratkyc />
                   {/* <Image source={downcarat} /> */}
                 </View>
               </TouchableOpacity>
@@ -91,7 +98,7 @@ const SelectAndText = ({ title }: SelectAndTextProps) => {
                   left: 0,
                   right: 0,
                   zIndex: 1001
-                }}     
+                }}
                 intensity={100}
                 tint="dark"
               >
@@ -112,7 +119,7 @@ const SelectAndText = ({ title }: SelectAndTextProps) => {
                           paddingTop: 3,
                           flexDirection: "row", // Use flexDirection here
                           alignItems: "center", // Align items vertically
-                          justifyContent: "center",
+                          justifyContent: "center"
                         }}
                         className="flex-row text-textinputtext items-center text-[14px] border-customgray justify-center bg-primary"
                       >
@@ -124,8 +131,8 @@ const SelectAndText = ({ title }: SelectAndTextProps) => {
                           Eng
                         </Text>
                         <Image source={downcarat} /> */}
-                         <USA/>
-                         <Downcaratkyc/>
+                        <USA />
+                        <Downcaratkyc />
                       </View>
                     </TouchableOpacity>
                   )}
@@ -134,7 +141,7 @@ const SelectAndText = ({ title }: SelectAndTextProps) => {
                     position: "absolute", // Absolute positioning
                     left: 0,
                     right: 0,
-                    zIndex: 1001 
+                    zIndex: 1001
                   }}
                 />
               </BlurView>
@@ -149,7 +156,8 @@ const SelectAndText = ({ title }: SelectAndTextProps) => {
             paddingLeft: 30
           }}
           className="text-textinputtext text-[14px] rounded-t-r-b-l  border-customgray p-2"
-          placeholder={ `Enter ${title}` }
+          placeholder={`Enter ${title}`}
+          onChangeText={onChangeText}
         />
       </View>
     </View>

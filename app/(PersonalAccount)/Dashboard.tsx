@@ -4,9 +4,10 @@ import {
   // SafeAreaView,
   Dimensions,
   StatusBar as RNStatusBar,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import Notification from "../../assets/notification.svg";
 import Barcode from "../../assets/barcode.svg";
@@ -28,11 +29,39 @@ import { SectionList } from "react-native";
 import { useRouter } from "expo-router";
 import { Image } from "expo-image";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { UserTransactions } from "@/Store/Apis/UserTransactions";
+import { clearStatelogin } from "@/Store/Reducers/Login";
+import { Mainwallet } from "@/Store/Apis/Mainwallet";
+import { clearStatemainwallet } from "@/Store/Reducers/Mainwallet";
+import { clearStateusertransactions } from "@/Store/Reducers/UserTransactions";
 
 const Dashboard = () => {
   const { height, width } = Dimensions.get("window");
   const statusBarHeight = RNStatusBar.currentHeight || 0;
+  const [loader, setLoader] = useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(false);
+  const [greeting, setGreeting] = useState<string>("");
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { usertransactions, authenticatingusertransactions } = useAppSelector(
+    (state) => state.usertransactions
+  );
+  console.log(
+    usertransactions?.slice(0, 10),
+    authenticatingusertransactions,
+    "transactions"
+  );
+
+  const { mainwallet, authenticatingmainwallet } = useAppSelector(
+    (state) => state.mainwallet
+  );
+  console.log(
+    mainwallet,
+    authenticatingmainwallet,
+    mainwallet?.user?.profile_image,
+    "mainwallet"
+  );
 
   const images = [frame1, frame2, frame3];
 
@@ -50,21 +79,83 @@ const Dashboard = () => {
     </View>
   );
 
-  const DATA = [
-    {
-      title: "Today",
-      data: ["Apple", "Banana", "Orange", "Mango"]
-    },
-    {
-      title: "Tomorrow",
-      data: ["Carrot", "Broccoli", "Spinach"]
+  // const DATA = usertransactions?.slice(0, 2)?.map((item: any) => {
+  //   title: item?.created_at
+  //   data: item?.user?.map((itemize: any) => itemize)
+
+  // });
+
+  const formatDateWithTime = (isoString: any) => {
+    const date = new Date(isoString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${day}-${month}-${year} ${hours}:${minutes}`;
+  };
+
+  const DATA = usertransactions?.length
+    ? usertransactions?.slice(0, 10)?.map((item: any) => ({
+        title: formatDateWithTime(item?.created_at),
+        data: item ? [item] : []
+      }))
+    : [];
+
+  // const DATA = [
+  //   {
+  //     title: "Today",
+  //     data: ["Apple", "Banana", "Orange", "Mango"]
+  //   },
+  //   {
+  //     title: "Tomorrow",
+  //     data: ["Carrot", "Broccoli", "Spinach"]
+  //   }
+  // ];
+
+  useEffect(() => {
+    dispatch(UserTransactions());
+    dispatch(Mainwallet());
+    dispatch(clearStatelogin());
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (hour < 12) {
+      setGreeting("Good Morning");
+    } else if (hour < 18) {
+      setGreeting("Good Afternoon");
+    } else {
+      setGreeting("Good Evening");
     }
-  ];
+    return () => {
+      dispatch(clearStatemainwallet());
+      dispatch(clearStateusertransactions());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (usertransactions && mainwallet?.user) {
+      setTimeout(() => {
+        setLoader(true);
+      }, 2000);
+    }
+  }, [usertransactions, mainwallet?.user]);
 
   return (
     <View className="flex-1 bg-buttonprimary">
       <StatusBar hidden={false} style="light" />
       <SafeAreaView style={{ flex: 1, marginTop: statusBarHeight }}>
+        {!usertransactions && (
+          <View
+            style={{ height: height, width: width }}
+            className="absolute inset-0 bg-loaderbg bg-opacity-60 z-50 flex-col items-center justify-center"
+          >
+            <ActivityIndicator size={200} color="#ffffff" />
+          </View>
+        )}
         <View
           className="bg-white"
           // showsVerticalScrollIndicator={false}
@@ -83,10 +174,21 @@ const Dashboard = () => {
           >
             <View className="flex-row justify-between">
               <View className="flex-row gap-2 items-center">
-                <Image source={pics} />
+                <Image
+                  source={{ uri: mainwallet?.user?.profile_image || "" }}
+                  style={{
+                    width: width * 0.1,
+                    height: height * 0.05,
+                    borderRadius: 20
+                  }}
+                />
                 <View>
-                  <Text className="text-white text-[12px]">Good morning</Text>
-                  <Text className="text-white text-[14px]">Sheidu Susan</Text>
+                  <Text className="text-white text-[12px]">{greeting}</Text>
+                  <Text className="text-white text-[14px]">
+                    {" "}
+                    {mainwallet?.user?.last_name} {""}{" "}
+                    {mainwallet?.user?.first_name}
+                  </Text>
                 </View>
               </View>
               <View className="flex-row gap-2 items-center">
@@ -102,14 +204,23 @@ const Dashboard = () => {
               <Text className="text-white text-[12px]">Current Balance</Text>
               <View className="flex-row items-center gap-2">
                 <USD />
-                <Text className="text-white text-[14px]">USD</Text>
+                <Text className="text-white text-[14px]">
+                  {mainwallet?.currency}
+                </Text>
                 <Downcarat />
               </View>
               <View className="flex-row gap-2 items-center">
-                <Text className="text-white text-[24px] font-bold">
-                  $146,950.00
-                </Text>
-                <Dashboardeye />
+                {show ? (
+                  <Text className="text-white text-[24px] font-bold">
+                    {mainwallet?.symbol}
+                    {mainwallet?.balance}
+                  </Text>
+                ) : (
+                  <Text className="text-white text-[24px] font-bold">
+                    ******
+                  </Text>
+                )}
+                <Dashboardeye onPress={() => setShow(!show)} />
               </View>
             </View>
             <View className="flex-row justify-between">
@@ -164,7 +275,9 @@ const Dashboard = () => {
                   <Text>Save</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push("/Loan/LoanDashboard")}>
+              <TouchableOpacity
+                onPress={() => router.push("/Loan/LoanDashboard")}
+              >
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
                     style={{
@@ -187,7 +300,9 @@ const Dashboard = () => {
                   <Text>Loan</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/Invest/InvestDashboard')}>
+              <TouchableOpacity
+                onPress={() => router.push("/Invest/InvestDashboard")}
+              >
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
                     style={{
@@ -249,10 +364,10 @@ const Dashboard = () => {
               </Text>
               <Text className="text-buttonprimary text-[12px]">See all</Text>
             </View>
-            <View style={{ height: height * 0.20  }}>
+            <View style={{ height: height * 0.2 }}>
               <SectionList
                 // scrollEnabled={false}
-                sections={DATA}
+                sections={DATA || []}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item, index) => item + index}
@@ -263,18 +378,35 @@ const Dashboard = () => {
                         <Sendheader />
                         <View className="flex-col gap-1 justify-center items-start">
                           <Text className="text-[14px] text-darktext font-bold">
-                            Transfer to Mike Doe
+                            {item?.method} to {item?.receiver?.last_name}
+                            {""} {item?.receiver?.first_name}
                           </Text>
                           <Text className="text-[12px] text-transdate">
-                            Sep 2nd, 7:45am
+                            {/* Sep 2nd, 7:45am */}
+                            {formatDateWithTime(item?.created_at)}
                           </Text>
                         </View>
                       </View>
                       <View className="flex-col justify-center items-center">
-                        <Text className="text-[14px] text-darktext">$90</Text>
-                        <Text className="text-[12px] text-successtrans">
-                          Successful
+                        <Text className="text-[14px] text-darktext">
+                          {item?.symbol || ""}
+                          {""}
+                          {parseFloat(item?.total || "0").toFixed(2)}
                         </Text>
+                        {/* Failed */}
+                        {item?.status === "completed" ? (
+                          <Text className="text-[12px] text-successtrans">
+                            {item?.status}
+                          </Text>
+                        ) : item?.status === "pending" ? (
+                          <Text className="text-[12px] text-pendingtrans">
+                            {item?.status}
+                          </Text>
+                        ) : (
+                          <Text className="text-[12px] text-failedtrans">
+                            {item?.status}
+                          </Text>
+                        )}
                       </View>
                     </View>
                     <View className="flex-row justify-end">

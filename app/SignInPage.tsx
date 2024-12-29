@@ -5,9 +5,11 @@ import {
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  ActivityIndicator
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LandingPageImage from "../assets/LandingScreen.png";
 import { StatusBar } from "expo-status-bar";
@@ -20,13 +22,67 @@ import Finger from "../assets/Finger.svg";
 import TextLabelBox from "@/components/TextLabelBox";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import { CheckBox } from "@rneui/themed";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { Login } from "@/Store/Apis/Login";
+import { useAppContext } from "@/Context/useAppContext";
+import { clearStatelogin } from "@/Store/Reducers/Login";
 
 const SignInPage = () => {
+  const { isAuthenticated, checkUser } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const [checked, setChecked] = React.useState(true);
   const toggleCheckbox = () => setChecked(!checked);
+  const dispatch = useAppDispatch();
+  const [wiremiId, setWiremiId] = useState<string>(""); //thumb & sigin(if sign in before, use it for account_id saved)
+  const [NotsavedwiremiId, setNotsavedwiremiId] = useState<string>(""); //if not sigin before , use it for account_id
+  const [wiremiIdpin, setWiremiIdpin] = useState<string>(""); //sigin
+  const [pincode, setPincode] = useState<string>(""); //thumb
+  NotsavedwiremiId;
+
+  useEffect(() => {
+    const fetchStoredData = async () => {
+      try {
+        const wiremiIds = await AsyncStorage.getItem("Wiremi_Id");
+        const pincodes = await AsyncStorage.getItem("Pin_code");
+        console.log(wiremiIds);
+        console.log(pincodes);
+        if (wiremiIds) setWiremiId(wiremiIds);
+        if (pincodes) setPincode(pincodes);
+      } catch (error) {
+        console.error("Error fetching data from AsyncStorage:", error);
+      }
+    };
+    fetchStoredData();
+    return() => {
+      dispatch(clearStatelogin())
+    }
+  }, []);
+
+  const onChangepin = (value: string) => {
+    setNotsavedwiremiId(value);
+  };
+
+  const onChangeIdpin = (value: string) => {
+    setWiremiIdpin(value);
+  };
+
+  const { logins, authenticatinglogin } = useAppSelector(
+    (state) => state.logins
+  );
+  console.log(logins, authenticatinglogin, "account");
+  console.log(logins);
+
+  useEffect(() => {
+    if (logins?.access_token) {
+      AsyncStorage.setItem("token", logins?.access_token);
+      router.push("/(PersonalAccount)/Dashboard");
+    }
+  }, [logins?.access_token]);
+
+  console.log();
   return (
     <View className="flex-1 ">
       <ImageBackground
@@ -57,7 +113,7 @@ const SignInPage = () => {
             <View
               className="bg-creamwhite"
               style={{
-                height: height * 0.90,
+                height: height * 0.9,
                 zIndex: 1000,
                 width: width,
                 borderTopLeftRadius: 40,
@@ -83,67 +139,102 @@ const SignInPage = () => {
                   Welcome back! Please sign in to continue
                 </Text>
               </View>
-              <TextLabelBox
-                label="Wiremi ID"
-                placeholder="Enter your Wiremi ID"
-              />
-              <View>
+              <KeyboardAvoidingView style={{ gap: 15 }}>
                 <TextLabelBox
-                  label="Pin"
-                  placeholder="Enter your 6 digit Pin"
+                  label="Wiremi ID"
+                  placeholder="Enter your Wiremi ID"
+                  disabled={!!wiremiId}
+                  value={wiremiId}
+                  onChangeText={
+                    wiremiId
+                      ? (value: string) => onChangepin(value)
+                      : (value: string) => onChangepin(value)
+                  }
                 />
-                <View
-                  style={{ paddingRight: width * 0.02 }}
-                  className="flex-row justify-between items-center"
-                >
+                <View>
+                  <TextLabelBox
+                    label="Pin"
+                    placeholder="Enter your 6 digit Pin"
+                    onChangeText={(value: string) => onChangeIdpin(value)}
+                  />
                   <View
-                    style={{ marginLeft: -width * 0.03 }}
-                    className="flex-row justify-start items-center"
+                    style={{ paddingRight: width * 0.02 }}
+                    className="flex-row justify-between items-center"
                   >
-                    <CheckBox
-                      checked={checked}
-                      size={15}
-                      onPress={toggleCheckbox}
-                      iconType="material-community"
-                      checkedIcon="checkbox-outline"
-                      uncheckedIcon={"checkbox-blank-outline"}
-                    />
-                    <Text>Remember Me</Text>
-                  </View>
-                  <View>
-                    <TouchableOpacity
-                      onPress={() => router.push("/MainForgotPinCode")}
+                    <View
+                      style={{ marginLeft: -width * 0.03 }}
+                      className="flex-row justify-start items-center"
                     >
-                      <Text className="text-buttonprimary text-[14px]">
-                        Forgot Pincode
-                      </Text>
-                    </TouchableOpacity>
+                      <CheckBox
+                        checked={checked}
+                        size={15}
+                        onPress={toggleCheckbox}
+                        iconType="material-community"
+                        checkedIcon="checkbox-outline"
+                        uncheckedIcon={"checkbox-blank-outline"}
+                      />
+                      <Text>Remember Me</Text>
+                    </View>
+                    <View>
+                      <TouchableOpacity
+                        onPress={() => router.push("/MainForgotPinCode")}
+                      >
+                        <Text className="text-buttonprimary text-[14px]">
+                          Forgot Pincode
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
-              </View>
-              <BlueSignInButton
-                title="Sign in"
-                onPress={() => console.log("sign")}
-              />
-              <View className="flex-row items-center justify-center">
-                <Text className="text-textinputtext">
-                  Don’t have an account?{" "}
-                </Text>
-                <TouchableOpacity onPress={() => router.push('/ChooseAccountType')}>
-                <Text className="text-buttonprimary">Sign up</Text>
-                </TouchableOpacity>
-              </View>
+                {authenticatinglogin ? (
+                  <View className="flex-row justify-center items-center">
+                    <ActivityIndicator
+                      color={"#105CE2"}
+                      style={{ width: 30, height: 30 }}
+                    />
+                  </View>
+                ) : (
+                  <BlueSignInButton
+                    title="Sign in"
+                    onPress={() => {
+                      // if (
+                      //   (wiremiId || NotsavedwiremiId) &&
+                      //   wiremiIdpin.length === 6
+                      // ) {
+                        dispatch(
+                          Login({
+                            pin: wiremiIdpin,
+                            account_id: wiremiId ? wiremiId : NotsavedwiremiId
+                          })
+                        );
+                      // }
+                    }}
+                  />
+                )}
+                <View className="flex-row items-center justify-center">
+                  <Text className="text-textinputtext">
+                    Don’t have an account?{" "}
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => router.push("/ChooseAccountType")}
+                  >
+                    <Text className="text-buttonprimary">Sign up</Text>
+                  </TouchableOpacity>
+                </View>
+              </KeyboardAvoidingView>
               <View className="flex-col justify-end items-center">
-                {Platform.OS === "ios" ? (
+                {Platform.OS === "ios" && pincode && wiremiId ? (
                   <View className="items-center gap-2">
                     <Face />
                     <Text>Scan Face ID to Login</Text>
                   </View>
-                ) : (
+                ) : Platform.OS === "android" && pincode && wiremiId ? (
                   <View className="items-center gap-2">
                     <Finger />
                     <Text>Scan Fingerprint to Login</Text>
                   </View>
+                ) : (
+                  <Text></Text>
                 )}
               </View>
             </View>
