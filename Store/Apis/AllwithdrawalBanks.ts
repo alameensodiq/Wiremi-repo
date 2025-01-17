@@ -15,26 +15,27 @@ interface RejectValue {
   status?: number;
 }
 
-interface NotificationPayload {
-  notificationSearch: string;
+interface AllwithdrawalBanksPayload {
+//   notificationSearch: string;
   router: (value: any) => void;
+  page: number;
 }
 
 // Thunk implementation
-export const AllNotification = createAsyncThunk<
+export const AllwithdrawalBanks = createAsyncThunk<
   APIResponse,
-  NotificationPayload,
+  AllwithdrawalBanksPayload,
   { rejectValue: RejectValue } 
 >(
-  "allnotification", // Action type name
-  async ({notificationSearch, router}, thunkAPI) => {
+  "allwithdrawalbanks", // Action type name
+  async ({router, page}, thunkAPI) => {
     const BASE_URL = process.env.EXPO_PUBLIC_API_URL; // Accessing the environment variable
     const accessToken = await AsyncStorage.getItem("token");
 
-    console.log(notificationSearch, "notificationSearch")
+    console.log( "allwithdrawalbanks")
 
     try {
-      const response = await axios.get<APIResponse>(`${BASE_URL}notifications/search/?search=${notificationSearch}`, {
+      const response = await axios.get<APIResponse>(`${BASE_URL}payments/withdrawinstitutions?page=${page}&page_size=20`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

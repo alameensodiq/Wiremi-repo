@@ -1,16 +1,31 @@
 import { View, Text, TextInput, Dimensions } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 
 interface TransactionTextLabelProps {
   label: string;
   placeholder: string;
+  onChangeText?: (text: any) => void;
+  value?: string;
 }
 
 const TransactionTextLabel = ({
   label,
-  placeholder
+  placeholder,
+  onChangeText,
+  value
 }: TransactionTextLabelProps) => {
   const { height, width } = Dimensions.get("window");
+  const [internalValue, setInternalValue] = useState(value || ""); // Internal state for input value
+
+  const handleChangeText = (text: string) => {
+    let sanitizedText = text;
+
+    // Only allow numeric input
+    sanitizedText = text.replace(/[^0-9]/g, "");
+
+    setInternalValue(sanitizedText); // Update the internal state
+    onChangeText?.(sanitizedText); // Notify the parent component
+  };
   return (
     <View
       className="flex-col items-start gap-2"
@@ -32,11 +47,14 @@ const TransactionTextLabel = ({
           shadowColor: "#101828",
           shadowOffset: { width: 0, height: 1 },
           shadowOpacity: 0.05,
-          shadowRadius: 2, 
+          shadowRadius: 2,
           borderColor: "#d1d5db"
         }}
         className="text-textinputtext text-[14px] rounded-ten border-customgray  p-2"
         placeholder={placeholder}
+        value={internalValue}
+        onChangeText={handleChangeText}
+        keyboardType="numeric"
       />
       <Text
         style={{ position: "absolute", bottom: 5, right: 15 }}

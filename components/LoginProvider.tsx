@@ -1,5 +1,6 @@
 import { AppContext } from "@/Context/AppContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Redirect } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useState } from "react";
 
@@ -20,6 +21,7 @@ const LoginProvider: React.FC<Props> = ({ children }) => {
         setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
+        <Redirect href="/SignInPage" />;
       }
       SplashScreen.hideAsync();
     }, 3000);

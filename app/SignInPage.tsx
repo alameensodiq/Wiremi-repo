@@ -82,7 +82,7 @@ const SignInPage = () => {
     }
   }, [logins?.access_token]);
 
-  console.log();
+  console.log(logins?.access_token);
   return (
     <View className="flex-1 ">
       <ImageBackground
@@ -147,15 +147,15 @@ const SignInPage = () => {
                   value={wiremiId}
                   onChangeText={
                     wiremiId
-                      ? (value: string) => onChangepin(value)
-                      : (value: string) => onChangepin(value)
+                      ? (value: any) => onChangepin(value)
+                      : (value: any) => onChangepin(value)
                   }
                 />
                 <View>
                   <TextLabelBox
                     label="Pin"
                     placeholder="Enter your 6 digit Pin"
-                    onChangeText={(value: string) => onChangeIdpin(value)}
+                    onChangeText={(value: any) => onChangeIdpin(value)}
                   />
                   <View
                     style={{ paddingRight: width * 0.02 }}

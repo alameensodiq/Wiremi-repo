@@ -9,7 +9,7 @@ import {
   Modal,
   Pressable
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import Connection from "../../assets/Conection.svg";
@@ -22,6 +22,9 @@ import Actions from "../../assets/actions.svg";
 import { StatusBar } from "expo-status-bar";
 import GradientBackground from "@/components/GradientBackground";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { GetCard } from "@/Store/Apis/GetCard";
+import { clearStategetcard } from "@/Store/Reducers/GetCard";
 
 type BottomSheetRef = {
   open: () => void;
@@ -40,6 +43,27 @@ const MyCard = () => {
   const toggleCheckbox = () => setChecked(!checked);
   const ref = useRef<BottomSheetRef>(null);
   const [reduce, setReduce] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+
+  const { getcards, authenticatinggetcards } = useAppSelector(
+    (state) => state.getcards
+  );
+
+  console.log(getcards);
+
+  const { cardtransactions, authenticatingcardtransactions } = useAppSelector(
+    (state) => state.cardtransactions
+  );
+
+  console.log(cardtransactions);
+
+  useEffect(() => {
+    dispatch(GetCard());
+
+    return () => {
+      dispatch(clearStategetcard());
+    };
+  }, []);
 
   const handleCloseModal = () => {
     ref.current?.close();

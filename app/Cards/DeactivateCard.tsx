@@ -15,6 +15,7 @@ import Warning from "../../assets/warning.svg";
 import Tick from "../../assets/tick.svg";
 import ShortBlueButton from "@/components/ShortBlueButton";
 import ShortWhiteButton from "@/components/ShortWhiteButton";
+import { useAppSelector } from "@/Store/ConfigureStore";
 
 type BottomSheetRef = {
   open: () => void;
@@ -34,6 +35,18 @@ const DeactivateCard = () => {
   const handleCloseModal = () => {
     ref.current?.close();
   };
+
+    const { unfreezecards, authenticatingunfreezecards } = useAppSelector(
+      (state) => state.unfreezecards
+    );
+  
+    console.log(unfreezecards);
+  
+    const { freezecards, authenticatingfreezecards } = useAppSelector(
+      (state) => state.freezecards
+    );
+  
+    console.log(freezecards);
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}

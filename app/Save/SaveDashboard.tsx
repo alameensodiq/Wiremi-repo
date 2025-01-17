@@ -5,9 +5,11 @@ import {
   // SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
-  ScrollView
+  ScrollView,
+  Pressable,
+  ActivityIndicator
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
@@ -20,18 +22,87 @@ import CreateSavingsBlue from "@/components/CreateSavingsBlue";
 import PieChart from "react-native-pie-chart";
 import { BarChart, LineChart } from "react-native-gifted-charts";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { clearStatesavedashboard } from "@/Store/Reducers/SavingDashboard";
+import { SavingDashboard } from "@/Store/Apis/SavingDashboard";
+import { SavingActive } from "@/Store/Apis/SavingActive";
+import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
+import { clearStatemainwallet } from "@/Store/Reducers/Mainwallet";
+import { clearStateusertransactions } from "@/Store/Reducers/UserTransactions";
 
 const SaveDashboard = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const widthAndHeight = 180;
-  const series = [721, 120, 123, 189];
+
+  const { savedashboard, authenticatingsavedashboard } = useAppSelector(
+    (state) => state.savedashboard
+  );
+
+  console.log(savedashboard);
+
+  const { saveactive, authenticatingsaveactive } = useAppSelector(
+    (state) => state.saveactive
+  );
+
+  console.log(saveactive?.data);
+
+  const distribution = savedashboard?.data?.distribution || {};
+  const series = [
+    distribution?.regular ?? 0,
+    distribution?.recurrent ?? 0,
+    distribution?.block ?? 0,
+    distribution?.group ?? 0
+  ];
+
+  const validIndices = series
+    .map((value, index) => (value > 0 ? index : null))
+    .filter((index) => index !== null);
+
   const sliceColor = ["#105CE2", "#617102", "#017963", "#7106B3"];
+
+  const validSeries = validIndices.map((index) => series[index]);
+  const validSliceColor = validIndices.map((index) => sliceColor[index]);
+
+  if (validSeries.length === 0) {
+    console.warn("PieChart series is empty or sums to zero.");
+  }
   const series2 = [721, 100];
   const sliceColor2 = ["#105CE2", "#E9EBF3"];
-  const data = [{ value: 0 }, { value: 80 }, { value: 90 }, { value: 70 }];
+
+  const series3 = [721, 100];
+  const sliceColor3 = ["#105CE2", "#E9EBF3"];
+
+  const data = savedashboard?.data?.growth_data
+    ? savedashboard?.data?.growth_data.slice(-4).map((item: any) => ({
+        value: item?.amount ?? 0 // Default to 0 if `amount` is undefined
+      }))
+    : [];
+
+  const date = savedashboard?.data?.growth_data
+    ? savedashboard?.data?.growth_data.slice(-4).map((item: any) => ({
+        value: item?.date ?? 0 // Default to 0 if `amount` is undefined
+      }))
+    : [];
+
+  console.log(date);
+  // const data = [{ value: 0 }, { value: 80 }, { value: 90 }, { value: 170 }];
+
+  useEffect(() => {
+    dispatch(SavingDashboard({router: router.push}));
+    dispatch(SavingActive());
+    dispatch(clearStatemainwallet());
+    dispatch(clearStateusertransactions());
+
+    return () => {
+      // dispatch(clearStatesavedashboard());
+      // dispatch(clearStatesaveactive());
+    };
+  }, []);
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -45,6 +116,14 @@ const SaveDashboard = () => {
           marginTop: statusBarHeight
         }}
       >
+        {!savedashboard?.data?.growth_data && !savedashboard?.data?.distribution && !saveactive?.data && (
+          <View
+            style={{ height: height, width: width, flex: 1 }}
+            className="absolute inset-0 bg-loaderbg bg-opacity-60 z-50 flex-col items-center justify-center"
+          >
+            <ActivityIndicator size={200} color="#ffffff" />
+          </View>
+        )}
         <View
           style={{
             paddingHorizontal: width * 0.03
@@ -75,15 +154,15 @@ const SaveDashboard = () => {
               Total Amount Saved
             </Text>
             <Text className="font-bold text-[20px] text-buttonprimary">
-              $11,300.05
+              ${savedashboard?.data?.total_amount}
             </Text>
             <View className="flex-row gap-2 items-center">
               <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
-                +$180.33
+                +${savedashboard?.data?.monthly_gain}
               </Text>
               <View className="flex-row">
                 <Text style={{ color: "#00A85A" }} className="text-[10px]">
-                  2.3%
+                  {savedashboard?.data?.monthly_gain_percentage}%
                 </Text>
                 <Arrow />
               </View>
@@ -105,20 +184,24 @@ const SaveDashboard = () => {
           <View className="flex-row items-center p-1 justify-between">
             <CreateSavings
               title="Create savings"
-              onPress={() => router.push('/Save/CreateSavingsList')}
+              onPress={() => router.push("/Save/CreateSavingsList")}
             />
-            <CreateSavingsBlue
+            {/* <CreateSavingsBlue
               title="Simulate savings"
-              onPress={() => router.push('/Save/SimulateSavings')}
-            />
+              onPress={() => router.push("/Save/SimulateSavings")}
+            /> */}
           </View>
           <View className="flex-row items-center gap-2">
-            <PieChart
-              widthAndHeight={widthAndHeight}
-              series={series}
-              sliceColor={sliceColor}
-              coverRadius={0.65}
-            />
+            {validSeries.length > 0 ? (
+              <PieChart
+                widthAndHeight={widthAndHeight}
+                series={validSeries}
+                sliceColor={validSliceColor}
+                coverRadius={0.65}
+              />
+            ) : (
+              <Text>No data available for the chart.</Text>
+            )}
             <View className="flex-col gap-3">
               <View className="flex-row justify-between">
                 <View className="flex-row items-center gap-2">
@@ -140,7 +223,9 @@ const SaveDashboard = () => {
                       </Text>
                       <Decrease />
                     </View>
-                    <Text className="text-[14px] font-bold">22%</Text>
+                    <Text className="text-[14px] font-bold">
+                      {savedashboard?.data?.distribution?.regular}%
+                    </Text>
                   </View>
                 </View>
                 <View className="flex-row items-center gap-2">
@@ -148,7 +233,7 @@ const SaveDashboard = () => {
                     style={{
                       height: 10,
                       width: 10,
-                      backgroundColor: "#105CE2",
+                      backgroundColor: "#617102",
                       borderRadius: 2
                     }}
                   ></View>
@@ -162,7 +247,9 @@ const SaveDashboard = () => {
                       </Text>
                       <Increase />
                     </View>
-                    <Text className="text-[14px] font-bold">29%</Text>
+                    <Text className="text-[14px] font-bold">
+                      {savedashboard?.data?.distribution?.recurrent}%
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -172,7 +259,7 @@ const SaveDashboard = () => {
                     style={{
                       height: 10,
                       width: 10,
-                      backgroundColor: "#105CE2",
+                      backgroundColor: "#017963",
                       borderRadius: 2
                     }}
                   ></View>
@@ -186,7 +273,9 @@ const SaveDashboard = () => {
                       </Text>
                       <Increase />
                     </View>
-                    <Text className="text-[14px] font-bold">17%</Text>
+                    <Text className="text-[14px] font-bold">
+                      {savedashboard?.data?.distribution?.block}%
+                    </Text>
                   </View>
                 </View>
                 <View className="flex-row items-center gap-2">
@@ -194,7 +283,7 @@ const SaveDashboard = () => {
                     style={{
                       height: 10,
                       width: 10,
-                      backgroundColor: "#105CE2",
+                      backgroundColor: "#7106B3",
                       borderRadius: 2
                     }}
                   ></View>
@@ -208,7 +297,9 @@ const SaveDashboard = () => {
                       </Text>
                       <Decrease />
                     </View>
-                    <Text className="text-[14px] font-bold">32%</Text>
+                    <Text className="text-[14px] font-bold">
+                      {savedashboard?.data?.distribution?.group}%
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -240,11 +331,16 @@ const SaveDashboard = () => {
             style={{ paddingHorizontal: width * 0.03 }}
             className="flex-row items-center justify-between"
           >
-            <Text className="text-[12px]">1M</Text>
+            {date?.map((item: any, index: number) => (
+              <Text className="text-[12px]" key={index}>
+                {item?.value}
+              </Text>
+            ))}
+            {/* <Text className="text-[12px]">1M</Text>
             <Text className="text-[12px]">3M</Text>
             <Text className="text-[12px]">6M</Text>
             <Text className="text-[12px]">1Y</Text>
-            <Text className="text-[12px]">ALL TIME</Text>
+            <Text className="text-[12px]">ALL TIME</Text> */}
           </View>
         </View>
         <View
@@ -255,72 +351,90 @@ const SaveDashboard = () => {
         >
           <View className="flex-row justify-between">
             <Text className="text-[16px]">My saving instances</Text>
-            <Text className="text-buttonprimary">See all</Text>
+            <Pressable onPress={() => router.push("/Save/SavingInstance")}>
+              <Text className="text-buttonprimary">See all</Text>
+            </Pressable>
           </View>
-          <View className="flex-row items-center justify-between pl-3">
-            <View className="flex-row gap-1">
-              <PieChart
-                widthAndHeight={70}
-                series={series2}
-                sliceColor={sliceColor2}
-                coverRadius={0.65}
-              />
-              <View className="flex-col gap-1">
-                <View className="flex-row gap-1">
-                  <Text className="text-[14px]" style={{ color: "#413D43" }}>
-                    Tuition
-                  </Text>
-                  <Text className="text-[14px]" style={{ color: "#00091E" }}>
-                    -$423
-                  </Text>
-                </View>
-                <View className="flex-row gap-2 items-center">
-                  <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
-                    +$180.33
-                  </Text>
-                  <View className="flex-row">
-                    <Text style={{ color: "#00A85A" }} className="text-[10px]">
-                      2.3%
+          { saveactive?.data && saveactive?.data["today"][0] && (
+            <Pressable
+              onPress={() => router.push(`/Save/RegularSavingsSummary?id=${1}`)}
+              className="flex-row items-center justify-between pl-3"
+            >
+              <View className="flex-row gap-1">
+                <PieChart
+                  widthAndHeight={70}
+                  series={[saveactive?.data["today"][0]?.progress, 100 - saveactive?.data["today"][0]?.progress]}
+                  sliceColor={sliceColor2}
+                  coverRadius={0.65}
+                />
+                <View className="flex-col gap-1">
+                  <View className="flex-row gap-1">
+                    <Text className="text-[14px]" style={{ color: "#413D43" }}>
+                    {saveactive?.data["today"][0]?.name}
                     </Text>
-                    <Arrow />
+                    <Text className="text-[14px]" style={{ color: "#00091E" }}>
+                      -${saveactive?.data["today"][0]?.amount}
+                    </Text>
+                  </View>
+                  <View className="flex-row gap-2 items-center">
+                    <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
+                      +${saveactive?.data["today"][0]?.amount}
+                    </Text>
+                    {/* <View className="flex-row">
+                      <Text
+                        style={{ color: "#00A85A" }}
+                        className="text-[10px]"
+                      >
+                        2.3%
+                      </Text>
+                      <Arrow />
+                    </View> */}
                   </View>
                 </View>
               </View>
-            </View>
-            <RightCarat />
-          </View>
-          <View className="flex-row items-center justify-between pl-3">
-            <View className="flex-row gap-1">
-              <PieChart
-                widthAndHeight={70}
-                series={series2}
-                sliceColor={sliceColor2}
-                coverRadius={0.65}
-              />
-              <View className="flex-col gap-1">
-                <View className="flex-row gap-1">
-                  <Text className="text-[14px]" style={{ color: "#413D43" }}>
-                    Tuition
-                  </Text>
-                  <Text className="text-[14px]" style={{ color: "#00091E" }}>
-                    -$423
-                  </Text>
-                </View>
-                <View className="flex-row gap-2 items-center">
-                  <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
-                    +$180.33
-                  </Text>
-                  <View className="flex-row">
-                    <Text style={{ color: "#00A85A" }} className="text-[10px]">
-                      2.3%
+              <RightCarat />
+            </Pressable>
+          )}
+          {saveactive?.data && saveactive?.data["today"][1] && (
+            <Pressable
+              onPress={() => router.push(`/Save/RegularSavingsSummary?id=${2}`)}
+              className="flex-row items-center justify-between pl-3"
+            >
+              <View className="flex-row gap-1">
+                <PieChart
+                  widthAndHeight={70}
+                  series={[saveactive?.data["today"][1]?.progress, 100 - saveactive?.data["today"][1]?.progress]}
+                  sliceColor={sliceColor3}
+                  coverRadius={0.65}
+                />
+                <View className="flex-col gap-1">
+                  <View className="flex-row gap-1">
+                    <Text className="text-[14px]" style={{ color: "#413D43" }}>
+                    {saveactive?.data["today"][1]?.name}
                     </Text>
-                    <Arrow />
+                    <Text className="text-[14px]" style={{ color: "#00091E" }}>
+                      -${saveactive?.data["today"][1]?.amount}
+                    </Text>
+                  </View>
+                  <View className="flex-row gap-2 items-center">
+                    <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
+                      +${saveactive?.data["today"][1]?.amount}
+                    </Text>
+                    {/* <View className="flex-row">
+                      <Text
+                        style={{ color: "#00A85A" }}
+                        className="text-[10px]"
+                      >
+                        2.3%
+                      </Text>
+                      <Arrow />
+                    </View> */}
                   </View>
                 </View>
               </View>
-            </View>
-            <RightCarat />
-          </View>
+              <RightCarat />
+            </Pressable>
+          )}
         </View>
       </SafeAreaView>
     </ScrollView>

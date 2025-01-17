@@ -5,17 +5,28 @@ import {
   Dimensions,
   ScrollView
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import Forgotsuccess from "../../assets/forgotsuccess.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
+import { useAppDispatch } from "@/Store/ConfigureStore";
+import { clearStategetcard } from "@/Store/Reducers/GetCard";
+import { clearStatecreatecard } from "@/Store/Reducers/CreateCard";
 
 const CardSuccess = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+      return () => {
+        dispatch(clearStategetcard());
+        dispatch(clearStatecreatecard());
+      };
+    }, []);
   return (
     <ScrollView className="flex-1 ">
       <View className="flex-1 bg-white">

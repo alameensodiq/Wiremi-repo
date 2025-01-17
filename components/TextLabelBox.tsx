@@ -1,17 +1,46 @@
 import { View, Text, TextInput, Dimensions } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 
 interface TextLabelBoxProps {
   label: string;
   placeholder: string;
-  reduce?:string;
-  onChangeText?: (text: string) => void;
-  disabled?:boolean;
+  reduce?: string;
+  onChangeText?: (text: string | number) => void;
+  disabled?: boolean;
   value?: string;
+  number?: boolean;
+  both?: boolean;
 }
 
-const TextLabelBox = ({ label, placeholder, reduce, onChangeText, disabled, value }: TextLabelBoxProps) => {
+const TextLabelBox = ({
+  label,
+  placeholder,
+  reduce,
+  onChangeText,
+  disabled,
+  value,
+  number,
+  both
+}: TextLabelBoxProps) => {
   const { height, width } = Dimensions.get("window");
+  const [internalValue, setInternalValue] = useState(value || ""); // Internal state for input value
+
+  const handleChangeText = (text: string) => {
+    let sanitizedText = text;
+
+    if (number) {
+      // Only allow numeric input
+      sanitizedText = text.replace(/[^0-9]/g, "");
+    } else if(both){
+      sanitizedText = text;
+    } else {
+      // Only allow alphabetic input
+      sanitizedText = text.replace(/[^a-zA-Z\s!@#$%^&*(),.?":{}|<>-]/g, "");
+    }
+
+    setInternalValue(sanitizedText); // Update the internal state
+    onChangeText?.(sanitizedText); // Notify the parent component
+  };
 
   return (
     <View
@@ -21,17 +50,22 @@ const TextLabelBox = ({ label, placeholder, reduce, onChangeText, disabled, valu
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.05,
         shadowRadius: 2,
-        elevation: 3,
+        elevation: 3
       }}
     >
       <Text className="text-textblack">{label}</Text>
       <TextInput
-        style={{ width: reduce ? width * 0.4   : width * 0.9, borderWidth: 1, height: height * 0.06}}
+        style={{
+          width: reduce ? width * 0.4 : width * 0.9,
+          borderWidth: 1,
+          height: height * 0.06
+        }}
         className="text-textinputtext text-[14px] rounded-ten border-customgray  p-2"
         placeholder={placeholder}
         editable={!disabled}
-        value={value}
-        onChangeText={onChangeText}
+        value={internalValue}
+        onChangeText={handleChangeText}
+        keyboardType={number ? "numeric" : "default"}
       />
     </View>
   );

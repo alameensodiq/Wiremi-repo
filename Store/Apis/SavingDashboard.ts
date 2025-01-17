@@ -15,32 +15,33 @@ interface RejectValue {
   status?: number;
 }
 
-interface NotificationPayload {
-  notificationSearch: string;
+interface SaveDashboardPayload {
   router: (value: any) => void;
 }
 
 // Thunk implementation
-export const AllNotification = createAsyncThunk<
+export const SavingDashboard = createAsyncThunk<
   APIResponse,
-  NotificationPayload,
-  { rejectValue: RejectValue } 
+  SaveDashboardPayload,
+  { rejectValue: RejectValue }
 >(
-  "allnotification", // Action type name
-  async ({notificationSearch, router}, thunkAPI) => {
+  "savingdashboard", // Action type name
+  async ({router}, thunkAPI) => {
     const BASE_URL = process.env.EXPO_PUBLIC_API_URL; // Accessing the environment variable
     const accessToken = await AsyncStorage.getItem("token");
-
-    console.log(notificationSearch, "notificationSearch")
+    console.log(accessToken)
 
     try {
-      const response = await axios.get<APIResponse>(`${BASE_URL}notifications/search/?search=${notificationSearch}`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await axios.get<APIResponse>(
+        `${BASE_URL}api/account/savings-dashboard/`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       // Return the API response data
       return response.data;
@@ -53,7 +54,10 @@ export const AllNotification = createAsyncThunk<
       }
       // Reject the thunk with error details
       return thunkAPI.rejectWithValue({
-        error: error.response?.data?.message || error.message || "Failed to connect to the server.",
+        error:
+          error.response?.data?.message ||
+          error.message ||
+          "Failed to connect to the server.",
         status: error.response?.status,
       });
     }

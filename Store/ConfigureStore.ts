@@ -1,3 +1,4 @@
+import { CreateCardsSlice } from './Reducers/CreateCard';
 import { configureStore } from '@reduxjs/toolkit';
 import { RegisterUserSlice } from './Reducers/RegisterUser';
 import { AccountRegisterSlice } from './Reducers/AccountRegister';
@@ -9,6 +10,16 @@ import { MainwalletSlice } from './Reducers/Mainwallet';
 import { AllNotificationSlice } from './Reducers/AllNotification';
 import { SingleNotificationSlice } from './Reducers/SingleNotification';
 import { OpenedNotificationSlice } from './Reducers/OpenedNotification';
+import { GetCardSlice } from './Reducers/GetCard';
+import { FreezeCardSlice } from './Reducers/FreezeCard';
+import { UnfreezeCardSlice } from './Reducers/Unfreezecard';
+import { CardTransactionsSlice } from './Reducers/TransactionCard';
+import { SavingDashboardSlice } from './Reducers/SavingDashboard';
+import { SavingActiveSlice } from './Reducers/SavingActive';
+import { GetSavingSlice } from './Reducers/GetSaving';
+import { GetGroupSavingSlice } from './Reducers/GetGroupSaving';
+import { CreatingSavingsSlice } from './Reducers/CreateSavings';
+import { AllwithdrawalBanksSlice } from './Reducers/AllwithdrawalBanks';
 
 const store = configureStore({
   reducer: {
@@ -20,7 +31,18 @@ const store = configureStore({
     mainwallet: MainwalletSlice?.reducer,
     allnotification: AllNotificationSlice?.reducer,
     singlenotification: SingleNotificationSlice?.reducer,
-    openednotification: OpenedNotificationSlice?.reducer
+    openednotification: OpenedNotificationSlice?.reducer,
+    createcards: CreateCardsSlice?.reducer,
+    getcards: GetCardSlice?.reducer,
+    freezecards: FreezeCardSlice?.reducer,
+    unfreezecards: UnfreezeCardSlice?.reducer,
+    cardtransactions: CardTransactionsSlice?.reducer,
+    savedashboard: SavingDashboardSlice?.reducer,
+    saveactive: SavingActiveSlice?.reducer,
+    getgroupsaving : GetGroupSavingSlice?.reducer,
+    getsaving: GetSavingSlice?.reducer,
+    creatingsavings: CreatingSavingsSlice?.reducer,
+    allwithdrawalbanks: AllwithdrawalBanksSlice?.reducer
   },
 });
 

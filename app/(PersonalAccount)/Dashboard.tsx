@@ -35,6 +35,8 @@ import { clearStatelogin } from "@/Store/Reducers/Login";
 import { Mainwallet } from "@/Store/Apis/Mainwallet";
 import { clearStatemainwallet } from "@/Store/Reducers/Mainwallet";
 import { clearStateusertransactions } from "@/Store/Reducers/UserTransactions";
+import { clearStatesavedashboard } from "@/Store/Reducers/SavingDashboard";
+import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
 
 const Dashboard = () => {
   const { height, width } = Dimensions.get("window");
@@ -133,6 +135,8 @@ const Dashboard = () => {
     return () => {
       dispatch(clearStatemainwallet());
       dispatch(clearStateusertransactions());
+      dispatch(clearStatesavedashboard());
+      dispatch(clearStatesaveactive());
     };
   }, []);
 

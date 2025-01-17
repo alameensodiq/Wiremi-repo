@@ -9,8 +9,8 @@ import {
   Pressable,
   Modal
 } from "react-native";
-import React, { useRef, useState } from "react";
-import { useRouter } from "expo-router";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import Actions from "../../assets/actions.svg";
@@ -27,6 +27,11 @@ import { BarChart } from "react-native-gifted-charts";
 import { BottomSheet } from "@/components/Bottom";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import WhiteSignInButton from "@/components/WhiteSignInButton";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { clearStategetgroupsaving } from "@/Store/Reducers/GetGroupSaving";
+import { clearStategetsaving } from "@/Store/Reducers/GetSaving";
+import { GetGroupSaving } from "@/Store/Apis/GetGroupSaving";
+import { GetSaving } from "@/Store/Apis/GetSaving";
 
 type BottomSheetRef = {
   open: () => void;
@@ -50,6 +55,8 @@ const RegularSavingsSummary = () => {
   const ref6 = useRef<BottomSheetRef>(null);
   const ref7 = useRef<BottomSheetRef>(null);
   const router = useRouter();
+  const { id, group, nogroup } = useLocalSearchParams();
+  const ids = +id;
   const data = [
     { value: 150 },
     { value: 880 },
@@ -63,6 +70,32 @@ const RegularSavingsSummary = () => {
   const handleCloseModal = () => {
     ref.current?.close();
   };
+  const dispatch = useAppDispatch();
+
+  const { getgroupsaving, authenticatinggetgroupsaving } = useAppSelector(
+    (state) => state.getgroupsaving
+  );
+
+  console.log(getgroupsaving);
+
+  const { getsaving, authenticatinggetsaving } = useAppSelector(
+    (state) => state.getsaving
+  );
+
+  console.log(getsaving);
+
+  useEffect(() => {
+    if (group) {
+      dispatch(GetGroupSaving({ id: ids }));
+    }
+    if (nogroup) {
+      dispatch(GetSaving({ id: ids }));
+    }
+    return () => {
+      dispatch(clearStategetgroupsaving());
+      dispatch(clearStategetsaving());
+    };
+  }, [group, nogroup, id]);
 
   return (
     <ScrollView
@@ -79,7 +112,7 @@ const RegularSavingsSummary = () => {
             paddingTop: height * 0.03,
             alignItems: "flex-end"
           }}
-        //   onPress={() => setIsVisible(false)}
+          //   onPress={() => setIsVisible(false)}
         >
           <View
             style={{
@@ -100,7 +133,7 @@ const RegularSavingsSummary = () => {
                   onPress={() => {
                     // router.push("/Cards/ChangeCardPin");
                     setIsVisible(!isVisible);
-                    ref.current?.open()
+                    ref.current?.open();
                   }}
                 >
                   <Text>Delete</Text>
@@ -111,7 +144,7 @@ const RegularSavingsSummary = () => {
                   onPress={() => {
                     // router.push("/Cards/DeactivateCard");
                     setIsVisible(!isVisible);
-                    setColor(false)
+                    setColor(false);
                   }}
                 >
                   <Text>View analytics</Text>
@@ -485,7 +518,12 @@ const RegularSavingsSummary = () => {
               }}
             >
               <View className="flex-col gap-1">
-                <Text style={{ color: "#00091E", fontSize: 14}} className="font-bold">$2112.23</Text>
+                <Text
+                  style={{ color: "#00091E", fontSize: 14 }}
+                  className="font-bold"
+                >
+                  $2112.23
+                </Text>
                 <Text style={{ color: "#98A2B3", fontSize: 12 }}>
                   Total interest ($367.00)
                 </Text>
@@ -549,13 +587,15 @@ const RegularSavingsSummary = () => {
                 title="Accept and Continue"
                 onPress={() => {
                   handleCloseModal();
-                  router.push('/Save/Delete')
+                  router.push("/Save/Delete");
                 }}
               />
-              <WhiteSignInButton title="Cancel"
+              <WhiteSignInButton
+                title="Cancel"
                 onPress={() => {
                   handleCloseModal();
-                }} />
+                }}
+              />
             </View>
           </View>
         </BottomSheet>

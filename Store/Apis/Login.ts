@@ -32,8 +32,8 @@ export const Login = createAsyncThunk<
       {
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       }
     );
 
@@ -50,7 +50,7 @@ export const Login = createAsyncThunk<
     return response.data;
   } catch (e: any) {
     return thunkAPI.rejectWithValue({
-      error: e.message || "Failed to connect to the server.",
+      error: e.message || "Failed to connect to the server."
     });
   }
 });

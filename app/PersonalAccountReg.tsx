@@ -311,21 +311,21 @@ const PersonalAccountReg = () => {
                     <TextLabelBox
                       label="First name"
                       placeholder="Enter your first name"
-                      onChangeText={(value: string) =>
+                      onChangeText={(value: any) =>
                         onChange("first_name", value)
                       }
                     />
                     <TextLabelBox
                       label="Last name"
                       placeholder="Enter your last name"
-                      onChangeText={(value: string) =>
+                      onChangeText={(value: any) =>
                         onChange("last_name", value)
                       }
                     />
                     <TextLabelBox
                       label="Email address"
                       placeholder="Enter your email address"
-                      onChangeText={(value: string) => onChange("email", value)}
+                      onChangeText={(value: any) => onChange("email", value)}
                     />
 
                     <SelectAndText
@@ -338,7 +338,7 @@ const PersonalAccountReg = () => {
                     <TextLabelBox
                       label="Referral code"
                       placeholder="Enter your referral code (optional)"
-                      onChangeText={(value: string) => onChange("code", value)}
+                      onChangeText={(value: any) => onChange("code", value)}
                     />
                     {authenticating ? (
                       <View className="flex-row justify-center items-center">

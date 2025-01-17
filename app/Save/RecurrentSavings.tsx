@@ -118,6 +118,7 @@ import {
         image: <Cards />
       }
     ];
+
     return (
       <ScrollView style={{ backgroundColor: "#ffffff" }} className="flex-1">
         <StatusBar hidden={false} style="dark" />
@@ -135,7 +136,7 @@ import {
             >
               <Back />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Regular Savings</Text>
+            <Text className="text-[20px] text-pagetitle">Recurrent Savings</Text>
             <Text></Text>
           </View>
           <View className="items-center justify-center">

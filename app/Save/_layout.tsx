@@ -45,6 +45,7 @@ const Save = () => {
       />
       <Stack.Screen name="Delete" options={{ headerShown: false }} />
       <Stack.Screen name="SimulateSavings" options={{ headerShown: false }} />
+      <Stack.Screen name="SavingInstance" options={{ headerShown: false }} />
       {/* <Stack.Screen name="GroupSavingsSummary" options={{ headerShown: false }} /> */}
     </Stack>
   );

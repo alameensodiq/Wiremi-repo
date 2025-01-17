@@ -12,7 +12,7 @@ import {
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SendMoneyWiremi from "../../assets/Closednotify.svg";
 import Filter from "../../assets/filter.svg";
 import Openednotify from "../../assets/Openednotify.svg";
@@ -38,6 +38,7 @@ const NotificationList = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const ref = useRef<BottomSheetRef>(null);
+  const [notificationSearch, setnotificationSearch] = useState<string>("")
   const dispatch = useAppDispatch();
 
   const handleCloseModal = () => {
@@ -66,15 +67,16 @@ const NotificationList = () => {
   console.log(allnotification);
 
   useEffect(() => {
-    dispatch(AllNotification());
+    dispatch(AllNotification({notificationSearch, router: router.push}));
     dispatch(clearStatemainwallet());
     dispatch(clearStateusertransactions());
     dispatch(clearStatesinglenotification());
     dispatch(clearStateopenednotification());
+    console.log(notificationSearch)
     return () => {
       dispatch(clearStateallnotification());
     };
-  }, []);
+  }, [notificationSearch]);
 
   const data = allnotification?.data;
   return (
@@ -104,7 +106,7 @@ const NotificationList = () => {
           <Text></Text>
         </View>
         <View className="flex-row">
-          <NotificationSearchLabel placeholder="Search" />
+          <NotificationSearchLabel onChangeText={(text) => setnotificationSearch(text)} placeholder="Search" />
           <Filter />
         </View>
         <View style={{ height: height * 0.72 }}>
@@ -122,7 +124,7 @@ const NotificationList = () => {
                     }}
                     className="justify-center items-center"
                   >
-                    {item?.opened ? <Openednotify /> : <SendMoneyWiremi />}
+                    {item?.opened ?  <SendMoneyWiremi /> : <Openednotify />}
                   </View>
                   <View>
                     <Text className="text-black font-[13px]">
