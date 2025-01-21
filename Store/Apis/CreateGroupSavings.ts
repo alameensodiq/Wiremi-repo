@@ -4,20 +4,23 @@ import axios from "axios";
 import { Redirect } from "expo-router";
 // import {EXPO_PUBLIC_API_URL} from "@env";
 
-interface CreateSavingsPayload {
+interface CreateGroupSavingsPayload {
   goal_name: string;
   saving_interval: string;
   amount_per_interval?: number;
   duration: number;
-  emergency_fund_percentage: number;
+  Payout_type: string;
   penalty_percentage: number;
   status: string;
   saving_type: string;
-  schedule: string;
+  Payout_duration:string;
   router: (value: any) => void;
   setIsVisible: (value: boolean) => void;
-  setShow: any;
-  schedule_info: any
+  setShow?: any;
+  number_of_members: number;
+  participants: Array<string>;
+  adminParticipants: Array<string>;
+  type: string;
 }
 
 interface APIResponse {
@@ -26,27 +29,30 @@ interface APIResponse {
   data?: any;
 }
 
-export const CreatingSavings = createAsyncThunk<
+export const CreateGroupSavings = createAsyncThunk<
   APIResponse,
-  CreateSavingsPayload,
+  CreateGroupSavingsPayload,
   { rejectValue: { error: string; status?: number; details?: any } }
 >(
-  "creatingsavings",
+  "creatinggroupsavings",
   async (
     {
       goal_name,
       amount_per_interval,
       duration,
       saving_interval,
-      emergency_fund_percentage,
+      Payout_type,
       penalty_percentage,
       status,
       saving_type,
-      schedule,
       router,
       setIsVisible,
       setShow,
-      schedule_info
+      number_of_members,
+      Payout_duration,
+      participants,
+      type,
+      adminParticipants
     },
     thunkAPI
   ) => {
@@ -59,29 +65,36 @@ export const CreatingSavings = createAsyncThunk<
       amount_per_interval,
       duration,
       saving_interval,
-      emergency_fund_percentage,
+      Payout_type,
       penalty_percentage,
       status,
       saving_type,
-      schedule,
+      number_of_members,
       router,
       setIsVisible,
+      Payout_duration,
+      participants,
+      type,
+      adminParticipants
     );
 
     try {
       const response = await axios.post<APIResponse>(
-        `${BASE_URL}api/account/savings/`,
+        `${BASE_URL}api/account/group-savings/`,
         {
           goal_name,
           amount_per_interval,
           duration,
           saving_interval,
-          emergency_fund_percentage,
+          Payout_type,
           penalty_percentage,
           status,
           saving_type,
-          schedule,
-          schedule_info
+          number_of_members,
+          Payout_duration,
+          participants,
+          type,
+          adminParticipants
         },
         {
           headers: {

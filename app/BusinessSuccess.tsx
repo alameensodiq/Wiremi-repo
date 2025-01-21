@@ -17,6 +17,10 @@ import SuccessLand from "../assets/forgetsuccesland.png";
 import Eng from "../assets/success.gif";
 import LottieView from "lottie-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { clearState } from "@/Store/Reducers/CreatePin";
+import { clearStateregister } from "@/Store/Reducers/RegisterUser";
+import { useAppDispatch } from "@/Store/ConfigureStore";
+import { clearStateaccountregister } from "@/Store/Reducers/AccountRegister";
 
 const BusinessSuccess = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -24,6 +28,7 @@ const BusinessSuccess = () => {
   const router = useRouter();
   const [firstname, setFirstname] = useState<string | null>(null);
   const [lastname, setLastname] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchNames = async () => {
@@ -39,6 +44,11 @@ const BusinessSuccess = () => {
     };
 
     fetchNames();
+    return () => {
+      dispatch(clearState());
+      dispatch(clearStateregister());
+       dispatch(clearStateaccountregister());
+    };
   }, []);
 
   // const name = {firstname}{lastname}
@@ -106,9 +116,9 @@ const BusinessSuccess = () => {
                 title="Proceed to Dashboard"
                 color1
                 onPress={() => {
-                  AsyncStorage.removeItem("firstname")
-                  AsyncStorage.removeItem("lastname")
-                  router.push('/SignInPage')
+                  AsyncStorage.removeItem("firstname");
+                  AsyncStorage.removeItem("lastname");
+                  router.push("/SignInPage");
                 }}
               />
             </View>

@@ -9,10 +9,11 @@ import {
   TouchableOpacity,
   ScrollView,
   Pressable,
-  Modal
+  Modal,
+  ActivityIndicator
 } from "react-native";
-import React, { useRef, useState } from "react";
-import { useRouter } from "expo-router";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import Actions from "../../assets/actions.svg";
@@ -30,6 +31,12 @@ import { BarChart } from "react-native-gifted-charts";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import WhiteSignInButton from "@/components/WhiteSignInButton";
 import { BottomSheet } from "@/components/Bottom";
+import { GetGroupSaving } from "@/Store/Apis/GetGroupSaving";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { clearStategetgroupsaving } from "@/Store/Reducers/GetGroupSaving";
+import ShortBlueButton from "@/components/ShortBlueButton";
+import { SavingActive } from "@/Store/Apis/SavingActive";
+import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
 
 type BottomSheetRef = {
   open: () => void;
@@ -41,6 +48,7 @@ const GroupSavingsSummary = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible2, setIsVisible2] = useState<boolean>(false);
   const [checked, setChecked] = React.useState(true);
   const toggleCheckbox = () => setChecked(!checked);
   const [color, setColor] = useState(true);
@@ -62,10 +70,27 @@ const GroupSavingsSummary = () => {
     { value: 190 },
     { value: 450 }
   ];
+  const { id } = useLocalSearchParams();
+  const ids = +id;
 
   const handleCloseModal = () => {
     ref.current?.close();
   };
+
+  const dispatch = useAppDispatch();
+
+  const { getgroupsaving, authenticatinggetgroupsaving, errors } =
+    useAppSelector((state) => state.getgroupsaving);
+
+  console.log(getgroupsaving);
+
+  useEffect(() => {
+    dispatch(clearStatesaveactive());
+    dispatch(GetGroupSaving({ id: ids, router: router.push }));
+    return () => {
+      // dispatch(clearStategetgroupsaving());
+    };
+  }, [id]);
 
   return (
     <ScrollView
@@ -103,7 +128,7 @@ const GroupSavingsSummary = () => {
                   onPress={() => {
                     // router.push("/Cards/ChangeCardPin");
                     setIsVisible(!isVisible);
-                    ref.current?.open()
+                    ref.current?.open();
                   }}
                 >
                   <Text>Delete</Text>
@@ -114,13 +139,50 @@ const GroupSavingsSummary = () => {
                   onPress={() => {
                     // router.push("/Cards/DeactivateCard");
                     setIsVisible(!isVisible);
-                    setColor(false)
+                    setColor(false);
                   }}
                 >
                   <Text>View analytics</Text>
                 </Pressable>
               </View>
             </View>
+          </View>
+        </Pressable>
+      </Modal>
+      <Modal animationType="slide" transparent={true} visible={isVisible2}>
+        <Pressable
+          style={{
+            flex: 1,
+            backgroundColor: "#8080808C",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+          onPress={() => setIsVisible2(false)}
+        >
+          <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+            {/* <View className="flex-col">
+              {errors?.error?.map((item: any) => {
+                <Text>{item}</Text>
+              })}
+              </View> */}
+            {errors?.error &&
+              typeof errors.error === "object" &&
+              !Array.isArray(errors.error) &&
+              Object.keys(errors.error).map((key, index) => (
+                <Text key={index}>
+                  {key}:{" "}
+                  {Array.isArray(errors.error[key])
+                    ? errors.error[key].join(", ") // Handle arrays by joining the elements
+                    : errors.error[key]}{" "}
+                </Text>
+              ))}
+            {errors?.error && typeof errors.error !== "object" && (
+              <Text className="mb-3">{errors.error}</Text>
+            )}
+            <ShortBlueButton
+              title="Close"
+              onPress={() => setIsVisible2(false)}
+            />
           </View>
         </Pressable>
       </Modal>
@@ -132,6 +194,14 @@ const GroupSavingsSummary = () => {
         }}
         // className="gap-3"
       >
+        {!getgroupsaving?.data && (
+          <View
+            style={{ height: height, width: width, flex: 1 }}
+            className="absolute inset-0 bg-loaderbg bg-opacity-60 z-50 flex-col items-center justify-center"
+          >
+            <ActivityIndicator size={200} color="#ffffff" />
+          </View>
+        )}
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Save/SaveDashboard")}>
             <Back />
@@ -286,9 +356,7 @@ const GroupSavingsSummary = () => {
               </Pressable>
             </View>
             <View className="flex-row justify-center gap-4 pt-4">
-              <Pressable
-                onPress={() => router.push("/Save/GroupEditInstance")}
-              >
+              <Pressable onPress={() => router.push("/Save/GroupEditInstance")}>
                 <View className="flex-col gap-1 items-center">
                   <EditInstance />
                   <Text
@@ -607,13 +675,15 @@ const GroupSavingsSummary = () => {
                 title="Accept and Continue"
                 onPress={() => {
                   handleCloseModal();
-                  router.push('/Save/Delete')
+                  router.push("/Save/Delete");
                 }}
               />
-              <WhiteSignInButton title="Cancel"
+              <WhiteSignInButton
+                title="Cancel"
                 onPress={() => {
                   handleCloseModal();
-                }} />
+                }}
+              />
             </View>
           </View>
         </BottomSheet>

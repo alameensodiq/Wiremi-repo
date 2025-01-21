@@ -6,7 +6,7 @@ interface GetSavingState {
   authenticatinggetsaving: boolean;
   authenticated: boolean;
   isError: boolean;
-  errors: { error: string; status?: number } | null;
+  errors: any;
 }
 
 const initialState: GetSavingState = {

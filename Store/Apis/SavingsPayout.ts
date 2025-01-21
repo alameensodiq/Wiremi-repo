@@ -13,31 +13,35 @@ interface APIResponse {
 interface RejectValue {
   error: string;
   status?: number;
-  details?: any
+  details?: any;
 }
 
-interface GetSavingPayload {
+interface SavingsPayoutPayload {
   id: number;
+  amount: number;
+  pin: string;
   router: (value: any) => void;
-  // setIsVisible: (value: boolean) => void;
+  type: string;
+  setIsVisible: (value: boolean) => void;
 }
 
 // Thunk implementation
-export const GetSaving = createAsyncThunk<
+export const SavingsPayout = createAsyncThunk<
   APIResponse,
-  GetSavingPayload,
+  SavingsPayoutPayload,
   { rejectValue: { error: string; status?: number; details?: any } }
 >(
-  "getsaving", // Action type name
-  async ({ id, router }, thunkAPI) => {
+  "getsavingpayout", // Action type name
+  async ({ id, router, amount, type, pin, setIsVisible }, thunkAPI) => {
     const BASE_URL = process.env.EXPO_PUBLIC_API_URL; // Accessing the environment variable
     const accessToken = await AsyncStorage.getItem("token");
 
     console.log(id, "id");
 
     try {
-      const response = await axios.get<APIResponse>(
-        `${BASE_URL}api/account/savings/${id}/`,
+      const response = await axios.post<APIResponse>(
+        `${BASE_URL}api/account/payout/${id}/`,
+        { amount, type, pin },
         {
           headers: {
             Accept: "application/json",
@@ -50,7 +54,7 @@ export const GetSaving = createAsyncThunk<
       // Return the API response data
       return response.data;
     } catch (e: any) {
-      // setIsVisible(true)
+      setIsVisible(true)
       console.log(e, "error Creatings");
       if (e.response) {
         const { data, status } = e.response;
@@ -60,14 +64,14 @@ export const GetSaving = createAsyncThunk<
         // setShow(data.message || "An error occurred.");
 
         if (status === 401) {
-          // setIsVisible(false);
+          setIsVisible(false);
           router("/SignInPage");
         }
 
         // Return error details for further processing
         return thunkAPI.rejectWithValue({
           error: data.message || "Failed to process the request.",
-          details: data
+          details: data,
         });
       } else {
         // Handle network or unexpected errors

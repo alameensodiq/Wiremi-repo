@@ -9,6 +9,10 @@ interface APIResponse {
   data?: any;
 }
 
+
+interface SavingInstancesPayload {
+  router: (value: any) => void;
+}
 // Define the shape of the error response
 interface RejectValue {
   error: string;
@@ -18,11 +22,11 @@ interface RejectValue {
 // Thunk implementation
 export const SavingActive = createAsyncThunk<
   APIResponse,
-  void,
+  SavingInstancesPayload,
   { rejectValue: RejectValue }
 >(
   "saveactive", // Action type name
-  async (_, thunkAPI) => {
+  async ({router}, thunkAPI) => {
     const BASE_URL = process.env.EXPO_PUBLIC_API_URL; // Accessing the environment variable
     const accessToken = await AsyncStorage.getItem("token");
 
@@ -40,15 +44,33 @@ export const SavingActive = createAsyncThunk<
 
       // Return the API response data
       return response.data;
-    } catch (error: any) {
-      // Reject the thunk with error details
-      return thunkAPI.rejectWithValue({
-        error:
-          error.response?.data?.message ||
-          error.message ||
-          "Failed to connect to the server.",
-        status: error.response?.status,
-      });
+    } catch (e: any) {
+      // setIsVisible(true)
+      console.log(e, "error Creatings")
+      if (e.response) {
+        const { data, status } = e.response;
+        // console.error("Error response data:", data);
+    
+        // Show error message if available
+        // setShow(data.message || "An error occurred.");
+        
+        if (status === 401) {
+          // setIsVisible(false);
+          router("/SignInPage");
+        }
+    
+        // Return error details for further processing
+        return thunkAPI.rejectWithValue({
+          error: data.message || "Failed to process the request.",
+        });
+      } else {
+        // Handle network or unexpected errors
+        console.error("Unexpected error:", e);
+        // setShow(e.message || "An unexpected error occurred.");
+        return thunkAPI.rejectWithValue({
+          error: e.message || "Failed to connect to the server."
+        });
+      }
     }
   }
 );

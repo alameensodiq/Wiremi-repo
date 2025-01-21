@@ -6,7 +6,7 @@ interface GetGroupSavingState {
   authenticatinggetgroupsaving: boolean;
   authenticated: boolean;
   isError: boolean;
-  errors: { error: string; status?: number } | null;
+  errors: any;
 }
 
 const initialState: GetGroupSavingState = {

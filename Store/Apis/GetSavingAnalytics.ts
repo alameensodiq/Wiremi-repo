@@ -23,12 +23,12 @@ interface GetSavingPayload {
 }
 
 // Thunk implementation
-export const GetSaving = createAsyncThunk<
+export const GetSavingAnalytics = createAsyncThunk<
   APIResponse,
   GetSavingPayload,
   { rejectValue: { error: string; status?: number; details?: any } }
 >(
-  "getsaving", // Action type name
+  "getsavinganalytics", // Action type name
   async ({ id, router }, thunkAPI) => {
     const BASE_URL = process.env.EXPO_PUBLIC_API_URL; // Accessing the environment variable
     const accessToken = await AsyncStorage.getItem("token");
@@ -37,7 +37,7 @@ export const GetSaving = createAsyncThunk<
 
     try {
       const response = await axios.get<APIResponse>(
-        `${BASE_URL}api/account/savings/${id}/`,
+        `${BASE_URL}api/account/savings/${id}/analytics/`,
         {
           headers: {
             Accept: "application/json",

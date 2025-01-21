@@ -20,6 +20,10 @@ import { GetSavingSlice } from './Reducers/GetSaving';
 import { GetGroupSavingSlice } from './Reducers/GetGroupSaving';
 import { CreatingSavingsSlice } from './Reducers/CreateSavings';
 import { AllwithdrawalBanksSlice } from './Reducers/AllwithdrawalBanks';
+import { CreateGroupSavingsSlice } from './Reducers/CreateGroupSavings';
+import { GetSavingAnalyticsSlice } from './Reducers/GetSavingAnalytics';
+import { SavingsPayoutSlice } from './Reducers/SavingsPayout';
+import { EditSavingsPayoutSlice } from './Reducers/EditSavingsPayout';
 
 const store = configureStore({
   reducer: {
@@ -42,7 +46,11 @@ const store = configureStore({
     getgroupsaving : GetGroupSavingSlice?.reducer,
     getsaving: GetSavingSlice?.reducer,
     creatingsavings: CreatingSavingsSlice?.reducer,
-    allwithdrawalbanks: AllwithdrawalBanksSlice?.reducer
+    allwithdrawalbanks: AllwithdrawalBanksSlice?.reducer,
+    creategroupsavings: CreateGroupSavingsSlice?.reducer,
+    getsavinganalytics: GetSavingAnalyticsSlice?.reducer,
+    savingspayout: SavingsPayoutSlice?.reducer,
+    editsavingspayout: EditSavingsPayoutSlice?.reducer
   },
 });
 

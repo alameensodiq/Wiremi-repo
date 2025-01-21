@@ -29,6 +29,10 @@ import { SavingActive } from "@/Store/Apis/SavingActive";
 import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
 import { clearStatemainwallet } from "@/Store/Reducers/Mainwallet";
 import { clearStateusertransactions } from "@/Store/Reducers/UserTransactions";
+import { clearStatecreatingsavings } from "@/Store/Reducers/CreateSavings";
+import { clearStatecreategroupsavings } from "@/Store/Reducers/CreateGroupSavings";
+import { clearStategetsavinganalytics } from "@/Store/Reducers/GetSavingAnalytics";
+import { clearStategetsaving } from "@/Store/Reducers/GetSaving";
 
 const SaveDashboard = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -92,10 +96,14 @@ const SaveDashboard = () => {
   // const data = [{ value: 0 }, { value: 80 }, { value: 90 }, { value: 170 }];
 
   useEffect(() => {
-    dispatch(SavingDashboard({router: router.push}));
-    dispatch(SavingActive());
+    dispatch(SavingDashboard({ router: router.push }));
+    dispatch(SavingActive({ router: router.push }));
     dispatch(clearStatemainwallet());
     dispatch(clearStateusertransactions());
+    dispatch(clearStatecreatingsavings());
+    dispatch(clearStatecreategroupsavings());
+    dispatch(clearStategetsavinganalytics());
+    dispatch(clearStategetsaving());
 
     return () => {
       // dispatch(clearStatesavedashboard());
@@ -116,14 +124,16 @@ const SaveDashboard = () => {
           marginTop: statusBarHeight
         }}
       >
-        {!savedashboard?.data?.growth_data && !savedashboard?.data?.distribution && !saveactive?.data && (
-          <View
-            style={{ height: height, width: width, flex: 1 }}
-            className="absolute inset-0 bg-loaderbg bg-opacity-60 z-50 flex-col items-center justify-center"
-          >
-            <ActivityIndicator size={200} color="#ffffff" />
-          </View>
-        )}
+        {!savedashboard?.data?.growth_data &&
+          !savedashboard?.data?.distribution &&
+          !saveactive?.data && (
+            <View
+              style={{ height: height, width: width, flex: 1 }}
+              className="absolute inset-0 bg-loaderbg bg-opacity-60 z-50 flex-col items-center justify-center"
+            >
+              <ActivityIndicator size={200} color="#ffffff" />
+            </View>
+          )}
         <View
           style={{
             paddingHorizontal: width * 0.03
@@ -355,7 +365,7 @@ const SaveDashboard = () => {
               <Text className="text-buttonprimary">See all</Text>
             </Pressable>
           </View>
-          { saveactive?.data && saveactive?.data["today"][0] && (
+          {saveactive?.data && saveactive?.data["today"][0] && (
             <Pressable
               onPress={() => router.push(`/Save/RegularSavingsSummary?id=${1}`)}
               className="flex-row items-center justify-between pl-3"
@@ -363,14 +373,17 @@ const SaveDashboard = () => {
               <View className="flex-row gap-1">
                 <PieChart
                   widthAndHeight={70}
-                  series={[saveactive?.data["today"][0]?.progress, 100 - saveactive?.data["today"][0]?.progress]}
+                  series={[
+                    saveactive?.data["today"][0]?.progress,
+                    100 - saveactive?.data["today"][0]?.progress
+                  ]}
                   sliceColor={sliceColor2}
                   coverRadius={0.65}
                 />
                 <View className="flex-col gap-1">
                   <View className="flex-row gap-1">
                     <Text className="text-[14px]" style={{ color: "#413D43" }}>
-                    {saveactive?.data["today"][0]?.name}
+                      {saveactive?.data["today"][0]?.name}
                     </Text>
                     <Text className="text-[14px]" style={{ color: "#00091E" }}>
                       -${saveactive?.data["today"][0]?.amount}
@@ -403,14 +416,17 @@ const SaveDashboard = () => {
               <View className="flex-row gap-1">
                 <PieChart
                   widthAndHeight={70}
-                  series={[saveactive?.data["today"][1]?.progress, 100 - saveactive?.data["today"][1]?.progress]}
+                  series={[
+                    saveactive?.data["today"][1]?.progress,
+                    100 - saveactive?.data["today"][1]?.progress
+                  ]}
                   sliceColor={sliceColor3}
                   coverRadius={0.65}
                 />
                 <View className="flex-col gap-1">
                   <View className="flex-row gap-1">
                     <Text className="text-[14px]" style={{ color: "#413D43" }}>
-                    {saveactive?.data["today"][1]?.name}
+                      {saveactive?.data["today"][1]?.name}
                     </Text>
                     <Text className="text-[14px]" style={{ color: "#00091E" }}>
                       -${saveactive?.data["today"][1]?.amount}

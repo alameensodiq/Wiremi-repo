@@ -13,31 +13,35 @@ interface APIResponse {
 interface RejectValue {
   error: string;
   status?: number;
-  details?: any
+  details?: any;
 }
 
-interface GetSavingPayload {
+interface EditSavingsPayoutPayload {
   id: number;
+  amount_per_interval: string;
+  duration: number;
   router: (value: any) => void;
-  // setIsVisible: (value: boolean) => void;
+  status: string;
+  setIsVisible: (value: boolean) => void;
 }
 
 // Thunk implementation
-export const GetSaving = createAsyncThunk<
+export const EditSavingsPayout = createAsyncThunk<
   APIResponse,
-  GetSavingPayload,
+  EditSavingsPayoutPayload,
   { rejectValue: { error: string; status?: number; details?: any } }
 >(
-  "getsaving", // Action type name
-  async ({ id, router }, thunkAPI) => {
+  "editsavingpayout", // Action type name
+  async ({ id, router, amount_per_interval, duration, status, setIsVisible }, thunkAPI) => {
     const BASE_URL = process.env.EXPO_PUBLIC_API_URL; // Accessing the environment variable
     const accessToken = await AsyncStorage.getItem("token");
 
     console.log(id, "id");
 
     try {
-      const response = await axios.get<APIResponse>(
+      const response = await axios.put<APIResponse>(
         `${BASE_URL}api/account/savings/${id}/`,
+        { amount_per_interval, duration, status},
         {
           headers: {
             Accept: "application/json",
@@ -50,7 +54,7 @@ export const GetSaving = createAsyncThunk<
       // Return the API response data
       return response.data;
     } catch (e: any) {
-      // setIsVisible(true)
+      setIsVisible(true)
       console.log(e, "error Creatings");
       if (e.response) {
         const { data, status } = e.response;
@@ -60,14 +64,14 @@ export const GetSaving = createAsyncThunk<
         // setShow(data.message || "An error occurred.");
 
         if (status === 401) {
-          // setIsVisible(false);
+          setIsVisible(false);
           router("/SignInPage");
         }
 
         // Return error details for further processing
         return thunkAPI.rejectWithValue({
           error: data.message || "Failed to process the request.",
-          details: data
+          details: data,
         });
       } else {
         // Handle network or unexpected errors

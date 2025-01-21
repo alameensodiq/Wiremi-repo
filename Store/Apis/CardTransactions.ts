@@ -5,9 +5,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface CardTransactionPayload {
     id: string;
-    startdate: Date;
-    enddate: Date;
-    page: number
+    startdate?: Date;
+    enddate?: Date;
+    page?: number;
+    router: (value: any) => void;
     
   }
 
@@ -22,6 +23,7 @@ interface APIResponse {
 interface RejectValue {
   error: string;
   status?: number;
+  details?: any
 }
 
 // Thunk implementation
@@ -31,13 +33,13 @@ export const CardTransactions = createAsyncThunk<
   { rejectValue: RejectValue }
 >(
   "cardtransactions", // Action type name
-  async ({id, startdate, enddate, page}, thunkAPI) => {
+  async ({id, startdate, enddate, page, router}, thunkAPI) => {
     const BASE_URL = process.env.EXPO_PUBLIC_API_URL; // Accessing the environment variable
     const accessToken = await AsyncStorage.getItem("token");
-
     try {
       const response = await axios.get<APIResponse>(
-        `${BASE_URL}payments/issuingCard/${id}/transactions?startdate=${startdate}&end_date=${enddate}&page=1&page_size=10`,
+        // `${BASE_URL}payments/issuingCard/${id}/transactions?startdate=${startdate}&end_date=${enddate}&page=1&page_size=10`,
+        `${BASE_URL}payments/issuingCard/${id}/transactions?start_date=2024-09-23&end_date=2024-12-27&page=1&page_size=10`,
         {
           headers: {
             Accept: "application/json",
@@ -49,15 +51,34 @@ export const CardTransactions = createAsyncThunk<
 
       // Return the API response data
       return response.data;
-    } catch (error: any) {
-      // Reject the thunk with error details
-      return thunkAPI.rejectWithValue({
-        error:
-          error.response?.data?.message ||
-          error.message ||
-          "Failed to connect to the server.",
-        status: error.response?.status,
-      });
+    } catch (e: any) {
+      // setIsVisible(true)
+      console.log(e, "error Creatings");
+      if (e.response) {
+        const { data, status } = e.response;
+        // console.error("Error response data:", data);
+
+        // Show error message if available
+        // setShow(data.message || "An error occurred.");
+
+        if (status === 401) {
+          // setIsVisible(false);
+          router("/SignInPage");
+        }
+
+        // Return error details for further processing
+        return thunkAPI.rejectWithValue({
+          error: data.message || "Failed to process the request.",
+          details: data
+        });
+      } else {
+        // Handle network or unexpected errors
+        console.error("Unexpected error:", e);
+        // setShow(e.message || "An unexpected error occurred.");
+        return thunkAPI.rejectWithValue({
+          error: e.message || "Failed to connect to the server.",
+        });
+      }
     }
   }
 );

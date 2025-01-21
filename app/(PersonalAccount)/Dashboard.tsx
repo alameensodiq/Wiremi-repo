@@ -37,6 +37,7 @@ import { clearStatemainwallet } from "@/Store/Reducers/Mainwallet";
 import { clearStateusertransactions } from "@/Store/Reducers/UserTransactions";
 import { clearStatesavedashboard } from "@/Store/Reducers/SavingDashboard";
 import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
+import { clearStategetcard } from "@/Store/Reducers/GetCard";
 
 const Dashboard = () => {
   const { height, width } = Dimensions.get("window");
@@ -119,9 +120,10 @@ const Dashboard = () => {
   // ];
 
   useEffect(() => {
-    dispatch(UserTransactions());
+    dispatch(UserTransactions({router: router.push}));
     dispatch(Mainwallet());
     dispatch(clearStatelogin());
+    dispatch(clearStategetcard());
     const now = new Date();
     const hour = now.getHours();
 
@@ -140,13 +142,13 @@ const Dashboard = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (usertransactions && mainwallet?.user) {
-      setTimeout(() => {
-        setLoader(true);
-      }, 2000);
-    }
-  }, [usertransactions, mainwallet?.user]);
+  // useEffect(() => {
+  //   if (usertransactions && mainwallet?.user) {
+  //     setTimeout(() => {
+  //       setLoader(true);
+  //     }, 2000);
+  //   }
+  // }, [usertransactions, mainwallet?.user]);
 
   return (
     <View className="flex-1 bg-buttonprimary">

@@ -10,7 +10,8 @@ import {
   ScrollView,
   FlatList,
   SectionList,
-  ActivityIndicator
+  ActivityIndicator,
+  Pressable
 } from "react-native";
 import { Redirect, useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
@@ -41,11 +42,12 @@ interface DataItem {
   progress: number;
   group: boolean;
   date: Date;
+  id: number;
 }
 
 interface TransformedData {
   title: string;
-  data: DataItem[];
+  data: any[];
 }
 
 const SavingInstance = () => {
@@ -84,7 +86,11 @@ const SavingInstance = () => {
   }
 
   useEffect(() => {
-    dispatch(SavingActive());
+    dispatch(SavingActive({ router: router.push }));
+    dispatch(clearStatesaveactive());
+    dispatch(clearStategetgroupsaving());
+    dispatch(clearStategetsaving());
+    dispatch(clearStatesavedashboard());
 
     return () => {
       dispatch(clearStatesaveactive());
@@ -106,18 +112,27 @@ const SavingInstance = () => {
   ];
 
   const transformData = (responseData: any): TransformedData[] => {
-    if (!responseData || typeof responseData.data !== "object") {
-      console.error("Invalid responseData:", responseData);
+    // Check if responseData is valid and has the expected structure
+    if (
+      !responseData ||
+      typeof responseData !== "object" ||
+      !responseData.data ||
+      typeof responseData.data !== "object"
+    ) {
+      console.error("Invalid responseData format:", responseData);
       return [];
     }
 
+    // Transform the data into the desired format
     return Object.keys(responseData.data).map((key) => ({
       title: key,
-      data: responseData.data[key] || []
+      data: Array.isArray(responseData.data[key]) ? responseData.data[key] : []
     }));
   };
 
-  const sections = transformData(saveactive ? saveactive : []);
+  const sections = transformData(
+    saveactive && Object.keys(saveactive).length > 0 ? saveactive : { data: {} }
+  );
 
   const series2 = [721, 100];
   const sliceColor2 = ["#105CE2", "#E9EBF3"];
@@ -158,31 +173,40 @@ const SavingInstance = () => {
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => item?.name}
             renderItem={({ item }) => (
-              <View className="flex-col gap-2">
-                <View className="flex-row items-center justify-between pl-3">
-                  <View className="flex-row gap-1">
-                    <PieChart
-                      widthAndHeight={70}
-                      series={[item?.progress, 100 - item?.progress]}
-                      sliceColor={sliceColor2}
-                      coverRadius={0.65}
-                    />
-                    <View className="flex-col gap-1">
-                      <View className="flex-row gap-1">
-                        <Text
-                          className="text-[14px]"
-                          style={{ color: "#413D43" }}
-                        >
-                          {item?.name}
-                        </Text>
-                        <Text
-                          className="text-[14px]"
-                          style={{ color: "#00091E" }}
-                        >
-                          -${item?.amount}
-                        </Text>
-                      </View>
-                      {/* <View className="flex-row gap-2 items-center">
+              <Pressable
+                onPress={() => {
+                  if (item?.group) {
+                    router.push(`/Save/GroupSavingsSummary?id=${item?.id}`);
+                  } else {
+                    router.push(`/Save/RegularSavingsSummary?id=${item?.id}`);
+                  }
+                }}
+              >
+                <View className="flex-col gap-2">
+                  <View className="flex-row items-center justify-between pl-3">
+                    <View className="flex-row gap-1">
+                      <PieChart
+                        widthAndHeight={70}
+                        series={[item?.progress, 100 - item?.progress]}
+                        sliceColor={sliceColor2}
+                        coverRadius={0.65}
+                      />
+                      <View className="flex-col gap-1">
+                        <View className="flex-row gap-1">
+                          <Text
+                            className="text-[14px]"
+                            style={{ color: "#413D43" }}
+                          >
+                            {item?.name}
+                          </Text>
+                          <Text
+                            className="text-[14px]"
+                            style={{ color: "#00091E" }}
+                          >
+                            -${item?.amount}
+                          </Text>
+                        </View>
+                        {/* <View className="flex-row gap-2 items-center">
                         <Text
                           style={{ color: "#6E6E6E" }}
                           className="text-[10px]"
@@ -199,11 +223,12 @@ const SavingInstance = () => {
                           <Arrow />
                         </View>
                       </View> */}
+                      </View>
                     </View>
+                    <RightCarat />
                   </View>
-                  <RightCarat />
                 </View>
-              </View>
+              </Pressable>
             )}
             renderSectionHeader={({ section: { title } }) => (
               <Text className="text-[12px] text-sectionheader">{title}</Text>

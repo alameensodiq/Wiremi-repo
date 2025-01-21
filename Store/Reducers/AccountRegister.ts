@@ -21,7 +21,7 @@ export const AccountRegisterSlice = createSlice({
   name: "accountusers",
   initialState,
   reducers: {
-    clearState: (state) => {
+    clearStateaccountregister: (state) => {
       state.accountusers = null;
       state.authenticatingaccountusers = false;
       state.authenticated = false;
@@ -54,7 +54,7 @@ export const AccountRegisterSlice = createSlice({
   },
 });
 
-export const { clearState } = AccountRegisterSlice.actions;
+export const {  clearStateaccountregister } = AccountRegisterSlice.actions;
 
 export const AccountRegisterSelector = (state: { accountusers: AccountRegisterState }) =>
   state.accountusers;

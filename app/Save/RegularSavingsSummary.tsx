@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Pressable,
-  Modal
+  Modal,
+  ActivityIndicator
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -32,6 +33,12 @@ import { clearStategetgroupsaving } from "@/Store/Reducers/GetGroupSaving";
 import { clearStategetsaving } from "@/Store/Reducers/GetSaving";
 import { GetGroupSaving } from "@/Store/Apis/GetGroupSaving";
 import { GetSaving } from "@/Store/Apis/GetSaving";
+import ShortBlueButton from "@/components/ShortBlueButton";
+import { SavingActive } from "@/Store/Apis/SavingActive";
+import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
+import { GetSavingAnalytics } from "@/Store/Apis/GetSavingAnalytics";
+import { clearStatesavingspayout } from "@/Store/Reducers/SavingsPayout";
+import { clearStateeditsavingspayout } from "@/Store/Reducers/EditSavingsPayout";
 
 type BottomSheetRef = {
   open: () => void;
@@ -43,6 +50,7 @@ const RegularSavingsSummary = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible2, setIsVisible2] = useState<boolean>(false);
   const [checked, setChecked] = React.useState(true);
   const toggleCheckbox = () => setChecked(!checked);
   const [color, setColor] = useState(true);
@@ -55,47 +63,55 @@ const RegularSavingsSummary = () => {
   const ref6 = useRef<BottomSheetRef>(null);
   const ref7 = useRef<BottomSheetRef>(null);
   const router = useRouter();
-  const { id, group, nogroup } = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
   const ids = +id;
-  const data = [
-    { value: 150 },
-    { value: 880 },
-    { value: 590 },
-    { value: 700 },
-    { value: 80 },
-    { value: 190 },
-    { value: 450 }
-  ];
 
   const handleCloseModal = () => {
     ref.current?.close();
   };
   const dispatch = useAppDispatch();
 
-  const { getgroupsaving, authenticatinggetgroupsaving } = useAppSelector(
-    (state) => state.getgroupsaving
-  );
+  // const { getgroupsaving, authenticatinggetgroupsaving } = useAppSelector(
+  //   (state) => state.getgroupsaving
+  // );
 
-  console.log(getgroupsaving);
+  // console.log(getgroupsaving);
 
-  const { getsaving, authenticatinggetsaving } = useAppSelector(
+  const { getsaving, authenticatinggetsaving, errors } = useAppSelector(
     (state) => state.getsaving
   );
 
   console.log(getsaving);
 
+  const {
+    getsavinganalytics,
+    authenticatinggetsavinganalytics,
+    errorsanalytics
+  } = useAppSelector((state) => state.getsavinganalytics);
+
+  console.log(getsavinganalytics);
+
+  const data = Array.isArray(getsavinganalytics?.data?.daily_data)
+    ? getsavinganalytics?.data?.daily_data.slice(10, 17).map((item: any) => ({
+        value: item?.amount
+      }))
+    : [];
+
+  // {"date":"2025-01-03","day":"Fri","day_number":"03/01","amount":"0","interest":0}
+
   useEffect(() => {
-    if (group) {
-      dispatch(GetGroupSaving({ id: ids }));
-    }
-    if (nogroup) {
-      dispatch(GetSaving({ id: ids }));
-    }
+    dispatch(clearStatesaveactive());
+    dispatch(clearStatesavingspayout());
+    dispatch(clearStateeditsavingspayout());
+    dispatch(GetSaving({ id: ids, router: router.push }));
+    dispatch(GetSavingAnalytics({ id: ids, router: router.push }));
+    // }
     return () => {
-      dispatch(clearStategetgroupsaving());
-      dispatch(clearStategetsaving());
+      dispatch(clearStatesavingspayout());
+      dispatch(clearStateeditsavingspayout());
+      // dispatch(clearStategetsaving());
     };
-  }, [group, nogroup, id]);
+  }, [id]);
 
   return (
     <ScrollView
@@ -154,6 +170,43 @@ const RegularSavingsSummary = () => {
           </View>
         </Pressable>
       </Modal>
+      <Modal animationType="slide" transparent={true} visible={isVisible2}>
+        <Pressable
+          style={{
+            flex: 1,
+            backgroundColor: "#8080808C",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+          onPress={() => setIsVisible2(false)}
+        >
+          <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+            {/* <View className="flex-col">
+              {errors?.error?.map((item: any) => {
+                <Text>{item}</Text>
+              })}
+              </View> */}
+            {errors?.error &&
+              typeof errors.error === "object" &&
+              !Array.isArray(errors.error) &&
+              Object.keys(errors.error).map((key, index) => (
+                <Text key={index}>
+                  {key}:{" "}
+                  {Array.isArray(errors.error[key])
+                    ? errors.error[key].join(", ") // Handle arrays by joining the elements
+                    : errors.error[key]}{" "}
+                </Text>
+              ))}
+            {errors?.error && typeof errors.error !== "object" && (
+              <Text className="mb-3">{errors.error}</Text>
+            )}
+            <ShortBlueButton
+              title="Close"
+              onPress={() => setIsVisible2(false)}
+            />
+          </View>
+        </Pressable>
+      </Modal>
       <SafeAreaView
         style={{
           flex: 1,
@@ -162,11 +215,21 @@ const RegularSavingsSummary = () => {
         }}
         // className="gap-3"
       >
+        {!getsaving?.data && !getsavinganalytics?.data && (
+          <View
+            style={{ height: height, width: width, flex: 1 }}
+            className="absolute inset-0 bg-loaderbg bg-opacity-60 z-50 flex-col items-center justify-center"
+          >
+            <ActivityIndicator size={200} color="#ffffff" />
+          </View>
+        )}
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Save/SaveDashboard")}>
             <Back />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Tuition</Text>
+          <Text className="text-[20px] text-pagetitle">
+            {getsaving?.data?.goal_name}
+          </Text>
           <Pressable
             onPress={() => {
               setIsVisible(!isVisible);
@@ -228,12 +291,13 @@ const RegularSavingsSummary = () => {
               <View className="flex-col items-center">
                 <Text className="text-buttonprimary text-[12px]">Balance</Text>
                 <Text className="text-buttonprimary text-[24px] font-bold">
-                  $2,112.23
+                  {getsaving?.data?.symbol}
+                  {getsaving?.data?.amount_saved}
                 </Text>
                 <View className="flex-row gap-3 items-center">
                   <View className="flex-row justify-center items-center">
                     <Text style={{ color: "#DE1E04" }} className="text-[10px]">
-                      2.3%
+                      {getsaving?.data?.interest_earn}%
                     </Text>
                     <Decrease />
                   </View>
@@ -256,7 +320,9 @@ const RegularSavingsSummary = () => {
             </View>
             <View className="flex-row justify-center gap-4">
               <Pressable
-                onPress={() => router.push("/Save/RegularEditInstance")}
+                onPress={() =>
+                  router.push(`/Save/RegularEditInstance?id=${ids}`)
+                }
               >
                 <View className="flex-col gap-1 items-center">
                   <EditInstance />
@@ -268,7 +334,9 @@ const RegularSavingsSummary = () => {
                   </Text>
                 </View>
               </Pressable>
-              <Pressable onPress={() => router.push("/Save/RegularWithdraw")}>
+              <Pressable
+                onPress={() => router.push(`/Save/RegularWithdraw?id=${ids}`)}
+              >
                 <View className="flex-col gap-1 items-center">
                   <SaveWithdraw />
                   <Text
@@ -279,7 +347,9 @@ const RegularSavingsSummary = () => {
                   </Text>
                 </View>
               </Pressable>
-              <Pressable onPress={() => router.push("/Save/RegularHistory")}>
+              <Pressable
+                onPress={() => router.push(`/Save/RegularHistory?id=${ids}`)}
+              >
                 <View className="flex-col gap-1 items-center">
                   <SaveHistory />
                   <Text
@@ -307,7 +377,7 @@ const RegularSavingsSummary = () => {
                     Name
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    Tuition
+                    {getsaving?.data?.goal_name}
                   </Text>
                 </View>
                 <View
@@ -318,7 +388,7 @@ const RegularSavingsSummary = () => {
                     Expected amount
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    $2,900.00
+                    {/* {getsaving?.data?.symbol}{getsaving?.data?.amount_saved} */}
                   </Text>
                 </View>
                 <View
@@ -329,7 +399,8 @@ const RegularSavingsSummary = () => {
                     Saved amount
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    $0.00
+                    {getsaving?.data?.symbol}
+                    {getsaving?.data?.amount_saved}
                   </Text>
                 </View>
                 <View
@@ -340,7 +411,8 @@ const RegularSavingsSummary = () => {
                     Interest earned
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    $0.00
+                    {getsaving?.data?.symbol}
+                    {getsaving?.data?.interest_earn}
                   </Text>
                 </View>
                 <View
@@ -351,7 +423,8 @@ const RegularSavingsSummary = () => {
                     Amount
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    $2,112.23
+                    {getsaving?.data?.symbol}
+                    {getsaving?.data?.total_amount}
                   </Text>
                 </View>
                 <View
@@ -362,7 +435,7 @@ const RegularSavingsSummary = () => {
                     Start date
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    23/09/2024
+                    {getsaving?.data?.create_date}
                   </Text>
                 </View>
                 <View
@@ -373,7 +446,7 @@ const RegularSavingsSummary = () => {
                     End date
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    23/11/20124
+                    {getsaving?.data?.end_date}
                   </Text>
                 </View>
                 <View
@@ -384,7 +457,7 @@ const RegularSavingsSummary = () => {
                     Duration
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    2 months
+                    {getsaving?.data?.duration} months
                   </Text>
                 </View>
                 <View
@@ -395,7 +468,7 @@ const RegularSavingsSummary = () => {
                     Saving type
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    Regular
+                    {getsaving?.data?.saving_type}
                   </Text>
                 </View>
                 <View
@@ -406,7 +479,7 @@ const RegularSavingsSummary = () => {
                     Interval
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    $0.00
+                    {getsaving?.data?.saving_interval}
                   </Text>
                 </View>
                 <View
@@ -417,7 +490,7 @@ const RegularSavingsSummary = () => {
                     Schedule ID
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    WI2356718268
+                    {getsaving?.data?.schedule}
                   </Text>
                 </View>
                 <View
@@ -428,7 +501,7 @@ const RegularSavingsSummary = () => {
                     Interest rate
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    0.00%
+                    {getsaving?.data?.interest_rate}%
                   </Text>
                 </View>
                 <View
@@ -439,7 +512,7 @@ const RegularSavingsSummary = () => {
                     Emergency fund %
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    0.00%
+                    {getsaving?.data?.emergency_fund_percentage}%
                   </Text>
                 </View>
                 <View
@@ -449,9 +522,10 @@ const RegularSavingsSummary = () => {
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
                     Emergency fund amount
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    $1
-                  </Text>
+                  <Text
+                    style={{ color: "#292D32" }}
+                    className="text-[14px]"
+                  ></Text>
                 </View>
                 <View
                   className="flex-row justify-between pb-4"
@@ -461,7 +535,7 @@ const RegularSavingsSummary = () => {
                     Next saving schedule
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    30/09/2024
+                    {getsaving?.data?.next_run_time}
                   </Text>
                 </View>
               </View>
@@ -541,15 +615,13 @@ const RegularSavingsSummary = () => {
                 barWidth={30}
                 maxValue={1000}
                 yAxisLabelPrefix="$"
-                xAxisLabelTexts={[
-                  "Sun",
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fr",
-                  "Sat"
-                ]}
+                xAxisLabelTexts={
+                  Array.isArray(getsavinganalytics?.data?.daily_data)
+                    ? getsavinganalytics?.data?.daily_data
+                        ?.slice(10, 17)
+                        ?.map((item: any) => item?.day)
+                    : []
+                }
                 xAxisLabelTextStyle={{
                   color: "#6B6B83",
                   fontSize: 14

@@ -25,6 +25,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { GetCard } from "@/Store/Apis/GetCard";
 import { clearStategetcard } from "@/Store/Reducers/GetCard";
+import { CardTransactions } from "@/Store/Apis/CardTransactions";
+import { FlatList } from "react-native";
 
 type BottomSheetRef = {
   open: () => void;
@@ -44,6 +46,18 @@ const MyCard = () => {
   const ref = useRef<BottomSheetRef>(null);
   const [reduce, setReduce] = useState<boolean>(true);
   const dispatch = useAppDispatch();
+  const formatDateWithTime = (isoString: any) => {
+    const date = new Date(isoString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${day}-${month}-${year} ${hours}:${minutes}`;
+  };
 
   const { getcards, authenticatinggetcards } = useAppSelector(
     (state) => state.getcards
@@ -58,27 +72,29 @@ const MyCard = () => {
   console.log(cardtransactions);
 
   useEffect(() => {
-    dispatch(GetCard());
+    dispatch(GetCard({ router: router.push }));
 
     return () => {
-      dispatch(clearStategetcard());
+      // dispatch(clearStategetcard());
     };
   }, []);
+
+  useEffect(() => {
+    if (getcards?.data?.id) {
+      dispatch(CardTransactions({ router: router.push, id: getcards.data.id }));
+    }
+  }, [getcards?.data?.id]);
 
   const handleCloseModal = () => {
     ref.current?.close();
   };
 
-  const DATA = [
-    {
-      title: "Today",
-      data: ["Apple", "Banana", "Orange", "Mango"]
-    },
-    {
-      title: "Tomorrow",
-      data: ["Carrot", "Broccoli", "Spinach"]
-    }
-  ];
+  const DATA = cardtransactions?.data?.length
+    ? cardtransactions?.data?.slice(0, 10)?.map((item: any) => ({
+        title: formatDateWithTime(item?.created_at),
+        data: item ? [item] : []
+      }))
+    : [];
 
   const colors = [
     "rgba(5, 179, 250, 0.6)",
@@ -145,12 +161,18 @@ const MyCard = () => {
         style={{
           flex: 1,
           marginTop: statusBarHeight,
-          paddingHorizontal: width * 0.03
+          paddingHorizontal: width * 0.05
         }}
         className="gap-4"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/Cards/CreateCard")}>
+          <TouchableOpacity
+            onPress={() => {
+              getcards?.status
+                ? router.push("/(PersonalAccount)/VirtualCard")
+                : router.push("/Cards/CreateCard");
+            }}
+          >
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">My virtual card</Text>
@@ -179,12 +201,14 @@ const MyCard = () => {
                 </View>
                 <View className="flex-col items-center">
                   <Text className="text-white text-[32px] font-bold">
-                    2345 3454 4567 5678
+                    {getcards?.data?.card_number}
                   </Text>
-                  <Text className="text-white">Expires 02/20</Text>
+                  <Text className="text-white">
+                    Expires {getcards?.data?.expiry}
+                  </Text>
                 </View>
                 <View className="flex-row justify-between">
-                  <Text className="text-white">SUSAN SHEIDU</Text>
+                  <Text className="text-white">{getcards?.data?.name}</Text>
                 </View>
               </View>
             </GradientBackground>
@@ -208,7 +232,7 @@ const MyCard = () => {
                 </Text>
                 <View className="flex-row gap-3">
                   <Text className="text-[14px] font-bold">
-                    2467 7896 1234 9870
+                    {getcards?.data?.card_number}
                   </Text>
                   <Cardcopy />
                 </View>
@@ -217,20 +241,24 @@ const MyCard = () => {
                 <Text style={{ color: "#413D43" }} className="text-[14px]">
                   Expiry date
                 </Text>
-                <Text className="text-[14px] font-bold">02/26</Text>
+                <Text className="text-[14px] font-bold">
+                  {getcards?.data?.expiry}
+                </Text>
               </View>
               <View>
                 <Text style={{ color: "#413D43" }} className="text-[14px]">
                   CVV
                 </Text>
-                <Text className="text-[14px] font-bold">123</Text>
+                <Text className="text-[14px] font-bold">
+                  {getcards?.data?.cvv}
+                </Text>
               </View>
-              <View>
+              {/* <View>
                 <Text style={{ color: "#413D43" }} className="text-[14px]">
                   Card pin
                 </Text>
                 <Text className="text-[14px] font-bold">1234</Text>
-              </View>
+              </View> */}
             </View>
           </View>
         )}
@@ -263,31 +291,47 @@ const MyCard = () => {
           <Text className="text-buttonprimary text-[12px]">See all</Text>
         </View>
         <View style={{ maxHeight: height * 0.8 }}>
-          <SectionList
+          <FlatList
             scrollEnabled={false}
-            sections={DATA}
+            data={cardtransactions?.data}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => item + index}
-            renderItem={({ item }) => (
+            keyExtractor={(item, index) => item.id}
+            renderItem={({ item, index }) => (
               <View className="flex-col gap-2">
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row gap-1">
                     <Sendheader />
                     <View className="flex-col gap-1 justify-center items-start">
                       <Text className="text-[14px] text-darktext font-bold">
-                        Transfer to Mike Doe
+                        {item?.type} to{" "}
+                        {item?.merchant?.name === "Maplerad"
+                          ? ""
+                          : item?.merchant?.name}
                       </Text>
                       <Text className="text-[12px] text-transdate">
-                        Sep 2nd, 7:45am
+                        {formatDateWithTime(item?.created_at)}
                       </Text>
                     </View>
                   </View>
                   <View className="flex-col justify-center items-center">
-                    <Text className="text-[14px] text-darktext">$90</Text>
-                    <Text className="text-[12px] text-successtrans">
-                      Successful
+                    <Text className="text-[14px] text-darktext">
+                      {item?.currency}
+                      {item?.amount}
                     </Text>
+                    {item?.status === "SUCCESS" ? (
+                      <Text className="text-[12px] text-successtrans">
+                        {item?.status}
+                      </Text>
+                    ) : item?.status === "FAILED" ? (
+                      <Text className="text-[12px] text-failedtrans">
+                        {item?.status}
+                      </Text>
+                    ) : (
+                      <Text className="text-[12px] text-pendingtrans">
+                        {item?.status}
+                      </Text>
+                    )}
                   </View>
                 </View>
                 <View className="flex-row justify-end">
@@ -298,23 +342,10 @@ const MyCard = () => {
                 </View>
               </View>
             )}
-            renderSectionHeader={({ section: { title } }) => (
-              <Text className="text-[12px] text-sectionheader">{title}</Text>
-            )}
-            ItemSeparatorComponent={() => (
-              <View
-                style={{
-                  height: 16
-                }}
-              />
-            )}
-            SectionSeparatorComponent={() => (
-              <View
-                style={{
-                  height: 26
-                }}
-              />
-            )}
+            bounces={false}
+            contentContainerStyle={{
+              gap: 5
+            }}
           />
         </View>
       </SafeAreaView>

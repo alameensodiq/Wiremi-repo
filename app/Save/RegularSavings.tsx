@@ -40,6 +40,10 @@ import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { CreatingSavings } from "@/Store/Apis/CreateSavings";
 import ShortBlueButton from "@/components/ShortBlueButton";
 import { AllwithdrawalBanks } from "@/Store/Apis/AllwithdrawalBanks";
+import { clearStatesavedashboard } from "@/Store/Reducers/SavingDashboard";
+import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
+import { SavingDashboard } from "@/Store/Apis/SavingDashboard";
+import { SavingActive } from "@/Store/Apis/SavingActive";
 
 type BottomSheetRef = {
   open: () => void;
@@ -64,7 +68,7 @@ const RegularSavings = () => {
     emergency_fund_percentage: 0,
     penalty_percentage: 0,
     status: "active",
-    saving_type: "regular",
+    saving_type: "recurrent",
     schedule: "",
     schedule_info: {
       bankName: ""
@@ -103,9 +107,8 @@ const RegularSavings = () => {
     ref7.current?.close();
   };
 
-  const { creatingsavings, authenticatingcreatingsavings } = useAppSelector(
-    (state) => state.creatingsavings
-  );
+  const { creatingsavings, authenticatingcreatingsavings, errors } =
+    useAppSelector((state) => state.creatingsavings);
 
   console.log(creatingsavings);
 
@@ -115,6 +118,8 @@ const RegularSavings = () => {
   console.log(allwithdrawalbanks);
 
   useEffect(() => {
+    dispatch(clearStatesavedashboard());
+    dispatch(clearStatesaveactive());
     dispatch(AllwithdrawalBanks({ router: router.push, page }));
     if (creatingsavings?.status) {
       router.push("/Save/SaveDashboard");
@@ -122,6 +127,10 @@ const RegularSavings = () => {
     if (creatingsavings?.status === false) {
       setIsVisible(true);
     }
+    return () => {
+      dispatch(SavingDashboard({ router: router.push }));
+      dispatch(SavingActive({router: router.push}));
+    };
   }, [creatingsavings, page]);
 
   console.log(isVisible);
@@ -190,13 +199,17 @@ const RegularSavings = () => {
     }
   ];
   return (
-    <ScrollView style={{ backgroundColor: "#ffffff" }} className="flex-1">
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={{ backgroundColor: "#ffffff" }}
+      className="flex-1"
+    >
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
           flex: 1,
           marginTop: statusBarHeight,
-          paddingHorizontal: width * 0.03
+          paddingHorizontal: width * 0.05
         }}
       >
         <Modal animationType="slide" transparent={true} visible={isVisible}>
@@ -209,8 +222,26 @@ const RegularSavings = () => {
             }}
             onPress={() => setIsVisible(false)}
           >
-            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-end py-3">
-              <Text>{show?.[0]}</Text>
+            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+              {/* <View className="flex-col">
+              {errors?.error?.map((item: any) => {
+                <Text>{item}</Text>
+              })}
+              </View> */}
+              {errors?.error &&
+                typeof errors.error === "object" &&
+                !Array.isArray(errors.error) &&
+                Object.keys(errors.error).map((key, index) => (
+                  <Text key={index}>
+                    {key}:{" "}
+                    {Array.isArray(errors.error[key])
+                      ? errors.error[key].join(", ") // Handle arrays by joining the elements
+                      : errors.error[key]}{" "}
+                  </Text>
+                ))}
+              {errors?.error && typeof errors.error !== "object" && (
+                <Text className="mb-3">{errors.error}</Text>
+              )}
               <ShortBlueButton
                 title="Close"
                 onPress={() => setIsVisible(false)}

@@ -35,6 +35,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CreatePin } from "@/Store/Apis/CreatePin";
 import { clearState } from "@/Store/Reducers/CreatePin";
 import { clearStateregister } from "@/Store/Reducers/RegisterUser";
+import { clearStateaccountregister } from "@/Store/Reducers/AccountRegister";
 
 // import axios from "axios";
 
@@ -114,6 +115,9 @@ const PersonalAccountReg = () => {
   }, [accountusers?.user]);
 
   useEffect(() => {
+    dispatch(clearState());
+    dispatch(clearStateaccountregister());
+    dispatch(clearStateregister());
     if (createpins?.account && createpins?.email) {
       AsyncStorage.setItem("Wiremi_Id", createpins?.account?.account_id);
       AsyncStorage.setItem("Pin_code", createpins?.account?.pin_code);
@@ -135,6 +139,7 @@ const PersonalAccountReg = () => {
     return () => {
       dispatch(clearState());
       dispatch(clearStateregister());
+      dispatch(clearStateaccountregister());
     };
   }, [createpins?.account, createpins?.email]);
 
@@ -324,6 +329,7 @@ const PersonalAccountReg = () => {
                     />
                     <TextLabelBox
                       label="Email address"
+                      both
                       placeholder="Enter your email address"
                       onChangeText={(value: any) => onChange("email", value)}
                     />

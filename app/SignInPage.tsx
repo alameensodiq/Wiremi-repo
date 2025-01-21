@@ -27,6 +27,9 @@ import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { Login } from "@/Store/Apis/Login";
 import { useAppContext } from "@/Context/useAppContext";
 import { clearStatelogin } from "@/Store/Reducers/Login";
+import { clearState } from "@/Store/Reducers/CreatePin";
+import { clearStateregister } from "@/Store/Reducers/RegisterUser";
+import { clearStateaccountregister } from "@/Store/Reducers/AccountRegister";
 
 const SignInPage = () => {
   const { isAuthenticated, checkUser } = useAppContext();
@@ -56,9 +59,12 @@ const SignInPage = () => {
       }
     };
     fetchStoredData();
-    return() => {
-      dispatch(clearStatelogin())
-    }
+    return () => {
+      dispatch(clearStatelogin());
+      dispatch(clearState());
+      dispatch(clearStateregister());
+       dispatch(clearStateaccountregister());
+    };
   }, []);
 
   const onChangepin = (value: string) => {
@@ -142,9 +148,10 @@ const SignInPage = () => {
               <KeyboardAvoidingView style={{ gap: 15 }}>
                 <TextLabelBox
                   label="Wiremi ID"
-                  placeholder="Enter your Wiremi ID"
+                  placeholder={wiremiId ? wiremiId : "Enter your Wiremi ID"}
                   disabled={!!wiremiId}
                   value={wiremiId}
+                  both
                   onChangeText={
                     wiremiId
                       ? (value: any) => onChangepin(value)
@@ -201,12 +208,12 @@ const SignInPage = () => {
                       //   (wiremiId || NotsavedwiremiId) &&
                       //   wiremiIdpin.length === 6
                       // ) {
-                        dispatch(
-                          Login({
-                            pin: wiremiIdpin,
-                            account_id: wiremiId ? wiremiId : NotsavedwiremiId
-                          })
-                        );
+                      dispatch(
+                        Login({
+                          pin: wiremiIdpin,
+                          account_id: wiremiId ? wiremiId : NotsavedwiremiId
+                        })
+                      );
                       // }
                     }}
                   />

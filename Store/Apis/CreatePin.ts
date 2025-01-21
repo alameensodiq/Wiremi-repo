@@ -18,7 +18,7 @@ interface APIResponse {
 export const CreatePin = createAsyncThunk<
   APIResponse,
   PinPayload,
-  { rejectValue: { error: string; status?: number } }
+  { rejectValue: { error: string; status?: number; details?: any } }
 >(
   "createpin",
   async (

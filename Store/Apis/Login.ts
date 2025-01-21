@@ -26,8 +26,8 @@ export const Login = createAsyncThunk<
     const response = await axios.post<APIResponse>(
       `${BASE_URL}auth/login`,
       {
-        pin: "999999",
-        account_id: "WI082400121",
+        pin: "223351",
+        account_id: "WI082400003",
       },
       {
         headers: {

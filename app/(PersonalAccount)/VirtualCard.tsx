@@ -28,10 +28,10 @@ const VirtualCard = () => {
   console.log(getcards);
 
   useEffect(() => {
-    dispatch(GetCard());
+    dispatch(GetCard({router: router.push }));
 
     return () => {
-      dispatch(clearStategetcard());
+ 
     };
   }, []);
   return (
