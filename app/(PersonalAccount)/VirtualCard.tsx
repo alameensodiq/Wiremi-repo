@@ -31,7 +31,6 @@ const VirtualCard = () => {
     dispatch(GetCard({router: router.push }));
 
     return () => {
- 
     };
   }, []);
   return (
