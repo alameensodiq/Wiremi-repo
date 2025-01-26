@@ -5,17 +5,38 @@ import {
   Dimensions,
   ScrollView
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import Forgotsuccess from "../../assets/forgotsuccess.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { clearStatefreezecard } from "@/Store/Reducers/FreezeCard";
+import { clearStateunfreezecard } from "@/Store/Reducers/Unfreezecard";
+import { GetCard } from "@/Store/Apis/GetCard";
 
 const DeactivateSuccess = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const { getcards, authenticatinggetcards } = useAppSelector(
+    (state) => state.getcards
+  );
+
+  console.log(getcards);
+
+  useEffect(() => {
+    dispatch(clearStatefreezecard());
+    dispatch(clearStateunfreezecard());
+     dispatch(GetCard({ router: router.push }));
+    return () => {
+      dispatch(clearStatefreezecard());
+      dispatch(clearStateunfreezecard());
+    };
+  }, []);
   return (
     <ScrollView className="flex-1 ">
       <View className="flex-1 bg-white">
@@ -33,8 +54,13 @@ const DeactivateSuccess = () => {
             className="flex-1  justify-between gap-6"
           >
             <View className="flex-row justify-center items-center">
-              <Text style={{ color: "#242329" }} className="text-[18px] font-bold">
-                Deactivate card
+              <Text
+                style={{ color: "#242329" }}
+                className="text-[18px] font-bold"
+              >
+                {getcards?.data?.status === "TERMINATED"
+                  ? "Deactivate card"
+                  : "Activate card"}
               </Text>
             </View>
             <View
@@ -52,7 +78,10 @@ const DeactivateSuccess = () => {
               </View>
               <View className="items-center">
                 <Text className="text-forgotsuccesslight text-[13px]">
-                  Your virtual card has been deactivated
+                  Your virtual card has been{" "}
+                  {getcards?.data?.status === "TERMINATED"
+                    ? "deactivated"
+                    : "activated"}
                 </Text>
                 <Text className="text-forgotsuccesslight text-[13px]">
                   successfully.

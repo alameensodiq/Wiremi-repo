@@ -125,7 +125,7 @@ const CreateCard = () => {
           <TextLabelBox
             label="Transaction pin"
             placeholder="Enter your transaction pin"
-            onChangeText={(value: string) => onChange("cardpin", value)}
+            onChangeText={(value: any) => onChange("cardpin", value)}
           />
         </View>
         <View

@@ -14,6 +14,7 @@ const CardLayout = () => {
       <Stack.Screen name="ChangePinSuccess" options={{ headerShown: false }} />
       <Stack.Screen name="DeactivateSuccess" options={{ headerShown: false }} />
       <Stack.Screen name="DeactivateCard" options={{ headerShown: false }} />
+      <Stack.Screen name="AllCardsTransactions" options={{ headerShown: false }} />
       {/* <Stack.Screen name="DeactivateCard" options={{ headerShown: false }} /> */}
     </Stack>
   );

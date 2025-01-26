@@ -3,7 +3,8 @@ import {
   Text,
   StatusBar as RNStatusBar,
   Dimensions,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
@@ -28,10 +29,9 @@ const VirtualCard = () => {
   console.log(getcards);
 
   useEffect(() => {
-    dispatch(GetCard({router: router.push }));
+    dispatch(GetCard({ router: router.push }));
 
-    return () => {
-    };
+    return () => {};
   }, []);
   return (
     <ScrollView style={{ backgroundColor: "#ffffff" }} className="flex-1">
@@ -44,6 +44,14 @@ const VirtualCard = () => {
         }}
         className="gap-8"
       >
+        {authenticatinggetcards && (
+          <View
+            style={{ height: height, width: width }}
+            className="absolute inset-0 bg-loaderbg bg-opacity-60 z-50 flex-col items-center justify-center"
+          >
+            <ActivityIndicator size={200} color="#ffffff" />
+          </View>
+        )}
         <View className="flex-row justify-between items-center mb-1">
           {/* <TouchableOpacity
               onPress={() => router.push("/Dashboard")}
@@ -62,7 +70,6 @@ const VirtualCard = () => {
         <View style={{ height: height * 0.6 }} className="items-center">
           <Virtual />
         </View>
-
         <View className="items-center justify-center">
           <BlueSignInButton
             title="Proceed"

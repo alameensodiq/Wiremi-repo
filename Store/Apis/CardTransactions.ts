@@ -2,15 +2,13 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 interface CardTransactionPayload {
-    id: string;
-    startdate?: Date;
-    enddate?: Date;
-    page?: number;
-    router: (value: any) => void;
-    
-  }
+  id: string;
+  startdate?: Date;
+  enddate?: Date;
+  page?: number;
+  router: (value: any) => void;
+}
 
 // Define the shape of the API response
 interface APIResponse {
@@ -23,8 +21,15 @@ interface APIResponse {
 interface RejectValue {
   error: string;
   status?: number;
-  details?: any
+  details?: any;
 }
+
+const formatDate = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
 
 // Thunk implementation
 export const CardTransactions = createAsyncThunk<
@@ -33,13 +38,21 @@ export const CardTransactions = createAsyncThunk<
   { rejectValue: RejectValue }
 >(
   "cardtransactions", // Action type name
-  async ({id, startdate, enddate, page, router}, thunkAPI) => {
+  async ({ id, startdate, enddate, page, router }, thunkAPI) => {
     const BASE_URL = process.env.EXPO_PUBLIC_API_URL; // Accessing the environment variable
     const accessToken = await AsyncStorage.getItem("token");
+    const today = new Date();
+    const formattedStartDate =
+      startdate ||
+      formatDate(new Date(today.getFullYear(), today.getMonth(), 1)); // First day of the current month
+    const formattedEndDate = enddate || formatDate(today);
+    console.log(formattedEndDate)
     try {
       const response = await axios.get<APIResponse>(
         // `${BASE_URL}payments/issuingCard/${id}/transactions?startdate=${startdate}&end_date=${enddate}&page=1&page_size=10`,
-        `${BASE_URL}payments/issuingCard/${id}/transactions?start_date=2024-09-23&end_date=2024-12-27&page=1&page_size=10`,
+        `${BASE_URL}payments/issuingCard/${id}/transactions?start_date=2024-09-23&end_date=${formattedEndDate}&page=${
+          page ? page : 1
+        }&page_size=100`,
         {
           headers: {
             Accept: "application/json",
@@ -69,7 +82,7 @@ export const CardTransactions = createAsyncThunk<
         // Return error details for further processing
         return thunkAPI.rejectWithValue({
           error: data.message || "Failed to process the request.",
-          details: data
+          details: data,
         });
       } else {
         // Handle network or unexpected errors

@@ -19,7 +19,7 @@ import eng from "../assets/eng.png";
 import LongButton from "@/components/LongButton";
 import SignInLongButton from "@/components/SignInLongButton";
 import { useRouter } from "expo-router";
-import { clearState } from "@/Store/Reducers/AccountRegister";
+import { clearStateaccountregister } from "@/Store/Reducers/AccountRegister";
 import { clearStateregister } from "@/Store/Reducers/RegisterUser";
 import { useAppDispatch } from "@/Store/ConfigureStore";
 
@@ -162,7 +162,7 @@ const GetStarted = () => {
               </View>
               <View style={{height: height * 0.07, paddingTop: height * 0.02}} className="bg-white items-center justify-center">
                 <LongButton title='Get Started' onPress={() => {
-                   dispatch(clearState());
+                   dispatch(clearStateaccountregister());
                    dispatch(clearStateregister());
                   router.push('/ChooseAccountType')
                 }}/>

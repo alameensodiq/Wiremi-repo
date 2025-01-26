@@ -7,7 +7,8 @@ import {
   ScrollView,
   SectionList,
   Modal,
-  Pressable
+  Pressable,
+  ActivityIndicator
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
@@ -114,8 +115,9 @@ const MyCard = () => {
           style={{
             flex: 1,
             backgroundColor: "#8080808C",
-            paddingTop: height * 0.03,
-            alignItems: "flex-end"
+            paddingTop: height * 0.06,
+            alignItems: "flex-end",
+            paddingRight: width * 0.02
           }}
           onPress={() => setIsVisible(false)}
         >
@@ -127,7 +129,7 @@ const MyCard = () => {
             }}
           >
             <View>
-              <View
+              {/* <View
                 style={{
                   borderBottomColor: "#8080808C",
                   borderBottomWidth: 1,
@@ -142,7 +144,7 @@ const MyCard = () => {
                 >
                   <Text>Change card pin</Text>
                 </Pressable>
-              </View>
+              </View> */}
               <View style={{ borderBottomColor: "#8080808C", padding: 10 }}>
                 <Pressable
                   onPress={() => {
@@ -150,7 +152,11 @@ const MyCard = () => {
                     setIsVisible(!isVisible);
                   }}
                 >
-                  <Text>Deactivate card</Text>
+                  <Text>
+                    {getcards?.data?.status === "TERMINATED"
+                      ? "Activate card"
+                      : "Deactivate card"}
+                  </Text>
                 </Pressable>
               </View>
             </View>
@@ -165,6 +171,14 @@ const MyCard = () => {
         }}
         className="gap-4"
       >
+        {authenticatingcardtransactions && (
+          <View
+            style={{ height: height, width: width }}
+            className="absolute inset-0 bg-loaderbg bg-opacity-60 z-50 flex-col items-center justify-center"
+          >
+            <ActivityIndicator size={200} color="#ffffff" />
+          </View>
+        )}
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
             onPress={() => {
@@ -288,12 +302,14 @@ const MyCard = () => {
           <Text className="text-darktext text-[14px] font-bold">
             Recent Transactions
           </Text>
-          <Text className="text-buttonprimary text-[12px]">See all</Text>
+          <Pressable onPress={() => router.push("/Cards/AllCardsTransactions")}>
+            <Text className="text-buttonprimary text-[12px]">See all</Text>
+          </Pressable>
         </View>
         <View style={{ maxHeight: height * 0.8 }}>
           <FlatList
             scrollEnabled={false}
-            data={cardtransactions?.data}
+            data={cardtransactions?.data?.slice(0, 10)}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => item.id}
