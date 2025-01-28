@@ -56,6 +56,7 @@ const BlockSavings = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const [checked, setChecked] = React.useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const toggleCheckbox = () => setChecked(!checked);
   const [selectedIndex, setIndex] = useState(0);
   const [show, setShow] = useState("");
@@ -160,7 +161,12 @@ const BlockSavings = () => {
   };
 
   const handleEndReached = () => {
-    setPage((prevPage) => prevPage + 1);
+    if (allwithdrawalbanks?.length >= 10) {
+      setRefreshing(true);
+      dispatch(AllwithdrawalBanks({ router: router.push, page }));
+      setPage((prevPage) => prevPage + 1);
+      setRefreshing(false);
+    }
   };
 
   const data = [
@@ -711,6 +717,8 @@ const BlockSavings = () => {
                 </TouchableOpacity>
               )}
               onEndReached={handleEndReached}
+              refreshing={refreshing}
+              onEndReachedThreshold={0.2}
               showsVerticalScrollIndicator={false}
               bounces={false}
               keyExtractor={(item: any) => item?.code}

@@ -118,6 +118,7 @@ export default function RootLayout() {
               <Stack.Screen name="Cards" options={{ headerShown: false }} />
               <Stack.Screen name="Analytic" options={{ headerShown: false }} />
               <Stack.Screen name="Profiles" options={{ headerShown: false }} />
+              <Stack.Screen name="Transactions" options={{ headerShown: false }} />
               <Stack.Screen name="Save" options={{ headerShown: false }} />
               <Stack.Screen name="Loan" options={{ headerShown: false }} />
               <Stack.Screen name="Invest" options={{ headerShown: false }} />

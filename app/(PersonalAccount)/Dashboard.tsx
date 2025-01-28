@@ -5,7 +5,8 @@ import {
   Dimensions,
   StatusBar as RNStatusBar,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  Pressable
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -120,7 +121,7 @@ const Dashboard = () => {
   // ];
 
   useEffect(() => {
-    dispatch(UserTransactions({router: router.push}));
+    dispatch(UserTransactions({ router: router.push }));
     dispatch(Mainwallet());
     dispatch(clearStatelogin());
     dispatch(clearStategetcard());
@@ -368,7 +369,11 @@ const Dashboard = () => {
               <Text className="text-darktext text-[14px] font-bold">
                 Recent Transactions
               </Text>
-              <Text className="text-buttonprimary text-[12px]">See all</Text>
+              <Pressable
+                onPress={() => router.push("/Transactions/TransactionList")}
+              >
+                <Text className="text-buttonprimary text-[12px]">See all</Text>
+              </Pressable>
             </View>
             <View style={{ height: height * 0.2 }}>
               <SectionList
@@ -378,50 +383,56 @@ const Dashboard = () => {
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item, index) => item + index}
                 renderItem={({ item }) => (
-                  <View className="flex-col gap-2">
-                    <View className="flex-row justify-between items-center">
-                      <View className="flex-row gap-1">
-                        <Sendheader />
-                        <View className="flex-col gap-1 justify-center items-start">
-                          <Text className="text-[14px] text-darktext font-bold">
-                            {item?.method} to {item?.receiver?.last_name}
-                            {""} {item?.receiver?.first_name}
+                  <TouchableOpacity
+                    onPress={() =>
+                      router.push(`/Transactions/TransactionReceipt?id=${item?.id}`)
+                    }
+                  >
+                    <View className="flex-col gap-2">
+                      <View className="flex-row justify-between items-center">
+                        <View className="flex-row gap-1">
+                          <Sendheader />
+                          <View className="flex-col gap-1 justify-center items-start">
+                            <Text className="text-[14px] text-darktext font-bold">
+                              {item?.method} to 
+                              {""} {item?.receiver?.first_name}
+                            </Text>
+                            <Text className="text-[12px] text-transdate">
+                              {/* Sep 2nd, 7:45am */}
+                              {formatDateWithTime(item?.created_at)}
+                            </Text>
+                          </View>
+                        </View>
+                        <View className="flex-col justify-center items-center">
+                          <Text className="text-[14px] text-darktext">
+                            {item?.symbol || ""}
+                            {""}
+                            {parseFloat(item?.total || "0").toFixed(2)}
                           </Text>
-                          <Text className="text-[12px] text-transdate">
-                            {/* Sep 2nd, 7:45am */}
-                            {formatDateWithTime(item?.created_at)}
-                          </Text>
+                          {/* Failed */}
+                          {item?.status === "completed" ? (
+                            <Text className="text-[12px] text-successtrans">
+                              {item?.status}
+                            </Text>
+                          ) : item?.status === "pending" ? (
+                            <Text className="text-[12px] text-pendingtrans">
+                              {item?.status}
+                            </Text>
+                          ) : (
+                            <Text className="text-[12px] text-failedtrans">
+                              {item?.status}
+                            </Text>
+                          )}
                         </View>
                       </View>
-                      <View className="flex-col justify-center items-center">
-                        <Text className="text-[14px] text-darktext">
-                          {item?.symbol || ""}
-                          {""}
-                          {parseFloat(item?.total || "0").toFixed(2)}
-                        </Text>
-                        {/* Failed */}
-                        {item?.status === "completed" ? (
-                          <Text className="text-[12px] text-successtrans">
-                            {item?.status}
-                          </Text>
-                        ) : item?.status === "pending" ? (
-                          <Text className="text-[12px] text-pendingtrans">
-                            {item?.status}
-                          </Text>
-                        ) : (
-                          <Text className="text-[12px] text-failedtrans">
-                            {item?.status}
-                          </Text>
-                        )}
+                      <View className="flex-row justify-end">
+                        <View
+                          style={{ width: width * 0.8, height: height * 0.001 }}
+                          className="bg-faintline"
+                        ></View>
                       </View>
                     </View>
-                    <View className="flex-row justify-end">
-                      <View
-                        style={{ width: width * 0.8, height: height * 0.001 }}
-                        className="bg-faintline"
-                      ></View>
-                    </View>
-                  </View>
+                  </TouchableOpacity>
                 )}
                 renderSectionHeader={({ section: { title } }) => (
                   <Text className="text-[12px] text-sectionheader">

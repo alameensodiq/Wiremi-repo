@@ -6,6 +6,7 @@ import { Stack } from 'expo-router';
 const CardLayout = () => {
   return (
     <Stack>
+      <Stack.Screen name="Virtual" options={{ headerShown: false }} />
       <Stack.Screen name="CreateCard" options={{ headerShown: false }} />
       <Stack.Screen name="CardSuccess" options={{ headerShown: false }} />
       <Stack.Screen name="MyCard" options={{ headerShown: false }} />

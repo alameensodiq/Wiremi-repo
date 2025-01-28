@@ -55,6 +55,7 @@ const RegularSavings = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const [checked, setChecked] = React.useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
   const [show, setShow] = useState([]);
   const toggleCheckbox = () => setChecked(!checked);
@@ -129,7 +130,7 @@ const RegularSavings = () => {
     }
     return () => {
       dispatch(SavingDashboard({ router: router.push }));
-      dispatch(SavingActive({router: router.push}));
+      dispatch(SavingActive({ router: router.push }));
     };
   }, [creatingsavings, page]);
 
@@ -155,7 +156,12 @@ const RegularSavings = () => {
   };
 
   const handleEndReached = () => {
-    setPage((prevPage) => prevPage + 1);
+    if (allwithdrawalbanks?.length >= 10) {
+      setRefreshing(true);
+      dispatch(AllwithdrawalBanks({ router: router.push, page }));
+      setPage((prevPage) => prevPage + 1);
+      setRefreshing(false);
+    }
   };
 
   const data = [
@@ -712,6 +718,8 @@ const RegularSavings = () => {
                 gap: 50,
                 paddingHorizontal: width * 0.03
               }}
+              refreshing={refreshing}
+              onEndReachedThreshold={0.2}
             />
             {/* <TouchableOpacity onPress={() => handleCloseModal6()}>
                   <View className="items-center flex-row gap-4 mb-4">
