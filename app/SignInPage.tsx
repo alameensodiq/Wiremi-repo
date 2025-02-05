@@ -7,13 +7,14 @@ import {
   Platform,
   TouchableOpacity,
   KeyboardAvoidingView,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LandingPageImage from "../assets/LandingScreen.png";
 import { StatusBar } from "expo-status-bar";
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import Wiremi from "../assets/splash.svg";
 import Back from "../assets/Back.svg";
 import Logo from "../assets/Logo.svg";
@@ -30,8 +31,10 @@ import { clearStatelogin } from "@/Store/Reducers/Login";
 import { clearState } from "@/Store/Reducers/CreatePin";
 import { clearStateregister } from "@/Store/Reducers/RegisterUser";
 import { clearStateaccountregister } from "@/Store/Reducers/AccountRegister";
+import * as LocalAuthentication from "expo-local-authentication";
 
 const SignInPage = () => {
+  const [navigated, setNavigated] = useState(false);
   const { isAuthenticated, checkUser } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
@@ -43,9 +46,14 @@ const SignInPage = () => {
   const [NotsavedwiremiId, setNotsavedwiremiId] = useState<string>(""); //if not sigin before , use it for account_id
   const [wiremiIdpin, setWiremiIdpin] = useState<string>(""); //sigin
   const [pincode, setPincode] = useState<string>(""); //thumb
+  const [isBiometricSupported, setIsBiometricSupported] = useState(false);
   NotsavedwiremiId;
 
   useEffect(() => {
+    async () => {
+      const compatible = await LocalAuthentication.hasHardwareAsync();
+      setIsBiometricSupported(compatible);
+    };
     const fetchStoredData = async () => {
       try {
         const wiremiIds = await AsyncStorage.getItem("Wiremi_Id");
@@ -63,9 +71,78 @@ const SignInPage = () => {
       dispatch(clearStatelogin());
       dispatch(clearState());
       dispatch(clearStateregister());
-       dispatch(clearStateaccountregister());
+      dispatch(clearStateaccountregister());
     };
   }, []);
+
+  const fallBackToDefaultAuth = () => {
+    console.log("fall back to password authentication");
+  };
+
+  const alertComponent = (title: any, mess: any, btnTxt: any, btnFunc: any) => {
+    return Alert.alert(title, mess, [
+      {
+        text: btnTxt,
+        onPress: btnFunc
+      }
+    ]);
+  };
+
+  const TwoButtonAlert = () =>
+    Alert.alert("You are logged in", "Subscribe Now", [
+      {
+        text: "Back",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      },
+      {
+        text: "PROCEED",
+        onPress: () => console.log("OK Pressed")
+      }
+    ]);
+
+  const handleBiometricAuth = async () => {
+    console.log("sodiq");
+    const isBiometricAvailable = await LocalAuthentication.hasHardwareAsync();
+
+    if (!isBiometricAvailable) {
+      return alertComponent(
+        "Please enter your password",
+        "Biometric auth not supported",
+        "OK",
+        () => fallBackToDefaultAuth()
+      );
+    }
+    let supportedBiometrics;
+    if (isBiometricAvailable) {
+      supportedBiometrics =
+        await LocalAuthentication.supportedAuthenticationTypesAsync();
+    }
+    const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
+    if (!savedBiometrics) {
+      return alertComponent(
+        "Biometric record not found",
+        "Please login with your password",
+        "Ok",
+        () => fallBackToDefaultAuth()
+      );
+    }
+    const biometricAuth = await LocalAuthentication.authenticateAsync({
+      promptMessage: "Authenticate with Touch ID",
+      cancelLabel: "Cancel",
+      disableDeviceFallback: true
+    });
+
+    if (biometricAuth) {
+      // TwoButtonAlert();
+      dispatch(
+        Login({
+          pin: pincode,
+          account_id: wiremiId
+        })
+      );
+    }
+  };
 
   const onChangepin = (value: string) => {
     setNotsavedwiremiId(value);
@@ -81,12 +158,37 @@ const SignInPage = () => {
   console.log(logins, authenticatinglogin, "account");
   console.log(logins);
 
+  // useEffect(() => {
+  //   if (logins?.access_token && !navigated) {
+  //     setNavigated(true); // Ensure navigation happens only once
+
+  //     AsyncStorage.setItem("token", logins.access_token).then(() => {
+  //       return router.push("/(PersonalAccount)/Dashboard");
+  //       // const timeout = setTimeout(() => {
+  //       //   router.push("/(PersonalAccount)/Dashboard"); // ✅ Delayed by 2s
+  //       // }, 500);
+
+  //       // return () => clearTimeout(timeout); // ✅ Cleanup to prevent issues
+  //     });
+  //   }
+  // }, [logins?.access_token]);
+
   useEffect(() => {
-    if (logins?.access_token) {
-      AsyncStorage.setItem("token", logins?.access_token);
-      router.push("/(PersonalAccount)/Dashboard");
+    if (logins?.access_token && !navigated) {
+      setNavigated(true); // Prevent multiple redirects
+
+      AsyncStorage.setItem("token", logins.access_token).then(() => {
+        console.log(logins.access_token)
+        const timeout = setTimeout(() => {
+          router.push("/(PersonalAccount)/Dashboard"); // ✅ Use replace to prevent back navigation
+        }, 2000); // ✅ Delay to avoid flickering
+
+        return () => clearTimeout(timeout); // ✅ Cleanup timeout on unmount
+      });
     }
   }, [logins?.access_token]);
+
+  if (navigated) return null;
 
   console.log(logins?.access_token);
   return (
@@ -161,6 +263,7 @@ const SignInPage = () => {
                 <View>
                   <TextLabelBox
                     label="Pin"
+                    number
                     placeholder="Enter your 6 digit Pin"
                     onChangeText={(value: any) => onChangeIdpin(value)}
                   />
@@ -232,12 +335,16 @@ const SignInPage = () => {
               <View className="flex-col justify-end items-center">
                 {Platform.OS === "ios" && pincode && wiremiId ? (
                   <View className="items-center gap-2">
-                    <Face />
+                    <TouchableOpacity onPress={handleBiometricAuth}>
+                      <Face />
+                    </TouchableOpacity>
                     <Text>Scan Face ID to Login</Text>
                   </View>
                 ) : Platform.OS === "android" && pincode && wiremiId ? (
                   <View className="items-center gap-2">
-                    <Finger />
+                    <TouchableOpacity onPress={handleBiometricAuth}>
+                      <Finger />
+                    </TouchableOpacity>
                     <Text>Scan Fingerprint to Login</Text>
                   </View>
                 ) : (

@@ -5,18 +5,27 @@ import {
   Dimensions,
   TouchableOpacity
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import Forgotsuccess from "../assets/forgotsuccess.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import { useRouter } from "expo-router";
 import SixDigits from "@/components/SixDigits";
+import { useAppDispatch } from "@/Store/ConfigureStore";
+import { clearStateforgetpin } from "@/Store/Reducers/ForgetPin";
 
 const ForgetSuccess = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+
+
+  useEffect(() => {
+      dispatch(clearStateforgetpin())
+  },[])
   return (
     <View className="flex-1 ">
       <StatusBar hidden={false} style="dark" />
@@ -43,7 +52,7 @@ const ForgetSuccess = () => {
           >
             <Forgotsuccess />
             <Text className="text-lighttextblack text-[18px] font-bold">
-                Successful!
+              Successful!
             </Text>
             <Text className="text-forgotsuccesslight text-[13px]">
               Your login pincode has been reset successfully.

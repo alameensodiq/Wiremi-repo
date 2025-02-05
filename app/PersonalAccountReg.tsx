@@ -36,6 +36,7 @@ import { CreatePin } from "@/Store/Apis/CreatePin";
 import { clearState } from "@/Store/Reducers/CreatePin";
 import { clearStateregister } from "@/Store/Reducers/RegisterUser";
 import { clearStateaccountregister } from "@/Store/Reducers/AccountRegister";
+import TransparentSelectButton from "@/components/TransparentSelectButton";
 
 // import axios from "axios";
 
@@ -59,7 +60,8 @@ const PersonalAccountReg = () => {
     first_name: "",
     last_name: "",
     email: "",
-    code: ""
+    code: "",
+    phoneCode: ""
   });
   const [pin, setPin] = useState("");
   const [confirmpin, setConfirmpin] = useState("");
@@ -75,22 +77,21 @@ const PersonalAccountReg = () => {
   console.log(accountusers, authenticatingaccountusers, "account");
   console.log(accountusers?.user);
 
-  const { createpins, authenticatingcreatepins, authenticated } = useAppSelector(
-    (state) => state.createpins
-  );
+  const { createpins, authenticatingcreatepins, authenticated } =
+    useAppSelector((state) => state.createpins);
   console.log(createpins, authenticatingcreatepins, "account");
   console.log(createpins?.account);
 
   useEffect(() => {
     // Cleanup action when component unmounts
+    dispatch(clearState());
+    dispatch(clearStateregister());
+    setProcess(1);
+    return () => {
       dispatch(clearState());
       dispatch(clearStateregister());
-      setProcess(1)
-      return () => {
-        dispatch(clearState());
-        dispatch(clearStateregister());
-        setProcess(1)
-      };
+      setProcess(1);
+    };
   }, [dispatch]);
 
   useEffect(() => {
@@ -131,7 +132,8 @@ const PersonalAccountReg = () => {
           first_name: "",
           last_name: "",
           email: "",
-          code: ""
+          code: "",
+          phoneCode: ""
         });
         router.push("/BusinessSuccess");
       }, 3000);
@@ -186,30 +188,106 @@ const PersonalAccountReg = () => {
   };
 
   const data2 = [
-    {
-      id: "1",
-      name: "USD Dollar(USD)",
-      image: <Usa />,
-      country: "United States of America"
-    },
-    {
-      id: "2",
-      name: "NGN Naira(NGN)",
-      image: <Usa />,
-      country: "Nigeria"
-    },
-    {
-      id: "3",
-      name: "Great British Pounds(GBP)",
-      image: <Usa />,
-      country: "United Kingdom"
-    },
-    {
-      id: "4",
-      name: "Canadian Dollar(CAD)",
-      image: <Usa />,
-      country: "Canada"
-    }
+    { id: "1", name: "Algeria", phoneCode: "+213" },
+    { id: "2", name: "Angola", phoneCode: "+244" },
+    { id: "3", name: "Australia", phoneCode: "+61" },
+    { id: "4", name: "Austria", phoneCode: "+43" },
+    { id: "5", name: "Bahrain", phoneCode: "+973" },
+    { id: "6", name: "Belarus", phoneCode: "+375" },
+    { id: "7", name: "Belgium", phoneCode: "+32" },
+    { id: "8", name: "Benin", phoneCode: "+229" },
+    { id: "9", name: "Botswana", phoneCode: "+267" },
+    { id: "10", name: "Brazil", phoneCode: "+55" },
+    { id: "11", name: "Burkina Faso", phoneCode: "+226" },
+    { id: "12", name: "Burundi", phoneCode: "+257" },
+    { id: "13", name: "Cameroon", phoneCode: "+237" },
+    { id: "14", name: "Canada", phoneCode: "+1" },
+    { id: "15", name: "Cape Verde", phoneCode: "+238" },
+    { id: "16", name: "Central African Republic", phoneCode: "+236" },
+    { id: "17", name: "Chad", phoneCode: "+235" },
+    { id: "18", name: "China", phoneCode: "+86" },
+    { id: "19", name: "Colombia", phoneCode: "+57" },
+    { id: "20", name: "Comoros", phoneCode: "+269" },
+    { id: "21", name: "Congo", phoneCode: "+242" },
+    { id: "22", name: "Côte d'Ivoire", phoneCode: "+225" },
+    { id: "23", name: "Croatia", phoneCode: "+385" },
+    { id: "24", name: "Cyprus", phoneCode: "+357" },
+    { id: "25", name: "Czech Republic", phoneCode: "+420" },
+    { id: "26", name: "Denmark", phoneCode: "+45" },
+    { id: "27", name: "DR Congo", phoneCode: "+243" },
+    { id: "28", name: "Egypt", phoneCode: "+20" },
+    { id: "29", name: "Equatorial Guinea", phoneCode: "+240" },
+    { id: "30", name: "Estonia", phoneCode: "+372" },
+    { id: "31", name: "Ethiopia", phoneCode: "+251" },
+    { id: "32", name: "Finland", phoneCode: "+358" },
+    { id: "33", name: "France", phoneCode: "+33" },
+    { id: "34", name: "Gabon", phoneCode: "+241" },
+    { id: "35", name: "Gambia", phoneCode: "+220" },
+    { id: "36", name: "Georgia", phoneCode: "+995" },
+    { id: "37", name: "Germany", phoneCode: "+49" },
+    { id: "38", name: "Ghana", phoneCode: "+233" },
+    { id: "39", name: "Greece", phoneCode: "+30" },
+    { id: "40", name: "Guinea", phoneCode: "+224" },
+    { id: "41", name: "Guinea-Bissau", phoneCode: "+245" },
+    { id: "42", name: "Hungary", phoneCode: "+36" },
+    { id: "43", name: "Iceland", phoneCode: "+354" },
+    { id: "44", name: "India", phoneCode: "+91" },
+    { id: "45", name: "Indonesia", phoneCode: "+62" },
+    { id: "46", name: "Ireland", phoneCode: "+353" },
+    { id: "47", name: "Israel", phoneCode: "+972" },
+    { id: "48", name: "Italy", phoneCode: "+39" },
+    { id: "49", name: "Japan", phoneCode: "+81" },
+    { id: "50", name: "Kenya", phoneCode: "+254" },
+    { id: "51", name: "Latvia", phoneCode: "+371" },
+    { id: "52", name: "Lesotho", phoneCode: "+266" },
+    { id: "53", name: "Liberia", phoneCode: "+231" },
+    { id: "54", name: "Liechtenstein", phoneCode: "+423" },
+    { id: "55", name: "Lithuania", phoneCode: "+370" },
+    { id: "56", name: "Luxembourg", phoneCode: "+352" },
+    { id: "57", name: "Madagascar", phoneCode: "+261" },
+    { id: "58", name: "Malawi", phoneCode: "+265" },
+    { id: "59", name: "Malaysia", phoneCode: "+60" },
+    { id: "60", name: "Mali", phoneCode: "+223" },
+    { id: "61", name: "Malta", phoneCode: "+356" },
+    { id: "62", name: "Mauritius", phoneCode: "+230" },
+    { id: "63", name: "Mexico", phoneCode: "+52" },
+    { id: "64", name: "Moldova", phoneCode: "+373" },
+    { id: "65", name: "Monaco", phoneCode: "+377" },
+    { id: "66", name: "Morocco", phoneCode: "+212" },
+    { id: "67", name: "Mozambique", phoneCode: "+258" },
+    { id: "68", name: "Namibia", phoneCode: "+264" },
+    { id: "69", name: "Netherlands", phoneCode: "+31" },
+    { id: "70", name: "Niger", phoneCode: "+227" },
+    { id: "71", name: "Nigeria", phoneCode: "+234" },
+    { id: "72", name: "Norway", phoneCode: "+47" },
+    { id: "73", name: "Oman", phoneCode: "+968" },
+    { id: "74", name: "Pakistan", phoneCode: "+92" },
+    { id: "75", name: "Philippines", phoneCode: "+63" },
+    { id: "76", name: "Poland", phoneCode: "+48" },
+    { id: "77", name: "Portugal", phoneCode: "+351" },
+    { id: "78", name: "Qatar", phoneCode: "+974" },
+    { id: "79", name: "Romania", phoneCode: "+40" },
+    { id: "80", name: "Russian Federation", phoneCode: "+7" },
+    { id: "81", name: "Rwanda", phoneCode: "+250" },
+    { id: "82", name: "Saudi Arabia", phoneCode: "+966" },
+    { id: "83", name: "Senegal", phoneCode: "+221" },
+    { id: "84", name: "Seychelles", phoneCode: "+248" },
+    { id: "85", name: "Sierra Leone", phoneCode: "+232" },
+    { id: "86", name: "Singapore", phoneCode: "+65" },
+    { id: "87", name: "South Africa", phoneCode: "+27" },
+    { id: "88", name: "South Korea", phoneCode: "+82" },
+    { id: "89", name: "South Sudan", phoneCode: "+211" },
+    { id: "90", name: "Spain", phoneCode: "+34" },
+    { id: "91", name: "Sweden", phoneCode: "+46" },
+    { id: "92", name: "Switzerland", phoneCode: "+41" },
+    { id: "93", name: "Thailand", phoneCode: "+66" },
+    { id: "94", name: "Togo", phoneCode: "+228" },
+    { id: "95", name: "Tunisia", phoneCode: "+216" },
+    { id: "96", name: "Turkey", phoneCode: "+90" },
+    { id: "97", name: "Uganda", phoneCode: "+256" },
+    { id: "98", name: "Ukraine", phoneCode: "+380" },
+    { id: "99", name: "United Arab Emirates", phoneCode: "+971" },
+    { id: "100", name: "United Kingdom", phoneCode: "+44" }
   ];
 
   //susanometty@gmail.com
@@ -313,6 +391,24 @@ const PersonalAccountReg = () => {
                     className="flex-col gap-2"
                   >
                     {/* <KeyboardAvoidingView> */}
+
+                    <TransparentSelectButton
+                      onPress={() => ref?.current?.open()}
+                      label="Country"
+                      placeholder={
+                        individualregister?.country
+                          ? individualregister?.country
+                          : "Select country"
+                      }
+                    />
+
+                    <SelectAndText
+                      onPress={() => ref?.current?.open()}
+                      onChangeText={(value: string) =>
+                        onChange("telephone", value)
+                      }
+                      title="Phone number"
+                    />
                     <TextLabelBox
                       label="First name"
                       placeholder="Enter your first name"
@@ -334,13 +430,6 @@ const PersonalAccountReg = () => {
                       onChangeText={(value: any) => onChange("email", value)}
                     />
 
-                    <SelectAndText
-                      onPress={() => ref?.current?.open()}
-                      onChangeText={(value: string) =>
-                        onChange("telephone", value)
-                      }
-                      title="Phone number"
-                    />
                     <TextLabelBox
                       label="Referral code"
                       placeholder="Enter your referral code (optional)"
@@ -357,6 +446,7 @@ const PersonalAccountReg = () => {
                       <BlueSignInButton
                         title="Proceed"
                         onPress={() => {
+                          console.log(individualregister?.first_name);
                           if (
                             individualregister?.telephone &&
                             individualregister?.country &&
@@ -369,7 +459,8 @@ const PersonalAccountReg = () => {
                                 first_name: individualregister?.first_name,
                                 last_name: individualregister?.last_name,
                                 email: individualregister?.email,
-                                code: individualregister?.code
+                                code: individualregister?.code,
+                                phoneCode: individualregister?.phoneCode
                                 // telephone: "+2347057007047",
                                 // country: "Nigeria",
                                 // first_name: "Sodiq",
@@ -475,7 +566,7 @@ const PersonalAccountReg = () => {
             </View>
           </View>
           <BottomSheet height={550} ref={ref}>
-            <View style={{ padding: 20, gap: 30 }}>
+            <View style={{ padding: 20, gap: 30, paddingBottom: 50 }}>
               {/* <Text>Bottom Sheet Content</Text>
                 <TouchableOpacity onPress={handleCloseModal}>
                   <Text>Close</Text>
@@ -496,20 +587,26 @@ const PersonalAccountReg = () => {
                   uncheckedIcon="circle-o"
                 />
               </View>
-              <View style={{ height: height * 0.5 }}>
+              <View style={{ height: height * 0.47 }}>
                 <FlatList
                   data={data2}
                   renderItem={({ item, index }) => (
                     <TouchableOpacity
                       onPress={() => {
-                        //   router.push("/More/Crypto/CryptoReceiveBarcode");
+                        console.log(item?.name);
+                        setIndex(index);
+                        setIndividualregister((prev) => ({
+                          ...prev, // Spread the previous state correctly
+                          country: item?.name // Update the "country" property,
+                          // phoneCode: item?.phoneCode
+                        }));
                         handleCloseModal();
                       }}
                     >
                       <View className="flex-row justify-between gap-3">
                         <View className="flex-col gap-2">
                           <View className="flex-row items-center">
-                            {item?.image}
+                            {/* {item?.image} */}
                             <Text className="text-[14px] font-bold">
                               {item?.name}
                             </Text>
@@ -527,14 +624,16 @@ const PersonalAccountReg = () => {
                           <CheckBox
                             checked={
                               selectedIndex === index ||
-                              individualregister.country === item?.country
+                              individualregister.country === item?.name
                             }
                             // onPress={() => setIndex(index)}
                             onPress={() => {
+                              console.log(item?.name);
                               setIndex(index);
                               setIndividualregister((prev) => ({
                                 ...prev, // Spread the previous state correctly
-                                country: item?.country // Update the "country" property
+                                country: item?.name // Update the "country" property,
+                                // phoneCode: item?.phoneCode
                               }));
                               handleCloseModal();
                             }}
@@ -549,7 +648,8 @@ const PersonalAccountReg = () => {
                   bounces={false}
                   keyExtractor={(item) => item.id}
                   contentContainerStyle={{
-                    gap: 20
+                    gap: 20,
+                    paddingBottom: 50
                   }}
                 />
               </View>

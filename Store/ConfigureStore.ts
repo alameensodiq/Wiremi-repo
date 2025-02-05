@@ -24,6 +24,8 @@ import { CreateGroupSavingsSlice } from './Reducers/CreateGroupSavings';
 import { GetSavingAnalyticsSlice } from './Reducers/GetSavingAnalytics';
 import { SavingsPayoutSlice } from './Reducers/SavingsPayout';
 import { EditSavingsPayoutSlice } from './Reducers/EditSavingsPayout';
+import { VerificationCodeSlice } from './Reducers/VerificationCode';
+import { ForgetPinSlice } from './Reducers/ForgetPin';
 
 const store = configureStore({
   reducer: {
@@ -50,7 +52,9 @@ const store = configureStore({
     creategroupsavings: CreateGroupSavingsSlice?.reducer,
     getsavinganalytics: GetSavingAnalyticsSlice?.reducer,
     savingspayout: SavingsPayoutSlice?.reducer,
-    editsavingspayout: EditSavingsPayoutSlice?.reducer
+    editsavingspayout: EditSavingsPayoutSlice?.reducer,
+    verification: VerificationCodeSlice?.reducer,
+    forgetpin: ForgetPinSlice?.reducer
   },
 });
 

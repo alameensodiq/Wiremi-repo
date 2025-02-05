@@ -8,6 +8,7 @@ interface RegisterUserPayload {
   first_name: string;
   last_name: string;
   email: string;
+  phoneCode: string;
   code?: string;
 }
 
@@ -24,21 +25,21 @@ export const RegisterUser = createAsyncThunk<
 >(
   "register",  // Name of the action
   async (
-    { telephone, country, first_name, last_name, email, code },
+    { telephone, country, first_name, last_name, email, code, phoneCode },
     thunkAPI
   ) => {
     const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
     const sanitizedTelephone = telephone.startsWith("0")
       ? telephone.slice(1)
       : telephone;
-      console.log(`234${sanitizedTelephone}`)
+      console.log(`${phoneCode}${sanitizedTelephone}`)
 
-      const real =
-      country === "Nigeria"
-        ? `+234${sanitizedTelephone}`
-        : country === "United States of America"
-        ? `+1${sanitizedTelephone}`
-        : sanitizedTelephone;
+      // const real =
+      // country === "Nigeria"
+      //   ? `+234${sanitizedTelephone}`
+      //   : country === "United States of America"
+      //   ? `+1${sanitizedTelephone}`
+      //   : sanitizedTelephone;
     // console.log("Base URL:", BASE_URL);
     // console.log("Request Data:", { telephone, country, first_name, last_name, email, code });
 
@@ -46,7 +47,7 @@ export const RegisterUser = createAsyncThunk<
       // Make the API call to register user
       const response = await axios.post<APIResponse>(
         `${BASE_URL}users/register`,  // Make sure the URL is correct
-        { telephone: real, country, first_name, last_name, email, code },
+        { telephone: sanitizedTelephone, country, first_name, last_name, email, code },
         {
           headers: {
             Accept: "application/json",

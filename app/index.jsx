@@ -11,11 +11,9 @@ const Index = () => {
 
   const handleAnimationFinish = () => {
     router.replace("/firstIndex");
-    console.log("Ebuka");
   };
 
   useEffect(() => {
-    console.log("Playing animation");
     animationRef.current?.play();
   }, []);
 

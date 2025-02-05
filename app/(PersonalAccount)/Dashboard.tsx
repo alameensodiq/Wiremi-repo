@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   Pressable
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import Notification from "../../assets/notification.svg";
 import Barcode from "../../assets/barcode.svg";
@@ -119,6 +119,31 @@ const Dashboard = () => {
   //     data: ["Carrot", "Broccoli", "Spinach"]
   //   }
   // ];
+
+  // const greeting = useMemo(() => {
+  //   const hour = new Date().getHours();
+  //   if (hour < 12) return "Good Morning";
+  //   if (hour < 18) return "Good Afternoon";
+  //   return "Good Evening";
+  // }, []);
+
+  // useEffect(() => {
+  //   const initializeData = () => {
+  //     dispatch(UserTransactions({ router: router.push }));
+  //     dispatch(Mainwallet());
+  //     dispatch(clearStatelogin());
+  //     dispatch(clearStategetcard());
+  //   };
+
+  //   initializeData();
+
+  //   return () => {
+  //     dispatch(clearStatemainwallet());
+  //     dispatch(clearStateusertransactions());
+  //     dispatch(clearStatesavedashboard());
+  //     dispatch(clearStatesaveactive());
+  //   };
+  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(UserTransactions({ router: router.push }));

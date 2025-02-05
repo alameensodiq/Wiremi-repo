@@ -26,7 +26,7 @@ export const Login = createAsyncThunk<
     const response = await axios.post<APIResponse>(
       `${BASE_URL}auth/login`,
       {
-        pin: "223351",
+        pin: "111111",
         account_id: "WI082400003",
       },
       {
@@ -46,6 +46,10 @@ export const Login = createAsyncThunk<
     //     status: response.status,
     //   });
     // }
+    // AsyncStorage.setItem("Wiremi_Id", account_id);
+    // AsyncStorage.setItem("Pin_code", pin);
+    AsyncStorage.setItem("Wiremi_Id", "WI082400003");
+    AsyncStorage.setItem("Pin_code", "111111");
 
     return response.data;
   } catch (e: any) {
