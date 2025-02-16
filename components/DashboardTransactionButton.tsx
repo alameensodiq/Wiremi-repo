@@ -24,18 +24,18 @@ const DashboardTransactionButton = ({
         height: height * 0.055,
         width: width * 0.4,
         borderRadius: 30, // Rounded corners
-        backgroundColor:  '#B2CDFD', // Change background based on color1 prop
+        backgroundColor:  'rgba(255, 255, 255, 0.2)', // Change background based on color1 prop
         justifyContent: 'center',
         alignItems: 'center',
-        opacity: 0.4,
+        // opacity: 0.2,
         borderWidth: 0.5,
-        borderColor: '#B2CDFD',
-        shadowColor: '#105CE2',
+        shadowColor: '#B2CDFD',
+        borderColor: '#105CE2',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
         elevation: 5,
-        gap: 2
+        gap: 6
       }}
     >
         {

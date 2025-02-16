@@ -258,13 +258,13 @@ const Dashboard = () => {
             <View className="flex-row justify-between">
               <DashboardTransactionButton
                 color1
-                title="Send money"
+                title="Payment"
                 onPress={() =>
                   router.push("/TransactionSendMoney/ListSendMoney")
                 }
               />
               <DashboardTransactionButton
-                title="Deposit"
+                title="Add Money"
                 onPress={() =>
                   router.push("/TransactionDeposit/ListofDeposits")
                 }

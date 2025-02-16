@@ -362,7 +362,7 @@ const PersonalAccountReg = () => {
               {process === 1 ? (
                 <View className="flex-col items-center justify-center gap-2">
                   <Text className="text-textblack text-[18px] font-bold">
-                    Account registeration
+                    Account registration
                   </Text>
                   <Text className="text-lighttextblack">Glad to have you!</Text>
                 </View>
@@ -403,7 +403,8 @@ const PersonalAccountReg = () => {
                     />
 
                     <SelectAndText
-                      onPress={() => ref?.current?.open()}
+                      // onPress={() => ref?.current?.open()}
+                      countrycode={individualregister?.phoneCode}
                       onChangeText={(value: string) =>
                         onChange("telephone", value)
                       }
@@ -597,8 +598,8 @@ const PersonalAccountReg = () => {
                         setIndex(index);
                         setIndividualregister((prev) => ({
                           ...prev, // Spread the previous state correctly
-                          country: item?.name // Update the "country" property,
-                          // phoneCode: item?.phoneCode
+                          country: item?.name, // Update the "country" property,
+                          phoneCode: item?.phoneCode
                         }));
                         handleCloseModal();
                       }}
@@ -611,14 +612,14 @@ const PersonalAccountReg = () => {
                               {item?.name}
                             </Text>
                           </View>
-                          <View className="flex-row">
+                          {/* <View className="flex-row">
                             <Text
                               className="text-[12px] ml-4"
                               style={{ color: "#105CE2" }}
                             >
                               Active
                             </Text>
-                          </View>
+                          </View> */}
                         </View>
                         <View className="flex-col items-end">
                           <CheckBox
@@ -632,8 +633,8 @@ const PersonalAccountReg = () => {
                               setIndex(index);
                               setIndividualregister((prev) => ({
                                 ...prev, // Spread the previous state correctly
-                                country: item?.name // Update the "country" property,
-                                // phoneCode: item?.phoneCode
+                                country: item?.name, // Update the "country" property,
+                                phoneCode: item?.phoneCode
                               }));
                               handleCloseModal();
                             }}
@@ -648,7 +649,7 @@ const PersonalAccountReg = () => {
                   bounces={false}
                   keyExtractor={(item) => item.id}
                   contentContainerStyle={{
-                    gap: 20,
+                    gap: 0,
                     paddingBottom: 50
                   }}
                 />

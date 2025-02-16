@@ -8,7 +8,9 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ActivityIndicator,
-  Alert
+  Alert,
+  Modal,
+  Pressable
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -24,6 +26,8 @@ import TextLabelBox from "@/components/TextLabelBox";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import { CheckBox } from "@rneui/themed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { Login } from "@/Store/Apis/Login";
 import { useAppContext } from "@/Context/useAppContext";
@@ -32,14 +36,18 @@ import { clearState } from "@/Store/Reducers/CreatePin";
 import { clearStateregister } from "@/Store/Reducers/RegisterUser";
 import { clearStateaccountregister } from "@/Store/Reducers/AccountRegister";
 import * as LocalAuthentication from "expo-local-authentication";
+import ShortBlueButton from "@/components/ShortBlueButton";
 
 const SignInPage = () => {
+  const [uuid, setUuid] = useState<string>("");
   const [navigated, setNavigated] = useState(false);
   const { isAuthenticated, checkUser } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const [checked, setChecked] = React.useState(true);
+  const [showerror, setShowerror] = useState(false)
   const toggleCheckbox = () => setChecked(!checked);
   const dispatch = useAppDispatch();
   const [wiremiId, setWiremiId] = useState<string>(""); //thumb & sigin(if sign in before, use it for account_id saved)
@@ -66,6 +74,27 @@ const SignInPage = () => {
         console.error("Error fetching data from AsyncStorage:", error);
       }
     };
+    const getUuid = async () => {
+      try {
+        const storedUuid = await AsyncStorage.getItem("device_uuid");
+        console.log(storedUuid);
+        if (storedUuid) {
+          // const newUuid = uuidv4();
+          // console.log(newUuid)
+          // await AsyncStorage.setItem("device_uuid", newUuid);
+          // setUuid(newUuid);
+          setUuid(storedUuid); // Use existing UUID
+        } else {
+          const newUuid = uuidv4();
+          console.log(newUuid);
+          await AsyncStorage.setItem("device_uuid", newUuid);
+          setUuid(newUuid);
+        }
+      } catch (error) {
+        console.error("Error accessing AsyncStorage:", error);
+      }
+    };
+    getUuid();
     fetchStoredData();
     return () => {
       dispatch(clearStatelogin());
@@ -138,7 +167,9 @@ const SignInPage = () => {
       dispatch(
         Login({
           pin: pincode,
-          account_id: wiremiId
+          account_id: wiremiId,
+          device_id: uuid,
+          setIsVisible: setIsVisible
         })
       );
     }
@@ -152,11 +183,12 @@ const SignInPage = () => {
     setWiremiIdpin(value);
   };
 
-  const { logins, authenticatinglogin } = useAppSelector(
+  const { logins, authenticatinglogin, errors } = useAppSelector(
     (state) => state.logins
   );
   console.log(logins, authenticatinglogin, "account");
   console.log(logins);
+  console.log(errors?.error);
 
   // useEffect(() => {
   //   if (logins?.access_token && !navigated) {
@@ -178,7 +210,7 @@ const SignInPage = () => {
       setNavigated(true); // Prevent multiple redirects
 
       AsyncStorage.setItem("token", logins.access_token).then(() => {
-        console.log(logins.access_token)
+        console.log(logins.access_token);
         const timeout = setTimeout(() => {
           router.push("/(PersonalAccount)/Dashboard"); // ✅ Use replace to prevent back navigation
         }, 2000); // ✅ Delay to avoid flickering
@@ -207,6 +239,66 @@ const SignInPage = () => {
             paddingTop: height * 0.02
           }}
         >
+          <Modal animationType="slide" transparent={true} visible={isVisible}>
+            <Pressable
+              style={{
+                flex: 1,
+                backgroundColor: "#8080808C",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+              onPress={() => setIsVisible(false)}
+            >
+              <View className="bg-white w-[60%] h-[20%] rounded-[15px] flex-col items-center justify-evenly py-3">
+                {/* <View className="flex-col">
+                {errors?.error?.map((item: any) => {
+                  <Text>{item}</Text>
+                })}
+                </View> */}
+                {errors?.error &&
+                  typeof errors.error === "object" &&
+                  !Array.isArray(errors.error) &&
+                  Object.keys(errors.error).map((key, index) => (
+                    <Text key={index}>
+                      {key}:{" "}
+                      {Array.isArray(errors.error[key])
+                        ? errors.error[key].join(", ") // Handle arrays by joining the elements
+                        : errors.error[key]}{" "}
+                    </Text>
+                  ))}
+                {errors?.error && typeof errors.error !== "object" && (
+                  <Text className="mb-3">{errors.error}</Text>
+                )}
+                {errors?.error &&
+                  (Array.isArray(errors.error) ? (
+                    // If errors.error is an array, map through it and display each message
+                    errors.error.map((errMsg, index) => (
+                      <Text key={index} className="mb-3">
+                        {errMsg}
+                      </Text>
+                    ))
+                  ) : typeof errors.error === "object" &&
+                    !Array.isArray(errors.error) ? (
+                    // If errors.error is an object, iterate over its keys
+                    Object.keys(errors.error).map((key, index) => (
+                      <Text key={index}>
+                        {key}:{" "}
+                        {Array.isArray(errors.error[key])
+                          ? errors.error[key].join(", ") // Handle arrays inside objects
+                          : errors.error[key]}
+                      </Text>
+                    ))
+                  ) : (
+                    // If errors.error is a string or another type, display it directly
+                    <Text className="mb-3">{errors.error}</Text>
+                  ))}
+                <ShortBlueButton
+                  title="Close"
+                  onPress={() => setIsVisible(false)}
+                />
+              </View>
+            </Pressable>
+          </Modal>
           <View className="flex-1 relative items-center justify-end">
             <View
               className="bg-white absolute"
@@ -232,11 +324,13 @@ const SignInPage = () => {
               }}
             >
               <View className="flex-row justify-between items-center">
-                <TouchableOpacity onPress={() => router.push("/getStarted")}>
-                  <Back />
-                </TouchableOpacity>
-                <Wiremi height={30} />
-                <Text></Text>
+                <View style={{width: width * 0.63}} className="flex-row justify-between">
+                  <TouchableOpacity onPress={() => router.push("/getStarted")}>
+                    <Back />
+                  </TouchableOpacity>
+                  <Wiremi height={30} />
+                </View>
+                {/* <Text></Text> */}
               </View>
               <View className="flex-row items-center justify-center">
                 <Logo />
@@ -264,9 +358,11 @@ const SignInPage = () => {
                   <TextLabelBox
                     label="Pin"
                     number
+                    max
                     placeholder="Enter your 6 digit Pin"
                     onChangeText={(value: any) => onChangeIdpin(value)}
                   />
+                   {showerror && <Text className="text-failedtrans text-[12px]">Your pin must be 6 characters only</Text>}                 
                   <View
                     style={{ paddingRight: width * 0.02 }}
                     className="flex-row justify-between items-center"
@@ -307,17 +403,25 @@ const SignInPage = () => {
                   <BlueSignInButton
                     title="Sign in"
                     onPress={() => {
-                      // if (
-                      //   (wiremiId || NotsavedwiremiId) &&
-                      //   wiremiIdpin.length === 6
-                      // ) {
+                      if (
+                        // (wiremiId || NotsavedwiremiId) &&
+                        wiremiIdpin.length < 6
+                      ) {
+                         setShowerror(true)
+                      }
+                      if (
+                        (wiremiId || NotsavedwiremiId) &&
+                        wiremiIdpin.length === 6
+                      ) {
                       dispatch(
                         Login({
                           pin: wiremiIdpin,
-                          account_id: wiremiId ? wiremiId : NotsavedwiremiId
+                          account_id: wiremiId ? wiremiId : NotsavedwiremiId,
+                          device_id: uuid,
+                          setIsVisible: setIsVisible
                         })
                       );
-                      // }
+                      }
                     }}
                   />
                 )}

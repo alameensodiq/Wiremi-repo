@@ -32,7 +32,7 @@ export const RegisterUser = createAsyncThunk<
     const sanitizedTelephone = telephone.startsWith("0")
       ? telephone.slice(1)
       : telephone;
-      console.log(`${phoneCode}${sanitizedTelephone}`)
+      const actualphonenumber = (`${phoneCode}${sanitizedTelephone}`)
 
       // const real =
       // country === "Nigeria"
@@ -47,7 +47,7 @@ export const RegisterUser = createAsyncThunk<
       // Make the API call to register user
       const response = await axios.post<APIResponse>(
         `${BASE_URL}users/register`,  // Make sure the URL is correct
-        { telephone: sanitizedTelephone, country, first_name, last_name, email, code },
+        { telephone: actualphonenumber, country, first_name, last_name, email, code },
         {
           headers: {
             Accept: "application/json",

@@ -1,5 +1,5 @@
 import { View, Text, TextInput, Dimensions } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface TextLabelBoxProps {
   label: string;
@@ -10,6 +10,7 @@ interface TextLabelBoxProps {
   value?: string;
   number?: boolean;
   both?: boolean;
+  max?: boolean;
 }
 
 const TextLabelBox = ({
@@ -18,28 +19,36 @@ const TextLabelBox = ({
   reduce,
   onChangeText,
   disabled,
-  value,
+  value= "",
   number,
+  max,
   both
 }: TextLabelBoxProps) => {
   const { height, width } = Dimensions.get("window");
   const [internalValue, setInternalValue] = useState(value || ""); // Internal state for input value
 
+  useEffect(() => {
+    setInternalValue(value);
+  }, [value]);
+
   const handleChangeText = (text: string) => {
     let sanitizedText = text;
 
     if (number) {
-      // Only allow numeric input
-      sanitizedText = text.replace(/[^0-9]/g, "");
-    } else if(both){
-      sanitizedText = text;
+      sanitizedText = text.replace(/[^0-9]/g, ""); // Allow only numbers
+      if (max && sanitizedText.length > 6) {
+        sanitizedText = sanitizedText.slice(0, 6);
+      }
+    } else if (both) {
+      if (max && text.length > 6) {
+        sanitizedText = text.slice(0, 6); // Limit input if max is true
+      }
     } else {
-      // Only allow alphabetic input
-      sanitizedText = text.replace(/[^a-zA-Z\s!@#$%^&*(),.?":{}|<>-]/g, "");
+      sanitizedText = text.replace(/[^a-zA-Z\s!@#$%^&*(),.?":{}|<>-]/g, ""); // Allow letters and special characters
     }
 
-    setInternalValue(sanitizedText); // Update the internal state
-    onChangeText?.(sanitizedText); // Notify the parent component
+    setInternalValue(sanitizedText); // Update internal state
+    onChangeText?.(sanitizedText); // Notify parent component
   };
 
   return (

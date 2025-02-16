@@ -66,11 +66,12 @@ const ChooseAccountType = () => {
               }}
             >
               <View className="flex-row justify-between items-center">
-                <TouchableOpacity onPress={() => router.back()}>
-                  <Back />
-                </TouchableOpacity>
-                <Wiremi height={30} />
-                <Text></Text>
+                <View style={{width: width * 0.63}} className="flex-row justify-between">
+                  <TouchableOpacity onPress={() => router.back()}>
+                    <Back />
+                  </TouchableOpacity>
+                  <Wiremi height={30} />
+                </View>
               </View>
               <View className="flex-row items-center justify-center">
                 <Logo />

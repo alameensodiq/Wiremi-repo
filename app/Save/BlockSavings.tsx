@@ -135,7 +135,7 @@ const BlockSavings = () => {
     }
     return () => {
       dispatch(SavingDashboard({ router: router.push }));
-      dispatch(SavingActive());
+      dispatch(SavingActive({ router: router.push }));
     };
   }, [creatingsavings, page]);
 

@@ -16,12 +16,13 @@ interface SelectAndTextProps {
   title?: string;
   onChangeText?: (text: string) => void;
   onPress?: () => void;
+  countrycode?:  string;
 }
 
 const SelectAndText = ({
   title,
   onPress,
-  onChangeText
+  onChangeText,countrycode
 }: SelectAndTextProps) => {
   const { height, width } = Dimensions.get("window");
   const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -54,10 +55,10 @@ const SelectAndText = ({
             keyExtractor={(item) => item}
             className="rounded shadow-lg"
             renderItem={({ item }) => (
-              <TouchableOpacity
-                // onPress={() => setDropdownVisible(!isDropdownVisible)}
-                onPress={onPress}
-              >
+              // <TouchableOpacity
+              //   // onPress={() => setDropdownVisible(!isDropdownVisible)}
+              //   onPress={onPress}
+              // >
                 <View
                   style={{
                     height: height * 0.05,
@@ -73,12 +74,13 @@ const SelectAndText = ({
                   className="flex-row text-textinputtext items-center text-[14px] border-customgray justify-center gap-1"
                 >
                   {/* <Image source={eng} /> */}
+                  <Text>{countrycode}</Text>
                   <USA />
                   {/* <Text style={{ marginHorizontal: 2 }}>Eng</Text> */}
-                  <Downcaratkyc />
+                  {/* <Downcaratkyc /> */}
                   {/* <Image source={downcarat} /> */}
                 </View>
-              </TouchableOpacity>
+              // </TouchableOpacity>
             )}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -131,6 +133,7 @@ const SelectAndText = ({
                           Eng
                         </Text>
                         <Image source={downcarat} /> */}
+                        {/* <Text>{countrycode}</Text> */}
                         <USA />
                         <Downcaratkyc />
                       </View>
