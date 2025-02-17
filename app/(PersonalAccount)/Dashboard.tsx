@@ -39,6 +39,8 @@ import { clearStateusertransactions } from "@/Store/Reducers/UserTransactions";
 import { clearStatesavedashboard } from "@/Store/Reducers/SavingDashboard";
 import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
 import { clearStategetcard } from "@/Store/Reducers/GetCard";
+import { ScrollView } from "react-native";
+
 
 const Dashboard = () => {
   const { height, width } = Dimensions.get("window");
@@ -196,11 +198,13 @@ const Dashboard = () => {
           <View
             style={{
               height: height * 0.32,
+              width: width,
               borderBottomLeftRadius: 20,
               borderBottomRightRadius: 20,
               paddingHorizontal: width * 0.05,
               paddingTop: height * 0.02,
-              gap: height * 0.02
+              gap: height * 0.02,
+              position:"absolute"
             }}
             className="bg-buttonprimary"
           >
@@ -274,8 +278,10 @@ const Dashboard = () => {
           <View
             style={{
               paddingHorizontal: width * 0.05,
-              paddingTop: height * 0.02,
-              height: height * 0.8
+              // paddingTop: height * 0.02,
+              // height: height * 0.8
+              paddingTop: height * 0.36,
+              height: height
             }}
             className="text-[14px] gap-1"
           >

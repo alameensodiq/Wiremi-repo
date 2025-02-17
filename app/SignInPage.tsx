@@ -37,6 +37,7 @@ import { clearStateregister } from "@/Store/Reducers/RegisterUser";
 import { clearStateaccountregister } from "@/Store/Reducers/AccountRegister";
 import * as LocalAuthentication from "expo-local-authentication";
 import ShortBlueButton from "@/components/ShortBlueButton";
+import { getDeviceId } from "@/Utils/Device";
 
 const SignInPage = () => {
   const [uuid, setUuid] = useState<string>("");
@@ -48,6 +49,7 @@ const SignInPage = () => {
   const router = useRouter();
   const [checked, setChecked] = React.useState(true);
   const [showerror, setShowerror] = useState(false)
+  const [showerror2, setShowerror2] = useState(false)
   const toggleCheckbox = () => setChecked(!checked);
   const dispatch = useAppDispatch();
   const [wiremiId, setWiremiId] = useState<string>(""); //thumb & sigin(if sign in before, use it for account_id saved)
@@ -76,20 +78,22 @@ const SignInPage = () => {
     };
     const getUuid = async () => {
       try {
-        const storedUuid = await AsyncStorage.getItem("device_uuid");
-        console.log(storedUuid);
-        if (storedUuid) {
-          // const newUuid = uuidv4();
-          // console.log(newUuid)
-          // await AsyncStorage.setItem("device_uuid", newUuid);
-          // setUuid(newUuid);
-          setUuid(storedUuid); // Use existing UUID
-        } else {
-          const newUuid = uuidv4();
-          console.log(newUuid);
-          await AsyncStorage.setItem("device_uuid", newUuid);
-          setUuid(newUuid);
-        }
+        const device_id = await getDeviceId();
+        setUuid(device_id ?? "");
+        // const storedUuid = await AsyncStorage.getItem("device_uuid");
+        // console.log(storedUuid);
+        // if (storedUuid) {
+        //   // const newUuid = uuidv4();
+        //   // console.log(newUuid)
+        //   // await AsyncStorage.setItem("device_uuid", newUuid);
+        //   // setUuid(newUuid);
+        //   setUuid(storedUuid); // Use existing UUID
+        // } else {
+        //   const newUuid = uuidv4();
+        //   console.log(newUuid);
+        //   await AsyncStorage.setItem("device_uuid", newUuid);
+        //   setUuid(newUuid);
+        // }
       } catch (error) {
         console.error("Error accessing AsyncStorage:", error);
       }
@@ -362,7 +366,8 @@ const SignInPage = () => {
                     placeholder="Enter your 6 digit Pin"
                     onChangeText={(value: any) => onChangeIdpin(value)}
                   />
-                   {showerror && <Text className="text-failedtrans text-[12px]">Your pin must be 6 characters only</Text>}                 
+                   {showerror && <Text className="text-failedtrans text-[12px]">Your pin must be 6 characters only</Text>}    
+                   {showerror2 && <Text className="text-failedtrans text-[12px]">Your pin cannot be empty</Text>}                  
                   <View
                     style={{ paddingRight: width * 0.02 }}
                     className="flex-row justify-between items-center"
@@ -409,6 +414,9 @@ const SignInPage = () => {
                       ) {
                          setShowerror(true)
                       }
+                      if(wiremiIdpin.length < 1){
+                        setShowerror2(true)
+                      }
                       if (
                         (wiremiId || NotsavedwiremiId) &&
                         wiremiIdpin.length === 6
@@ -416,7 +424,8 @@ const SignInPage = () => {
                       dispatch(
                         Login({
                           pin: wiremiIdpin,
-                          account_id: wiremiId ? wiremiId : NotsavedwiremiId,
+                          account_id: "WI082400003",
+                          // account_id: wiremiId ? wiremiId : NotsavedwiremiId,
                           device_id: uuid,
                           setIsVisible: setIsVisible
                         })

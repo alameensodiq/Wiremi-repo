@@ -48,7 +48,7 @@ export default function RootLayout() {
     <LoginProvider>
       <SafeAreaProvider className="flex-1">
         <Provider store={store}>
-          <NavigationContainer>
+          {/* <NavigationContainer> */}
           {/* <MainNavigator /> */}
             <Stack>
               {/* <Stack.Screen name="PersonalAccount" options={{ headerShown: false }} /> */}
@@ -123,7 +123,7 @@ export default function RootLayout() {
               <Stack.Screen name="Loan" options={{ headerShown: false }} />
               <Stack.Screen name="Invest" options={{ headerShown: false }} />
             </Stack>
-          </NavigationContainer>
+          {/* </NavigationContainer> */}
         </Provider>
       </SafeAreaProvider>
     </LoginProvider>
