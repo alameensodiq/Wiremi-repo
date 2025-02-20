@@ -573,7 +573,7 @@ const PersonalAccountReg = () => {
                       </View>
                     ) : (
                       <View className="flex-row justify-center">
-                        {verifyemailstatus?.verified && (
+                        {verifyemailstatus?.verified && !authenticating && (
                           <BlueSignInButton
                             title="Proceed"
                             onPress={() => {
