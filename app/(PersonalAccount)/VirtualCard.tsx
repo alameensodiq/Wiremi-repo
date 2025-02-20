@@ -29,45 +29,45 @@ const VirtualCard = () => {
         }}
         className="gap-8"
       >
-        <View style={{height: height * 0.6}} className="gap-2">
+        <View style={{height: height * 0.7}} className="gap-2">
           <View className="flex-col items-start gap-2">
-            <Text className="font-bold text-[14px]">Wiremi Virtual Card Specifications</Text>
-            <Text className="text-[12px] font-bold">Card Details</Text>
-            <View className="flex-col items-start">
-              <Text className="text-[12px]"> Creation Fee: $5</Text>
-              <Text className="text-[12px]">Validity: 2 Years</Text>
-              <Text className="text-[12px]">Activation: Immediate (usable upon creation)</Text>
-              <Text className="text-[12px]">Transaction Limit: $10,000 per transaction</Text>
-              <Text className="text-[12px]"> Maximum Balance: $100,000</Text>
-              <Text className="text-[12px]">
+            <Text className="font-bold text-[14px] text-primary">Wiremi Virtual Card Specifications</Text>
+            <Text className="text-[12px] font-bold text-primary">Card Details</Text>
+            <View className="flex-col items-start bg-buttonprimary p-4 rounded-[8px] w-[90%]">
+              <Text className="text-[12px] text-white"> Creation Fee: $5</Text>
+              <Text className="text-[12px] text-white">Validity: 2 Years</Text>
+              <Text className="text-[12px] text-white">Activation: Immediate (usable upon creation)</Text>
+              <Text className="text-[12px] text-white">Transaction Limit: $10,000 per transaction</Text>
+              <Text className="text-[12px] text-white"> Maximum Balance: $100,000</Text>
+              <Text className="text-[12px] text-white">
                 Minimum Balance: $1 (initial deposit from creation fee)
               </Text>
             </View>
           </View>
-          <View className="flex-col items-start gap-2">
-            <Text className="text-[12px] font-bold">Fee Structure</Text>
-            <Text className="text-[12px]">Funding Fees:</Text>
-            <View>
-              <Text className="text-[12px]">$1.50 for transactions $1-$999</Text>
-              <Text className="text-[12px]">$1.50 for transactions $1-$999</Text>
-              <Text className="text-[12px]"> 2% for transactions $1,000+</Text>
+          <View className="flex-col items-start gap-2 mt-2">
+            <Text className="text-[12px] font-bold text-primary">Fee Structure</Text>
+            <Text className="text-[12px] text-primary">Funding Fees:</Text>
+            <View className="flex-col items-start bg-buttonprimary p-4 rounded-[8px] w-[90%]">
+              <Text className="text-[12px] text-white">$1.50 for transactions $1-$999</Text>
+              <Text className="text-[12px] text-white">$1.50 for transactions $1-$999</Text>
+              <Text className="text-[12px] text-white"> 2% for transactions $1,000+</Text>
             </View>
           </View>
           <View className="flex-col items-start gap-2">
-            <Text className="text-[12px] font-bold">Monthly Maintenance: $0.80/month</Text>
-            <Text className="text-[12px]">
+            <Text className="text-[12px] font-bold text-primary">Monthly Maintenance: $0.80/month</Text>
+            <Text className="text-[12px] text-primary"> 
               Termination: Automatic closure after 5 failed authentication
               attempts
             </Text>
           </View>
           <View className="flex-col items-start gap-2">
-            <Text className="font-bold text-[12px]">Competitive Advantages</Text>
-            <View>
-              <Text className="text-[12px]">Instant usability</Text>
-              <Text className="text-[12px]">Low entry cost</Text>
-              <Text className="text-[12px]">High transaction and balance limits</Text>
-              <Text className="text-[12px]">Flexible funding options</Text>
-              <Text className="text-[12px]">Minimal monthly maintenance fee</Text>
+            <Text className="font-bold text-[12px] text-primary">Competitive Advantages</Text>
+            <View className="flex-col items-start bg-buttonprimary p-4 rounded-[8px] w-[90%]">
+              <Text className="text-[12px] text-white">Instant usability</Text>
+              <Text className="text-[12px] text-white">Low entry cost</Text>
+              <Text className="text-[12px] text-white">High transaction and balance limits</Text>
+              <Text className="text-[12px] text-white">Flexible funding options</Text>
+              <Text className="text-[12px] text-white">Minimal monthly maintenance fee</Text>
             </View>
           </View>
         </View>

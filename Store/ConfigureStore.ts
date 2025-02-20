@@ -26,6 +26,9 @@ import { SavingsPayoutSlice } from './Reducers/SavingsPayout';
 import { EditSavingsPayoutSlice } from './Reducers/EditSavingsPayout';
 import { VerificationCodeSlice } from './Reducers/VerificationCode';
 import { ForgetPinSlice } from './Reducers/ForgetPin';
+import { EmailVerifySlice } from './Reducers/EmailVerify';
+import { EmailVerifyCodeSlice } from './Reducers/EmailVerifyCode';
+import { VerifyEmailStatusSlice } from './Reducers/VerifyEmailStatus';
 
 const store = configureStore({
   reducer: {
@@ -54,7 +57,10 @@ const store = configureStore({
     savingspayout: SavingsPayoutSlice?.reducer,
     editsavingspayout: EditSavingsPayoutSlice?.reducer,
     verification: VerificationCodeSlice?.reducer,
-    forgetpin: ForgetPinSlice?.reducer
+    forgetpin: ForgetPinSlice?.reducer,
+    emailverify: EmailVerifySlice?.reducer,
+    emailverifycode: EmailVerifyCodeSlice?.reducer,
+    verifyemailstatus: VerifyEmailStatusSlice?.reducer
   },
 });
 

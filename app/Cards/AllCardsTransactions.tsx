@@ -150,11 +150,14 @@ const AllCardsTrannsactions = () => {
                   <View className="flex-row gap-1">
                     <Sendheader />
                     <View className="flex-col gap-1 justify-center items-start">
-                      <Text className="text-[14px] text-darktext font-bold">
-                        {item?.type} to{" "}
+                      <Text className="text-[14px] text-darktext">
+                        {item?.type?.charAt(0).toUpperCase() +
+                          item?.type?.slice(1).toLowerCase()}{" "}
+                        to{" "}
                         {item?.merchant?.name === "Maplerad"
                           ? ""
-                          : item?.merchant?.name}
+                          : item?.merchant?.name?.charAt(0).toUpperCase() +
+                            item?.merchant?.name?.slice(1).toLowerCase()}
                       </Text>
                       <Text className="text-[12px] text-transdate">
                         {formatDateWithTime(item?.created_at)}

@@ -109,7 +109,7 @@ console.log( openednotification, "opened");
           marginTop: statusBarHeight,
           paddingHorizontal: width * 0.03
         }}
-        className="gap-6"
+        className="gap-3"
       >
         {!singlenotification?.data &&  !openednotification && (
           <View
@@ -128,7 +128,7 @@ console.log( openednotification, "opened");
           <Text className="text-[20px] text-pagetitle">Details</Text>
           <Text></Text>
         </View>
-        <View className="items-center justify-center gap-3">
+        <View className="items-center justify-center gap-1">
           <MobileMoney />
           <Text style={{ color: "#5F5F5F" }}>
             {/* <Text style={{ color: "#5F5F5F" }}>Transfer to</Text>{" "} */}
@@ -145,10 +145,10 @@ console.log( openednotification, "opened");
             <Text style={{ color: "#00A85A", fontSize: 16 }}>Successful</Text>
           </View>
         </View>
-        <View className="pr-2 pt-10 gap-5">
+        <View className="pr-2 pt-5 gap-1">
           <Text
             style={{ color: "#00091E", fontSize: 14 }}
-            className="font-bold"
+            // className="font-bold"
           >
             Transaction details
           </Text>
@@ -173,9 +173,9 @@ console.log( openednotification, "opened");
             </Text>
           </View> */}
           <View className="flex-row justify-between items-center">
-            <Text style={{ color: "#6E6E6E", fontSize: 14 }}>Remark</Text>
+            {/* <Text style={{ color: "#6E6E6E", fontSize: 14 }}>Remark</Text> */}
             <Text
-              style={{ color: "#00091E", fontSize: 14, fontWeight: "bold", width: width * 0.4 }}
+              style={{ color: "#00091E", fontSize: 14,  width: width }}
             >
               {singlenotification?.data[0]?.message}
             </Text>
@@ -185,17 +185,17 @@ console.log( openednotification, "opened");
               Transaction date
             </Text>
             <Text
-              style={{ color: "#00091E", fontSize: 14, fontWeight: "bold" }}
+              style={{ color: "#00091E", fontSize: 14 }}
             >
               {formatDate(singlenotification?.data[0]?.createdAt)}
             </Text>
           </View>
           <View className="flex-row justify-between items-center">
-            <Text style={{ color: "#6E6E6E", fontSize: 14 }}>
+            <Text style={{ color: "#6E6E6E"}}>
               Transaction time
             </Text>
             <Text
-              style={{ color: "#00091E", fontSize: 14, fontWeight: "bold" }}
+              style={{ color: "#00091E", fontSize: 14 }}
             >
                 {formatDateWithTime(singlenotification?.data[0]?.createdAt)}
             </Text>
@@ -210,7 +210,7 @@ console.log( openednotification, "opened");
             </View>
           </View> */}
         </View>
-        <View className="pr-2 pl-4 pt-6">
+        <View className="pr-2 pl-4 pt-3">
           <Text className="text-buttonprimary">Note:</Text>
           <Text style={{ color: "#8D8F91", lineHeight: 24 }}>
             This transaction is recorded for reference. Please verify details

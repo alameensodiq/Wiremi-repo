@@ -7,7 +7,8 @@ import {
   StatusBar as RNStatusBar,
   TextInput,
   FlatList,
-  Image
+  Image,
+  Platform
 } from "react-native";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -126,11 +127,11 @@ const GetStarted = () => {
           </View>
           <View
             className="items-center"
-            style={{ height: dynamicHeight, paddingTop: height * 0.03 }}
+            style={{ height: dynamicHeight, paddingTop: height * 0.02 }}
           >
             <ImageBackground
               resizeMode="cover"
-              style={{ height: height * 0.48, width: width }}
+              style={{ height: height * 0.46, width: width }}
               source={LandingGroup}
             ></ImageBackground>
             <View
@@ -139,7 +140,7 @@ const GetStarted = () => {
             >
               <View
                 style={{ height: height * 0.07, width: width }}
-                className="flex justify-center items-center bg-white"
+                className={`${Platform?.OS === 'android' ? "flex justify-center items-center bg-white mb-2" : "flex justify-center items-center bg-white"}`}
               >
                 <Text className="text-primary text-[20px] font-bold">
                   Discover the freedom of banking

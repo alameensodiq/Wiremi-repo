@@ -20,7 +20,7 @@ import BlueSignInButton from "@/components/BlueSignInButton";
 import { useEffect, useState } from "react";
 import { UserTransactions } from "@/Store/Apis/UserTransactions";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
-import * as Clipboard from 'expo-clipboard';
+import * as Clipboard from "expo-clipboard";
 
 const TransactioReceipt = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -42,6 +42,11 @@ const TransactioReceipt = () => {
 
   const handleCopy = () => {
     Clipboard.setString(content?.trans_ref || ""); // Copy text to clipboard
+  };
+
+  const formatNumberWithCommas = (number: any) => {
+    if (number == null) return "0"; // Handle null or undefined
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   const formatDateWithTime = (isoString: any) => {
@@ -94,7 +99,7 @@ const TransactioReceipt = () => {
           marginTop: statusBarHeight,
           paddingHorizontal: width * 0.03
         }}
-        className="gap-6"
+        className="gap-1"
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Dashboard")}>
@@ -108,7 +113,7 @@ const TransactioReceipt = () => {
         <ScrollView showsVerticalScrollIndicator={false} className="mb-6">
           <View
             style={{
-              height: height * 0.3,
+              height: height * 0.17,
               borderBottomWidth: 1,
               borderBottomColor: "#DCDEE0",
               borderStyle: "dashed"
@@ -124,12 +129,12 @@ const TransactioReceipt = () => {
             </Text>
           </View>
           <View
-            className="felx-col gap-2"
+            className="felx-col gap-1"
             style={{
               borderBottomWidth: 1,
               borderBottomColor: "#DCDEE0",
               borderStyle: "dashed",
-              marginTop: height * 0.03,
+              marginTop: height * 0.01,
               paddingBottom: height * 0.03
             }}
           >
@@ -139,14 +144,14 @@ const TransactioReceipt = () => {
               </Text>
               <Text className="text-darktext font-bold">
                 {content?.currency}
-                {content?.amount}
+                {formatNumberWithCommas(content?.amount)}
               </Text>
             </View>
             <View className="flex-row items-center justify-between py-1 px-3">
               <Text className="text-lighttextdark font-[14px]">Fees</Text>
               <Text className="text-darktext font-bold">
                 {content?.currency}
-                {content?.fee}
+                {formatNumberWithCommas(content?.fee)}
               </Text>
             </View>
             <View className="flex-row items-center justify-between py-1 px-3">
@@ -154,8 +159,7 @@ const TransactioReceipt = () => {
                 Recipient details
               </Text>
               <Text className="text-darktext font-bold">
-                {content?.receiver?.last_name}
-                {content?.receiver?.first_name}
+                {content?.receiver?.last_name} {content?.receiver?.first_name}
               </Text>
             </View>
             <View className="flex-row items-center justify-between py-1 px-3">
@@ -217,15 +221,15 @@ const TransactioReceipt = () => {
           <View
             className="felx-col gap-1"
             style={{
-              marginTop: height * 0.03,
-              paddingBottom: height * 0.03
+              marginTop: height * 0.005,
+              paddingBottom: height * 0.01
             }}
           >
             <View className="flex-row items-center justify-between py-1 px-3">
               <Text className="text-darktext font-bold">Total amount:</Text>
               <Text className="text-buttonprimary font-bold">
                 {content?.currency}
-                {content?.total}
+                {formatNumberWithCommas(content?.total)}
               </Text>
             </View>
           </View>
@@ -238,13 +242,19 @@ const TransactioReceipt = () => {
             </Text>
             <View
               style={{
-                backgroundColor: "#00A85A33",
+                // backgroundColor: "#00A85A33",
                 opacity: 0.8,
                 borderRadius: 10,
                 width: width * 0.3,
                 height: height * 0.05
               }}
-              className="items-center justify-center"
+              className={`${
+                content?.status === "completed"
+                  ? "items-center justify-center bg-[#00A85A33]"
+                  : content?.status === "pending"
+                  ? "items-center justify-center bg-pendingtrans"
+                  : "items-center justify-center bg-failedtrans"
+              }`}
             >
               {content?.status === "completed" ? (
                 <Text className="text-[12px] text-successtrans">
@@ -263,15 +273,20 @@ const TransactioReceipt = () => {
           </View>
           <View
             className="flex-col gap-1 pl-2"
-            style={{ marginBottom: height * 0.03 }}
+            style={{ marginBottom: height * 0.005 }}
           >
             <Text className="text-[12px] text-lighttextdark">Note</Text>
             <View className="flex-col">
               <Text className="font-bold text-dark">
-                we have successfully {content?.type} the amount
+                Your savings instance tuition was{" "}
+                {content?.status === "completed"
+                  ? "complete"
+                  : content?.status === "pending"
+                  ? "pending"
+                  : "terminated"}
               </Text>
               <Text className="font-bold text-dark">
-                to the recipient account
+                and funds paid to you main balance
               </Text>
             </View>
           </View>

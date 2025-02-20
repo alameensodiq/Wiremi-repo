@@ -38,6 +38,8 @@ import { clearStateaccountregister } from "@/Store/Reducers/AccountRegister";
 import * as LocalAuthentication from "expo-local-authentication";
 import ShortBlueButton from "@/components/ShortBlueButton";
 import { getDeviceId } from "@/Utils/Device";
+import { clearStateemailverify } from "@/Store/Reducers/EmailVerify";
+import { EmailVerifyCode } from "@/Store/Apis/Emailverifycode";
 
 const SignInPage = () => {
   const [uuid, setUuid] = useState<string>("");
@@ -48,8 +50,8 @@ const SignInPage = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const [checked, setChecked] = React.useState(true);
-  const [showerror, setShowerror] = useState(false)
-  const [showerror2, setShowerror2] = useState(false)
+  const [showerror, setShowerror] = useState(false);
+  const [showerror2, setShowerror2] = useState(false);
   const toggleCheckbox = () => setChecked(!checked);
   const dispatch = useAppDispatch();
   const [wiremiId, setWiremiId] = useState<string>(""); //thumb & sigin(if sign in before, use it for account_id saved)
@@ -187,12 +189,14 @@ const SignInPage = () => {
     setWiremiIdpin(value);
   };
 
+
   const { logins, authenticatinglogin, errors } = useAppSelector(
     (state) => state.logins
   );
   console.log(logins, authenticatinglogin, "account");
   console.log(logins);
   console.log(errors?.error);
+
 
   // useEffect(() => {
   //   if (logins?.access_token && !navigated) {
@@ -276,7 +280,7 @@ const SignInPage = () => {
                 {errors?.error &&
                   (Array.isArray(errors.error) ? (
                     // If errors.error is an array, map through it and display each message
-                    errors.error.map((errMsg, index) => (
+                    errors.error.map((errMsg: any, index: any) => (
                       <Text key={index} className="mb-3">
                         {errMsg}
                       </Text>
@@ -327,25 +331,30 @@ const SignInPage = () => {
                 gap: 15
               }}
             >
-              <View className="flex-row justify-between items-center">
-                <View style={{width: width * 0.63}} className="flex-row justify-between">
-                  <TouchableOpacity onPress={() => router.push("/getStarted")}>
-                    <Back />
-                  </TouchableOpacity>
-                  <Wiremi height={30} />
-                </View>
-                {/* <Text></Text> */}
-              </View>
-              <View className="flex-row items-center justify-center">
-                <Logo />
-              </View>
-              <View className="flex-col items-center justify-center gap-2">
-                <Text className="text-textblack text-[18px]">Sign in</Text>
-                <Text className="text-lighttextblack text-[13px]">
-                  Welcome back! Please sign in to continue
-                </Text>
-              </View>
               <KeyboardAvoidingView style={{ gap: 15 }}>
+                <View className="flex-row justify-between items-center">
+                  <View
+                    style={{ width: width * 0.63 }}
+                    className="flex-row justify-between"
+                  >
+                    <TouchableOpacity
+                      onPress={() => router.push("/getStarted")}
+                    >
+                      <Back />
+                    </TouchableOpacity>
+                    <Wiremi height={30} />
+                  </View>
+                  {/* <Text></Text> */}
+                </View>
+                <View className="flex-row items-center justify-center">
+                  <Logo />
+                </View>
+                <View className="flex-col items-center justify-center gap-2">
+                  <Text className="text-textblack text-[18px]">Sign in</Text>
+                  <Text className="text-lighttextblack text-[13px]">
+                    Welcome back! Please sign in to continue
+                  </Text>
+                </View>
                 <TextLabelBox
                   label="Wiremi ID"
                   placeholder={wiremiId ? wiremiId : "Enter your Wiremi ID"}
@@ -366,8 +375,16 @@ const SignInPage = () => {
                     placeholder="Enter your 6 digit Pin"
                     onChangeText={(value: any) => onChangeIdpin(value)}
                   />
-                   {showerror && <Text className="text-failedtrans text-[12px]">Your pin must be 6 characters only</Text>}    
-                   {showerror2 && <Text className="text-failedtrans text-[12px]">Your pin cannot be empty</Text>}                  
+                  {showerror && (
+                    <Text className="text-failedtrans text-[12px]">
+                      Your pin must be 6 characters only
+                    </Text>
+                  )}
+                  {showerror2 && (
+                    <Text className="text-failedtrans text-[12px]">
+                      Your pin cannot be empty
+                    </Text>
+                  )}
                   <View
                     style={{ paddingRight: width * 0.02 }}
                     className="flex-row justify-between items-center"
@@ -412,24 +429,24 @@ const SignInPage = () => {
                         // (wiremiId || NotsavedwiremiId) &&
                         wiremiIdpin.length < 6
                       ) {
-                         setShowerror(true)
+                        setShowerror(true);
                       }
-                      if(wiremiIdpin.length < 1){
-                        setShowerror2(true)
+                      if (wiremiIdpin.length < 1) {
+                        setShowerror2(true);
                       }
                       if (
                         (wiremiId || NotsavedwiremiId) &&
                         wiremiIdpin.length === 6
                       ) {
-                      dispatch(
-                        Login({
-                          pin: wiremiIdpin,
-                          account_id: "WI082400003",
-                          // account_id: wiremiId ? wiremiId : NotsavedwiremiId,
-                          device_id: uuid,
-                          setIsVisible: setIsVisible
-                        })
-                      );
+                        dispatch(
+                          Login({
+                            pin: wiremiIdpin,
+                            account_id: "WI082400003",
+                            // account_id: wiremiId ? wiremiId : NotsavedwiremiId,
+                            device_id: uuid,
+                            setIsVisible: setIsVisible
+                          })
+                        );
                       }
                     }}
                   />

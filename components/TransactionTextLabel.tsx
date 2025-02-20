@@ -56,12 +56,12 @@ const TransactionTextLabel = ({
         onChangeText={handleChangeText}
         keyboardType="numeric"
       />
-      <Text
+      {/* <Text
         style={{ position: "absolute", bottom: 5, right: 15 }}
         className="text-buttonprimary font-[8px]"
       >
         $146,950.00
-      </Text>
+      </Text> */}
     </View>
   );
 };

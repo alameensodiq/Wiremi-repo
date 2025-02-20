@@ -8,7 +8,10 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   KeyboardAvoidingView,
-  Alert
+  Alert,
+  ScrollView,
+  Modal,
+  Pressable
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -37,6 +40,11 @@ import { clearState } from "@/Store/Reducers/CreatePin";
 import { clearStateregister } from "@/Store/Reducers/RegisterUser";
 import { clearStateaccountregister } from "@/Store/Reducers/AccountRegister";
 import TransparentSelectButton from "@/components/TransparentSelectButton";
+import ShortBlueButton from "@/components/ShortBlueButton";
+import { EmailVerifyCode } from "@/Store/Apis/Emailverifycode";
+import { clearStateemailverify } from "@/Store/Reducers/EmailVerify";
+import { VerifyEmailStatus } from "@/Store/Apis/VerifyEmailStatus";
+import { EmailVerify } from "@/Store/Apis/EmailVerify";
 
 // import axios from "axios";
 
@@ -54,6 +62,9 @@ const PersonalAccountReg = () => {
   const [checked, setChecked] = React.useState(true);
   const [selectedIndex, setIndex] = useState(0);
   const toggleCheckbox = () => setChecked(!checked);
+  const [showmailerror, setShowemailerror] = useState<boolean>(false);
+  const [showpin, setShowpin] = useState<boolean>(false);
+  const [wiremiIdpinemail, setWiremiIdpinemail] = useState<string>(""); //sigin
   const [individualregister, setIndividualregister] = useState({
     telephone: "",
     country: "",
@@ -187,6 +198,47 @@ const PersonalAccountReg = () => {
     ref.current?.close();
   };
 
+  const onChangeIdpinemail = (value: string) => {
+    setWiremiIdpinemail(value);
+  };
+
+  const { emailverify, authenticatingemailverify, errorsemailverify } =
+    useAppSelector((state) => state.emailverify);
+  console.log(emailverify, authenticatingemailverify, "emailverify");
+  console.log(emailverify);
+
+  const {
+    emailverifycode,
+    authenticatingemailverifycode,
+    errorsemailverifycode
+  } = useAppSelector((state) => state.emailverifycode);
+  console.log(
+    emailverifycode,
+    authenticatingemailverifycode,
+    "emailverifycode"
+  );
+  console.log(emailverifycode);
+
+  const {
+    verifyemailstatus,
+    authenticatingverifyemailstatus,
+    errorsverifyemailstatus
+  } = useAppSelector((state) => state.verifyemailstatus);
+  console.log(
+    verifyemailstatus,
+    authenticatingverifyemailstatus,
+    "verifyemailstatus"
+  );
+  console.log(verifyemailstatus);
+
+  useEffect(() => {
+    if (emailverifycode?.status) {
+      clearStateemailverify();
+      setShowpin(false);
+      dispatch(VerifyEmailStatus({ email: individualregister?.email }));
+    }
+  }, [emailverifycode]);
+
   const data2 = [
     { id: "1", name: "Algeria", phoneCode: "+213" },
     { id: "2", name: "Angola", phoneCode: "+244" },
@@ -308,6 +360,66 @@ const PersonalAccountReg = () => {
             paddingTop: height * 0.02
           }}
         >
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={!authenticatingemailverify && showpin}
+          >
+            <Pressable
+              style={{
+                flex: 1,
+                backgroundColor: "#8080808C",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+              // onPress={() => setIsVisible(false)}
+            >
+              <View className="bg-white w-[95%] h-[30%] rounded-[15px] flex-col items-center justify-evenly py-3">
+                <TextLabelBox
+                  label="Pin"
+                  number
+                  max
+                  placeholder="Enter your 6 digit Pin"
+                  onChangeText={(value: any) => onChangeIdpinemail(value)}
+                />
+                <ShortBlueButton
+                  title="Close"
+                  onPress={() => {
+                    dispatch(
+                      EmailVerifyCode({
+                        otp: wiremiIdpinemail,
+                        email: individualregister?.email
+                      })
+                    );
+                  }}
+                  // onPress={() => clearStateemailverify()}
+                />
+              </View>
+            </Pressable>
+          </Modal>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={showmailerror}
+          >
+            <Pressable
+              style={{
+                flex: 1,
+                backgroundColor: "#8080808C",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+              onPress={() => setShowemailerror(false)}
+            >
+              <View className="bg-white w-[60%] h-[20%] rounded-[15px] flex-col items-center justify-evenly py-3">
+                <Text>Enter Email First</Text>
+                <ShortBlueButton
+                  title="Close"
+                  onPress={() => setShowemailerror(false)}
+                />
+              </View>
+            </Pressable>
+          </Modal>
           <View className="flex-1 relative items-center justify-end">
             <View
               className="bg-white absolute"
@@ -327,9 +439,9 @@ const PersonalAccountReg = () => {
                 width: width,
                 borderTopLeftRadius: 40,
                 borderTopRightRadius: 40,
-                paddingTop: height * 0.04,
+                paddingTop: height * 0.01,
                 paddingHorizontal: width * 0.04,
-                gap: 8
+                gap: 1
               }}
             >
               <View
@@ -360,7 +472,7 @@ const PersonalAccountReg = () => {
                 <Logo />
               </View>
               {process === 1 ? (
-                <View className="flex-col items-center justify-center gap-2">
+                <View className="flex-col items-center justify-center gap-1">
                   <Text className="text-textblack text-[18px] font-bold">
                     Account registration
                   </Text>
@@ -380,12 +492,12 @@ const PersonalAccountReg = () => {
               )}
               {process === 1 ? (
                 <KeyboardAvoidingView>
-                  <View
+                  <ScrollView
                     style={{
                       width: width,
-                      paddingTop: height * 0.03,
+                      paddingTop: height * 0.01,
                       paddingHorizontal: width * 0.04,
-                      gap: 6,
+                      gap: 2,
                       position: "relative"
                     }}
                     className="flex-col gap-2"
@@ -430,6 +542,22 @@ const PersonalAccountReg = () => {
                       placeholder="Enter your email address"
                       onChangeText={(value: any) => onChange("email", value)}
                     />
+                    <ShortBlueButton
+                      title="Verify Email"
+                      onPress={() => {
+                        if (individualregister?.email) {
+                          dispatch(
+                            EmailVerify({
+                              email: individualregister?.email
+                            })
+                          );
+                          setShowpin(true);
+                        } else {
+                          setShowemailerror(true);
+                        }
+                      }}
+                      // onPress={() => clearStateemailverify()}
+                    />
 
                     <TextLabelBox
                       label="Referral code"
@@ -444,36 +572,40 @@ const PersonalAccountReg = () => {
                         />
                       </View>
                     ) : (
-                      <BlueSignInButton
-                        title="Proceed"
-                        onPress={() => {
-                          console.log(individualregister?.first_name);
-                          if (
-                            individualregister?.telephone &&
-                            individualregister?.country &&
-                            individualregister?.first_name
-                          ) {
-                            dispatch(
-                              RegisterUser({
-                                telephone: individualregister?.telephone,
-                                country: individualregister?.country,
-                                first_name: individualregister?.first_name,
-                                last_name: individualregister?.last_name,
-                                email: individualregister?.email,
-                                code: individualregister?.code,
-                                phoneCode: individualregister?.phoneCode
-                                // telephone: "+2347057007047",
-                                // country: "Nigeria",
-                                // first_name: "Sodiq",
-                                // last_name: "Al-ameen",
-                                // email: "alameensodiq@gmail.com",
-                                // code: ""
-                              })
-                            );
-                          }
-                        }}
-                        // onPress={() => fetchData()}
-                      />
+                      <View className="flex-row justify-center">
+                        {verifyemailstatus?.verified && (
+                          <BlueSignInButton
+                            title="Proceed"
+                            onPress={() => {
+                              console.log(individualregister?.first_name);
+                              if (
+                                individualregister?.telephone &&
+                                individualregister?.country &&
+                                individualregister?.first_name
+                              ) {
+                                dispatch(
+                                  RegisterUser({
+                                    telephone: individualregister?.telephone,
+                                    country: individualregister?.country,
+                                    first_name: individualregister?.first_name,
+                                    last_name: individualregister?.last_name,
+                                    email: individualregister?.email,
+                                    code: individualregister?.code,
+                                    phoneCode: individualregister?.phoneCode
+                                    // telephone: "+2347057007047",
+                                    // country: "Nigeria",
+                                    // first_name: "Sodiq",
+                                    // last_name: "Al-ameen",
+                                    // email: "alameensodiq@gmail.com",
+                                    // code: ""
+                                  })
+                                );
+                              }
+                            }}
+                            // onPress={() => fetchData()}
+                          />
+                        )}
+                      </View>
                     )}
                     {/* </KeyboardAvoidingView> */}
 
@@ -487,7 +619,7 @@ const PersonalAccountReg = () => {
                         <Text className="text-buttonprimary">Sign in</Text>
                       </TouchableOpacity>
                     </View>
-                  </View>
+                  </ScrollView>
                 </KeyboardAvoidingView>
               ) : (
                 <View

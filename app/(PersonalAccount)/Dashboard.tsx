@@ -21,6 +21,7 @@ import Loan from "../../assets/loan.svg";
 import Invest from "../../assets/invest.svg";
 import More from "../../assets/more.svg";
 import Sendheader from "../../assets/sendheading.svg";
+import Senddeposit from "../../assets/senddeposit.svg";
 import frame1 from "../../assets/frame1.png";
 import frame2 from "../../assets/frame2.png";
 import frame3 from "../../assets/frame3.png";
@@ -41,12 +42,12 @@ import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
 import { clearStategetcard } from "@/Store/Reducers/GetCard";
 import { ScrollView } from "react-native";
 
-
 const Dashboard = () => {
   const { height, width } = Dimensions.get("window");
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const [loader, setLoader] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
+  const [shownumber, setShownumber] = useState<boolean>(false);
   const [greeting, setGreeting] = useState<string>("");
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -147,6 +148,11 @@ const Dashboard = () => {
   //   };
   // }, [dispatch]);
 
+  const formatNumberWithCommas = (number: any) => {
+    if (number == null) return "0"; // Handle null or undefined
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   useEffect(() => {
     dispatch(UserTransactions({ router: router.push }));
     dispatch(Mainwallet());
@@ -190,9 +196,9 @@ const Dashboard = () => {
             <ActivityIndicator size={200} color="#ffffff" />
           </View>
         )}
-        <View
-          className="bg-white"
-          // showsVerticalScrollIndicator={false}
+        <ScrollView
+          className="bg-white flex-1"
+          showsVerticalScrollIndicator={false}
           // contentContainerStyle={{ paddingBottom: 10 }}
         >
           <View
@@ -203,8 +209,7 @@ const Dashboard = () => {
               borderBottomRightRadius: 20,
               paddingHorizontal: width * 0.05,
               paddingTop: height * 0.02,
-              gap: height * 0.02,
-              position:"absolute"
+              gap: height * 0.02
             }}
             className="bg-buttonprimary"
           >
@@ -219,8 +224,14 @@ const Dashboard = () => {
                   }}
                 />
                 <View>
-                  <Text className="text-white text-[12px]">{greeting}</Text>
-                  <Text className="text-white text-[14px]">
+                  <Text
+                    style={{ fontWeight: "bold", fontSize: 14, color: "white" }}
+                  >
+                    {greeting}
+                  </Text>
+                  <Text
+                    style={{ fontWeight: "bold", fontSize: 14, color: "white" }}
+                  >
                     {" "}
                     {mainwallet?.user?.last_name} {""}{" "}
                     {mainwallet?.user?.first_name}
@@ -237,26 +248,46 @@ const Dashboard = () => {
               </View>
             </View>
             <View className="flex-col justify-center items-center gap-1">
-              <Text className="text-white text-[12px]">Current Balance</Text>
+              <Text
+                style={{ fontWeight: "bold", fontSize: 14, color: "white" }}
+              >
+                Current Balance
+              </Text>
               <View className="flex-row items-center gap-2">
                 <USD />
-                <Text className="text-white text-[14px]">
+                <Text
+                  style={{ fontWeight: "bold", fontSize: 14, color: "white" }}
+                >
                   {mainwallet?.currency}
                 </Text>
                 <Downcarat />
               </View>
               <View className="flex-row gap-2 items-center">
-                {show ? (
+                {shownumber ? (
                   <Text className="text-white text-[24px] font-bold">
                     {mainwallet?.symbol}
-                    {mainwallet?.balance}
+                    {formatNumberWithCommas(mainwallet?.balance)}
                   </Text>
                 ) : (
                   <Text className="text-white text-[24px] font-bold">
                     ******
                   </Text>
                 )}
-                <Dashboardeye onPress={() => setShow(!show)} />
+                {/* <TouchableOpacity
+                  onPress={() => 
+                    setShownumber(!shownumber)
+                  }
+                >
+                  <Dashboardeye />
+                </TouchableOpacity> */}
+                <TouchableOpacity
+                  onPress={() => setShownumber((prev) => !prev)}
+                  activeOpacity={0.7}
+                >
+                  <View>
+                    <Dashboardeye />
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
             <View className="flex-row justify-between">
@@ -280,8 +311,8 @@ const Dashboard = () => {
               paddingHorizontal: width * 0.05,
               // paddingTop: height * 0.02,
               // height: height * 0.8
-              paddingTop: height * 0.36,
-              height: height
+              paddingTop: height * 0.03
+              // height: height * 1.
             }}
             className="text-[14px] gap-1"
           >
@@ -406,9 +437,9 @@ const Dashboard = () => {
                 <Text className="text-buttonprimary text-[12px]">See all</Text>
               </Pressable>
             </View>
-            <View style={{ height: height * 0.2 }}>
+            <View style={{ height: height * 0.7 }}>
               <SectionList
-                // scrollEnabled={false}
+                scrollEnabled={false}
                 sections={DATA || []}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
@@ -416,16 +447,24 @@ const Dashboard = () => {
                 renderItem={({ item }) => (
                   <TouchableOpacity
                     onPress={() =>
-                      router.push(`/Transactions/TransactionReceipt?id=${item?.id}`)
+                      router.push(
+                        `/Transactions/TransactionReceipt?id=${item?.id}`
+                      )
                     }
                   >
                     <View className="flex-col gap-2">
                       <View className="flex-row justify-between items-center">
                         <View className="flex-row gap-1">
-                          <Sendheader />
+                          {item?.method === "Wiremi transfer" ? (
+                            <Sendheader />
+                          ) : item?.method === "Mobile withdraw" ? (
+                            <Sendheader />
+                          ) : (
+                            <Senddeposit />
+                          )}
                           <View className="flex-col gap-1 justify-center items-start">
                             <Text className="text-[14px] text-darktext font-bold">
-                              {item?.method} to 
+                              {item?.method} to
                               {""} {item?.receiver?.first_name}
                             </Text>
                             <Text className="text-[12px] text-transdate">
@@ -487,7 +526,7 @@ const Dashboard = () => {
               />
             </View>
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </View>
   );

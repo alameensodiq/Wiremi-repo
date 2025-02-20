@@ -22,6 +22,7 @@ import NotificationSearchLabel from "@/components/NotificaionSearchLabel";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import Sendheader from "../../assets/sendheading.svg";
+import Senddeposit from "../../assets/senddeposit.svg";
 import frame1 from "../../assets/frame1.png";
 import frame2 from "../../assets/frame2.png";
 import frame3 from "../../assets/frame3.png";
@@ -161,11 +162,20 @@ const TransactionList = () => {
             keyExtractor={(item, index) => item + index}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => router.push(`/Transactions/TransactionReceipt?id=${item?.id}`)}
+                onPress={() =>
+                  router.push(`/Transactions/TransactionReceipt?id=${item?.id}`)
+                }
               >
                 <View className="flex-col gap-2">
                   <View className="flex-row justify-between items-center">
                     <View className="flex-row gap-1">
+                      {item?.method === "Wiremi transfer" ? (
+                        <Sendheader />
+                      ) : item?.method === "Mobile withdraw" ? (
+                        <Sendheader />
+                      ) : (
+                        <Senddeposit />
+                      )}
                       <Sendheader />
                       <View className="flex-col gap-1 justify-center items-start">
                         <Text className="text-[14px] text-darktext font-bold">
