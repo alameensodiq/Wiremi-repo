@@ -5,7 +5,8 @@ import {
   Dimensions,
   TouchableOpacity,
   FlatList,
-  ActivityIndicator
+  ActivityIndicator,
+  TextInput
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -35,10 +36,11 @@ interface CountryItemProps {
   setIndex: (index: number) => void; // Function that updates index
   setTele: React.Dispatch<
     React.SetStateAction<{ telephone: string; phoneCode: string }>
-  >; 
+  >;
 }
 
 const MainForgotPinCode = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const [checked, setChecked] = React.useState(true);
@@ -152,6 +154,10 @@ const MainForgotPinCode = () => {
     { id: "99", name: "United Arab Emirates", phoneCode: "+971" },
     { id: "100", name: "United Kingdom", phoneCode: "+44" }
   ];
+
+  const filteredData = data2.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   const handleCloseModal = () => {
     ref.current?.close();
   };
@@ -175,7 +181,7 @@ const MainForgotPinCode = () => {
             setIndex(index);
             setTele((prev) => ({
               ...prev, // Preserve the existing `telephone` field
-              phoneCode: item?.phoneCode,
+              phoneCode: item?.phoneCode
             }));
             handleCloseModal();
           }}
@@ -218,11 +224,11 @@ const MainForgotPinCode = () => {
   );
 
   useEffect(() => {
-    const phoneNumber = `${tele?.phoneCode?.trim() ?? ""}${tele?.telephone?.trim() ?? ""}`;
+    const phoneNumber = `${tele?.phoneCode?.trim() ?? ""}${
+      tele?.telephone?.trim() ?? ""
+    }`;
     if (verification?.status) {
-      router.push(
-        `/MainForgotSixDigitPinCode?phone=${phoneNumber}`
-      );
+      router.push(`/MainForgotSixDigitPinCode?phone=${phoneNumber}`);
     }
   }, [verification]);
   return (
@@ -301,17 +307,23 @@ const MainForgotPinCode = () => {
               </Text>
             </View>
             <View className="flex-row justify-between items-center">
-              <Text style={{ color: "#606162" }}>Select primary account</Text>
+              <TextInput
+                style={{ color: "#606162" }}
+                value={searchQuery}
+                onChangeText={(text) => setSearchQuery(text)}
+                placeholder="Search for Country"
+              />
+              {/* <Text style={{ color: "#606162" }}>Select primary account</Text>
               <CheckBox
                 checked={selectedIndex === 20}
                 onPress={() => setIndex(20)}
                 checkedIcon="dot-circle-o"
                 uncheckedIcon="circle-o"
-              />
+              /> */}
             </View>
             <View style={{ height: height * 0.47 }}>
               <FlatList
-                data={data2}
+                data={filteredData}
                 renderItem={({ item, index }) => (
                   <CountryItem
                     item={item}
