@@ -11,7 +11,8 @@ import {
   Alert,
   ScrollView,
   Modal,
-  Pressable
+  Pressable,
+  TextInput
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -55,6 +56,7 @@ type BottomSheetRef = {
 };
 
 const PersonalAccountReg = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -341,6 +343,10 @@ const PersonalAccountReg = () => {
     { id: "99", name: "United Arab Emirates", phoneCode: "+971" },
     { id: "100", name: "United Kingdom", phoneCode: "+44" }
   ];
+
+  const filteredData = data2.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   //susanometty@gmail.com
 
@@ -670,7 +676,8 @@ const PersonalAccountReg = () => {
                         console.log(confirmpin);
                         if (
                           pin === confirmpin &&
-                          (pin?.length === 6) === (confirmpin?.length === 6)
+                          pin?.length === 6 &&
+                          confirmpin?.length === 6
                         ) {
                           dispatch(
                             CreatePin({
@@ -712,17 +719,22 @@ const PersonalAccountReg = () => {
                 </Text>
               </View>
               <View className="flex-row justify-between items-center">
-                <Text style={{ color: "#606162" }}>Select primary account</Text>
-                <CheckBox
+                <TextInput
+                  style={{ color: "#606162" }}
+                  value={searchQuery}
+                  onChangeText={(text) => setSearchQuery(text)}
+                  placeholder="Search for Country"
+                />
+                {/* <CheckBox
                   checked={selectedIndex === 20}
                   onPress={() => setIndex(20)}
                   checkedIcon="dot-circle-o"
                   uncheckedIcon="circle-o"
-                />
+                /> */}
               </View>
               <View style={{ height: height * 0.47 }}>
                 <FlatList
-                  data={data2}
+                  data={filteredData}
                   renderItem={({ item, index }) => (
                     <TouchableOpacity
                       onPress={() => {

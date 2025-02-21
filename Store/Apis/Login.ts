@@ -33,8 +33,8 @@ export const Login = createAsyncThunk<
         // account_id: "WI082400003",
         pin,
         account_id,
-        device_id,
-        // device_id:"30242e13-3f4e-42b6-a558-aae98cad4844"
+        // device_id,
+        device_id:"30242e13-3f4e-42b6-a558-aae98cad4844"
       },
       {
         headers: {
