@@ -7,6 +7,7 @@ interface LongButtonProps {
   color1?: boolean;
   reduce?: boolean;
   black?: boolean;
+  disabled?:boolean;
 }
 
 const { height, width } = Dimensions.get("window");
@@ -16,10 +17,12 @@ const BlueSignInButton = ({
   onPress,
   color1,
   reduce,
-  black
+  black,
+  disabled
 }: LongButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={disabled ? undefined : onPress} // Disable click event
+    disabled={disabled} >
     <View
       style={{
         height: height * 0.055,

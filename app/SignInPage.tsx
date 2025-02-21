@@ -12,7 +12,7 @@ import {
   Modal,
   Pressable
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LandingPageImage from "../assets/LandingScreen.png";
 import { StatusBar } from "expo-status-bar";
@@ -42,6 +42,7 @@ import { clearStateemailverify } from "@/Store/Reducers/EmailVerify";
 import { EmailVerifyCode } from "@/Store/Apis/Emailverifycode";
 
 const SignInPage = () => {
+  const [isProcessing, setIsProcessing] = useState(false);
   const [uuid, setUuid] = useState<string>("");
   const [navigated, setNavigated] = useState(false);
   const { isAuthenticated, checkUser } = useAppContext();
@@ -231,6 +232,34 @@ const SignInPage = () => {
   if (navigated) return null;
 
   console.log(logins?.access_token);
+
+  const handlePress = () => {
+    if (isProcessing) return;
+    setIsProcessing(true);
+  
+    if (wiremiIdpin.length < 6) {
+      setShowerror(true);
+      setIsProcessing(false);
+      return;
+    }
+    if (wiremiIdpin.length < 1) {
+      setShowerror2(true);
+      setIsProcessing(false);
+      return;
+    }
+    if ((wiremiId || NotsavedwiremiId) && wiremiIdpin.length === 6) {
+      dispatch(
+        Login({
+          pin: wiremiIdpin,
+          account_id: "WI082400003",
+          device_id: uuid,
+          setIsVisible: setIsVisible,
+        })
+      );
+    }
+  
+    setTimeout(() => setIsProcessing(false), 2000); // Reset after 2 seconds
+  };
   return (
     <View className="flex-1 ">
       <ImageBackground
@@ -424,31 +453,7 @@ const SignInPage = () => {
                 ) : (
                   <BlueSignInButton
                     title="Sign in"
-                    onPress={() => {
-                      if (
-                        // (wiremiId || NotsavedwiremiId) &&
-                        wiremiIdpin.length < 6
-                      ) {
-                        setShowerror(true);
-                      }
-                      if (wiremiIdpin.length < 1) {
-                        setShowerror2(true);
-                      }
-                      if (
-                        (wiremiId || NotsavedwiremiId) &&
-                        wiremiIdpin.length === 6
-                      ) {
-                        dispatch(
-                          Login({
-                            pin: wiremiIdpin,
-                            account_id: "WI082400003",
-                            // account_id: wiremiId ? wiremiId : NotsavedwiremiId,
-                            device_id: uuid,
-                            setIsVisible: setIsVisible
-                          })
-                        );
-                      }
-                    }}
+                    onPress={handlePress} disabled={isProcessing}
                   />
                 )}
                 <View className="flex-row items-center justify-center">

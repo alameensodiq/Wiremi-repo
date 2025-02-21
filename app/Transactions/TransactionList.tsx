@@ -176,7 +176,6 @@ const TransactionList = () => {
                       ) : (
                         <Senddeposit />
                       )}
-                      <Sendheader />
                       <View className="flex-col gap-1 justify-center items-start">
                         <Text className="text-[14px] text-darktext font-bold">
                           {item?.method} to {item?.receiver?.last_name}

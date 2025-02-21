@@ -199,14 +199,14 @@ const Dashboard = () => {
         <ScrollView
           className="bg-white flex-1"
           showsVerticalScrollIndicator={false}
-          // contentContainerStyle={{ paddingBottom: 10 }}
+          contentContainerStyle={{ paddingBottom: 10 }}
         >
           <View
             style={{
               height: height * 0.32,
               width: width,
-              borderBottomLeftRadius: 20,
-              borderBottomRightRadius: 20,
+              borderBottomLeftRadius: 35,
+              borderBottomRightRadius: 35,
               paddingHorizontal: width * 0.05,
               paddingTop: height * 0.02,
               gap: height * 0.02
@@ -314,7 +314,7 @@ const Dashboard = () => {
               paddingTop: height * 0.03
               // height: height * 1.
             }}
-            className="text-[14px] gap-1"
+            className="text-[14px] gap-1 bg-white"
           >
             <View>
               <Text className="text-darktext">Quick services</Text>
