@@ -68,7 +68,7 @@ import {
               >
                 <BlueSignInButton
                   title="Back to Login"
-                  onPress={() => router.push("/SignInPage")}
+                  onPress={() => router.push("/Auth/SignInPage")}
                 />
               </View>
             </View>

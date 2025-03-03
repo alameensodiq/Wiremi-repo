@@ -33,7 +33,7 @@ const AgentApproval = () => {
           }}
         >
           <View className="flex-row justify-between items-center mb-1">
-            <TouchableOpacity onPress={() => router.push("/More/MoreList")}>
+            <TouchableOpacity onPress={() => router.push("/More")}>
               <Back />
             </TouchableOpacity>
             <Text className="text-[20px] text-pagetitle">Agent</Text>
@@ -101,7 +101,7 @@ const AgentApproval = () => {
                 onPress={
                   status
                     ? () => router.push("/More/Agents/AgentDashboard")
-                    : () => router.push("/More/MoreList")
+                    : () => router.push("/More")
                 }
               />
             </View>

@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import Back from "../assets/Back.svg";
+import Back from "../../assets/Back.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import { useRouter } from "expo-router";
 import SelectAndText from "@/components/SelectAndText";
@@ -228,7 +228,7 @@ const MainForgotPinCode = () => {
       tele?.telephone?.trim() ?? ""
     }`;
     if (verification?.status) {
-      router.push(`/MainForgotSixDigitPinCode?phone=${phoneNumber}`);
+      router.push(`/Auth/MainForgotSixDigitPinCode?phone=${phoneNumber}`);
     }
   }, [verification]);
   return (
@@ -247,7 +247,7 @@ const MainForgotPinCode = () => {
           className="flex-1  justify-start gap-6"
         >
           <View className="flex-row justify-between items-center">
-            <TouchableOpacity onPress={() => router.push("/SignInPage")}>
+            <TouchableOpacity onPress={() => router.push("/Auth/SignInPage")}>
               <Back />
             </TouchableOpacity>
             <Text className="text-[18px] text-textblack font-bold">

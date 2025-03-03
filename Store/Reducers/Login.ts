@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {Login} from '../Apis/Login';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface LoginState {
   logins: any | null;
@@ -38,9 +39,12 @@ export const LoginSlice = createSlice({
         state.errors = null;
       })
       .addCase(Login.fulfilled, (state, action: PayloadAction<any>) => {
-        state.authenticatinglogin = false;
-        state.authenticated = true;
-        state.logins = action.payload;
+        // AsyncStorage.setItem("token", action.payload.access_token)
+        if (!state.logins?.access_token) { // Prevent unnecessary updates
+          state.authenticatinglogin = false;
+          state.authenticated = true;
+          state.logins = action.payload;
+        }
       })
       .addCase(Login.rejected, (state, action) => {
         state.authenticatinglogin = false;

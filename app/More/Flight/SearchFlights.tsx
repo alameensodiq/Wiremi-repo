@@ -42,7 +42,7 @@ const SearchFlights = () => {
         >
           <View className="flex-row justify-between items-center mb-1">
             <TouchableOpacity
-              onPress={() => router.push("/More/Flight/FlightDashboard")}
+              onPress={() => router.push("/More/Flight")}
             >
               <Back />
             </TouchableOpacity>

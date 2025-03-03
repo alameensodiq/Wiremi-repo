@@ -128,7 +128,7 @@ const BlockSavings = () => {
     dispatch(clearStatesaveactive());
     dispatch(AllwithdrawalBanks({ router: router.push, page }));
     if (creatingsavings?.status) {
-      router.push("/Save/SaveDashboard");
+      router.push("/Save");
     }
     if (creatingsavings?.status === false) {
       setIsVisible(true);
@@ -281,6 +281,7 @@ const BlockSavings = () => {
           <View className="items-center justify-center">
             <TextLabelBox
               label="Name"
+              both
               onChangeText={(value: any) => onChange("goal_name", value)}
               placeholder="Enter savings name"
             />

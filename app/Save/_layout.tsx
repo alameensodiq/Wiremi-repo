@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 const Save = () => {
   return (
     <Stack>
-      <Stack.Screen name="SaveDashboard" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="CreateSavingsList" options={{ headerShown: false }} />
       <Stack.Screen name="RegularSavings" options={{ headerShown: false }} />
       <Stack.Screen name="BlockSavings" options={{ headerShown: false }} />

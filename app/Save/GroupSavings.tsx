@@ -163,7 +163,7 @@ const GroupSavings = () => {
     dispatch(clearStatesavedashboard());
     dispatch(clearStatesaveactive());
     if (creategroupsavings?.status) {
-      router.push("/Save/SaveDashboard");
+      router.push("/Save");
     }
     if (creategroupsavings?.status === false) {
       setIsVisible(true);
@@ -342,6 +342,7 @@ const GroupSavings = () => {
           <View className="items-center justify-center">
             <TextLabelBox
               label="Name"
+              both
               placeholder={
                 savingcreate?.goal_name
                   ? savingcreate?.goal_name

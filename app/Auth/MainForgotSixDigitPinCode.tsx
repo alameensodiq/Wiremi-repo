@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import Back from "../assets/Back.svg";
+import Back from "../../assets/Back.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import SixDigits from "@/components/SixDigits";
@@ -43,7 +43,7 @@ const MainForgotSixDigitPinCode = () => {
           className="flex-1  justify-start gap-6"
         >
           <View className="flex-row justify-between items-center">
-            <TouchableOpacity onPress={() => router.push("/MainForgotPinCode")}>
+            <TouchableOpacity onPress={() => router.push("/Auth/MainForgotPinCode")}>
               <Back />
             </TouchableOpacity>
             <Text className="text-[18px] text-textblack font-bold">
@@ -74,7 +74,7 @@ const MainForgotSixDigitPinCode = () => {
               title="Proceed"
               onPress={() =>
                 router.push(
-                  `/MainForgotConfirmSixDigit?phone=${phone}&otp=${pin}`
+                  `/Auth/MainForgotConfirmSixDigit?phone=${phone}&otp=${pin}`
                 )
               }
             />

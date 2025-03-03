@@ -16,14 +16,14 @@ import {
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import LandingPageImage from "../assets/LandingScreen.png";
+import LandingPageImage from "../../assets/LandingScreen.png";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
-import Wiremi from "../assets/splash.svg";
-import Back from "../assets/Back.svg";
-import Logo from "../assets/Logo.svg";
-import PersonalOne from "../assets/personalone.svg";
-import PersonalTwo from "../assets/personaltwo.svg";
+import Wiremi from "../../assets/splash.svg";
+import Back from "../../assets/Back.svg";
+import Logo from "../../assets/Logo.svg";
+import PersonalOne from "../../assets/personalone.svg";
+import PersonalTwo from "../../assets/personaltwo.svg";
 import TextLabelBox from "@/components/TextLabelBox";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import SelectAndText from "@/components/SelectAndText";
@@ -148,7 +148,7 @@ const PersonalAccountReg = () => {
           code: "",
           phoneCode: ""
         });
-        router.push("/BusinessSuccess");
+        router.push("/Auth/BusinessSuccess");
       }, 3000);
     }
     return () => {
@@ -200,6 +200,18 @@ const PersonalAccountReg = () => {
     ref.current?.close();
   };
 
+  const ref2 = useRef<BottomSheetRef>(null);
+
+  const handleCloseModal2 = () => {
+    ref2.current?.close();
+  };
+
+  const ref3 = useRef<BottomSheetRef>(null);
+
+  const handleCloseModal3 = () => {
+    ref3.current?.close();
+  };
+
   const onChangeIdpinemail = (value: string) => {
     setWiremiIdpinemail(value);
   };
@@ -236,7 +248,8 @@ const PersonalAccountReg = () => {
   useEffect(() => {
     if (emailverifycode?.status) {
       clearStateemailverify();
-      setShowpin(false);
+      ref3?.current?.close();
+      // setShowpin(false);
       dispatch(VerifyEmailStatus({ email: individualregister?.email }));
     }
   }, [emailverifycode]);
@@ -348,6 +361,12 @@ const PersonalAccountReg = () => {
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // useEffect(() => {
+  //   if (ref3 && !authenticatingemailverify) {
+  //     ref3?.current?.open();
+  //   }
+  // }, [ref3, authenticatingemailverify]);
+
   //susanometty@gmail.com
 
   return (
@@ -366,7 +385,7 @@ const PersonalAccountReg = () => {
             paddingTop: height * 0.02
           }}
         >
-          <Modal
+          {/* <Modal
             animationType="slide"
             transparent={true}
             visible={!authenticatingemailverify && showpin}
@@ -402,8 +421,8 @@ const PersonalAccountReg = () => {
                 />
               </View>
             </Pressable>
-          </Modal>
-          <Modal
+          </Modal> */}
+          {/* <Modal
             animationType="slide"
             transparent={true}
             visible={showmailerror}
@@ -425,286 +444,306 @@ const PersonalAccountReg = () => {
                 />
               </View>
             </Pressable>
-          </Modal>
-          <View className="flex-1 relative items-center justify-end">
-            <View
-              className="bg-white absolute"
-              style={{
-                height: height * 0.92,
-                width: width * 0.91,
-                borderTopLeftRadius: 40, // Directly apply top-left radius
-                borderTopRightRadius: 40,
-                opacity: 0.2
-              }}
-            ></View>
-            <View
-              className="bg-creamwhite"
-              style={{
-                height: height * 0.9,
-                zIndex: 1000,
-                width: width,
-                borderTopLeftRadius: 40,
-                borderTopRightRadius: 40,
-                paddingTop: height * 0.01,
-                paddingHorizontal: width * 0.04,
-                gap: 1
-              }}
+          </Modal> */}
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            // keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+            style={{ flex: 1 }}
+          >
+            <ScrollView
+              contentContainerStyle={{ flexGrow: 1 }}
+              // keyboardShouldPersistTaps="handled"
             >
-              <View
-                style={{ gap: width * 0.24 }}
-                className="flex-row justify-start items-center"
-              >
-                {process === 1 ? (
-                  <TouchableOpacity onPress={() => router.back()}>
-                    <Back />
-                  </TouchableOpacity>
-                ) : process === 2 ? (
-                  <TouchableOpacity onPress={() => setProcess(1)}>
-                    <Back />
-                  </TouchableOpacity>
-                ) : (
-                  ""
-                )}
-                {process === 1 ? (
-                  <PersonalOne />
-                ) : process === 2 ? (
-                  <PersonalTwo />
-                ) : (
-                  ""
-                )}
-                <Text></Text>
-              </View>
-              <View className="flex-row items-center justify-center">
-                <Logo />
-              </View>
-              {process === 1 ? (
-                <View className="flex-col items-center justify-center gap-1">
-                  <Text className="text-textblack text-[18px] font-bold">
-                    Account registration
-                  </Text>
-                  <Text className="text-lighttextblack">Glad to have you!</Text>
-                </View>
-              ) : process === 2 ? (
-                <View className="flex-col items-center justify-center gap-2">
-                  <Text className="text-textblack text-[18px] font-bold">
-                    Create Pin
-                  </Text>
-                  <Text className="text-lighttextblack">
-                    Enter your 6 digit pin to help sign in always!
-                  </Text>
-                </View>
-              ) : (
-                ""
-              )}
-              {process === 1 ? (
-                <KeyboardAvoidingView>
-                  <ScrollView
-                    style={{
-                      width: width,
-                      paddingTop: height * 0.01,
-                      paddingHorizontal: width * 0.04,
-                      gap: 2,
-                      position: "relative"
-                    }}
-                    className="flex-col gap-2"
-                  >
-                    {/* <KeyboardAvoidingView> */}
-
-                    <TransparentSelectButton
-                      onPress={() => ref?.current?.open()}
-                      label="Country"
-                      placeholder={
-                        individualregister?.country
-                          ? individualregister?.country
-                          : "Select country"
-                      }
-                    />
-
-                    <SelectAndText
-                      // onPress={() => ref?.current?.open()}
-                      countrycode={individualregister?.phoneCode}
-                      onChangeText={(value: string) =>
-                        onChange("telephone", value)
-                      }
-                      title="Phone number"
-                    />
-                    <TextLabelBox
-                      label="First name"
-                      placeholder="Enter your first name"
-                      onChangeText={(value: any) =>
-                        onChange("first_name", value)
-                      }
-                    />
-                    <TextLabelBox
-                      label="Last name"
-                      placeholder="Enter your last name"
-                      onChangeText={(value: any) =>
-                        onChange("last_name", value)
-                      }
-                    />
-                    <TextLabelBox
-                      label="Email address"
-                      both
-                      placeholder="Enter your email address"
-                      onChangeText={(value: any) => onChange("email", value)}
-                    />
-                    <ShortBlueButton
-                      title="Verify Email"
-                      onPress={() => {
-                        if (individualregister?.email) {
-                          dispatch(
-                            EmailVerify({
-                              email: individualregister?.email
-                            })
-                          );
-                          setShowpin(true);
-                        } else {
-                          setShowemailerror(true);
-                        }
-                      }}
-                      // onPress={() => clearStateemailverify()}
-                    />
-
-                    <TextLabelBox
-                      label="Referral code"
-                      placeholder="Enter your referral code (optional)"
-                      onChangeText={(value: any) => onChange("code", value)}
-                    />
-                    {authenticating ? (
-                      <View className="flex-row justify-center items-center">
-                        <ActivityIndicator
-                          color={"#105CE2"}
-                          style={{ width: 30, height: 30 }}
-                        />
-                      </View>
-                    ) : (
-                      <View className="flex-row justify-center">
-                        {verifyemailstatus?.verified && !authenticating && (
-                          <BlueSignInButton
-                            title="Proceed"
-                            onPress={() => {
-                              console.log(individualregister?.first_name);
-                              if (
-                                individualregister?.telephone &&
-                                individualregister?.country &&
-                                individualregister?.first_name
-                              ) {
-                                dispatch(
-                                  RegisterUser({
-                                    telephone: individualregister?.telephone,
-                                    country: individualregister?.country,
-                                    first_name: individualregister?.first_name,
-                                    last_name: individualregister?.last_name,
-                                    email: individualregister?.email,
-                                    code: individualregister?.code,
-                                    phoneCode: individualregister?.phoneCode
-                                    // telephone: "+2347057007047",
-                                    // country: "Nigeria",
-                                    // first_name: "Sodiq",
-                                    // last_name: "Al-ameen",
-                                    // email: "alameensodiq@gmail.com",
-                                    // code: ""
-                                  })
-                                );
-                              }
-                            }}
-                            // onPress={() => fetchData()}
-                          />
-                        )}
-                      </View>
-                    )}
-                    {/* </KeyboardAvoidingView> */}
-
-                    <View className="flex-row items-center justify-center">
-                      <Text className="text-textinputtext">
-                        Already have an account?{" "}
-                      </Text>
-                      <TouchableOpacity
-                        onPress={() => router.push("/SignInPage")}
-                      >
-                        <Text className="text-buttonprimary">Sign in</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </ScrollView>
-                </KeyboardAvoidingView>
-              ) : (
+              <View className="flex-1 relative items-center justify-end">
                 <View
+                  className="bg-white absolute"
                   style={{
-                    width: width,
-                    paddingTop: height * 0.03,
-                    paddingHorizontal: width * 0.03,
-                    gap: 6
+                    height: height * 0.92,
+                    width: width * 0.91,
+                    borderTopLeftRadius: 40, // Directly apply top-left radius
+                    borderTopRightRadius: 40,
+                    opacity: 0.2
                   }}
-                  className="flex-col gap-2"
+                ></View>
+                <View
+                  className="bg-creamwhite"
+                  style={{
+                    height: height * 0.9,
+                    zIndex: 1000,
+                    width: width,
+                    borderTopLeftRadius: 40,
+                    borderTopRightRadius: 40,
+                    paddingTop: height * 0.01,
+                    paddingHorizontal: width * 0.04,
+                    gap: 1
+                  }}
                 >
-                  <View className="flex-col">
-                    <Text
-                      className="text-textblack text-[13px]"
-                      style={{ marginBottom: height * 0.01 }}
-                    >
-                      Enter pin code
-                    </Text>
-                    <SixDigits
-                      onChangeText={(value: string) => onChangepin(value)}
-                    />
+                  <View
+                    style={{ gap: width * 0.24 }}
+                    className="flex-row justify-start items-center"
+                  >
+                    {process === 1 ? (
+                      <TouchableOpacity onPress={() => router.back()}>
+                        <Back />
+                      </TouchableOpacity>
+                    ) : process === 2 ? (
+                      <TouchableOpacity onPress={() => setProcess(1)}>
+                        <Back />
+                      </TouchableOpacity>
+                    ) : (
+                      ""
+                    )}
+                    {process === 1 ? (
+                      <PersonalOne />
+                    ) : process === 2 ? (
+                      <PersonalTwo />
+                    ) : (
+                      ""
+                    )}
+                    <Text></Text>
                   </View>
-                  <View className="flex-col">
-                    <Text
-                      className="text-textblack text-[13px]"
-                      style={{ marginBottom: height * 0.01 }}
-                    >
-                      Re-enter pin code
-                    </Text>
-                    <SixDigits
-                      onChangeText={(value: string) =>
-                        onChangeconfirmpin(value)
-                      }
-                    />
+                  <View className="flex-row items-center justify-center">
+                    <Logo />
                   </View>
-                  {authenticatingcreatepins ? (
-                    <View className="flex-row justify-center items-center">
-                      <ActivityIndicator
-                        color={"#105CE2"}
-                        style={{ width: 30, height: 30 }}
-                      />
+                  {process === 1 ? (
+                    <View className="flex-col items-center justify-center gap-1">
+                      <Text className="text-textblack text-[18px] font-bold">
+                        Account registration
+                      </Text>
+                      <Text className="text-lighttextblack">
+                        Glad to have you!
+                      </Text>
+                    </View>
+                  ) : process === 2 ? (
+                    <View className="flex-col items-center justify-center gap-2">
+                      <Text className="text-textblack text-[18px] font-bold">
+                        Create Pin
+                      </Text>
+                      <Text className="text-lighttextblack">
+                        Enter your 6 digit pin to help sign in always!
+                      </Text>
                     </View>
                   ) : (
-                    <BlueSignInButton
-                      title="Proceed"
-                      onPress={() => {
-                        console.log(pin);
-                        console.log(confirmpin);
-                        if (
-                          pin === confirmpin &&
-                          pin?.length === 6 &&
-                          confirmpin?.length === 6
-                        ) {
-                          dispatch(
-                            CreatePin({
-                              id: accountusers?.id,
-                              pin: pin
-                            })
-                          );
-                        } else {
-                          Alert.alert("Incorrect Confirm Pin");
-                        }
-                      }}
-                    />
+                    ""
                   )}
-                  <View className="flex-row items-center justify-center">
-                    <Text className="text-textinputtext">
-                      Already have an account?{" "}
-                    </Text>
-                    <TouchableOpacity
-                      onPress={() => router.push("/SignInPage")}
+                  {process === 1 ? (
+                    <KeyboardAvoidingView>
+                      <ScrollView
+                        style={{
+                          width: width,
+                          paddingTop: height * 0.01,
+                          paddingHorizontal: width * 0.04,
+                          gap: 2,
+                          position: "relative"
+                        }}
+                        className="flex-col gap-2"
+                      >
+                        {/* <KeyboardAvoidingView> */}
+
+                        <TransparentSelectButton
+                          onPress={() => ref?.current?.open()}
+                          label="Country"
+                          placeholder={
+                            individualregister?.country
+                              ? individualregister?.country
+                              : "Select country"
+                          }
+                        />
+
+                        <SelectAndText
+                          // onPress={() => ref?.current?.open()}
+                          countrycode={individualregister?.phoneCode}
+                          onChangeText={(value: string) =>
+                            onChange("telephone", value)
+                          }
+                          title="Phone number"
+                        />
+                        <TextLabelBox
+                          label="First name"
+                          placeholder="Enter your first name"
+                          onChangeText={(value: any) =>
+                            onChange("first_name", value)
+                          }
+                        />
+                        <TextLabelBox
+                          label="Last name"
+                          placeholder="Enter your last name"
+                          onChangeText={(value: any) =>
+                            onChange("last_name", value)
+                          }
+                        />
+                        <TextLabelBox
+                          label="Email address"
+                          both
+                          placeholder="Enter your email address"
+                          onChangeText={(value: any) =>
+                            onChange("email", value)
+                          }
+                        />
+                        <ShortBlueButton
+                          title="Verify Email"
+                          onPress={() => {
+                            if (individualregister?.email) {
+                              dispatch(
+                                EmailVerify({
+                                  email: individualregister?.email
+                                })
+                              );
+                              ref3?.current?.open();
+                              // setShowpin(true);
+                            } else {
+                              ref2?.current?.open();
+                              // setShowemailerror(true);
+                            }
+                          }}
+                          // onPress={() => clearStateemailverify()}
+                        />
+
+                        <TextLabelBox
+                          label="Referral code"
+                          placeholder="Enter your referral code (optional)"
+                          onChangeText={(value: any) => onChange("code", value)}
+                        />
+                        {authenticating ? (
+                          <View className="flex-row justify-center items-center">
+                            <ActivityIndicator
+                              color={"#105CE2"}
+                              style={{ width: 30, height: 30 }}
+                            />
+                          </View>
+                        ) : (
+                          <View className="flex-row justify-center">
+                            {verifyemailstatus?.verified && !authenticating && (
+                              <BlueSignInButton
+                                title="Proceed"
+                                onPress={() => {
+                                  console.log(individualregister?.first_name);
+                                  if (
+                                    individualregister?.telephone &&
+                                    individualregister?.country &&
+                                    individualregister?.first_name
+                                  ) {
+                                    dispatch(
+                                      RegisterUser({
+                                        telephone:
+                                          individualregister?.telephone,
+                                        country: individualregister?.country,
+                                        first_name:
+                                          individualregister?.first_name,
+                                        last_name:
+                                          individualregister?.last_name,
+                                        email: individualregister?.email,
+                                        code: individualregister?.code,
+                                        phoneCode: individualregister?.phoneCode
+                                        // telephone: "+2347057007047",
+                                        // country: "Nigeria",
+                                        // first_name: "Sodiq",
+                                        // last_name: "Al-ameen",
+                                        // email: "alameensodiq@gmail.com",
+                                        // code: ""
+                                      })
+                                    );
+                                  }
+                                }}
+                                // onPress={() => fetchData()}
+                              />
+                            )}
+                          </View>
+                        )}
+                        {/* </KeyboardAvoidingView> */}
+
+                        <View className="flex-row items-center justify-center">
+                          <Text className="text-textinputtext">
+                            Already have an account?{" "}
+                          </Text>
+                          <TouchableOpacity
+                            onPress={() => router.push("/Auth/SignInPage")}
+                          >
+                            <Text className="text-buttonprimary">Sign in</Text>
+                          </TouchableOpacity>
+                        </View>
+                      </ScrollView>
+                    </KeyboardAvoidingView>
+                  ) : (
+                    <View
+                      style={{
+                        width: width,
+                        paddingTop: height * 0.03,
+                        paddingHorizontal: width * 0.03,
+                        gap: 6
+                      }}
+                      className="flex-col gap-2"
                     >
-                      <Text className="text-buttonprimary">Sign in</Text>
-                    </TouchableOpacity>
-                  </View>
+                      <View className="flex-col">
+                        <Text
+                          className="text-textblack text-[13px]"
+                          style={{ marginBottom: height * 0.01 }}
+                        >
+                          Enter pin code
+                        </Text>
+                        <SixDigits
+                          onChangeText={(value: string) => onChangepin(value)}
+                        />
+                      </View>
+                      <View className="flex-col">
+                        <Text
+                          className="text-textblack text-[13px]"
+                          style={{ marginBottom: height * 0.01 }}
+                        >
+                          Re-enter pin code
+                        </Text>
+                        <SixDigits
+                          onChangeText={(value: string) =>
+                            onChangeconfirmpin(value)
+                          }
+                        />
+                      </View>
+                      {authenticatingcreatepins ? (
+                        <View className="flex-row justify-center items-center">
+                          <ActivityIndicator
+                            color={"#105CE2"}
+                            style={{ width: 30, height: 30 }}
+                          />
+                        </View>
+                      ) : (
+                        <BlueSignInButton
+                          title="Proceed"
+                          onPress={() => {
+                            console.log(pin);
+                            console.log(confirmpin);
+                            if (
+                              pin === confirmpin &&
+                              pin?.length === 6 &&
+                              confirmpin?.length === 6
+                            ) {
+                              dispatch(
+                                CreatePin({
+                                  id: accountusers?.id,
+                                  pin: pin
+                                })
+                              );
+                            } else {
+                              Alert.alert("Incorrect Confirm Pin");
+                            }
+                          }}
+                        />
+                      )}
+                      <View className="flex-row items-center justify-center">
+                        <Text className="text-textinputtext">
+                          Already have an account?{" "}
+                        </Text>
+                        <TouchableOpacity
+                          onPress={() => router.push("/Auth/SignInPage")}
+                        >
+                          <Text className="text-buttonprimary">Sign in</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  )}
                 </View>
-              )}
-            </View>
-          </View>
+              </View>
+            </ScrollView>
+          </KeyboardAvoidingView>
           <BottomSheet height={550} ref={ref}>
             <View style={{ padding: 20, gap: 30, paddingBottom: 50 }}>
               {/* <Text>Bottom Sheet Content</Text>
@@ -796,6 +835,37 @@ const PersonalAccountReg = () => {
                     gap: 0,
                     paddingBottom: 50
                   }}
+                />
+              </View>
+            </View>
+          </BottomSheet>
+          <BottomSheet height={200} ref={ref2}>
+            <View className="bg-white rounded-[15px] flex-col items-center justify-between py-3 gap-3">
+              <Text className="mb-10">Enter Email First</Text>
+              <ShortBlueButton title="Close" onPress={handleCloseModal2} />
+            </View>
+          </BottomSheet>
+          <BottomSheet height={250} ref={ref3}>
+            <View className="bg-white rounded-[15px] flex-col items-center justify-center py-3 gap-3">
+              <TextLabelBox
+                label="Pin"
+                number
+                max
+                placeholder="Enter your 6 digit Pin"
+                onChangeText={(value: any) => onChangeIdpinemail(value)}
+              />
+              <View className="flex-col mt-10">
+                <BlueSignInButton
+                  title="Close"
+                  onPress={() => {
+                    dispatch(
+                      EmailVerifyCode({
+                        otp: wiremiIdpinemail,
+                        email: individualregister?.email
+                      })
+                    );
+                  }}
+                  // onPress={() => clearStateemailverify()}
                 />
               </View>
             </View>

@@ -9,15 +9,15 @@ import {
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import LandingPageImage from "../assets/LandingScreen.png";
+import LandingPageImage from "../../assets/LandingScreen.png";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
-import Wiremi from "../assets/splash.svg";
-import Back from "../assets/Back.svg";
-import Logo from "../assets/Logo.svg";
-import Person from "../assets/person.svg";
-import Business from "../assets/business.svg";
-import RightCarat from "../assets/rightcarat.svg";
+import Wiremi from "../../assets/splash.svg";
+import Back from "../../assets/Back.svg";
+import Logo from "../../assets/Logo.svg";
+import Person from "../../assets/person.svg";
+import Business from "../../assets/business.svg";
+import RightCarat from "../../assets/rightcarat.svg";
 
 const ChooseAccountType = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -81,7 +81,7 @@ const ChooseAccountType = () => {
                   Choose your account type
                 </Text>
               </View>
-              <TouchableOpacity onPress={() => router.push("/PersonalAccountReg")}>
+              <TouchableOpacity onPress={() => router.push("/Auth/PersonalAccountReg")}>
                 <View
                   style={{ paddingHorizontal: height * 0.03 }}
                   className="flex-row items-center justify-between"
@@ -98,7 +98,7 @@ const ChooseAccountType = () => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => router.push("/BusinessAccountFirstStep")}
+                onPress={() => router.push("/Auth/BusinessAccountFirstStep")}
               >
                 <View
                   style={{ paddingHorizontal: height * 0.03 }}

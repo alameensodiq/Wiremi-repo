@@ -44,7 +44,8 @@ export const UserTransactions = createAsyncThunk<
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         // setIsVisible(false)
-        router("/SignInPage");
+        await AsyncStorage.removeItem("token");
+        router("/Auth/SignInPage");
       }
       // Reject the thunk with error details
       return thunkAPI.rejectWithValue({

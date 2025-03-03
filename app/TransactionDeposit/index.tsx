@@ -24,7 +24,7 @@ const ListofDeposits = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   return (
-    <View style={{backgroundColor:"#ffffff"}} className="flex-1">
+    <View style={{ backgroundColor: "#ffffff" }} className="flex-1">
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
@@ -37,7 +37,7 @@ const ListofDeposits = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
-            onPress={() => router.push("/(PersonalAccount)/Dashboard")}
+            onPress={() => router.push("/(PersonalAccount)")}
           >
             <Back />
           </TouchableOpacity>
@@ -45,7 +45,8 @@ const ListofDeposits = () => {
           <Text></Text>
         </View>
         <TouchableOpacity
-          onPress={() => router.push("/TransactionDeposit/CardDeposits")}
+          // onPress={() => router.push("/TransactionDeposit/CardDeposits")}
+          onPress={() => router.push('/TransactionDeposit/CardDepositDetails')}
         >
           <View
             style={{
@@ -65,14 +66,24 @@ const ListofDeposits = () => {
               >
                 <Cards />
               </View>
-              <Text className="text-[14px] font-bold text-black">Cards</Text>
+              {/* <Text className="text-[14px] font-bold text-black">Cards</Text> */}
+              <View className="items-start">
+                <Text className="text-[14px] font-bold text-black">
+                  Cards deposit
+                </Text>
+                <Text className="text-[10px] text-deposistsub">
+                  Instant deposit 3.9% + 0.5
+                </Text>
+              </View>
             </View>
             <View>
               <Rightcarat />
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push("/TransactionDeposit/InteracDetails")}>
+        <TouchableOpacity
+          onPress={() => router.push("/TransactionDeposit/InteracDetails")}
+        >
           <View
             style={{
               paddingHorizontal: width * 0.03
@@ -193,33 +204,35 @@ const ListofDeposits = () => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/TransactionDeposit/RequestDetails')}>
-        <View
-          style={{
-            paddingHorizontal: width * 0.03
-          }}
-          className="flex-row justify-between items-center"
+        <TouchableOpacity
+          onPress={() => router.push("/TransactionDeposit/RequestDetails")}
         >
-          <View className="flex-row gap-3 items-center">
-            <View
-              style={{
-                backgroundColor: "#2A94F40D",
-                borderRadius: 100,
-                width: width * 0.1,
-                height: height * 0.05
-              }}
-              className="justify-center items-center"
-            >
-              <Request />
+          <View
+            style={{
+              paddingHorizontal: width * 0.03
+            }}
+            className="flex-row justify-between items-center"
+          >
+            <View className="flex-row gap-3 items-center">
+              <View
+                style={{
+                  backgroundColor: "#2A94F40D",
+                  borderRadius: 100,
+                  width: width * 0.1,
+                  height: height * 0.05
+                }}
+                className="justify-center items-center"
+              >
+                <Request />
+              </View>
+              <Text className="text-[14px] font-bold text-black">
+                Request Money
+              </Text>
             </View>
-            <Text className="text-[14px] font-bold text-black">
-              Request Money
-            </Text>
+            <View>
+              <Rightcarat />
+            </View>
           </View>
-          <View>
-            <Rightcarat />
-          </View>
-        </View>
         </TouchableOpacity>
       </SafeAreaView>
     </View>

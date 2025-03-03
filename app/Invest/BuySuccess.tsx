@@ -63,7 +63,7 @@ import {
               >
                 <BlueSignInButton
                   title="View details"
-                  onPress={() => router.push("/Invest/InvestDashboard")}
+                  onPress={() => router.push("/Invest")}
                 />
               </View>
             </View>

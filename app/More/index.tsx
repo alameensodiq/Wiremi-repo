@@ -54,7 +54,7 @@ const MoreList = () => {
         className="gap-6"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/Dashboard")}>
+          <TouchableOpacity onPress={() => router.push("/(PersonalAccount)")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">More</Text>
@@ -62,7 +62,7 @@ const MoreList = () => {
         </View>
         <View className="flex-row px-2 items-center justify-between">
           <TouchableOpacity
-            onPress={() => router.push("/More/Crypto/CryptoDashboard")}
+            onPress={() => router.push("/More/Crypto")}
           >
             <View className="flex-col gap-1 justify-center items-center">
               <View
@@ -86,7 +86,7 @@ const MoreList = () => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => router.push("/More/Escrow/EscrowDashboard")}
+            onPress={() => router.push("/More/Escrow")}
           >
             <View className="flex-col gap-1 justify-center items-center">
               <View
@@ -109,7 +109,7 @@ const MoreList = () => {
               <Text>Escrow</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/More/Flight/FlightDashboard")}>
+          <TouchableOpacity onPress={() => router.push("/More/Flight")}>
           <View className="flex-col gap-1 justify-center items-center">
             <View
               style={{
@@ -132,7 +132,7 @@ const MoreList = () => {
           </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => router.push("/More/Withdraw/WithdrawList")}
+            onPress={() => router.push("/More/Withdraw")}
           >
             <View className="flex-col gap-1 justify-center items-center">
               <View
@@ -157,7 +157,7 @@ const MoreList = () => {
           </TouchableOpacity>
         </View>
         <View className="flex-row px-2 items-center justify-between">
-          <TouchableOpacity onPress={() => router.push("/More/PayQr/PayQrScan")}>
+          <TouchableOpacity onPress={() => router.push("/More/PayQr")}>
             <View className="flex-col gap-1 justify-center items-center">
               <View
                 style={{
@@ -179,7 +179,7 @@ const MoreList = () => {
               <Text>Pay QR</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/More/Swap/SwapDashboard")}>
+          <TouchableOpacity onPress={() => router.push("/More/Swap")}>
             <View className="flex-col gap-1 justify-center items-center">
               <View
                 style={{
@@ -223,7 +223,7 @@ const MoreList = () => {
               <Text>Agents</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push("/More/Tuition/TuitionDashboard")}>
+          <TouchableOpacity onPress={() => router.push("/More/Tuition")}>
             <View className="flex-col gap-1 justify-center items-center">
               <View
                 style={{

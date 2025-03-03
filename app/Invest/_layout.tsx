@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 const Invest = () => {
   return (
     <Stack>
-      <Stack.Screen name="InvestDashboard" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="Investing" options={{ headerShown: false }} />
       <Stack.Screen name="Stocks" options={{ headerShown: false }} />
       <Stack.Screen name="StockDetails" options={{ headerShown: false }} />

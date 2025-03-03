@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
+import Wiremi from "../../assets/splash.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useRef } from "react";
@@ -38,7 +39,7 @@ const NotificationDetails = () => {
   const dispatch = useAppDispatch();
   const { notificationid } = useLocalSearchParams();
   console.log(notificationid);
-  const notificationIdNumber = +notificationid; 
+  const notificationIdNumber = +notificationid;
 
   const handleCloseModal = () => {
     ref.current?.close();
@@ -49,12 +50,10 @@ const NotificationDetails = () => {
 
   console.log(singlenotification, "data");
 
-  const {  openednotification, authenticatingopenednotification } =
-  useAppSelector((state) => state. openednotification);
+  const { openednotification, authenticatingopenednotification } =
+    useAppSelector((state) => state.openednotification);
 
-console.log( openednotification, "opened");
-
- 
+  console.log(openednotification, "opened");
 
   const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -69,11 +68,9 @@ console.log( openednotification, "opened");
     const minutes = String(date.getMinutes()).padStart(2, "0");
 
     return `${hours}:${minutes}`;
-    
 
     // return `${day}-${month}-${year} ${hours}:${minutes}`;
   };
-
 
   const formatDate = (isoString: any) => {
     const date = new Date(isoString);
@@ -85,11 +82,8 @@ console.log( openednotification, "opened");
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
 
-    
-
     return `${day}/${month}/${year}`;
   };
-
 
   useEffect(() => {
     dispatch(clearStateallnotification());
@@ -111,7 +105,7 @@ console.log( openednotification, "opened");
         }}
         className="gap-3"
       >
-        {!singlenotification?.data &&  !openednotification && (
+        {!singlenotification?.data && !openednotification && (
           <View
             style={{ height: height, width: width }}
             className="absolute inset-0 bg-loaderbg bg-opacity-60 z-50 flex-col items-center justify-center"
@@ -121,7 +115,7 @@ console.log( openednotification, "opened");
         )}
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
-            onPress={() => router.push("/Notification/NotificationList")}
+            onPress={() => router.push("/Notification")}
           >
             <Back />
           </TouchableOpacity>
@@ -129,10 +123,16 @@ console.log( openednotification, "opened");
           <Text></Text>
         </View>
         <View className="items-center justify-center gap-1">
-          <MobileMoney />
+          {singlenotification?.data[0]?.title.includes("Savings") ? (
+            <Wiremi width={100} />
+          ) : (
+            <MobileMoney />
+          )}
           <Text style={{ color: "#5F5F5F" }}>
             {/* <Text style={{ color: "#5F5F5F" }}>Transfer to</Text>{" "} */}
-            <Text className="font-bold">{singlenotification?.data[0]?.title}</Text>
+            <Text className="font-bold">
+              {singlenotification?.data[0]?.title}
+            </Text>
           </Text>
           {/* <Text
             style={{ color: "#00091E", fontSize: 18 }}
@@ -174,9 +174,7 @@ console.log( openednotification, "opened");
           </View> */}
           <View className="flex-row justify-between items-center">
             {/* <Text style={{ color: "#6E6E6E", fontSize: 14 }}>Remark</Text> */}
-            <Text
-              style={{ color: "#00091E", fontSize: 14,  width: width }}
-            >
+            <Text style={{ color: "#00091E", fontSize: 14, width: width }}>
               {singlenotification?.data[0]?.message}
             </Text>
           </View>
@@ -184,20 +182,14 @@ console.log( openednotification, "opened");
             <Text style={{ color: "#6E6E6E", fontSize: 14 }}>
               Transaction date
             </Text>
-            <Text
-              style={{ color: "#00091E", fontSize: 14 }}
-            >
+            <Text style={{ color: "#00091E", fontSize: 14 }}>
               {formatDate(singlenotification?.data[0]?.createdAt)}
             </Text>
           </View>
           <View className="flex-row justify-between items-center">
-            <Text style={{ color: "#6E6E6E"}}>
-              Transaction time
-            </Text>
-            <Text
-              style={{ color: "#00091E", fontSize: 14 }}
-            >
-                {formatDateWithTime(singlenotification?.data[0]?.createdAt)}
+            <Text style={{ color: "#6E6E6E" }}>Transaction time</Text>
+            <Text style={{ color: "#00091E", fontSize: 14 }}>
+              {formatDateWithTime(singlenotification?.data[0]?.createdAt)}
             </Text>
           </View>
           {/* <View className="flex-row justify-between items-center">

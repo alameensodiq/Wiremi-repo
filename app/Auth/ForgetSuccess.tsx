@@ -8,7 +8,7 @@ import {
 import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import Forgotsuccess from "../assets/forgotsuccess.svg";
+import Forgotsuccess from "../../assets/forgotsuccess.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import { useRouter } from "expo-router";
 import SixDigits from "@/components/SixDigits";
@@ -62,7 +62,7 @@ const ForgetSuccess = () => {
           <View className="items-center">
             <BlueSignInButton
               title="Proceed"
-              onPress={() => router.push("/SignInPage")}
+              onPress={() => router.push("/Auth/SignInPage")}
             />
           </View>
         </View>

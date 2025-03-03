@@ -49,7 +49,7 @@ const BankWireDetails = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
-            onPress={() => router.push("/TransactionSendMoney/ListSendMoney")}
+            onPress={() => router.push("/TransactionSendMoney")}
           >
             <Back />
           </TouchableOpacity>

@@ -65,7 +65,7 @@ import {
               <View className="items-center justify-between flex-row p-4">
                 <BlueSignInButton
                   title="Back to Home"
-                  onPress={() => router.push("/Dashboard")}
+                  onPress={() => router.push("/(PersonalAccount)")}
                 />
               </View>
             </View>

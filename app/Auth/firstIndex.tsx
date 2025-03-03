@@ -67,7 +67,7 @@ const App = () => {
               </View>
 
               <TouchableOpacity
-                onPress={first < 3 ? () => setFirst(first + 1) : () => router.push('/getStarted')}
+                onPress={first < 3 ? () => setFirst(first + 1) : () => router.push('/Auth/getStarted')}
                 className="justify-center items-center font-medium bg-white rounded-lg w-[70px] h-[32px]"
               >
                 <Text className="text-primary">Next</Text>

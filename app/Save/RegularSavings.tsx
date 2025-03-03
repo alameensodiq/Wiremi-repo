@@ -123,7 +123,7 @@ const RegularSavings = () => {
     dispatch(clearStatesaveactive());
     dispatch(AllwithdrawalBanks({ router: router.push, page }));
     if (creatingsavings?.status) {
-      router.push("/Save/SaveDashboard");
+      router.push("/Save");
     }
     if (creatingsavings?.status === false) {
       setIsVisible(true);
@@ -256,17 +256,20 @@ const RegularSavings = () => {
           </Pressable>
         </Modal>
         <KeyboardAvoidingView className="gap-3">
-          <View className="flex-row justify-between items-center mb-1">
+          <View
+            style={{ width: width * 0.63 }}
+            className="flex-row justify-between items-center mb-1"
+          >
             <TouchableOpacity
               onPress={() => router.push("/Save/CreateSavingsList")}
             >
               <Back />
             </TouchableOpacity>
             <Text className="text-[20px] text-pagetitle">Regular Savings</Text>
-            <Text></Text>
           </View>
           <View className="items-center justify-center">
             <TextLabelBox
+              both
               label="Name"
               onChangeText={(value: any) => onChange("goal_name", value)}
               placeholder="Enter savings name"

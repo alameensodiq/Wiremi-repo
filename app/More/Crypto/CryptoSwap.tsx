@@ -108,7 +108,7 @@ const CryptoSwap = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
-            onPress={() => router.push("/More/Crypto/CryptoDashboard")}
+            onPress={() => router.push("/More/Crypto")}
           >
             <Back />
           </TouchableOpacity>

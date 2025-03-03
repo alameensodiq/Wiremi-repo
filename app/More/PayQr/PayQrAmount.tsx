@@ -53,7 +53,7 @@ const PayQrAmount = () => {
         className="gap-3"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/More/PayQr/PayQrScan")}>
+          <TouchableOpacity onPress={() => router.push("/More/PayQr")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Pay QR</Text>

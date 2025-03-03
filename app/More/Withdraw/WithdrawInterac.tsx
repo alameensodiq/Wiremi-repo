@@ -31,7 +31,7 @@ const WithdrawInterac = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
-            onPress={() => router.push("/More/Withdraw/WithdrawList")}
+            onPress={() => router.push("/More/Withdraw")}
           >
             <Back />
           </TouchableOpacity>

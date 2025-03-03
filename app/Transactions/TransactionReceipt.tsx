@@ -49,19 +49,19 @@ const TransactioReceipt = () => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  const formatDateWithTime = (isoString: any) => {
-    const date = new Date(isoString);
+  const formatDateWithTime = (timestamp: string) => {
+    if (!timestamp) return "";
 
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-
-    return `${hours}:${minutes}`;
-
-    // return `${day}-${month}-${year} ${hours}:${minutes}`;
+    const dateObj = new Date(timestamp);
+    return dateObj.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+      // hour: "2-digit",
+      // minute: "2-digit",
+      // second: "2-digit",
+      // hour12: true,
+    });
   };
 
   const formatTime = (isoString: string) => {
@@ -74,6 +74,21 @@ const TransactioReceipt = () => {
     hours = hours % 12 || 12; // Convert 24-hour to 12-hour format (12 should stay 12)
 
     return `${hours}:${minutes} ${ampm}`;
+  };
+
+  const formatCurrencyAmount = (currency: string, amount: string) => {
+    if (!amount || !currency) return "";
+
+    let sign = "";
+    let cleanAmount = amount.toString();
+
+    // Check if the amount has + or - in front
+    if (cleanAmount.startsWith("+") || cleanAmount.startsWith("-")) {
+      sign = cleanAmount[0]; // Extract the sign
+      cleanAmount = cleanAmount.slice(1); // Remove the sign from amount
+    }
+
+    return `${sign}${currency}${formatNumberWithCommas(cleanAmount)}`;
   };
 
   useEffect(() => {
@@ -102,7 +117,7 @@ const TransactioReceipt = () => {
         className="gap-1"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/Dashboard")}>
+          <TouchableOpacity onPress={() => router.push("/(PersonalAccount)")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">
@@ -140,11 +155,10 @@ const TransactioReceipt = () => {
           >
             <View className="flex-row items-center justify-between py-1 px-3">
               <Text className="text-lighttextdark font-[14px]">
-                You {content?.type}
+                {content?.type}
               </Text>
               <Text className="text-darktext font-bold">
-                {content?.currency}
-                {formatNumberWithCommas(content?.amount)}
+                {formatCurrencyAmount(content?.symbol, content?.amount)}
               </Text>
             </View>
             <View className="flex-row items-center justify-between py-1 px-3">
@@ -180,7 +194,7 @@ const TransactioReceipt = () => {
                 {formatTime(content?.created_at)}
               </Text>
             </View>
-            <View className="flex-row items-center justify-between py-1 px-3">
+            {/* <View className="flex-row items-center justify-between py-1 px-3">
               <Text className="text-lighttextdark font-[14px]">
                 Contact info
               </Text>
@@ -195,15 +209,23 @@ const TransactioReceipt = () => {
               <Text className="text-darktext font-bold">
                 {content?.sender?.first_name}
               </Text>
-            </View>
+            </View> */}
             <View className="flex-row items-center justify-between py-1 px-3">
+              <Text className="text-lighttextdark font-[14px]">
+                Saving Instance
+              </Text>
+              <Text className="text-darktext font-bold">
+                {content?.instance_name}
+              </Text>
+            </View>
+            {/* <View className="flex-row items-center justify-between py-1 px-3">
               <Text className="text-lighttextdark font-[14px]">
                 Description
               </Text>
               <Text className="text-darktext font-bold">
                 Credit card deposit
               </Text>
-            </View>
+            </View> */}
             <View className="flex-row items-center justify-between py-1 px-3">
               <Text className="text-lighttextdark font-[14px]">
                 Transaction ref

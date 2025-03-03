@@ -13,10 +13,10 @@ import {
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
-import LandingPageImage from "../assets/LandingScreen.png";
-import LandingGroup from "../assets/LandGroup.png";
-import downcarat from "../assets/downcarat.png";
-import eng from "../assets/eng.png";
+import LandingPageImage from "../../assets/LandingScreen.png";
+import LandingGroup from "../../assets/LandGroup.png";
+import downcarat from "../../assets/downcarat.png";
+import eng from "../../assets/eng.png";
 import LongButton from "@/components/LongButton";
 import SignInLongButton from "@/components/SignInLongButton";
 import { useRouter } from "expo-router";
@@ -165,11 +165,11 @@ const GetStarted = () => {
                 <LongButton title='Get Started' onPress={() => {
                    dispatch(clearStateaccountregister());
                    dispatch(clearStateregister());
-                  router.push('/ChooseAccountType')
+                  router.push('/Auth/ChooseAccountType')
                 }}/>
               </View>
               <View style={{height: height * 0.07}} className="bg-white items-center justify-center">
-                <SignInLongButton title='Sign in' onPress={() => router.push('/SignInPage')}/>
+                <SignInLongButton title='Sign in' onPress={() => router.push('/Auth/SignInPage')}/>
               </View>
               <View  style={{height: height * 0.06}}className="flex-col justify-center items-center">
                 <Text className="text-creataccount">By creating an account, you agree to our </Text>

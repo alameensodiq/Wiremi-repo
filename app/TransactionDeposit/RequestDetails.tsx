@@ -31,7 +31,7 @@ import TextLabelBox from "@/components/TextLabelBox";
           className="gap-8"
         >
           <View className="flex-row justify-between items-center mb-1">
-            <TouchableOpacity onPress={() => router.push('/TransactionDeposit/ListofDeposits')}>
+            <TouchableOpacity onPress={() => router.push('/TransactionDeposit')}>
               <Back />
             </TouchableOpacity>
             <Text className="text-[20px] text-pagetitle">Request money</Text>

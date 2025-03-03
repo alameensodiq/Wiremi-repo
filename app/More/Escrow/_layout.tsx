@@ -6,7 +6,7 @@ import { Stack } from 'expo-router';
 const Escrow = () => {
   return (
     <Stack>
-      <Stack.Screen name="EscrowDashboard" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="EscrowNotification" options={{ headerShown: false }} />
       <Stack.Screen name="EscrowActive" options={{ headerShown: false }} />
       <Stack.Screen name="EscrowDispute" options={{ headerShown: false }} />

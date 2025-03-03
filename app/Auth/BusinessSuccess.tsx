@@ -13,8 +13,8 @@ import BlueSignInButton from "@/components/BlueSignInButton";
 import { useRouter } from "expo-router";
 import SixDigits from "@/components/SixDigits";
 import { ImageBackground } from "react-native";
-import SuccessLand from "../assets/forgetsuccesland.png";
-import Eng from "../assets/success.gif";
+import SuccessLand from "../../assets/forgetsuccesland.png";
+import Eng from "../../assets/success.gif";
 import LottieView from "lottie-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { clearState } from "@/Store/Reducers/CreatePin";
@@ -118,7 +118,7 @@ const BusinessSuccess = () => {
                 onPress={() => {
                   AsyncStorage.removeItem("firstname");
                   AsyncStorage.removeItem("lastname");
-                  router.push("/SignInPage");
+                  router.push("/Auth/SignInPage");
                 }}
               />
             </View>

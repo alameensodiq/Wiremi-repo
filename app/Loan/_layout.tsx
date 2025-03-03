@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 const Loan = () => {
   return (
     <Stack>
-      <Stack.Screen name="LoanDashboard" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="LoanOffer" options={{ headerShown: false }} />
       <Stack.Screen name="LoanAccepted" options={{ headerShown: false }} />
       <Stack.Screen name="Loans" options={{ headerShown: false }} />

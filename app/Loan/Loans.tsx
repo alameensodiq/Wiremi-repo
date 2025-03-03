@@ -123,7 +123,7 @@ const Loans = () => {
         // className="gap-3"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push('/Loan/LoanDashboard')}>
+          <TouchableOpacity onPress={() => router.push('/Loan')}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Loans</Text>

@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 const Profiles = () => {
   return (
     <Stack>
-      <Stack.Screen name="ProfileInfo" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="ProfileKyc" options={{ headerShown: false }} />
       <Stack.Screen name="ConfirmKycInfo" options={{ headerShown: false }} />
       <Stack.Screen name="ProfileKycAddress" options={{ headerShown: false }} />

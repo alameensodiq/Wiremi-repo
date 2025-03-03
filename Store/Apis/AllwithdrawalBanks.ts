@@ -50,7 +50,8 @@ export const AllwithdrawalBanks = createAsyncThunk<
       // setShow(e.response.message)
       if (error.response && error.response.status === 401) {
         // setIsVisible(false)
-        router("/SignInPage");
+        await AsyncStorage.removeItem("token");
+        router("/Auth/SignInPage");
       }
       // Reject the thunk with error details
       return thunkAPI.rejectWithValue({

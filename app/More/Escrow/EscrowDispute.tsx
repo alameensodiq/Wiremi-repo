@@ -71,7 +71,7 @@ import {
           className="gap-6"
         >
           <View className="flex-row justify-between items-center mb-1">
-            <TouchableOpacity onPress={() => router.push("/More/Escrow/EscrowDashboard")}>
+            <TouchableOpacity onPress={() => router.push("/More/Escrow")}>
               <Back />
             </TouchableOpacity>
             <Text className="text-[20px] text-pagetitle">Dispute Escrow</Text>

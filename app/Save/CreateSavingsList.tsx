@@ -44,14 +44,16 @@ const CreateSavingsList = () => {
           }}
           className="gap-6"
         >
-          <View className="flex-row justify-between items-center mb-1">
+          <View
+            style={{ width: width * 0.63 }}
+            className="flex-row justify-between items-center mb-1"
+          >
             <TouchableOpacity
-              onPress={() => router.push("/Save/SaveDashboard")}
+              onPress={() => router.push("/Save")}
             >
               <Back />
             </TouchableOpacity>
             <Text className="text-[20px] text-pagetitle">Save</Text>
-            <Text></Text>
           </View>
           <View className="flex-col justify-between">
             <Text

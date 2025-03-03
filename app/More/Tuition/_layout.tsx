@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 const Tuition = () => {
   return (
     <Stack>
-      <Stack.Screen name="TuitionDashboard" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="TuitionFaculty" options={{ headerShown: false }} />
       <Stack.Screen name="TuitionBank" options={{ headerShown: false }} />
       <Stack.Screen name="TuitionTransactionSummary" options={{ headerShown: false }} />

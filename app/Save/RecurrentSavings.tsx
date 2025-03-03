@@ -128,7 +128,7 @@ const RecurrentSavings = () => {
     dispatch(clearStatesaveactive());
     dispatch(AllwithdrawalBanks({ router: router.push, page }));
     if (creatingsavings?.status) {
-      router.push("/Save/SaveDashboard");
+      router.push("/Save");
     }
     if (creatingsavings?.status === false) {
       setIsVisible(true);
@@ -269,7 +269,10 @@ const RecurrentSavings = () => {
           </Pressable>
         </Modal>
         <KeyboardAvoidingView className="gap-2">
-          <View className="flex-row justify-between items-center mb-1">
+          <View
+            style={{ width: width * 0.63 }}
+            className="flex-row justify-between items-center mb-1"
+          >
             <TouchableOpacity
               onPress={() => router.push("/Save/CreateSavingsList")}
             >
@@ -278,11 +281,11 @@ const RecurrentSavings = () => {
             <Text className="text-[20px] text-pagetitle">
               Recurrent Savings
             </Text>
-            <Text></Text>
           </View>
           <View className="items-center justify-center">
             <TextLabelBox
               label="Name"
+              both
               onChangeText={(value: any) => onChange("goal_name", value)}
               placeholder="Enter savings name"
             />

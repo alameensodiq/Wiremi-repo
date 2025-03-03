@@ -68,7 +68,7 @@ import {
           className="gap-3"
         >
           <View className="flex-row justify-between items-center mb-1">
-            <TouchableOpacity onPress={() => router.push("/More/MoreList")}>
+            <TouchableOpacity onPress={() => router.push("/More")}>
               <Back />
             </TouchableOpacity>
             <Text className="text-[20px] text-pagetitle">Tuition</Text>

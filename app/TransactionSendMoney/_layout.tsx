@@ -6,7 +6,7 @@ import { Stack } from 'expo-router';
 const TransactionSendMoney = () => {
   return (
     <Stack>
-      <Stack.Screen name="ListSendMoney" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="DirectTransferDetails" options={{ headerShown: false }} />
       <Stack.Screen name="DirectTransferSummary" options={{ headerShown: false }} />
       <Stack.Screen name="DirectTransferSuccess" options={{ headerShown: false }} />

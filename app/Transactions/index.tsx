@@ -98,6 +98,15 @@ const TransactionList = () => {
     return `${day}-${month}-${year} ${hours}:${minutes}`;
   };
 
+  const formatNumberWithCommas = (number: string | number) => {
+    const num = parseFloat(number as string); // Convert to number
+    if (isNaN(num)) return "0.00"; // Handle invalid values
+
+    return num
+        .toFixed(2) // Ensure two decimal places
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Add commas
+};
+
   const DATA = usertransactions?.length
     ? usertransactions?.map((item: any) => ({
         title: formatDateWithTime(item?.created_at),
@@ -140,7 +149,7 @@ const TransactionList = () => {
           </View>
         )}
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/Dashboard")}>
+          <TouchableOpacity onPress={() => router.push("/(PersonalAccount)")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Transactions</Text>
@@ -191,7 +200,7 @@ const TransactionList = () => {
                       <Text className="text-[14px] text-darktext">
                         {item?.symbol || ""}
                         {""}
-                        {parseFloat(item?.total || "0").toFixed(2)}
+                        {formatNumberWithCommas(parseFloat(item?.total || "0"))}
                       </Text>
                       {/* Failed */}
                       {item?.status === "completed" ? (

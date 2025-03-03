@@ -55,7 +55,7 @@ import {
                 <ShortBlueButton
                   title="Done"
                   color1
-                  onPress={() => router.push("/More/Swap/SwapDashboard")}
+                  onPress={() => router.push("/More/Swap")}
                 />
                 <ShortWhiteButton
                   title="View receipt"

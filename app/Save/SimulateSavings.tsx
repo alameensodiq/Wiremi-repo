@@ -152,7 +152,7 @@ const SimulateSavings = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
-            onPress={() => router.push("/Save/SaveDashboard")}
+            onPress={() => router.push("/Save")}
           >
             <Back />
           </TouchableOpacity>

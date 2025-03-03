@@ -13,8 +13,10 @@ const TabsLayout = () => {
   useEffect(() => {
     checkUser();
   }, []);
+
+  
   if (isAuthenticated === undefined){
-    return <Redirect href="/SignInPage" />;
+    return <Redirect href="/Auth/SignInPage" />;
   }
 
   return (
@@ -29,7 +31,7 @@ const TabsLayout = () => {
       }}
     >
       <Tabs.Screen
-        name="Dashboard"
+        name="index"
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, focused }) => (

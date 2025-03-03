@@ -153,6 +153,16 @@ const Dashboard = () => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
+
+  const formatNumberWithCommastrans = (number: string | number) => {
+    const num = parseFloat(number as string); // Convert to number
+    if (isNaN(num)) return "0.00"; // Handle invalid values
+
+    return num
+        .toFixed(2) // Ensure two decimal places
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Add commas
+};
+
   useEffect(() => {
     dispatch(UserTransactions({ router: router.push }));
     dispatch(Mainwallet());
@@ -241,7 +251,7 @@ const Dashboard = () => {
               <View className="flex-row gap-2 items-center">
                 <Barcode />
                 <TouchableOpacity
-                  onPress={() => router.push("/Notification/NotificationList")}
+                  onPress={() => router.push("/Notification")}
                 >
                   <Notification />
                 </TouchableOpacity>
@@ -295,13 +305,13 @@ const Dashboard = () => {
                 color1
                 title="Payment"
                 onPress={() =>
-                  router.push("/TransactionSendMoney/ListSendMoney")
+                  router.push("/TransactionSendMoney")
                 }
               />
               <DashboardTransactionButton
                 title="Add Money"
                 onPress={() =>
-                  router.push("/TransactionDeposit/ListofDeposits")
+                  router.push("/TransactionDeposit")
                 }
               />
             </View>
@@ -321,7 +331,7 @@ const Dashboard = () => {
             </View>
             <View className="flex-row justify-between">
               <TouchableOpacity
-                onPress={() => router.push("/Save/SaveDashboard")}
+                onPress={() => router.push("/Save")}
               >
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
@@ -341,11 +351,11 @@ const Dashboard = () => {
                   >
                     <Save width={70} height={70} />
                   </View>
-                  <Text>Save</Text>
+                  <Text className="text-[14px] font-bold">Save</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => router.push("/Loan/LoanDashboard")}
+                onPress={() => router.push("/Loan")}
               >
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
@@ -366,11 +376,11 @@ const Dashboard = () => {
                     <Loan />
                   </View>
 
-                  <Text>Loan</Text>
+                  <Text className="text-[14px] font-bold">Loan</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => router.push("/Invest/InvestDashboard")}
+                onPress={() => router.push("/Invest")}
               >
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
@@ -390,10 +400,10 @@ const Dashboard = () => {
                   >
                     <Invest />
                   </View>
-                  <Text>Invest</Text>
+                  <Text className="text-[14px] font-bold">Invest</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push("/More/MoreList")}>
+              <TouchableOpacity onPress={() => router.push("/More")}>
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
                     style={{
@@ -412,7 +422,7 @@ const Dashboard = () => {
                   >
                     <More />
                   </View>
-                  <Text>More</Text>
+                  <Text className="text-[14px] font-bold">More</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -432,7 +442,7 @@ const Dashboard = () => {
                 Recent Transactions
               </Text>
               <Pressable
-                onPress={() => router.push("/Transactions/TransactionList")}
+                onPress={() => router.push("/Transactions")}
               >
                 <Text className="text-buttonprimary text-[12px]">See all</Text>
               </Pressable>
@@ -477,7 +487,7 @@ const Dashboard = () => {
                           <Text className="text-[14px] text-darktext">
                             {item?.symbol || ""}
                             {""}
-                            {parseFloat(item?.total || "0").toFixed(2)}
+                            {formatNumberWithCommastrans(parseFloat(item?.total || "0"))}
                           </Text>
                           {/* Failed */}
                           {item?.status === "completed" ? (

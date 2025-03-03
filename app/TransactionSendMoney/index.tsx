@@ -7,19 +7,18 @@ import {
 } from "react-native";
 import React, { useCallback, useRef, useState } from "react";
 import { useRouter } from "expo-router";
-import Back from "../../../assets/Back.svg";
+import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
+import SendMoneyAccount from "../../assets/sendmoneyaccount.svg";
+import SendMoneyWiremi from "../../assets/sendmoneywiremi.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SendMoneyAccount from "../../../assets/sendmoneyaccount.svg";
-import Interac from "../../../assets/interac.svg";
-import Venmo from "../../../assets/venmo.svg";
-import Wise from "../../../assets/wise.svg";
-import Rightcarat from "../../../assets/rightcarat.svg";
-import MobileMoney from "../../../assets/mobilemoney.svg";
+import Scheduletransfer from "../../assets/scheduletransfer.svg";
+import Rightcarat from "../../assets/rightcarat.svg";
+import MobileMoney from "../../assets/mobilemoney.svg";
 import { BottomSheet } from "@/components/Bottom";
 import { CheckBox } from "@rneui/themed";
-import Wire from "../../../assets/wire.svg";
-import DirectTransfer from "../../../assets/directtransfer.svg";
+import Wire from "../../assets/wire.svg";
+import DirectTransfer from "../../assets/directtransfer.svg";
 
 type BottomSheetRef = {
   open: () => void;
@@ -27,7 +26,7 @@ type BottomSheetRef = {
   // Add any other methods you expect from the BottomSheet component
 };
 
-const WithdrawList = () => {
+const ListSendMoney = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -62,18 +61,14 @@ const WithdrawList = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
-            onPress={() => router.push("/(PersonalAccount)/Dashboard")}
+            onPress={() => router.push("/(PersonalAccount)")}
           >
             <Back />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Withdrawal</Text>
+          <Text className="text-[20px] text-pagetitle">Send money</Text>
           <Text></Text>
         </View>
-        <TouchableOpacity
-          onPress={() =>
-            router.push("/More/Withdraw/WithdrawBankaccountDetails")
-          }
-        >
+        <TouchableOpacity onPress={() => ref.current?.open()}>
           <View
             style={{
               paddingHorizontal: width * 0.03
@@ -97,7 +92,7 @@ const WithdrawList = () => {
                   Bank account{" "}
                 </Text>
                 <Text className="text-[10px] text-deposistsub">
-                  Quick and convenient fund transfer
+                  Transfer funds anytime from your bank account
                 </Text>
               </View>
             </View>
@@ -107,7 +102,42 @@ const WithdrawList = () => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push("/More/Withdraw/WithdrawMobileMoney")}
+          onPress={() => router.push("/TransactionSendMoney/WiremiDetails")}
+        >
+          <View
+            style={{
+              paddingHorizontal: width * 0.03
+            }}
+            className="flex-row justify-between items-center"
+          >
+            <View className="flex-row gap-3 items-center">
+              <View
+                style={{
+                  backgroundColor: "#2A94F40D",
+                  borderRadius: 100,
+                  width: width * 0.1,
+                  height: height * 0.05
+                }}
+                className="justify-center items-center"
+              >
+                <SendMoneyWiremi />
+              </View>
+              <View className="items-start">
+                <Text className="text-[14px] font-bold text-black">
+                  Wiremi{" "} User
+                </Text>
+                <Text className="text-[10px] text-deposistsub">
+                  Instant & Free
+                </Text>
+              </View>
+            </View>
+            <View>
+              <Rightcarat />
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/TransactionSendMoney/MobileMoneySend")}
         >
           <View
             style={{
@@ -132,7 +162,7 @@ const WithdrawList = () => {
                   Mobile money{" "}
                 </Text>
                 <Text className="text-[10px] text-deposistsub">
-                  Easily access your funds anytime
+                  Easily transfer your funds anytime
                 </Text>
               </View>
             </View>
@@ -142,7 +172,7 @@ const WithdrawList = () => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push("/More/Withdraw/WithdrawInterac")}
+          onPress={() => ref2.current?.open()}
         >
           <View
             style={{
@@ -160,14 +190,14 @@ const WithdrawList = () => {
                 }}
                 className="justify-center items-center"
               >
-                <Interac />
+                <Scheduletransfer />
               </View>
               <View className="items-start">
                 <Text className="text-[14px] font-bold text-black">
-                  Interac e-transfer
+                  Schedule transfer{" "}
                 </Text>
                 <Text className="text-[10px] text-deposistsub">
-                  Get up to $10,000 within 1 hour
+                  Send money automatically with ease
                 </Text>
               </View>
             </View>
@@ -176,78 +206,22 @@ const WithdrawList = () => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-        // onPress={() => ref2.current?.open()}
-        >
-          <View
-            style={{
-              paddingHorizontal: width * 0.03
-            }}
-            className="flex-row justify-between items-center"
-          >
-            <View className="flex-row gap-3 items-center">
-              <View
-                style={{
-                  backgroundColor: "#2A94F40D",
-                  borderRadius: 100,
-                  width: width * 0.1,
-                  height: height * 0.05
-                }}
-                className="justify-center items-center"
-              >
-                <Venmo />
-              </View>
-              <View className="items-start">
-                <Text className="text-[14px] font-bold text-black">Venmo </Text>
-                <Text className="text-[10px] text-deposistsub">
-                  Get up to $10,000 within 1 hour
-                </Text>
-              </View>
-            </View>
-            <View>
-              <Rightcarat />
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-        // onPress={() => ref2.current?.open()}
-        >
-          <View
-            style={{
-              paddingHorizontal: width * 0.03
-            }}
-            className="flex-row justify-between items-center"
-          >
-            <View className="flex-row gap-3 items-center">
-              <View
-                style={{
-                  backgroundColor: "#2A94F40D",
-                  borderRadius: 100,
-                  width: width * 0.1,
-                  height: height * 0.05
-                }}
-                className="justify-center items-center"
-              >
-                <Wise />
-              </View>
-              <View className="items-start">
-                <Text className="text-[14px] font-bold text-black">Wise </Text>
-                <Text className="text-[10px] text-deposistsub">
-                  Get up to $10,000 within 1 hour
-                </Text>
-              </View>
-            </View>
-            <View>
-              <Rightcarat />
-            </View>
-          </View>
-        </TouchableOpacity>
+        {/* <BottomSheetModal
+          ref={bottomSheetModalRef}
+          index={0}
+          snapPoints={snapPoints}
+          backgroundStyle={{
+            borderTopRightRadius: 20,
+            borderTopLeftRadius: 20,
+            backgroundColor: "#000000"
+          }}
+        > */}
         <BottomSheet height={290} ref={ref}>
           <View style={{ padding: 20, gap: 15 }}>
             {/* <Text>Bottom Sheet Content</Text>
-              <TouchableOpacity onPress={handleCloseModal}>
-                <Text>Close</Text>
-              </TouchableOpacity> */}
+            <TouchableOpacity onPress={handleCloseModal}>
+              <Text>Close</Text>
+            </TouchableOpacity> */}
             <View className="items-center">
               <Text
                 style={{ fontSize: 18, color: "#2A94F4", fontWeight: "bold" }}
@@ -319,9 +293,9 @@ const WithdrawList = () => {
         <BottomSheet height={400} ref={ref2}>
           <View style={{ padding: 20, gap: 15 }}>
             {/* <Text>Bottom Sheet Content</Text>
-              <TouchableOpacity onPress={handleCloseModal}>
-                <Text>Close</Text>
-              </TouchableOpacity> */}
+            <TouchableOpacity onPress={handleCloseModal}>
+              <Text>Close</Text>
+            </TouchableOpacity> */}
             <View className="items-center">
               <Text
                 style={{ fontSize: 18, color: "#2A94F4", fontWeight: "bold" }}
@@ -343,7 +317,7 @@ const WithdrawList = () => {
             <View className="gap-5">
               <TouchableOpacity
                 onPress={() => {
-                  ref3.current?.open();
+                  ref3.current?.open()
                   handleCloseModal2();
                 }}
               >
@@ -357,7 +331,7 @@ const WithdrawList = () => {
                     }}
                     className="justify-center items-center"
                   >
-                    {/* <SendMoneyAccount /> */}
+                    <SendMoneyAccount />
                   </View>
                   <Text style={{ color: "#413D43", fontSize: 16 }}>
                     Bank account
@@ -380,9 +354,11 @@ const WithdrawList = () => {
                     }}
                     className="justify-center items-center"
                   >
-                    {/* <SendMoneyWiremi /> */}
+                    <SendMoneyWiremi />
                   </View>
-                  <Text style={{ color: "#413D43", fontSize: 16 }}>Wiremi</Text>
+                  <Text style={{ color: "#413D43", fontSize: 16 }}>
+                    Wiremi
+                  </Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -414,9 +390,9 @@ const WithdrawList = () => {
         <BottomSheet height={290} ref={ref3}>
           <View style={{ padding: 20, gap: 15 }}>
             {/* <Text>Bottom Sheet Content</Text>
-              <TouchableOpacity onPress={handleCloseModal}>
-                <Text>Close</Text>
-              </TouchableOpacity> */}
+            <TouchableOpacity onPress={handleCloseModal}>
+              <Text>Close</Text>
+            </TouchableOpacity> */}
             <View className="items-center">
               <Text
                 style={{ fontSize: 18, color: "#2A94F4", fontWeight: "bold" }}
@@ -491,4 +467,4 @@ const WithdrawList = () => {
   );
 };
 
-export default WithdrawList;
+export default ListSendMoney;

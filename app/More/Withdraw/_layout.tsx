@@ -6,7 +6,7 @@ import { Stack } from 'expo-router';
 const Withdraw = () => {
   return (
     <Stack>
-      <Stack.Screen name="WithdrawList" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="WithdrawBankaccountDetails" options={{ headerShown: false }} />
       <Stack.Screen name="WithdrawSummary" options={{ headerShown: false }} />
       <Stack.Screen name="WithdrawSuccess" options={{ headerShown: false }} />

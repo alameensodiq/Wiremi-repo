@@ -8,15 +8,15 @@ import {
   TouchableOpacity
 } from "react-native";
 import React from "react";
-import LandingPageImage from "../assets/LandingScreen.png";
+import LandingPageImage from "../../assets/LandingScreen.png";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import Back from "../assets/Back.svg";
-import Logo from "../assets/Logo.svg";
-import BusOne from "../assets/busframeone.svg";
-import BusTwo from "../assets/busframetwo.svg";
-import BusThree from "../assets/busframethree.svg";
+import Back from "../../assets/Back.svg";
+import Logo from "../../assets/Logo.svg";
+import BusOne from "../../assets/busframeone.svg";
+import BusTwo from "../../assets/busframetwo.svg";
+import BusThree from "../../assets/busframethree.svg";
 import TextLabelBox from "@/components/TextLabelBox";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import SelectAndText from "@/components/SelectAndText";
@@ -162,7 +162,7 @@ const BusinessAccountFirstStep = () => {
                       Already have an account?{" "}
                     </Text>
                     <TouchableOpacity
-                      onPress={() => router.push("/SignInPage")}
+                      onPress={() => router.push("/Auth/SignInPage")}
                     >
                       <Text className="text-buttonprimary">Sign in</Text>
                     </TouchableOpacity>
@@ -207,7 +207,7 @@ const BusinessAccountFirstStep = () => {
                       Already have an account?{" "}
                     </Text>
                     <TouchableOpacity
-                      onPress={() => router.push("/SignInPage")}
+                      onPress={() => router.push("/Auth/SignInPage")}
                     >
                       <Text className="text-buttonprimary">Sign in</Text>
                     </TouchableOpacity>
@@ -247,14 +247,14 @@ const BusinessAccountFirstStep = () => {
                   </View>
                   <BlueSignInButton
                     title="Proceed"
-                    onPress={() => router.push('/BusinessSuccess')}
+                    onPress={() => router.push('/Auth/BusinessSuccess')}
                   />
                   <View className="flex-row items-center justify-center">
                     <Text className="text-textinputtext">
                       Already have an account?{" "}
                     </Text>
                     <TouchableOpacity
-                      onPress={() => router.push("/SignInPage")}
+                      onPress={() => router.push("/Auth/SignInPage")}
                     >
                       <Text className="text-buttonprimary">Sign in</Text>
                     </TouchableOpacity>

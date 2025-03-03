@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 const Flight = () => {
   return (
     <Stack>
-      <Stack.Screen name="FlightDashboard" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="SearchFlights" options={{ headerShown: false }} />
       <Stack.Screen name="AllFlights" options={{ headerShown: false }} />
       <Stack.Screen name="FlightDetails" options={{ headerShown: false }} />

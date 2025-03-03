@@ -2,7 +2,7 @@ import { View } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
-import Wiremi from "../assets/splash.svg"; // Ensure this path is correct
+import Wiremi from "../../assets/splash.svg"; // Ensure this path is correct
 import LottieView from "lottie-react-native";
 
 const Index = () => {
@@ -10,7 +10,7 @@ const Index = () => {
   const animationRef = useRef(null);
 
   const handleAnimationFinish = () => {
-    router.replace("/firstIndex");
+    router.replace("/Auth/firstIndex");
   };
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const Index = () => {
         <LottieView
           style={{ height: 150, width: 550, marginTop: -60 }}
           ref={animationRef}
-          source={require("../assets/splash.json")}
+          source={require("../../assets/splash.json")}
           onAnimationFinish={handleAnimationFinish}
           autoPlay
           loop={false}

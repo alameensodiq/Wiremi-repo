@@ -12,7 +12,7 @@ import SixDigits from "@/components/SixDigits";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import { StatusBar } from "expo-status-bar";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import Back from "../assets/Back.svg";
+import Back from "../../assets/Back.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { clearStateverification } from "@/Store/Reducers/VerificationCode";
@@ -48,7 +48,7 @@ const MainForgotConfirmSixDigit = () => {
 
   useEffect(() => {
     if (forgetpin?.status) {
-      router.push("/ForgetSuccess");
+      router.push("/Auth/ForgetSuccess");
     }
     return () => {
       dispatch(clearStateforgetpin());
@@ -72,7 +72,7 @@ const MainForgotConfirmSixDigit = () => {
         >
           <View className="flex-row justify-between items-center">
             <TouchableOpacity
-              onPress={() => router.push("/MainForgotSixDigitPinCode")}
+              onPress={() => router.push("/Auth/MainForgotSixDigitPinCode")}
             >
               <Back />
             </TouchableOpacity>

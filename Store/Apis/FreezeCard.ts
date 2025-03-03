@@ -64,7 +64,8 @@ export const FreezeCard = createAsyncThunk<
 
         if (status === 401) {
           setIsVisible(false);
-          router("/SignInPage");
+          await AsyncStorage.removeItem("token");
+          router("/Auth/SignInPage");
         }
 
         // Return error details for further processing

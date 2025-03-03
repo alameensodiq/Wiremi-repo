@@ -1,11 +1,11 @@
 // app/TransactionDeposits/_layout.js
 import { Stack } from 'expo-router';
-import ListofDeposits from './ListofDeposits'; // Adjust the path
+import ListofDeposits from '.'; // Adjust the path
 
 const TransactionDeposit = () => {
   return (
     <Stack>
-      <Stack.Screen name="ListofDeposits" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="CardDeposits" options={{ headerShown: false }} />
       <Stack.Screen name="Banks" options={{ headerShown: false }} />
       <Stack.Screen name="Ewallets" options={{ headerShown: false }} />

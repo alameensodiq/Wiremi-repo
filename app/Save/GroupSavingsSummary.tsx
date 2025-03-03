@@ -203,7 +203,7 @@ const GroupSavingsSummary = () => {
           </View>
         )}
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/Save/SaveDashboard")}>
+          <TouchableOpacity onPress={() => router.push("/Save")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">House rent</Text>

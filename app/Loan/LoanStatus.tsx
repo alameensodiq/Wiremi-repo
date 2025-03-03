@@ -106,7 +106,7 @@ const LoanStatus = () => {
           <View className="items-center">
             <BlueSignInButton title={status !== 'approved' ? "Back" :  "View loan offers"} onPress={() => {
                 if(status !== 'approved'){
-                    router.push('/Loan/LoanDashboard')
+                    router.push('/Loan')
                 } else {
                     router.push('/Loan/LoanOffer')
                 }

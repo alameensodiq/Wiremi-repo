@@ -48,7 +48,7 @@ const BuyandSell = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
-            onPress={() => router.push("/Invest/InvestDashboard")}
+            onPress={() => router.push("/Invest")}
           >
             <Back />
           </TouchableOpacity>

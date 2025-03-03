@@ -21,7 +21,7 @@ const LoginProvider: React.FC<Props> = ({ children }) => {
         setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
-        <Redirect href="/SignInPage" />;
+        <Redirect href="/Auth/SignInPage" />;
       }
       SplashScreen.hideAsync();
     }, 3000);

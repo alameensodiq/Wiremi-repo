@@ -47,7 +47,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
           >
             <View className="flex-row justify-between items-center mb-1">
               <TouchableOpacity
-                onPress={() => router.push("/More/Escrow/EscrowDashboard")}
+                onPress={() => router.push("/More/Escrow")}
               >
                 <Back />
               </TouchableOpacity>

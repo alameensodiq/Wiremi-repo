@@ -81,8 +81,8 @@ const SavingInstance = () => {
 
   const { isAuthenticated, checkUser } = useAppContext();
   if (isAuthenticated === undefined || isAuthenticated === null) {
-    // return <Redirect href="/SignInPage" />;
-    return router.push("/SignInPage");
+    // return <Redirect href="/Auth/SignInPage" />;
+    return router.push("/Auth/SignInPage");
   }
 
   useEffect(() => {
@@ -156,7 +156,7 @@ const SavingInstance = () => {
           </View>
         )}
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/Save/SaveDashboard")}>
+          <TouchableOpacity onPress={() => router.push("/Save")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">Saving instances</Text>
