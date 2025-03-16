@@ -67,7 +67,13 @@ const App = () => {
               </View>
 
               <TouchableOpacity
-                onPress={first < 3 ? () => setFirst(first + 1) : () => router.push('/Auth/getStarted')}
+                onPress={() => {
+                  if (first < 3) {
+                    setFirst(first + 1);
+                  } else {
+                    router.replace("/Auth/getStarted"); // ✅ Use replace to prevent back navigation
+                  }
+                }}
                 className="justify-center items-center font-medium bg-white rounded-lg w-[70px] h-[32px]"
               >
                 <Text className="text-primary">Next</Text>

@@ -29,6 +29,11 @@ import { ForgetPinSlice } from './Reducers/ForgetPin';
 import { EmailVerifySlice } from './Reducers/EmailVerify';
 import { EmailVerifyCodeSlice } from './Reducers/EmailVerifyCode';
 import { VerifyEmailStatusSlice } from './Reducers/VerifyEmailStatus';
+import { BankDepositSlice } from './Reducers/BankDeposit';
+import { SummarySlice } from './Reducers/Summary';
+import { MomoDepositSlice } from './Reducers/MomoDeposit';
+import { AllInstitutionSlice } from './Reducers/AllInstitution';
+import { DepositSlice } from './Reducers/Deposit';
 
 const store = configureStore({
   reducer: {
@@ -60,7 +65,12 @@ const store = configureStore({
     forgetpin: ForgetPinSlice?.reducer,
     emailverify: EmailVerifySlice?.reducer,
     emailverifycode: EmailVerifyCodeSlice?.reducer,
-    verifyemailstatus: VerifyEmailStatusSlice?.reducer
+    verifyemailstatus: VerifyEmailStatusSlice?.reducer,
+    bankdeposit: BankDepositSlice?.reducer,
+    summary: SummarySlice?.reducer,
+    momodeposit: MomoDepositSlice?.reducer,
+    allinstitution: AllInstitutionSlice?.reducer,
+    deposit: DepositSlice?.reducer
   },
 });
 

@@ -46,14 +46,13 @@ type BottomSheetRef = {
 };
 
 const SignInPage = () => {
-  
   const [isProcessing, setIsProcessing] = useState(false);
   const [uuid, setUuid] = useState<string>("");
   const [navigated, setNavigated] = useState(false);
   const { isAuthenticated, checkUser } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const { height, width } = useWindowDimensions()
+  const { height, width } = useWindowDimensions();
   const router = useRouter();
   const [checked, setChecked] = React.useState(true);
   const [showerror, setShowerror] = useState(false);
@@ -82,7 +81,7 @@ const SignInPage = () => {
         console.error("Error removing token:", error);
       }
     };
-  
+
     clearStoredToken();
     (async () => {
       const compatible = await LocalAuthentication.hasHardwareAsync();
@@ -192,7 +191,8 @@ const SignInPage = () => {
 
     if (biometricAuth) {
       // TwoButtonAlert();
-      if (!logins?.access_token) { // Prevent duplicate calls
+      if (!logins?.access_token) {
+        // Prevent duplicate calls
 
         dispatch(
           Login({
@@ -203,7 +203,6 @@ const SignInPage = () => {
             router: router.push
           })
         );
-        
       }
     }
   };
@@ -248,19 +247,25 @@ const SignInPage = () => {
 
   // // if (navigated) return null;
 
+  const hasNavigated = useRef(false);
+
   useEffect(() => {
     const checkTokenAndNavigate = async () => {
-      if (logins?.access_token ) {
-        await AsyncStorage.setItem("token", logins?.access_token);
-        console.log(logins.access_token);
-        router.replace("/(PersonalAccount)");
-  
-        // setTimeout(() => {
-        //   router.replace("/(PersonalAccount)");
-        // }, 5000);
+      if (logins?.access_token && !hasNavigated.current) {
+        NotsavedwiremiId;
+        hasNavigated.current = true; // Prevent multiple navigations
+        await AsyncStorage.setItem(
+          "Wiremi_Id",
+          wiremiId ? wiremiId : NotsavedwiremiId
+        );
+        await AsyncStorage.setItem("country", logins?.address?.country);
+        await AsyncStorage.setItem("Pin_code", wiremiIdpin);
+        await AsyncStorage.setItem("token", logins.access_token);
+        console.log("Navigating to PersonalAccount:", logins.access_token);
+        router.replace("/(PersonalAccount)"); // ✅ Prevent back navigation
       }
     };
-  
+
     checkTokenAndNavigate();
   }, [logins?.access_token]);
 
@@ -269,7 +274,7 @@ const SignInPage = () => {
   const handlePress = () => {
     if (isProcessing) return; // Prevent multiple calls
     setIsProcessing(true);
-  
+
     if (wiremiIdpin.length < 6) {
       setShowerror(true);
       setIsProcessing(false);
@@ -284,23 +289,22 @@ const SignInPage = () => {
       dispatch(
         Login({
           pin: wiremiIdpin,
-          account_id: "WI082400003",
+          account_id: wiremiId ? wiremiId : NotsavedwiremiId,
           device_id: uuid,
           setIsVisible: setIsVisible,
-          router: router.push,
+          router: router.push
         })
       );
     }
-  
+
     setTimeout(() => setIsProcessing(false), 2000); // Prevent multiple clicks within 2 sec
   };
-  
 
   useEffect(() => {
-    if (isVisible) {
+    if (isVisible && ref?.current) {
       ref?.current?.open();
     }
-  }, [isVisible, ref]);
+  }, [isVisible, ref?.current]);
   return (
     <View className="flex-1">
       <ImageBackground
@@ -521,49 +525,49 @@ const SignInPage = () => {
                   </View>
                 </View>
               </View>
-            </ScrollView>
-          </KeyboardAvoidingView>
-          <BottomSheet height={250} ref={ref}>
-            <View className="bg-white rounded-[15px] flex-col items-center justify-between py-3">
-              {errors?.error &&
-                (Array.isArray(errors.error) ? (
-                  // If errors.error is an array, map through it and display each message
-                  errors.error.map((errMsg: any, index: any) => (
-                    <Text key={index} className="mb-3">
-                      {errMsg}
-                    </Text>
-                  ))
-                ) : typeof errors.error === "object" &&
-                  !Array.isArray(errors.error) ? (
-                  // If errors.error is an object, iterate over its keys
-                  Object.keys(errors.error).map((key, index) => (
-                    <Text key={index}>
-                      {key}:{" "}
-                      {Array.isArray(errors.error[key])
-                        ? errors.error[key].join(", ") // Handle arrays inside objects
-                        : errors.error[key]}
-                    </Text>
-                  ))
-                ) : (
-                  // If errors.error is a string or another type, display it directly
-                  <Text className="mb-3">{errors.error}</Text>
-                ))}
-              {/* <ShortBlueButton
+              <BottomSheet height={250} ref={ref}>
+                <View className="bg-white rounded-[15px] flex-col items-center justify-between py-3">
+                  {errors?.error &&
+                    (Array.isArray(errors.error) ? (
+                      // If errors.error is an array, map through it and display each message
+                      errors.error.map((errMsg: any, index: any) => (
+                        <Text key={index} className="mb-3">
+                          {errMsg}
+                        </Text>
+                      ))
+                    ) : typeof errors.error === "object" &&
+                      !Array.isArray(errors.error) ? (
+                      // If errors.error is an object, iterate over its keys
+                      Object.keys(errors.error).map((key, index) => (
+                        <Text key={index}>
+                          {key}:{" "}
+                          {Array.isArray(errors.error[key])
+                            ? errors.error[key].join(", ") // Handle arrays inside objects
+                            : errors.error[key]}
+                        </Text>
+                      ))
+                    ) : (
+                      // If errors.error is a string or another type, display it directly
+                      <Text className="mb-3">{errors.error}</Text>
+                    ))}
+                  {/* <ShortBlueButton
                   title="Close"
                   onPress={() => setIsVisible(false)}
                 /> */}
 
-              <View className="flex-col mt-5">
-                <BlueSignInButton
-                  title="Close"
-                  onPress={() => {
-                    setIsVisible(false);
-                    ref?.current?.close();
-                  }}
-                />
-              </View>
-            </View>
-          </BottomSheet>
+                  <View className="flex-col mt-5">
+                    <BlueSignInButton
+                      title="Close"
+                      onPress={() => {
+                        setIsVisible(false);
+                        ref?.current?.close();
+                      }}
+                    />
+                  </View>
+                </View>
+              </BottomSheet>
+            </ScrollView>
+          </KeyboardAvoidingView>
         </SafeAreaView>
       </ImageBackground>
     </View>

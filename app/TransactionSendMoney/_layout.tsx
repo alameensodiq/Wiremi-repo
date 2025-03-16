@@ -39,6 +39,8 @@ const TransactionSendMoney = () => {
       <Stack.Screen name="MobileMoneySummarySchedule" options={{ headerShown: false }} />
       <Stack.Screen name="MobileMoneySuccessSchedule" options={{ headerShown: false }} />
       <Stack.Screen name="MobileMoneyReceiptSchedule" options={{ headerShown: false }} />
+      <Stack.Screen name="TransferMoney" options={{ headerShown: false }} />
+      <Stack.Screen name="LocalandInternational" options={{ headerShown: false }} />
       {/* Add other screens if necessary */}
     </Stack>
   );

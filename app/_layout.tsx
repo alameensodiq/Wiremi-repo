@@ -45,21 +45,21 @@ export default function RootLayout() {
   // if (!fontsLoaded) return null;
   // if (!fontsLoaded && !error) return null;
 
-  // useEffect(() => {
-  //   const fetchToken = async () => {
-  //     try {
-  //       const storedToken = await AsyncStorage.getItem("token");
-  //       console.log("Retrieved token:", storedToken);
-  //       setToken(storedToken);
-  //     } catch (error) {
-  //       console.error("Error retrieving token:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const clearAndFetchToken = async () => {
+      try {
+        await AsyncStorage.removeItem("token"); // ✅ Clear token first
+        console.log("Token removed successfully");
+      } catch (error) {
+        console.error("Error handling token:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //   fetchToken();
-  // }, []);
+    clearAndFetchToken();
+  }, []);
+
 
   useEffect(() => {
     async function hideSplash() {
@@ -78,15 +78,7 @@ export default function RootLayout() {
     <LoginProvider>
       <SafeAreaProvider className="flex-1">
         <Provider store={store}>
-          {/* <NavigationContainer> */}
-          {/* <MainNavigator /> */}
-          {/* {!loading && token !== null ? (
-            <Redirect href="/(PersonalAccount)" /> // Ensure this path exists
-          ) : ( */}
-            {/* <Redirect href="/Auth" /> */}
-          {/* )} */}
           <Slot />
-          {/* </NavigationContainer> */}
         </Provider>
       </SafeAreaProvider>
     </LoginProvider>

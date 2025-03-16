@@ -15,9 +15,9 @@ const TabsLayout = () => {
   }, []);
 
   
-  if (isAuthenticated === undefined){
-    return <Redirect href="/Auth/SignInPage" />;
-  }
+  // if (isAuthenticated === undefined){
+  //   return <Redirect href="/Auth/SignInPage" />;
+  // }
 
   return (
     <Tabs

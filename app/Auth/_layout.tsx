@@ -5,15 +5,15 @@ import { useAppSelector } from "@/Store/ConfigureStore";
 
 export default function Auth() {
   const router = useRouter();
-  const { logins, authenticatinglogin, errors } = useAppSelector(
-    (state) => state.logins
-  );
+  // const { logins, authenticatinglogin, errors } = useAppSelector(
+  //   (state) => state.logins
+  // );
 
-  React.useEffect(() => {
-    if (logins?.access_token) {
-      router.push("/(PersonalAccount)");
-    }
-  }, [logins?.access_token]);
+  // React.useEffect(() => {
+  //   if (logins?.access_token) {
+  //     router.push("/(PersonalAccount)");
+  //   }
+  // }, [logins?.access_token]);
 
   return (
     <Stack>

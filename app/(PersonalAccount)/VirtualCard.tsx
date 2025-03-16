@@ -75,7 +75,7 @@ const VirtualCard = () => {
           <BlueSignInButton
             title="Proceed"
             onPress={() => {
-              router.push("/Cards/Virtual");
+              router.push("/Cards");
             }}
           />
         </View>

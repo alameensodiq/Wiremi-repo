@@ -13,5 +13,5 @@
     "env.d.ts",
     "expo-env.d.ts",
     "app/Profiles/PaymentSettingstsx"
-  ]
+, "app/Auth/index.jsx"  ]
 }

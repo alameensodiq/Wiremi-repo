@@ -55,7 +55,8 @@ import {
                 <ShortBlueButton
                   title="Done"
                   color1
-                  onPress={() => router.push("/TransactionDeposit/MomoSummary")}
+                  onPress={() => router.push("/TransactionDeposit/MomoDetails")}
+                  // onPress={() => router.push("/TransactionDeposit/MomoSummary")}
                 />
                 <ShortWhiteButton
                   title="View receipt"

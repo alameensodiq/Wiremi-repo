@@ -73,10 +73,10 @@ const CardDepositDetails = () => {
             }}
             className="gap-6"
           >
-            <View className="flex-row justify-between items-center mb-1">
-              <TouchableOpacity onPress={() => router.back()}>
+            <View className="flex-row justify-center items-center mb-1">
+              {/* <TouchableOpacity onPress={() => router.back()}>
                 <Back />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <Text className="text-[20px] text-pagetitle">
                 Transaction Summary
               </Text>
