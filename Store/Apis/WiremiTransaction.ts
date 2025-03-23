@@ -4,7 +4,7 @@ import axios from "axios";
 import { Redirect } from "expo-router";
 // import {EXPO_PUBLIC_API_URL} from "@env";
 
-interface SummaryPayload {
+interface WiremiTransactionPayload {
   //   goal_name: string;
   //   saving_interval: string;
   //   amount_per_interval?: number;
@@ -12,10 +12,8 @@ interface SummaryPayload {
   //   emergency_fund_percentage: number;
   //   penalty_percentage: number;
   amount: string;
-  type: string;
-  country?: string;
-  transfer?:  string;
-  receiver_account_id?: string;
+  pin: string;
+  recipient_account_number?: string;
   router: (value: any) => void;
   setIsVisible: (value: boolean) => void;
   setShow: any;
@@ -28,22 +26,29 @@ interface APIResponse {
   data?: any;
 }
 
-export const Summary = createAsyncThunk<
+export const WiremiTransaction = createAsyncThunk<
   APIResponse,
-  SummaryPayload,
+  WiremiTransactionPayload,
   { rejectValue: { error: string; status?: number; details?: any } }
 >(
-  "summary",
+  "wiremitransaction",
   async (
     {
+      //   goal_name,
+      //   amount_per_interval,
+      //   duration,
+      //   saving_interval,
+      //   emergency_fund_percentage,
+      //   penalty_percentage,
+      //   status,
+      //   saving_type,
+      //   schedule,
       amount,
-      type,
-      country,
+      pin,
+      recipient_account_number,
       router,
       setIsVisible,
       setShow,
-      receiver_account_id,
-      transfer
       //   schedule_info
     },
     thunkAPI
@@ -68,15 +73,14 @@ export const Summary = createAsyncThunk<
 
     try {
       const response = await axios.post<APIResponse>(
-        `${BASE_URL}transaction/summary`,
-        { amount, type, country,receiver_account_id,
-          transfer },
+        `${BASE_URL}auth/accounts/transfer`,
+        { amount, pin, recipient_account_number },
         {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`
-          }
+            Authorization: `Bearer ${accessToken}`,
+          },
         }
       );
 
@@ -110,14 +114,14 @@ export const Summary = createAsyncThunk<
         // Return error details for further processing
         return thunkAPI.rejectWithValue({
           error: data.message || "Failed to process the request.",
-          details: data
+          details: data,
         });
       } else {
         // Handle network or unexpected errors
         console.error("Unexpected error:", e);
         setShow(e.message || "An unexpected error occurred.");
         return thunkAPI.rejectWithValue({
-          error: e.message || "Failed to connect to the server."
+          error: e.message || "Failed to connect to the server.",
         });
       }
     }

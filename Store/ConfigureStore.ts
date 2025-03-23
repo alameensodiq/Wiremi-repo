@@ -34,6 +34,11 @@ import { SummarySlice } from './Reducers/Summary';
 import { MomoDepositSlice } from './Reducers/MomoDeposit';
 import { AllInstitutionSlice } from './Reducers/AllInstitution';
 import { DepositSlice } from './Reducers/Deposit';
+import { WiremiTransactionSlice } from './Reducers/WiremiTransaction';
+import { SupportedCountriesSlice } from './Reducers/SupportedCountries';
+import { BankTransferInstitutionSlice } from './Reducers/BankTransferInstitution';
+import { AccountNameSlice } from './Reducers/AccountName';
+import { BankTransferSlice } from './Reducers/BankTransfer';
 
 const store = configureStore({
   reducer: {
@@ -70,7 +75,12 @@ const store = configureStore({
     summary: SummarySlice?.reducer,
     momodeposit: MomoDepositSlice?.reducer,
     allinstitution: AllInstitutionSlice?.reducer,
-    deposit: DepositSlice?.reducer
+    deposit: DepositSlice?.reducer,
+    wiremitransaction: WiremiTransactionSlice?.reducer,
+    supportedcountries: SupportedCountriesSlice?.reducer,
+    banktransferinstitution: BankTransferInstitutionSlice?.reducer,
+    accountname: AccountNameSlice?.reducer,
+    banktransfer: BankTransferSlice?.reducer
   },
 });
 

@@ -5,7 +5,7 @@ import {
   Dimensions,
   TouchableOpacity
 } from "react-native";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
@@ -29,6 +29,12 @@ import Paypalpayment from "../../assets/paypalpayment.svg";
 import Mobilemoneypayment from "../../assets/mobilepayment.svg";
 import BankPayment from "../../assets/bankpayment.svg";
 import CardPayment from "../../assets/cardpayment.svg";
+import { clearStatesummary } from "@/Store/Reducers/Summary";
+import { clearStateaccountname } from "@/Store/Reducers/AccountName";
+import { clearStatebanktransfer } from "@/Store/Reducers/BankTransfer";
+import { clearStatebanktransferinstitution } from "@/Store/Reducers/BankTransferInstitution";
+import { clearStatesupportedcountries } from "@/Store/Reducers/SupportedCountries";
+import { useAppDispatch } from "@/Store/ConfigureStore";
 
 type BottomSheetRef = {
   open: () => void;
@@ -41,6 +47,7 @@ const TransferMoney = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const [selectedIndex, setIndex] = React.useState<number>(0);
+  const dispatch = useAppDispatch();
   const ref = useRef<BottomSheetRef>(null);
   const ref2 = useRef<BottomSheetRef>(null);
   const ref3 = useRef<BottomSheetRef>(null);
@@ -56,6 +63,16 @@ const TransferMoney = () => {
   const handleCloseModal3 = () => {
     ref3.current?.close();
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearStatesummary());
+      dispatch(clearStateaccountname());
+      dispatch(clearStatebanktransfer());
+      dispatch(clearStatebanktransferinstitution());
+      dispatch(clearStatesupportedcountries());
+    };
+  }, []);
 
   return (
     <View style={{ backgroundColor: "#ffffff" }} className="flex-1">
@@ -96,7 +113,11 @@ const TransferMoney = () => {
               }}
               className="gap-3"
             >
-              <TouchableOpacity onPress={() => router.push('/TransactionSendMoney/WiremiDetails')}>
+              <TouchableOpacity
+                onPress={() =>
+                  router.push("/TransactionSendMoney/WiremiDetails")
+                }
+              >
                 <View
                   style={{
                     paddingHorizontal: width * 0.03,
@@ -131,9 +152,11 @@ const TransferMoney = () => {
                   </View>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => {
-                router.push('/TransactionSendMoney/LocalandInternational')
-              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  router.push("/TransactionSendMoney/LocalandInternational");
+                }}
+              >
                 <View
                   style={{
                     paddingHorizontal: width * 0.03,
@@ -168,9 +191,11 @@ const TransferMoney = () => {
                   </View>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => {
-                  router.push('/TransactionSendMoney/LocalandInternational')
-              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  router.push("/TransactionSendMoney/LocalandInternational");
+                }}
+              >
                 <View
                   style={{
                     paddingHorizontal: width * 0.03,

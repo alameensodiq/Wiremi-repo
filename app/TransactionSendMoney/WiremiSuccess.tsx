@@ -7,7 +7,7 @@ import {
   import React from "react";
   import { SafeAreaView } from "react-native-safe-area-context";
   import { StatusBar } from "expo-status-bar";
-  import { useRouter } from "expo-router";
+  import { useLocalSearchParams, useRouter } from "expo-router";
   import Forgotsuccess from "../../assets/forgotsuccess.svg";
   import ShortBlueButton from "@/components/ShortBlueButton";
   import ShortWhiteButton from "@/components/ShortWhiteButton";
@@ -16,6 +16,7 @@ import {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
+      const { amount } = useLocalSearchParams();
     return (
       <View className="flex-1 ">
         <View className="flex-1 bg-white">
@@ -47,7 +48,7 @@ import {
                   </Text>
                 </View>
                 <Text className="text-forgotsuccesslight text-[13px]">
-                  Your transfer of $500 was successful .
+                  Your transfer of {amount} was successful .
                 </Text>
               </View>
   
@@ -55,7 +56,8 @@ import {
                 <ShortBlueButton
                   title="Done"
                   color1
-                  onPress={() => router.push("/TransactionSendMoney/WiremiSummary")}
+                  onPress={() => router.push("/TransactionSendMoney/TransferMoney")}
+                  // onPress={() => router.push("/TransactionSendMoney/WiremiSummary")}
                 />
                 <ShortWhiteButton
                   title="View receipt"

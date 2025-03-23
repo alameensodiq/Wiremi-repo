@@ -4,22 +4,20 @@ import axios from "axios";
 import { Redirect } from "expo-router";
 // import {EXPO_PUBLIC_API_URL} from "@env";
 
-interface SummaryPayload {
-  //   goal_name: string;
-  //   saving_interval: string;
-  //   amount_per_interval?: number;
-  //   duration: number;
-  //   emergency_fund_percentage: number;
-  //   penalty_percentage: number;
-  amount: string;
-  type: string;
-  country?: string;
-  transfer?:  string;
-  receiver_account_id?: string;
+interface BankTransferInstitutionPayload {
+//   goal_name: string;
+//   saving_interval: string;
+//   amount_per_interval?: number;
+//   duration: number;
+//   emergency_fund_percentage: number;
+//   penalty_percentage: number;
+//   status: string;
+//   saving_type: string;
+  code: string;
   router: (value: any) => void;
   setIsVisible: (value: boolean) => void;
   setShow: any;
-  //   schedule_info: any
+//   schedule_info: any
 }
 
 interface APIResponse {
@@ -28,23 +26,28 @@ interface APIResponse {
   data?: any;
 }
 
-export const Summary = createAsyncThunk<
+export const BankTransferInstitution = createAsyncThunk<
   APIResponse,
-  SummaryPayload,
+  BankTransferInstitutionPayload,
   { rejectValue: { error: string; status?: number; details?: any } }
 >(
-  "summary",
+  "banktransferinstitution",
   async (
     {
-      amount,
-      type,
-      country,
+    //   goal_name,
+    //   amount_per_interval,
+    //   duration,
+    //   saving_interval,
+    //   emergency_fund_percentage,
+    //   penalty_percentage,
+    //   status,
+    //   saving_type,
+    //   schedule,
       router,
       setIsVisible,
       setShow,
-      receiver_account_id,
-      transfer
-      //   schedule_info
+      code
+    //   schedule_info
     },
     thunkAPI
   ) => {
@@ -53,24 +56,22 @@ export const Summary = createAsyncThunk<
     console.log(accessToken);
     console.log(
       "Request Data:",
-      //   goal_name,
-      //   amount_per_interval,
-      //   duration,
-      //   saving_interval,
-      //   emergency_fund_percentage,
-      //   penalty_percentage,
-      //   status,
-      //   saving_type,
-      //   schedule,
+    //   goal_name,
+    //   amount_per_interval,
+    //   duration,
+    //   saving_interval,
+    //   emergency_fund_percentage,
+    //   penalty_percentage,
+    //   status,
+    //   saving_type,
+    //   schedule,
       router,
-      setIsVisible
+      setIsVisible,
     );
 
     try {
-      const response = await axios.post<APIResponse>(
-        `${BASE_URL}transaction/summary`,
-        { amount, type, country,receiver_account_id,
-          transfer },
+      const response = await axios.get<APIResponse>(
+        `${BASE_URL}payments/transferinstitutions?page=1&page_size=10&country=${code}`,
         {
           headers: {
             Accept: "application/json",
@@ -92,21 +93,21 @@ export const Summary = createAsyncThunk<
 
       return response.data;
     } catch (e: any) {
-      setIsVisible(true);
-      console.log(e, "error Creatings");
+      setIsVisible(true)
+      console.log(e, "error Creatings")
       if (e.response) {
         const { data, status } = e.response;
         // console.error("Error response data:", data);
-
+    
         // Show error message if available
         setShow(data.message || "An error occurred.");
-
+        
         if (status === 401) {
           setIsVisible(false);
           await AsyncStorage.removeItem("token");
           router("/Auth/SignInPage");
         }
-
+    
         // Return error details for further processing
         return thunkAPI.rejectWithValue({
           error: data.message || "Failed to process the request.",

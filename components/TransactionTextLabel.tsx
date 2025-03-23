@@ -18,11 +18,18 @@ const TransactionTextLabel = ({
   const [internalValue, setInternalValue] = useState(value || ""); // Internal state for input value
 
   const handleChangeText = (text: string) => {
-    let sanitizedText = text;
-
-    // Only allow numeric input
-    sanitizedText = text.replace(/[^0-9]/g, "");
-
+    // Allow only numbers and a single decimal point
+    let sanitizedText = text.replace(/[^0-9.]/g, "");
+  
+    // Prevent multiple leading zeros (e.g., "00" -> "0")
+    sanitizedText = sanitizedText.replace(/^0{2,}/, "0");
+  
+    // Prevent multiple decimal points
+    const decimalCount = (sanitizedText.match(/\./g) || []).length;
+    if (decimalCount > 1) {
+      sanitizedText = sanitizedText.slice(0, -1); // Remove the last entered `.`
+    }
+  
     setInternalValue(sanitizedText); // Update the internal state
     onChangeText?.(sanitizedText); // Notify the parent component
   };
