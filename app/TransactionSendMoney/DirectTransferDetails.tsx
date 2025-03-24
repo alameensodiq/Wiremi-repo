@@ -9,7 +9,8 @@ import {
   Pressable,
   TextInput,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
+  KeyboardAvoidingView
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
@@ -243,6 +244,12 @@ const DirectTransferDetails = () => {
     }
   }, [pin]);
 
+  useEffect(() => {
+    if (banktransfer?.status) {
+      router.replace("/TransactionSendMoney/DirectTransferReceipt");
+    }
+  }, [banktransfer?.status]);
+
   console.log(supportedcountries);
 
   const data2 = supportedcountries?.data;
@@ -295,607 +302,649 @@ const DirectTransferDetails = () => {
         }}
         className="gap-4"
       >
-        <Modal animationType="slide" transparent={true} visible={isVisible}>
-          <Pressable
-            style={{
-              flex: 1,
-              backgroundColor: "#8080808C",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-            onPress={() => setIsVisible(false)}
-          >
-            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
-              {/* <View className="flex-col">
-                              {errors?.error?.map((item: any) => {
-                                <Text>{item}</Text>
-                              })}
-                              </View> */}
-              {errorssupportedcountries?.error &&
-                typeof errorssupportedcountries.error === "object" &&
-                !Array.isArray(errorssupportedcountries.error) &&
-                Object.keys(errorssupportedcountries.error).map(
-                  (key, index) => (
-                    <Text key={index}>
-                      {key}:{" "}
-                      {Array.isArray(errorssupportedcountries.error[key])
-                        ? errorssupportedcountries.error[key].join(", ") // Handle arrays by joining the elements
-                        : errorssupportedcountries.error[key]}{" "}
-                    </Text>
-                  )
-                )}
-              {errorssupportedcountries?.error &&
-                typeof errorssupportedcountries.error !== "object" && (
-                  <Text className="mb-3">{errorssupportedcountries.error}</Text>
-                )}
-              <ShortBlueButton
-                title="Close"
-                onPress={() => setIsVisible(false)}
-              />
-            </View>
-          </Pressable>
-        </Modal>
-        <Modal animationType="slide" transparent={true} visible={isVisible3}>
-          <Pressable
-            style={{
-              flex: 1,
-              backgroundColor: "#8080808C",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-            onPress={() => setIsVisible3(false)}
-          >
-            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
-              {/* <View className="flex-col">
-                              {errors?.error?.map((item: any) => {
-                                <Text>{item}</Text>
-                              })}
-                              </View> */}
-              {errorsbanktransferinstitution?.error &&
-                typeof errorsbanktransferinstitution.error === "object" &&
-                !Array.isArray(errorsbanktransferinstitution.error) &&
-                Object.keys(errorsbanktransferinstitution.error).map(
-                  (key, index) => (
-                    <Text key={index}>
-                      {key}:{" "}
-                      {Array.isArray(errorsbanktransferinstitution.error[key])
-                        ? errorsbanktransferinstitution.error[key].join(", ") // Handle arrays by joining the elements
-                        : errorsbanktransferinstitution.error[key]}{" "}
-                    </Text>
-                  )
-                )}
-              {errorsbanktransferinstitution?.error &&
-                typeof errorsbanktransferinstitution.error !== "object" && (
-                  <Text className="mb-3">
-                    {errorsbanktransferinstitution.error}
-                  </Text>
-                )}
-              <ShortBlueButton
-                title="Close"
-                onPress={() => setIsVisible3(false)}
-              />
-            </View>
-          </Pressable>
-        </Modal>
-        <Modal animationType="slide" transparent={true} visible={isVisible4}>
-          <Pressable
-            style={{
-              flex: 1,
-              backgroundColor: "#8080808C",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-            onPress={() => setIsVisible4(false)}
-          >
-            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
-              {/* <View className="flex-col">
-                              {errors?.error?.map((item: any) => {
-                                <Text>{item}</Text>
-                              })}
-                              </View> */}
-              {errorsaccountname?.error &&
-                typeof errorsaccountname.error === "object" &&
-                !Array.isArray(errorsaccountname.error) &&
-                Object.keys(errorsaccountname.error).map((key, index) => (
-                  <Text key={index}>
-                    {key}:{" "}
-                    {Array.isArray(errorsaccountname.error[key])
-                      ? errorsaccountname.error[key].join(", ") // Handle arrays by joining the elements
-                      : errorsaccountname.error[key]}{" "}
-                  </Text>
-                ))}
-              {errorsaccountname?.error &&
-                typeof errorsaccountname.error !== "object" && (
-                  <Text className="mb-3">{errorsaccountname.error}</Text>
-                )}
-              <ShortBlueButton
-                title="Close"
-                onPress={() => setIsVisible4(false)}
-              />
-            </View>
-          </Pressable>
-        </Modal>
-        <Modal animationType="slide" transparent={true} visible={isVisible5}>
-          <Pressable
-            style={{
-              flex: 1,
-              backgroundColor: "#8080808C",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-            onPress={() => setIsVisible5(false)}
-          >
-            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
-              {/* <View className="flex-col">
-                              {errors?.error?.map((item: any) => {
-                                <Text>{item}</Text>
-                              })}
-                              </View> */}
-              {errorsbanktransfer?.error &&
-                typeof errorsbanktransfer.error === "object" &&
-                !Array.isArray(errorsbanktransfer.error) &&
-                Object.keys(errorsbanktransfer.error).map((key, index) => (
-                  <Text key={index}>
-                    {key}:{" "}
-                    {Array.isArray(errorsbanktransfer.error[key])
-                      ? errorsbanktransfer.error[key].join(", ") // Handle arrays by joining the elements
-                      : errorsbanktransfer.error[key]}{" "}
-                  </Text>
-                ))}
-              {errorsbanktransfer?.error &&
-                typeof errorsbanktransfer.error !== "object" && (
-                  <Text className="mb-3">{errorsbanktransfer.error}</Text>
-                )}
-              <ShortBlueButton
-                title="Close"
-                onPress={() => setIsVisible5(false)}
-              />
-            </View>
-          </Pressable>
-        </Modal>
-        <Modal animationType="slide" transparent={true} visible={isVisible6}>
-          <Pressable
-            style={{
-              flex: 1,
-              backgroundColor: "#8080808C",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-            onPress={() => setIsVisible6(false)}
-          >
-            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
-              {/* <View className="flex-col">
-                              {errors?.error?.map((item: any) => {
-                                <Text>{item}</Text>
-                              })}
-                              </View> */}
-              {errors?.error &&
-                typeof errors.error === "object" &&
-                !Array.isArray(errors.error) &&
-                Object.keys(errors.error).map((key, index) => (
-                  <Text key={index}>
-                    {key}:{" "}
-                    {Array.isArray(errors.error[key])
-                      ? errors.error[key].join(", ") // Handle arrays by joining the elements
-                      : errors.error[key]}{" "}
-                  </Text>
-                ))}
-              {errors?.error && typeof errors.error !== "object" && (
-                <Text className="mb-3">{errors.error}</Text>
-              )}
-              <ShortBlueButton
-                title="Close"
-                onPress={() => setIsVisible6(false)}
-              />
-            </View>
-          </Pressable>
-        </Modal>
-        <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity
-            onPress={() => router.push("/TransactionSendMoney")}
-          >
-            <Back />
-          </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Direct Transfer</Text>
-          <Text></Text>
-        </View>
-        <View className="items-center justify-center">
-          <TransactionTextLabel
-            label="Amount"
-            placeholder="Enter amount $0.00"
-            onChangeText={(value: number) => onChange("amount", value)}
-          />
-        </View>
-        <TouchableOpacity onPress={() => ref2?.current?.open()}>
-          <View className="items-center justify-center">
-            <TransparentSelectButton
-              label="Country"
-              placeholder={countries?.name ? countries?.name : "Select Country"}
-              onPress={() => ref2?.current?.open()}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => ref?.current?.open()}>
-          <View className="items-center justify-center">
-            <TransparentSelectButton
-              label="Destination bank"
-              placeholder={bank?.name ? bank?.name : "Select destination bank"}
-              onPress={() => ref?.current?.open()}
-            />
-          </View>
-        </TouchableOpacity>
-        <View>
-          <View className="items-center justify-center">
-            <TextLabelBox
-              number
-              label="Account number"
-              placeholder="Enter account number"
-              onChangeText={(value: any) => onChangeAccountnumber(value)}
-            />
-          </View>
-          <View className="justify-end flex-row items-center pr-2">
-            <CheckBox
-              checked={checked}
-              onPress={toggleCheckbox}
-              iconType="material-community"
-              checkedIcon="checkbox-outline"
-              uncheckedIcon={"checkbox-blank-outline"}
-            />
-            <Text style={{ color: "#105CE2" }}>
-              {accountname?.data?.account_name}
-            </Text>
-          </View>
-        </View>
-        <View className="items-center justify-center">
-          <TextLabelBox
-            label="Narration"
-            placeholder="Enter narration (optional)"
-            onChangeText={(value: any) => onChange("reason", value)}
-          />
-        </View>
-        {authenticatingsummary || authenticatingbanktransfer ? (
-          <View className="flex-row justify-center items-center">
-            <ActivityIndicator
-              color={"#105CE2"}
-              style={{ width: 30, height: 30 }}
-            />
-          </View>
-        ) : (
-          <View
-            style={{ height: height * 0.2 }}
-            className="items-center justify-center"
-          >
-            <BlueSignInButton
-              title="Proceed"
-              onPress={() => {
-                dispatch(
-                  Summary({
-                    amount: bankdetails?.amount,
-                    country: country,
-                    type: "BANK_TRANSFER",
-                    router: router.push,
-                    transfer: "true",
-                    setIsVisible: setIsVisible6,
-                    setShow: setShow5
-                  })
-                );
-              }}
-              // onPress={() =>
-              //   router.push("/TransactionSendMoney/DirectTransferSummary")
-              // }
-            />
-          </View>
-        )}
-
-        <BottomSheet height={650} ref={ref}>
-          <View style={{ padding: 20, gap: 30, paddingBottom: 50 }}>
-            {/* <Text>Bottom Sheet Content</Text>
-                                  <TouchableOpacity onPress={handleCloseModal}>
-                                    <Text>Close</Text>
-                                  </TouchableOpacity> */}
-            <View className="items-center">
-              <Text
-                style={{
-                  fontSize: 18,
-                  color: "#2A94F4",
-                  fontWeight: "bold"
-                }}
-              >
-                Select Bank
-              </Text>
-            </View>
-            <View className="flex-row justify-between items-center">
-              <TextInput
-                style={{ color: "#606162" }}
-                value={searchQuery3}
-                onChangeText={(text) => setSearchQuery3(text)}
-                placeholder="Search for Bank"
-              />
-              {/* <CheckBox
-                                    checked={selectedIndex === 20}
-                                    onPress={() => setIndex(20)}
-                                    checkedIcon="dot-circle-o"
-                                    uncheckedIcon="circle-o"
-                                  /> */}
-            </View>
-            <View style={{ height: height * 0.47 }}>
-              <FlatList
-                data={filteredData3}
-                renderItem={({ item, index }) => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      console.log(item?.name);
-                      setIndex3(index);
-                      setBank((prev) => ({
-                        ...prev, // Spread the previous state correctly
-                        name: item?.name, // Update the "country" property,
-                        code: item?.code
-                      }));
-                      handleCloseModal();
-                    }}
-                  >
-                    <View className="flex-row justify-between gap-3">
-                      <View className="flex-col gap-2">
-                        <View className="flex-row items-center">
-                          {/* {item?.image} */}
-                          <Text className="text-[14px] font-bold">
-                            {item?.name}
-                          </Text>
-                        </View>
-                        {/* <View className="flex-row">
-                                              <Text
-                                                className="text-[12px] ml-4"
-                                                style={{ color: "#105CE2" }}
-                                              >
-                                                Active
-                                              </Text>
-                                            </View> */}
-                      </View>
-                      <View className="flex-col items-end">
-                        <CheckBox
-                          checked={
-                            selectedIndex3 === index ||
-                            bank?.code === item?.code
-                          }
-                          // onPress={() => setIndex(index)}
-                          onPress={() => {
-                            console.log(item?.name);
-                            setIndex3(index);
-                            setBank((prev) => ({
-                              ...prev, // Spread the previous state correctly
-                              name: item?.name, // Update the "country" property,
-                              code: item?.code
-                            }));
-                            handleCloseModal();
-                          }}
-                          checkedIcon="dot-circle-o"
-                          uncheckedIcon="circle-o"
-                        />
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                )}
-                showsVerticalScrollIndicator={false}
-                bounces={false}
-                keyExtractor={(item, index) => item.code || index.toString()}
-                contentContainerStyle={{
-                  gap: 0,
-                  paddingBottom: 50
-                }}
-              />
-            </View>
-          </View>
-        </BottomSheet>
-        <BottomSheet height={550} ref={ref2}>
-          <View style={{ padding: 20, gap: 30, paddingBottom: 50 }}>
-            {/* <Text>Bottom Sheet Content</Text>
-                                  <TouchableOpacity onPress={handleCloseModal}>
-                                    <Text>Close</Text>
-                                  </TouchableOpacity> */}
-            <View className="items-center">
-              <Text
-                style={{
-                  fontSize: 18,
-                  color: "#2A94F4",
-                  fontWeight: "bold"
-                }}
-              >
-                Countries
-              </Text>
-            </View>
-            <View className="flex-row justify-between items-center">
-              <TextInput
-                style={{ color: "#606162" }}
-                value={searchQuery}
-                onChangeText={(text) => setSearchQuery(text)}
-                placeholder="Search for Country"
-              />
-              {/* <CheckBox
-                                    checked={selectedIndex === 20}
-                                    onPress={() => setIndex(20)}
-                                    checkedIcon="dot-circle-o"
-                                    uncheckedIcon="circle-o"
-                                  /> */}
-            </View>
-            <View style={{ height: height * 0.47 }}>
-              <FlatList
-                data={filteredData}
-                renderItem={({ item, index }) => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      console.log(item?.name);
-                      setIndex(index);
-                      setcountries((prev) => ({
-                        ...prev, // Spread the previous state correctly
-                        name: item?.name, // Update the "country" property,
-                        code: item?.code
-                      }));
-                      handleCloseModal2();
-                    }}
-                  >
-                    <View className="flex-row justify-between gap-3">
-                      <View className="flex-col gap-2">
-                        <View className="flex-row items-center">
-                          {/* {item?.image} */}
-                          <Text className="text-[14px] font-bold">
-                            {item?.name}
-                          </Text>
-                        </View>
-                        {/* <View className="flex-row">
-                                              <Text
-                                                className="text-[12px] ml-4"
-                                                style={{ color: "#105CE2" }}
-                                              >
-                                                Active
-                                              </Text>
-                                            </View> */}
-                      </View>
-                      <View className="flex-col items-end">
-                        <CheckBox
-                          checked={
-                            selectedIndex === index ||
-                            countries?.code === item?.code
-                          }
-                          // onPress={() => setIndex(index)}
-                          onPress={() => {
-                            console.log(item?.name);
-                            setIndex(index);
-                            setcountries((prev) => ({
-                              ...prev, // Spread the previous state correctly
-                              name: item?.name, // Update the "country" property,
-                              code: item?.code
-                            }));
-                            handleCloseModal2();
-                          }}
-                          checkedIcon="dot-circle-o"
-                          uncheckedIcon="circle-o"
-                        />
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                )}
-                showsVerticalScrollIndicator={false}
-                bounces={false}
-                keyExtractor={(item, index) => item.code || index.toString()}
-                contentContainerStyle={{
-                  gap: 0,
-                  paddingBottom: 50
-                }}
-              />
-            </View>
-          </View>
-        </BottomSheet>
-        <BottomSheet height={540} ref={ref3}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          // keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+          style={{ flex: 1 }}
+        >
           <ScrollView
-            style={{
-              // flex: 1,
-              // marginTop: statusBarHeight,
-              paddingHorizontal: width * 0.03
-            }}
-            className="gap-6"
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+            // keyboardShouldPersistTaps="handled"
           >
-            <View className="flex-row justify-center items-center mb-1">
-              {/* <TouchableOpacity
+            <Modal animationType="slide" transparent={true} visible={isVisible}>
+              <Pressable
+                style={{
+                  flex: 1,
+                  backgroundColor: "#8080808C",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onPress={() => setIsVisible(false)}
+              >
+                <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+                  {/* <View className="flex-col">
+                              {errors?.error?.map((item: any) => {
+                                <Text>{item}</Text>
+                              })}
+                              </View> */}
+                  {errorssupportedcountries?.error &&
+                    typeof errorssupportedcountries.error === "object" &&
+                    !Array.isArray(errorssupportedcountries.error) &&
+                    Object.keys(errorssupportedcountries.error).map(
+                      (key, index) => (
+                        <Text key={index}>
+                          {key}:{" "}
+                          {Array.isArray(errorssupportedcountries.error[key])
+                            ? errorssupportedcountries.error[key].join(", ") // Handle arrays by joining the elements
+                            : errorssupportedcountries.error[key]}{" "}
+                        </Text>
+                      )
+                    )}
+                  {errorssupportedcountries?.error &&
+                    typeof errorssupportedcountries.error !== "object" && (
+                      <Text className="mb-3">
+                        {errorssupportedcountries.error}
+                      </Text>
+                    )}
+                  <ShortBlueButton
+                    title="Close"
+                    onPress={() => setIsVisible(false)}
+                  />
+                </View>
+              </Pressable>
+            </Modal>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={isVisible3}
+            >
+              <Pressable
+                style={{
+                  flex: 1,
+                  backgroundColor: "#8080808C",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onPress={() => setIsVisible3(false)}
+              >
+                <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+                  {/* <View className="flex-col">
+                              {errors?.error?.map((item: any) => {
+                                <Text>{item}</Text>
+                              })}
+                              </View> */}
+                  {errorsbanktransferinstitution?.error &&
+                    typeof errorsbanktransferinstitution.error === "object" &&
+                    !Array.isArray(errorsbanktransferinstitution.error) &&
+                    Object.keys(errorsbanktransferinstitution.error).map(
+                      (key, index) => (
+                        <Text key={index}>
+                          {key}:{" "}
+                          {Array.isArray(
+                            errorsbanktransferinstitution.error[key]
+                          )
+                            ? errorsbanktransferinstitution.error[key].join(
+                                ", "
+                              ) // Handle arrays by joining the elements
+                            : errorsbanktransferinstitution.error[key]}{" "}
+                        </Text>
+                      )
+                    )}
+                  {errorsbanktransferinstitution?.error &&
+                    typeof errorsbanktransferinstitution.error !== "object" && (
+                      <Text className="mb-3">
+                        {errorsbanktransferinstitution.error}
+                      </Text>
+                    )}
+                  <ShortBlueButton
+                    title="Close"
+                    onPress={() => setIsVisible3(false)}
+                  />
+                </View>
+              </Pressable>
+            </Modal>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={isVisible4}
+            >
+              <Pressable
+                style={{
+                  flex: 1,
+                  backgroundColor: "#8080808C",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onPress={() => setIsVisible4(false)}
+              >
+                <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+                  {/* <View className="flex-col">
+                              {errors?.error?.map((item: any) => {
+                                <Text>{item}</Text>
+                              })}
+                              </View> */}
+                  {errorsaccountname?.error &&
+                    typeof errorsaccountname.error === "object" &&
+                    !Array.isArray(errorsaccountname.error) &&
+                    Object.keys(errorsaccountname.error).map((key, index) => (
+                      <Text key={index}>
+                        {key}:{" "}
+                        {Array.isArray(errorsaccountname.error[key])
+                          ? errorsaccountname.error[key].join(", ") // Handle arrays by joining the elements
+                          : errorsaccountname.error[key]}{" "}
+                      </Text>
+                    ))}
+                  {errorsaccountname?.error &&
+                    typeof errorsaccountname.error !== "object" && (
+                      <Text className="mb-3">{errorsaccountname.error}</Text>
+                    )}
+                  <ShortBlueButton
+                    title="Close"
+                    onPress={() => setIsVisible4(false)}
+                  />
+                </View>
+              </Pressable>
+            </Modal>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={isVisible5}
+            >
+              <Pressable
+                style={{
+                  flex: 1,
+                  backgroundColor: "#8080808C",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onPress={() => setIsVisible5(false)}
+              >
+                <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+                  {/* <View className="flex-col">
+                              {errors?.error?.map((item: any) => {
+                                <Text>{item}</Text>
+                              })}
+                              </View> */}
+                  {errorsbanktransfer?.error &&
+                    typeof errorsbanktransfer.error === "object" &&
+                    !Array.isArray(errorsbanktransfer.error) &&
+                    Object.keys(errorsbanktransfer.error).map((key, index) => (
+                      <Text key={index}>
+                        {key}:{" "}
+                        {Array.isArray(errorsbanktransfer.error[key])
+                          ? errorsbanktransfer.error[key].join(", ") // Handle arrays by joining the elements
+                          : errorsbanktransfer.error[key]}{" "}
+                      </Text>
+                    ))}
+                  {errorsbanktransfer?.error &&
+                    typeof errorsbanktransfer.error !== "object" && (
+                      <Text className="mb-3">{errorsbanktransfer.error}</Text>
+                    )}
+                  <ShortBlueButton
+                    title="Close"
+                    onPress={() => setIsVisible5(false)}
+                  />
+                </View>
+              </Pressable>
+            </Modal>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={isVisible6}
+            >
+              <Pressable
+                style={{
+                  flex: 1,
+                  backgroundColor: "#8080808C",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onPress={() => setIsVisible6(false)}
+              >
+                <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+                  {/* <View className="flex-col">
+                              {errors?.error?.map((item: any) => {
+                                <Text>{item}</Text>
+                              })}
+                              </View> */}
+                  {errors?.error &&
+                    typeof errors.error === "object" &&
+                    !Array.isArray(errors.error) &&
+                    Object.keys(errors.error).map((key, index) => (
+                      <Text key={index}>
+                        {key}:{" "}
+                        {Array.isArray(errors.error[key])
+                          ? errors.error[key].join(", ") // Handle arrays by joining the elements
+                          : errors.error[key]}{" "}
+                      </Text>
+                    ))}
+                  {errors?.error && typeof errors.error !== "object" && (
+                    <Text className="mb-3">{errors.error}</Text>
+                  )}
+                  <ShortBlueButton
+                    title="Close"
+                    onPress={() => setIsVisible6(false)}
+                  />
+                </View>
+              </Pressable>
+            </Modal>
+            <View className="flex-row justify-between items-center mb-1">
+              <TouchableOpacity
+                onPress={() => router.push("/TransactionSendMoney")}
+              >
+                <Back />
+              </TouchableOpacity>
+              <Text className="text-[20px] text-pagetitle">
+                Direct Transfer
+              </Text>
+              <Text></Text>
+            </View>
+            <View className="items-center justify-center">
+              <TransactionTextLabel
+                label="Amount"
+                placeholder="Enter amount $0.00"
+                onChangeText={(value: number) => onChange("amount", value)}
+              />
+            </View>
+            <TouchableOpacity onPress={() => ref2?.current?.open()}>
+              <View className="items-center justify-center">
+                <TransparentSelectButton
+                  label="Country"
+                  placeholder={
+                    countries?.name ? countries?.name : "Select Country"
+                  }
+                  onPress={() => ref2?.current?.open()}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => ref?.current?.open()}>
+              <View className="items-center justify-center">
+                <TransparentSelectButton
+                  label="Destination bank"
+                  placeholder={
+                    bank?.name ? bank?.name : "Select destination bank"
+                  }
+                  onPress={() => ref?.current?.open()}
+                />
+              </View>
+            </TouchableOpacity>
+            <View>
+              <View className="items-center justify-center">
+                <TextLabelBox
+                  number
+                  label="Account number"
+                  placeholder="Enter account number"
+                  onChangeText={(value: any) => onChangeAccountnumber(value)}
+                />
+              </View>
+              <View className="justify-end flex-row items-center pr-2">
+                <CheckBox
+                  checked={checked}
+                  onPress={toggleCheckbox}
+                  iconType="material-community"
+                  checkedIcon="checkbox-outline"
+                  uncheckedIcon={"checkbox-blank-outline"}
+                />
+                <Text style={{ color: "#105CE2" }}>
+                  {accountname?.data?.account_name}
+                </Text>
+              </View>
+            </View>
+            <View className="items-center justify-center">
+              <TextLabelBox
+                label="Narration"
+                placeholder="Enter narration (optional)"
+                onChangeText={(value: any) => onChange("reason", value)}
+              />
+            </View>
+            {authenticatingsummary || authenticatingbanktransfer ? (
+              <View className="flex-row justify-center items-center">
+                <ActivityIndicator
+                  color={"#105CE2"}
+                  style={{ width: 30, height: 30 }}
+                />
+              </View>
+            ) : (
+              <View
+                style={{ height: height * 0.2 }}
+                className="items-center justify-center"
+              >
+                <BlueSignInButton
+                  title="Proceed"
+                  onPress={() => {
+                    dispatch(
+                      Summary({
+                        amount: bankdetails?.amount,
+                        country: country,
+                        type: "BANK_TRANSFER",
+                        router: router.push,
+                        transfer: "true",
+                        setIsVisible: setIsVisible6,
+                        setShow: setShow6
+                      })
+                    );
+                  }}
+                  // onPress={() =>
+                  //   router.push("/TransactionSendMoney/DirectTransferSummary")
+                  // }
+                />
+              </View>
+            )}
+
+            <BottomSheet height={650} ref={ref}>
+              <View style={{ padding: 20, gap: 30, paddingBottom: 50 }}>
+                {/* <Text>Bottom Sheet Content</Text>
+                                  <TouchableOpacity onPress={handleCloseModal}>
+                                    <Text>Close</Text>
+                                  </TouchableOpacity> */}
+                <View className="items-center">
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      color: "#2A94F4",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    Select Bank
+                  </Text>
+                </View>
+                <View className="flex-row justify-between items-center">
+                  <TextInput
+                    style={{ color: "#606162" }}
+                    value={searchQuery3}
+                    onChangeText={(text) => setSearchQuery3(text)}
+                    placeholder="Search for Bank"
+                  />
+                  {/* <CheckBox
+                                    checked={selectedIndex === 20}
+                                    onPress={() => setIndex(20)}
+                                    checkedIcon="dot-circle-o"
+                                    uncheckedIcon="circle-o"
+                                  /> */}
+                </View>
+                <View style={{ height: height * 0.47 }}>
+                  <FlatList
+                    data={filteredData3}
+                    renderItem={({ item, index }) => (
+                      <TouchableOpacity
+                        onPress={() => {
+                          console.log(item?.name);
+                          setIndex3(index);
+                          setBank((prev) => ({
+                            ...prev, // Spread the previous state correctly
+                            name: item?.name, // Update the "country" property,
+                            code: item?.code
+                          }));
+                          handleCloseModal();
+                        }}
+                      >
+                        <View className="flex-row justify-between gap-3">
+                          <View className="flex-col gap-2">
+                            <View className="flex-row items-center">
+                              {/* {item?.image} */}
+                              <Text className="text-[14px] font-bold">
+                                {item?.name}
+                              </Text>
+                            </View>
+                            {/* <View className="flex-row">
+                                              <Text
+                                                className="text-[12px] ml-4"
+                                                style={{ color: "#105CE2" }}
+                                              >
+                                                Active
+                                              </Text>
+                                            </View> */}
+                          </View>
+                          <View className="flex-col items-end">
+                            <CheckBox
+                              checked={
+                                selectedIndex3 === index ||
+                                bank?.code === item?.code
+                              }
+                              // onPress={() => setIndex(index)}
+                              onPress={() => {
+                                console.log(item?.name);
+                                setIndex3(index);
+                                setBank((prev) => ({
+                                  ...prev, // Spread the previous state correctly
+                                  name: item?.name, // Update the "country" property,
+                                  code: item?.code
+                                }));
+                                handleCloseModal();
+                              }}
+                              checkedIcon="dot-circle-o"
+                              uncheckedIcon="circle-o"
+                            />
+                          </View>
+                        </View>
+                      </TouchableOpacity>
+                    )}
+                    showsVerticalScrollIndicator={false}
+                    bounces={false}
+                    keyExtractor={(item, index) =>
+                      item.code || index.toString()
+                    }
+                    contentContainerStyle={{
+                      gap: 0,
+                      paddingBottom: 50
+                    }}
+                  />
+                </View>
+              </View>
+            </BottomSheet>
+            <BottomSheet height={550} ref={ref2}>
+              <View style={{ padding: 20, gap: 30, paddingBottom: 50 }}>
+                {/* <Text>Bottom Sheet Content</Text>
+                                  <TouchableOpacity onPress={handleCloseModal}>
+                                    <Text>Close</Text>
+                                  </TouchableOpacity> */}
+                <View className="items-center">
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      color: "#2A94F4",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    Countries
+                  </Text>
+                </View>
+                <View className="flex-row justify-between items-center">
+                  <TextInput
+                    style={{ color: "#606162" }}
+                    value={searchQuery}
+                    onChangeText={(text) => setSearchQuery(text)}
+                    placeholder="Search for Country"
+                  />
+                  {/* <CheckBox
+                                    checked={selectedIndex === 20}
+                                    onPress={() => setIndex(20)}
+                                    checkedIcon="dot-circle-o"
+                                    uncheckedIcon="circle-o"
+                                  /> */}
+                </View>
+                <View style={{ height: height * 0.47 }}>
+                  <FlatList
+                    data={filteredData}
+                    renderItem={({ item, index }) => (
+                      <TouchableOpacity
+                        onPress={() => {
+                          console.log(item?.name);
+                          setIndex(index);
+                          setcountries((prev) => ({
+                            ...prev, // Spread the previous state correctly
+                            name: item?.name, // Update the "country" property,
+                            code: item?.code
+                          }));
+                          handleCloseModal2();
+                        }}
+                      >
+                        <View className="flex-row justify-between gap-3">
+                          <View className="flex-col gap-2">
+                            <View className="flex-row items-center">
+                              {/* {item?.image} */}
+                              <Text className="text-[14px] font-bold">
+                                {item?.name}
+                              </Text>
+                            </View>
+                            {/* <View className="flex-row">
+                                              <Text
+                                                className="text-[12px] ml-4"
+                                                style={{ color: "#105CE2" }}
+                                              >
+                                                Active
+                                              </Text>
+                                            </View> */}
+                          </View>
+                          <View className="flex-col items-end">
+                            <CheckBox
+                              checked={
+                                selectedIndex === index ||
+                                countries?.code === item?.code
+                              }
+                              // onPress={() => setIndex(index)}
+                              onPress={() => {
+                                console.log(item?.name);
+                                setIndex(index);
+                                setcountries((prev) => ({
+                                  ...prev, // Spread the previous state correctly
+                                  name: item?.name, // Update the "country" property,
+                                  code: item?.code
+                                }));
+                                handleCloseModal2();
+                              }}
+                              checkedIcon="dot-circle-o"
+                              uncheckedIcon="circle-o"
+                            />
+                          </View>
+                        </View>
+                      </TouchableOpacity>
+                    )}
+                    showsVerticalScrollIndicator={false}
+                    bounces={false}
+                    keyExtractor={(item, index) =>
+                      item.code || index.toString()
+                    }
+                    contentContainerStyle={{
+                      gap: 0,
+                      paddingBottom: 50
+                    }}
+                  />
+                </View>
+              </View>
+            </BottomSheet>
+            <BottomSheet height={540} ref={ref3}>
+              <ScrollView
+                style={{
+                  // flex: 1,
+                  // marginTop: statusBarHeight,
+                  paddingHorizontal: width * 0.03
+                }}
+                className="gap-6"
+              >
+                <View className="flex-row justify-center items-center mb-1">
+                  {/* <TouchableOpacity
                         onPress={() => router.push("/TransactionDeposit/MomoDetails")}
                       >
                         <Back />
                       </TouchableOpacity> */}
-              <Text className="text-[20px] text-pagetitle">
-                Transaction Summary
-              </Text>
-              <Text></Text>
-            </View>
-            <View
-              style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
-              className="flex-row items-center justify-between p-3"
-            >
-              <Text className="text-lighttextdark font-[14px]">Amount</Text>
-              <Text className="text-darktext font-[14px]">
-                {summary?.currency}
-                {summary?.amount}
-              </Text>
-            </View>
-            <View
-              style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
-              className="flex-row items-center justify-between p-3"
-            >
-              <Text className="text-lighttextdark font-[14px]">Fees</Text>
-              <Text className="text-darktext font-[14px]">
-                {summary?.currency}
-                {summary?.fee}
-              </Text>
-            </View>
-            <View
-              style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
-              className="flex-row items-center justify-between p-3"
-            >
-              <Text className="text-lighttextdark font-[14px]">Tax</Text>
-              <Text className="text-darktext font-[14px]">
-                {summary?.currency}
-                {summary?.tax}
-              </Text>
-            </View>
-            <View
-              style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
-              className="flex-row items-center justify-between p-3"
-            >
-              <Text className="text-lighttextdark font-[14px]">
-                Transfer type
-              </Text>
-              <Text className="text-darktext font-bold">Bank Transfer</Text>
-            </View>
-            {/* <View
+                  <Text className="text-[20px] text-pagetitle">
+                    Transaction Summary
+                  </Text>
+                  <Text></Text>
+                </View>
+                <View
+                  style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+                  className="flex-row items-center justify-between p-3"
+                >
+                  <Text className="text-lighttextdark font-[14px]">Amount</Text>
+                  <Text className="text-darktext font-[14px]">
+                    {summary?.currency}
+                    {summary?.amount}
+                  </Text>
+                </View>
+                <View
+                  style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+                  className="flex-row items-center justify-between p-3"
+                >
+                  <Text className="text-lighttextdark font-[14px]">Fees</Text>
+                  <Text className="text-darktext font-[14px]">
+                    {summary?.currency}
+                    {summary?.fee}
+                  </Text>
+                </View>
+                <View
+                  style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+                  className="flex-row items-center justify-between p-3"
+                >
+                  <Text className="text-lighttextdark font-[14px]">Tax</Text>
+                  <Text className="text-darktext font-[14px]">
+                    {summary?.currency}
+                    {summary?.tax}
+                  </Text>
+                </View>
+                <View
+                  style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+                  className="flex-row items-center justify-between p-3"
+                >
+                  <Text className="text-lighttextdark font-[14px]">
+                    Transfer type
+                  </Text>
+                  <Text className="text-darktext font-bold">Bank Transfer</Text>
+                </View>
+                {/* <View
                     style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                     className="flex-row items-center justify-between p-3"
                   >
                     <Text className="text-lighttextdark font-[14px]">Total</Text>
                     <Text className="text-buttonprimary font-[14px]">$500</Text>
                   </View> */}
-            <View className="items-center justify-center mb-4">
-              <BlueSignInButton
-                title="Proceed"
-                onPress={() => {
-                  ref3?.current?.close();
-                  setTimeout(() => {
-                    ref4?.current?.open();
-                  }, 500);
-                }}
-                // onPress={() => router.push("/TransactionDeposit/MomoSuccess")}
-              />
-            </View>
-          </ScrollView>
-        </BottomSheet>
-        <BottomSheet height={580} ref={ref4}>
-          <View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                borderBottomColor: "rgba(235, 235, 235, 1)",
-                borderBottomWidth: 1,
-                paddingVertical: 10,
-                paddingHorizontal: 20
-              }}
-            >
-              <Text
-                style={{
-                  color: "rgba(30, 27, 57, 1)",
-                  fontSize: 19,
-                  fontWeight: "bold"
-                }}
-              >
-                Enter PIN
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                paddingTop: 20
-              }}
-            >
-              {/* <View
+                <View className="items-center justify-center mb-4">
+                  <BlueSignInButton
+                    title="Proceed"
+                    onPress={() => {
+                      ref3?.current?.close();
+                      setTimeout(() => {
+                        ref4?.current?.open();
+                      }, 500);
+                    }}
+                    // onPress={() => router.push("/TransactionDeposit/MomoSuccess")}
+                  />
+                </View>
+              </ScrollView>
+            </BottomSheet>
+            <BottomSheet height={580} ref={ref4}>
+              <View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderBottomColor: "rgba(235, 235, 235, 1)",
+                    borderBottomWidth: 1,
+                    paddingVertical: 10,
+                    paddingHorizontal: 20
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "rgba(30, 27, 57, 1)",
+                      fontSize: 19,
+                      fontWeight: "bold"
+                    }}
+                  >
+                    Enter PIN
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    paddingTop: 20
+                  }}
+                >
+                  {/* <View
                         style={{
                           backgroundColor: "rgba(243, 244, 245, 1)",
                           borderRadius: 10,
@@ -904,194 +953,196 @@ const DirectTransferDetails = () => {
                           alignItems: "center"
                         }}
                       > */}
-              <SixDigitsPin pin={pin} onChangeText={handlePinChange} />
-              {/* </View> */}
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                paddingTop: 20
-              }}
-            >
-              <View
-                style={{
-                  backgroundColor: "rgba(243, 244, 245, 1)",
-                  borderRadius: 10,
-                  padding: 15,
-                  width: "90%",
-                  alignItems: "center",
-                  gap: 10
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: 10
-                  }}
-                >
-                  {["1", "2", "3"].map((num) => (
-                    <TouchableOpacity
-                      key={num}
-                      onPress={() => handleKeypadPress(num)}
-                    >
-                      <Text
-                        style={{
-                          width: width * 0.25,
-                          borderWidth: 2,
-                          height: height * 0.09,
-                          fontSize: 22,
-                          fontWeight: "600",
-                          textAlign: "center",
-                          textAlignVertical: "center",
-                          backgroundColor: "white",
-                          borderRadius: 12,
-                          color: "black",
-                          borderColor: "rgba(242, 244, 245, 1)",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          paddingTop: height * 0.012 // Helps with vertical centering on iOS
-                        }}
-                      >
-                        {num}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
+                  <SixDigitsPin pin={pin} onChangeText={handlePinChange} />
+                  {/* </View> */}
                 </View>
                 <View
                   style={{
                     flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: 10
+                    justifyContent: "center",
+                    paddingTop: 20
                   }}
                 >
-                  {["4", "5", "6"].map((num) => (
-                    <TouchableOpacity
-                      key={num}
-                      onPress={() => handleKeypadPress(num)}
-                    >
-                      <Text
-                        style={{
-                          width: width * 0.25,
-                          borderWidth: 2,
-                          height: height * 0.09,
-                          fontSize: 22,
-                          fontWeight: "600",
-                          textAlign: "center",
-                          textAlignVertical: "center",
-                          backgroundColor: "white",
-                          borderRadius: 12,
-                          color: "black",
-                          borderColor: "rgba(242, 244, 245, 1)",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          paddingTop: height * 0.012 // Helps with vertical centering on iOS
-                        }}
-                      >
-                        {num}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: 10
-                  }}
-                >
-                  {["7", "8", "9"].map((num) => (
-                    <TouchableOpacity
-                      key={num}
-                      onPress={() => handleKeypadPress(num)}
-                    >
-                      <Text
-                        style={{
-                          width: width * 0.25,
-                          borderWidth: 2,
-                          height: height * 0.09,
-                          fontSize: 22,
-                          fontWeight: "600",
-                          textAlign: "center",
-                          textAlignVertical: "center",
-                          backgroundColor: "white",
-                          borderRadius: 12,
-                          color: "black",
-                          borderColor: "rgba(242, 244, 245, 1)",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          paddingTop: height * 0.012 // Helps with vertical centering on iOS
-                        }}
-                      >
-                        {num}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: 10
-                  }}
-                >
-                  <TouchableOpacity
-                    //   key={num}
-                    onPress={() => handleKeypadPress("0")}
-                  >
-                    <Text
-                      style={{
-                        width: width * 0.5,
-                        borderWidth: 2,
-                        height: height * 0.09,
-                        fontSize: 22,
-                        fontWeight: "600",
-                        textAlign: "center",
-                        textAlignVertical: "center",
-                        backgroundColor: "white",
-                        borderRadius: 12,
-                        color: "black",
-                        borderColor: "rgba(242, 244, 245, 1)",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        paddingTop: height * 0.012 // Helps with vertical centering on iOS
-                      }}
-                    >
-                      0
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => handleKeypadPress("backspace")}
+                  <View
                     style={{
-                      width: width * 0.25,
-                      borderWidth: 2,
-                      height: height * 0.09,
-                      backgroundColor: "white",
-                      borderRadius: 12,
-                      borderColor: "rgba(242, 244, 245, 1)",
-                      display: "flex",
-                      justifyContent: "center",
+                      backgroundColor: "rgba(243, 244, 245, 1)",
+                      borderRadius: 10,
+                      padding: 15,
+                      width: "90%",
                       alignItems: "center",
-                      paddingTop: height * 0.012
+                      gap: 10
                     }}
                   >
-                    <Back />
-                  </TouchableOpacity>
-                  {/* ))} */}
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 10
+                      }}
+                    >
+                      {["1", "2", "3"].map((num) => (
+                        <TouchableOpacity
+                          key={num}
+                          onPress={() => handleKeypadPress(num)}
+                        >
+                          <Text
+                            style={{
+                              width: width * 0.25,
+                              borderWidth: 2,
+                              height: height * 0.09,
+                              fontSize: 22,
+                              fontWeight: "600",
+                              textAlign: "center",
+                              textAlignVertical: "center",
+                              backgroundColor: "white",
+                              borderRadius: 12,
+                              color: "black",
+                              borderColor: "rgba(242, 244, 245, 1)",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              paddingTop: height * 0.012 // Helps with vertical centering on iOS
+                            }}
+                          >
+                            {num}
+                          </Text>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 10
+                      }}
+                    >
+                      {["4", "5", "6"].map((num) => (
+                        <TouchableOpacity
+                          key={num}
+                          onPress={() => handleKeypadPress(num)}
+                        >
+                          <Text
+                            style={{
+                              width: width * 0.25,
+                              borderWidth: 2,
+                              height: height * 0.09,
+                              fontSize: 22,
+                              fontWeight: "600",
+                              textAlign: "center",
+                              textAlignVertical: "center",
+                              backgroundColor: "white",
+                              borderRadius: 12,
+                              color: "black",
+                              borderColor: "rgba(242, 244, 245, 1)",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              paddingTop: height * 0.012 // Helps with vertical centering on iOS
+                            }}
+                          >
+                            {num}
+                          </Text>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 10
+                      }}
+                    >
+                      {["7", "8", "9"].map((num) => (
+                        <TouchableOpacity
+                          key={num}
+                          onPress={() => handleKeypadPress(num)}
+                        >
+                          <Text
+                            style={{
+                              width: width * 0.25,
+                              borderWidth: 2,
+                              height: height * 0.09,
+                              fontSize: 22,
+                              fontWeight: "600",
+                              textAlign: "center",
+                              textAlignVertical: "center",
+                              backgroundColor: "white",
+                              borderRadius: 12,
+                              color: "black",
+                              borderColor: "rgba(242, 244, 245, 1)",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              paddingTop: height * 0.012 // Helps with vertical centering on iOS
+                            }}
+                          >
+                            {num}
+                          </Text>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 10
+                      }}
+                    >
+                      <TouchableOpacity
+                        //   key={num}
+                        onPress={() => handleKeypadPress("0")}
+                      >
+                        <Text
+                          style={{
+                            width: width * 0.5,
+                            borderWidth: 2,
+                            height: height * 0.09,
+                            fontSize: 22,
+                            fontWeight: "600",
+                            textAlign: "center",
+                            textAlignVertical: "center",
+                            backgroundColor: "white",
+                            borderRadius: 12,
+                            color: "black",
+                            borderColor: "rgba(242, 244, 245, 1)",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            paddingTop: height * 0.012 // Helps with vertical centering on iOS
+                          }}
+                        >
+                          0
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleKeypadPress("backspace")}
+                        style={{
+                          width: width * 0.25,
+                          borderWidth: 2,
+                          height: height * 0.09,
+                          backgroundColor: "white",
+                          borderRadius: 12,
+                          borderColor: "rgba(242, 244, 245, 1)",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          paddingTop: height * 0.012
+                        }}
+                      >
+                        <Back />
+                      </TouchableOpacity>
+                      {/* ))} */}
+                    </View>
+                  </View>
                 </View>
               </View>
-            </View>
-          </View>
-        </BottomSheet>
+            </BottomSheet>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );

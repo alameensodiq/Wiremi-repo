@@ -67,7 +67,8 @@ const BankDepositDetails = () => {
 
   useEffect(() => {
     if (bankdeposit?.status) {
-      router.replace("/TransactionDeposit/BankDepositSuccess");
+      handleOpen();
+      // router.replace("/TransactionDeposit/BankDepositSuccess");
     }
     return () => {
       dispatch(clearStatebankdeposit());
@@ -181,20 +182,37 @@ const BankDepositDetails = () => {
               placeholder="Enter amount $0.00"
             />
           </View>
-          <View className="items-center justify-center">
-            <BlueSignInButton
-              title="Proceed"
-              onPress={() => {
-                if (!amount) {
-                  setIsVisible2(true);
-                  setShow2("Input Amount to Proceed");
-                  return;
-                }
-                handleOpen();
-                // ref?.current?.open();
-              }}
-            />
-          </View>
+          {authenticatingbankdeposit ? (
+            <View className="flex-row justify-center items-center mb-2">
+              <ActivityIndicator
+                color={"#105CE2"}
+                style={{ width: 30, height: 30 }}
+              />
+            </View>
+          ) : (
+            <View className="items-center justify-center">
+              <BlueSignInButton
+                title="Proceed"
+                onPress={() => {
+                  if (!amount) {
+                    setIsVisible2(true);
+                    setShow2("Input Amount to Proceed");
+                    return;
+                  }
+                  dispatch(
+                    BankDeposit({
+                      router: router.push,
+                      setIsVisible: setIsVisible,
+                      setShow: setShow
+                    })
+                  );
+                  // handleOpen();
+                  // ref?.current?.open();
+                }}
+              />
+            </View>
+          )}
+
           <BottomSheet height={640} ref={ref}>
             <ScrollView
               style={{
@@ -308,37 +326,39 @@ const BankDepositDetails = () => {
                   </View>
                 </View>
               </View>
-              {authenticatingbankdeposit ? (
+              {/* {authenticatingbankdeposit ? (
                 <View className="flex-row justify-center items-center mb-2">
                   <ActivityIndicator
                     color={"#105CE2"}
                     style={{ width: 30, height: 30 }}
                   />
                 </View>
-              ) : (
+              ) :
+               ( */}
                 <View className="items-center justify-center mb-2">
                   <BlueSignInButton
                     title="I have transferred"
                     onPress={() => {
-                      if (!amount) {
-                        setIsVisible(true);
-                        setShow("Emergency fund percentage must not exceed 7");
-                        return;
-                      }
+                      // if (!amount) {
+                      //   setIsVisible(true);
+                      //   setShow("Emergency fund percentage must not exceed 7");
+                      //   return;
+                      // }
 
-                      dispatch(
-                        BankDeposit({
-                          router: router.push,
-                          setIsVisible: setIsVisible,
-                          setShow: setShow
-                        })
-                      );
+                      // dispatch(
+                      //   BankDeposit({
+                      //     router: router.push,
+                      //     setIsVisible: setIsVisible,
+                      //     setShow: setShow
+                      //   })
+                      // );
+                      router.replace("/TransactionDeposit/BankDepositSuccess");
                     }}
                     // router.push("/TransactionDeposit/BankDepositSuccess")
                     // onPress={() => router.push('/TransactionDeposit/BankDepositVerify')}
                   />
                 </View>
-              )}
+              {/* )} */}
             </ScrollView>
           </BottomSheet>
         </View>

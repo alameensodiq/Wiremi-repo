@@ -18,7 +18,7 @@ const initialState: BankTransferState = {
 };
 
 export const BankTransferSlice = createSlice({
-  name: "banktransfer;",
+  name: "banktransfer",
   initialState,
   reducers: {
     clearStatebanktransfer: (state) => {

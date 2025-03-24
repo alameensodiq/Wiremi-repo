@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
-  ActivityIndicator
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  ScrollView
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
@@ -190,206 +192,231 @@ const WiremiDetails = () => {
         }}
         className="gap-3"
       >
-        <Modal animationType="slide" transparent={true} visible={isVisible}>
-          <Pressable
-            style={{
-              flex: 1,
-              backgroundColor: "#8080808C",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-            onPress={() => setIsVisible(false)}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          // keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+          style={{ flex: 1 }}
+        >
+          <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+            // keyboardShouldPersistTaps="handled"
           >
-            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
-              {/* <View className="flex-col">
-                              {errors?.error?.map((item: any) => {
-                                <Text>{item}</Text>
-                              })}
-                              </View> */}
-              {errors?.error &&
-                typeof errors.error === "object" &&
-                !Array.isArray(errors.error) &&
-                Object.keys(errors.error).map((key, index) => (
-                  <Text key={index}>
-                    {key}:{" "}
-                    {Array.isArray(errors.error[key])
-                      ? errors.error[key].join(", ") // Handle arrays by joining the elements
-                      : errors.error[key]}{" "}
-                  </Text>
-                ))}
-              {errors?.error && typeof errors.error !== "object" && (
-                <Text className="mb-3">{errors.error}</Text>
-              )}
-              <ShortBlueButton
-                title="Close"
-                onPress={() => setIsVisible(false)}
-              />
-            </View>
-          </Pressable>
-        </Modal>
-        <Modal animationType="slide" transparent={true} visible={isVisible3}>
-          <Pressable
-            style={{
-              flex: 1,
-              backgroundColor: "#8080808C",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-            onPress={() => setIsVisible3(false)}
-          >
-            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
-              {/* <View className="flex-col">
-                              {errors?.error?.map((item: any) => {
-                                <Text>{item}</Text>
-                              })}
-                              </View> */}
-              {errorswiremitransaction?.error &&
-                typeof errorswiremitransaction.error === "object" &&
-                !Array.isArray(errorswiremitransaction.error) &&
-                Object.keys(errorswiremitransaction.error).map((key, index) => (
-                  <Text key={index}>
-                    {key}:{" "}
-                    {Array.isArray(errorswiremitransaction.error[key])
-                      ? errorswiremitransaction.error[key].join(", ") // Handle arrays by joining the elements
-                      : errorswiremitransaction.error[key]}{" "}
-                  </Text>
-                ))}
-              {errorswiremitransaction?.error &&
-                typeof errorswiremitransaction.error !== "object" && (
-                  <Text className="mb-3">{errorswiremitransaction.error}</Text>
-                )}
-              <ShortBlueButton
-                title="Close"
-                onPress={() => setIsVisible3(false)}
-              />
-            </View>
-          </Pressable>
-        </Modal>
-        <Modal animationType="slide" transparent={true} visible={isVisible2}>
-          <Pressable
-            style={{
-              flex: 1,
-              backgroundColor: "#8080808C",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-            onPress={() => setIsVisible2(false)}
-          >
-            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
-              <View className="flex-col">
-                <Text>{show2}</Text>
-              </View>
-
-              <ShortBlueButton
-                title="Close"
-                onPress={() => setIsVisible2(false)}
-              />
-            </View>
-          </Pressable>
-        </Modal>
-        <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity
-            onPress={() => router.push("/TransactionSendMoney/TransferMoney")}
-          >
-            <Back />
-          </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Wiremi user</Text>
-          <Text></Text>
-        </View>
-        <View className="items-center justify-center">
-          <TransactionTextLabel
-            label="Amount"
-            placeholder="Enter amount $0.00"
-            onChangeText={(value: number) => onChange("amount", value)}
-          />
-        </View>
-        <View className="flex-col gap-2">
-          <View className="items-center justify-center">
-            <TextLabelBoxBarcode
-              label="Wiremi ID"
-              placeholder="Enter wiremi ID"
-              onChangeText={(value: number) => onChange("wiremiId", value)}
-            />
-          </View>
-          <View className="justify-start">
-            <View
-              style={{ paddingHorizontal: 10 }}
-              className="flex-row items-start justify-end gap-2"
-            >
-              <Ladypics />
-              <Text className="text-buttonprimary">
-                {summary?.receiver?.first_name} {summary?.receiver?.last_name}
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View className="items-center justify-center">
-          <TextLabelBox
-            label="Narration"
-            placeholder="Enter narration (optional)"
-            value={wiremidetails?.narration}
-            both
-            onChangeText={(value: any) => onChangenarration(value)}
-          />
-        </View>
-        {authenticatingwiremitransaction ? (
-          <View className="flex-row justify-center items-center">
-            <ActivityIndicator
-              color={"#105CE2"}
-              style={{ width: 30, height: 30 }}
-            />
-          </View>
-        ) : (
-          <View
-            style={{ height: height * 0.1 }}
-            className="items-center justify-center"
-          >
-            <BlueSignInButton
-              title="Proceed"
-              // onPress={() => router.push("/TransactionSendMoney/WiremiSummary")}
-              onPress={() => {
-                if (!wiremidetails?.amount) {
-                  setIsVisible2(true);
-                  setShow2("Input Amount to Proceed");
-                  return;
-                }
-                ref?.current?.open();
-              }}
-            />
-          </View>
-        )}
-
-        <BottomSheet height={580} ref={ref}>
-          <View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                borderBottomColor: "rgba(235, 235, 235, 1)",
-                borderBottomWidth: 1,
-                paddingVertical: 10,
-                paddingHorizontal: 20
-              }}
-            >
-              <Text
+            <Modal animationType="slide" transparent={true} visible={isVisible}>
+              <Pressable
                 style={{
-                  color: "rgba(30, 27, 57, 1)",
-                  fontSize: 19,
-                  fontWeight: "bold"
+                  flex: 1,
+                  backgroundColor: "#8080808C",
+                  justifyContent: "center",
+                  alignItems: "center"
                 }}
+                onPress={() => setIsVisible(false)}
               >
-                Enter PIN
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                paddingTop: 20
-              }}
+                <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+                  {/* <View className="flex-col">
+                              {errors?.error?.map((item: any) => {
+                                <Text>{item}</Text>
+                              })}
+                              </View> */}
+                  {errors?.error &&
+                    typeof errors.error === "object" &&
+                    !Array.isArray(errors.error) &&
+                    Object.keys(errors.error).map((key, index) => (
+                      <Text key={index}>
+                        {key}:{" "}
+                        {Array.isArray(errors.error[key])
+                          ? errors.error[key].join(", ") // Handle arrays by joining the elements
+                          : errors.error[key]}{" "}
+                      </Text>
+                    ))}
+                  {errors?.error && typeof errors.error !== "object" && (
+                    <Text className="mb-3">{errors.error}</Text>
+                  )}
+                  <ShortBlueButton
+                    title="Close"
+                    onPress={() => setIsVisible(false)}
+                  />
+                </View>
+              </Pressable>
+            </Modal>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={isVisible3}
             >
-              {/* <View
+              <Pressable
+                style={{
+                  flex: 1,
+                  backgroundColor: "#8080808C",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onPress={() => setIsVisible3(false)}
+              >
+                <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+                  {/* <View className="flex-col">
+                              {errors?.error?.map((item: any) => {
+                                <Text>{item}</Text>
+                              })}
+                              </View> */}
+                  {errorswiremitransaction?.error &&
+                    typeof errorswiremitransaction.error === "object" &&
+                    !Array.isArray(errorswiremitransaction.error) &&
+                    Object.keys(errorswiremitransaction.error).map(
+                      (key, index) => (
+                        <Text key={index}>
+                          {key}:{" "}
+                          {Array.isArray(errorswiremitransaction.error[key])
+                            ? errorswiremitransaction.error[key].join(", ") // Handle arrays by joining the elements
+                            : errorswiremitransaction.error[key]}{" "}
+                        </Text>
+                      )
+                    )}
+                  {errorswiremitransaction?.error &&
+                    typeof errorswiremitransaction.error !== "object" && (
+                      <Text className="mb-3">
+                        {errorswiremitransaction.error}
+                      </Text>
+                    )}
+                  <ShortBlueButton
+                    title="Close"
+                    onPress={() => setIsVisible3(false)}
+                  />
+                </View>
+              </Pressable>
+            </Modal>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={isVisible2}
+            >
+              <Pressable
+                style={{
+                  flex: 1,
+                  backgroundColor: "#8080808C",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onPress={() => setIsVisible2(false)}
+              >
+                <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+                  <View className="flex-col">
+                    <Text>{show2}</Text>
+                  </View>
+
+                  <ShortBlueButton
+                    title="Close"
+                    onPress={() => setIsVisible2(false)}
+                  />
+                </View>
+              </Pressable>
+            </Modal>
+            <View className="flex-row justify-between items-center mb-1">
+              <TouchableOpacity
+                onPress={() =>
+                  router.push("/TransactionSendMoney/TransferMoney")
+                }
+              >
+                <Back />
+              </TouchableOpacity>
+              <Text className="text-[20px] text-pagetitle">Wiremi user</Text>
+              <Text></Text>
+            </View>
+            <View className="items-center justify-center">
+              <TransactionTextLabel
+                label="Amount"
+                placeholder="Enter amount $0.00"
+                onChangeText={(value: number) => onChange("amount", value)}
+              />
+            </View>
+            <View className="flex-col gap-2">
+              <View className="items-center justify-center">
+                <TextLabelBoxBarcode
+                  label="Wiremi ID"
+                  placeholder="Enter wiremi ID"
+                  onChangeText={(value: number) => onChange("wiremiId", value)}
+                />
+              </View>
+              <View className="justify-start">
+                <View
+                  style={{ paddingHorizontal: 10 }}
+                  className="flex-row items-start justify-end gap-2"
+                >
+                  <Ladypics />
+                  <Text className="text-buttonprimary">
+                    {summary?.receiver?.first_name}{" "}
+                    {summary?.receiver?.last_name}
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View className="items-center justify-center">
+              <TextLabelBox
+                label="Narration"
+                placeholder="Enter narration (optional)"
+                value={wiremidetails?.narration}
+                both
+                onChangeText={(value: any) => onChangenarration(value)}
+              />
+            </View>
+            {authenticatingwiremitransaction ? (
+              <View className="flex-row justify-center items-center">
+                <ActivityIndicator
+                  color={"#105CE2"}
+                  style={{ width: 30, height: 30 }}
+                />
+              </View>
+            ) : (
+              <View
+                style={{ height: height * 0.1 }}
+                className="items-center justify-center"
+              >
+                <BlueSignInButton
+                  title="Proceed"
+                  // onPress={() => router.push("/TransactionSendMoney/WiremiSummary")}
+                  onPress={() => {
+                    if (!wiremidetails?.amount) {
+                      setIsVisible2(true);
+                      setShow2("Input Amount to Proceed");
+                      return;
+                    }
+                    ref?.current?.open();
+                  }}
+                />
+              </View>
+            )}
+
+            <BottomSheet height={580} ref={ref}>
+              <View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderBottomColor: "rgba(235, 235, 235, 1)",
+                    borderBottomWidth: 1,
+                    paddingVertical: 10,
+                    paddingHorizontal: 20
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "rgba(30, 27, 57, 1)",
+                      fontSize: 19,
+                      fontWeight: "bold"
+                    }}
+                  >
+                    Enter PIN
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    paddingTop: 20
+                  }}
+                >
+                  {/* <View
                 style={{
                   backgroundColor: "rgba(243, 244, 245, 1)",
                   borderRadius: 10,
@@ -398,194 +425,196 @@ const WiremiDetails = () => {
                   alignItems: "center"
                 }}
               > */}
-              <SixDigitsPin pin={pin} onChangeText={handlePinChange} />
-              {/* </View> */}
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                paddingTop: 20
-              }}
-            >
-              <View
-                style={{
-                  backgroundColor: "rgba(243, 244, 245, 1)",
-                  borderRadius: 10,
-                  padding: 15,
-                  width: "90%",
-                  alignItems: "center",
-                  gap: 10
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: 10
-                  }}
-                >
-                  {["1", "2", "3"].map((num) => (
-                    <TouchableOpacity
-                      key={num}
-                      onPress={() => handleKeypadPress(num)}
-                    >
-                      <Text
-                        style={{
-                          width: width * 0.25,
-                          borderWidth: 2,
-                          height: height * 0.09,
-                          fontSize: 22,
-                          fontWeight: "600",
-                          textAlign: "center",
-                          textAlignVertical: "center",
-                          backgroundColor: "white",
-                          borderRadius: 12,
-                          color: "black",
-                          borderColor: "rgba(242, 244, 245, 1)",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          paddingTop: height * 0.012 // Helps with vertical centering on iOS
-                        }}
-                      >
-                        {num}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
+                  <SixDigitsPin pin={pin} onChangeText={handlePinChange} />
+                  {/* </View> */}
                 </View>
                 <View
                   style={{
                     flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: 10
+                    justifyContent: "center",
+                    paddingTop: 20
                   }}
                 >
-                  {["4", "5", "6"].map((num) => (
-                    <TouchableOpacity
-                      key={num}
-                      onPress={() => handleKeypadPress(num)}
-                    >
-                      <Text
-                        style={{
-                          width: width * 0.25,
-                          borderWidth: 2,
-                          height: height * 0.09,
-                          fontSize: 22,
-                          fontWeight: "600",
-                          textAlign: "center",
-                          textAlignVertical: "center",
-                          backgroundColor: "white",
-                          borderRadius: 12,
-                          color: "black",
-                          borderColor: "rgba(242, 244, 245, 1)",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          paddingTop: height * 0.012 // Helps with vertical centering on iOS
-                        }}
-                      >
-                        {num}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: 10
-                  }}
-                >
-                  {["7", "8", "9"].map((num) => (
-                    <TouchableOpacity
-                      key={num}
-                      onPress={() => handleKeypadPress(num)}
-                    >
-                      <Text
-                        style={{
-                          width: width * 0.25,
-                          borderWidth: 2,
-                          height: height * 0.09,
-                          fontSize: 22,
-                          fontWeight: "600",
-                          textAlign: "center",
-                          textAlignVertical: "center",
-                          backgroundColor: "white",
-                          borderRadius: 12,
-                          color: "black",
-                          borderColor: "rgba(242, 244, 245, 1)",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          paddingTop: height * 0.012 // Helps with vertical centering on iOS
-                        }}
-                      >
-                        {num}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: 10
-                  }}
-                >
-                  <TouchableOpacity
-                    //   key={num}
-                    onPress={() => handleKeypadPress("0")}
-                  >
-                    <Text
-                      style={{
-                        width: width * 0.5,
-                        borderWidth: 2,
-                        height: height * 0.09,
-                        fontSize: 22,
-                        fontWeight: "600",
-                        textAlign: "center",
-                        textAlignVertical: "center",
-                        backgroundColor: "white",
-                        borderRadius: 12,
-                        color: "black",
-                        borderColor: "rgba(242, 244, 245, 1)",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        paddingTop: height * 0.012 // Helps with vertical centering on iOS
-                      }}
-                    >
-                      0
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => handleKeypadPress("backspace")}
+                  <View
                     style={{
-                      width: width * 0.25,
-                      borderWidth: 2,
-                      height: height * 0.09,
-                      backgroundColor: "white",
-                      borderRadius: 12,
-                      borderColor: "rgba(242, 244, 245, 1)",
-                      display: "flex",
-                      justifyContent: "center",
+                      backgroundColor: "rgba(243, 244, 245, 1)",
+                      borderRadius: 10,
+                      padding: 15,
+                      width: "90%",
                       alignItems: "center",
-                      paddingTop: height * 0.012
+                      gap: 10
                     }}
                   >
-                    <Back />
-                  </TouchableOpacity>
-                  {/* ))} */}
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 10
+                      }}
+                    >
+                      {["1", "2", "3"].map((num) => (
+                        <TouchableOpacity
+                          key={num}
+                          onPress={() => handleKeypadPress(num)}
+                        >
+                          <Text
+                            style={{
+                              width: width * 0.25,
+                              borderWidth: 2,
+                              height: height * 0.09,
+                              fontSize: 22,
+                              fontWeight: "600",
+                              textAlign: "center",
+                              textAlignVertical: "center",
+                              backgroundColor: "white",
+                              borderRadius: 12,
+                              color: "black",
+                              borderColor: "rgba(242, 244, 245, 1)",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              paddingTop: height * 0.012 // Helps with vertical centering on iOS
+                            }}
+                          >
+                            {num}
+                          </Text>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 10
+                      }}
+                    >
+                      {["4", "5", "6"].map((num) => (
+                        <TouchableOpacity
+                          key={num}
+                          onPress={() => handleKeypadPress(num)}
+                        >
+                          <Text
+                            style={{
+                              width: width * 0.25,
+                              borderWidth: 2,
+                              height: height * 0.09,
+                              fontSize: 22,
+                              fontWeight: "600",
+                              textAlign: "center",
+                              textAlignVertical: "center",
+                              backgroundColor: "white",
+                              borderRadius: 12,
+                              color: "black",
+                              borderColor: "rgba(242, 244, 245, 1)",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              paddingTop: height * 0.012 // Helps with vertical centering on iOS
+                            }}
+                          >
+                            {num}
+                          </Text>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 10
+                      }}
+                    >
+                      {["7", "8", "9"].map((num) => (
+                        <TouchableOpacity
+                          key={num}
+                          onPress={() => handleKeypadPress(num)}
+                        >
+                          <Text
+                            style={{
+                              width: width * 0.25,
+                              borderWidth: 2,
+                              height: height * 0.09,
+                              fontSize: 22,
+                              fontWeight: "600",
+                              textAlign: "center",
+                              textAlignVertical: "center",
+                              backgroundColor: "white",
+                              borderRadius: 12,
+                              color: "black",
+                              borderColor: "rgba(242, 244, 245, 1)",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              paddingTop: height * 0.012 // Helps with vertical centering on iOS
+                            }}
+                          >
+                            {num}
+                          </Text>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 10
+                      }}
+                    >
+                      <TouchableOpacity
+                        //   key={num}
+                        onPress={() => handleKeypadPress("0")}
+                      >
+                        <Text
+                          style={{
+                            width: width * 0.5,
+                            borderWidth: 2,
+                            height: height * 0.09,
+                            fontSize: 22,
+                            fontWeight: "600",
+                            textAlign: "center",
+                            textAlignVertical: "center",
+                            backgroundColor: "white",
+                            borderRadius: 12,
+                            color: "black",
+                            borderColor: "rgba(242, 244, 245, 1)",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            paddingTop: height * 0.012 // Helps with vertical centering on iOS
+                          }}
+                        >
+                          0
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => handleKeypadPress("backspace")}
+                        style={{
+                          width: width * 0.25,
+                          borderWidth: 2,
+                          height: height * 0.09,
+                          backgroundColor: "white",
+                          borderRadius: 12,
+                          borderColor: "rgba(242, 244, 245, 1)",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          paddingTop: height * 0.012
+                        }}
+                      >
+                        <Back />
+                      </TouchableOpacity>
+                      {/* ))} */}
+                    </View>
+                  </View>
                 </View>
               </View>
-            </View>
-          </View>
-        </BottomSheet>
+            </BottomSheet>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );

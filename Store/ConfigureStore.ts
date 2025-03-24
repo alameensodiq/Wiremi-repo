@@ -39,6 +39,8 @@ import { SupportedCountriesSlice } from './Reducers/SupportedCountries';
 import { BankTransferInstitutionSlice } from './Reducers/BankTransferInstitution';
 import { AccountNameSlice } from './Reducers/AccountName';
 import { BankTransferSlice } from './Reducers/BankTransfer';
+import { MobileTransferInstitutionSlice } from './Reducers/MobileTransferInstitution';
+import { MobileTransferSlice } from './Reducers/MobileTransfer';
 
 const store = configureStore({
   reducer: {
@@ -80,7 +82,9 @@ const store = configureStore({
     supportedcountries: SupportedCountriesSlice?.reducer,
     banktransferinstitution: BankTransferInstitutionSlice?.reducer,
     accountname: AccountNameSlice?.reducer,
-    banktransfer: BankTransferSlice?.reducer
+    banktransfer: BankTransferSlice?.reducer,
+    mobiletransferinstitution: MobileTransferInstitutionSlice?.reducer,
+    mobiletransfer: MobileTransferSlice?.reducer
   },
 });
 
