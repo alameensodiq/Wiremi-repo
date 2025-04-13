@@ -90,7 +90,7 @@ const SwapDashboard = () => {
         <View className="items-center justify-center">
           <TransactionTextLabel
             label="Amount"
-            placeholder="Enter amount $0.00"
+            placeholder="Enter amount 0.00"
           />
         </View>
         <View className="flex-row pl-2">

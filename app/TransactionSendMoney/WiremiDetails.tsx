@@ -176,6 +176,7 @@ const WiremiDetails = () => {
 
   useEffect(() => {
     if (wiremitransaction?.status) {
+      setPin(Array(6).fill(""));
       router.push(
         `/TransactionSendMoney/WiremiSuccess?amount=${wiremidetails?.amount}`
       );
@@ -325,7 +326,7 @@ const WiremiDetails = () => {
             <View className="items-center justify-center">
               <TransactionTextLabel
                 label="Amount"
-                placeholder="Enter amount $0.00"
+                placeholder="Enter amount 0.00"
                 onChangeText={(value: number) => onChange("amount", value)}
               />
             </View>

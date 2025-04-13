@@ -23,15 +23,6 @@ import TransparentSelectButton from "@/components/TransparentSelectButton";
 import TextLabelBox from "@/components/TextLabelBox";
 import { CheckBox } from "@rneui/themed";
 import { BottomSheet } from "@/components/Bottom";
-import Royal from "../../assets/royalbank.svg";
-import Chase from "../../assets/chase.svg";
-import BankAmerica from "../../assets/bankamerica.svg";
-import Barclays from "../../assets/barclays.svg";
-import HSBC from "../../assets/hsbc.svg";
-import TDBANK from "../../assets/tdbank.svg";
-import Scotia from "../../assets/scotiabank.svg";
-import BMO from "../../assets/bmo.svg";
-import SearchLabelBox from "@/components/SearchLabelBox";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { SupportedCountries } from "@/Store/Apis/SupportedCountries";
 import ShortBlueButton from "@/components/ShortBlueButton";
@@ -78,6 +69,7 @@ const DirectTransferDetails = () => {
   const [isVisible6, setIsVisible6] = useState<boolean>(false);
   const [show6, setShow6] = useState("");
   const [pin, setPin] = useState<string[]>(Array(6).fill(""));
+  const [showreason, setShowreason] = useState(false);
   const [bank, setBank] = useState({
     name: "",
     code: ""
@@ -242,11 +234,15 @@ const DirectTransferDetails = () => {
       );
       // setPin([])
     }
+    // setPin(Array(6).fill(""));
   }, [pin]);
 
   useEffect(() => {
     if (banktransfer?.status) {
-      router.replace("/TransactionSendMoney/DirectTransferReceipt");
+      setPin(Array(6).fill(""));
+      router.replace(
+        `/TransactionSendMoney/DirectTransferReceipt?amount=${banktransfer?.data?.amount}&fee=${banktransfer?.data?.fee}&currency=${banktransfer?.data?.currency}&receivername=${banktransfer?.data?.counterparty?.account_name}&receiverbank=${banktransfer?.data?.counterparty?.bank_name}&receivernumber=${banktransfer?.data?.counterparty?.account_number}&type=${banktransfer?.data?.type}&date=${banktransfer?.data?.updated_at}&status=${banktransfer?.data?.status}&reference=${banktransfer?.data?.reference}&reason=${banktransfer?.data?.reason}`
+      );
     }
   }, [banktransfer?.status]);
 
@@ -529,6 +525,29 @@ const DirectTransferDetails = () => {
                 </View>
               </Pressable>
             </Modal>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={showreason}
+            >
+              <Pressable
+                style={{
+                  flex: 1,
+                  backgroundColor: "#8080808C",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onPress={() => setShowreason(false)}
+              >
+                <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+                  <Text className="mb-3">You must add a Narration</Text>
+                  <ShortBlueButton
+                    title="Close"
+                    onPress={() => setShowreason(false)}
+                  />
+                </View>
+              </Pressable>
+            </Modal>
             <View className="flex-row justify-between items-center mb-1">
               <TouchableOpacity
                 onPress={() => router.push("/TransactionSendMoney")}
@@ -543,7 +562,7 @@ const DirectTransferDetails = () => {
             <View className="items-center justify-center">
               <TransactionTextLabel
                 label="Amount"
-                placeholder="Enter amount $0.00"
+                placeholder="Enter amount 0.00"
                 onChangeText={(value: number) => onChange("amount", value)}
               />
             </View>
@@ -613,17 +632,21 @@ const DirectTransferDetails = () => {
                 <BlueSignInButton
                   title="Proceed"
                   onPress={() => {
-                    dispatch(
-                      Summary({
-                        amount: bankdetails?.amount,
-                        country: country,
-                        type: "BANK_TRANSFER",
-                        router: router.push,
-                        transfer: "true",
-                        setIsVisible: setIsVisible6,
-                        setShow: setShow6
-                      })
-                    );
+                    if (!bankdetails?.reason) {
+                      setShowreason(true);
+                    } else {
+                      dispatch(
+                        Summary({
+                          amount: bankdetails?.amount,
+                          country: country,
+                          type: "BANK_TRANSFER",
+                          router: router.push,
+                          transfer: "true",
+                          setIsVisible: setIsVisible6,
+                          setShow: setShow6
+                        })
+                      );
+                    }
                   }}
                   // onPress={() =>
                   //   router.push("/TransactionSendMoney/DirectTransferSummary")

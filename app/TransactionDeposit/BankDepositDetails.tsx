@@ -50,6 +50,8 @@ const BankDepositDetails = () => {
     (state) => state.bankdeposit
   );
 
+  console.log(bankdeposit);
+
   const handleCloseModal = () => {
     ref.current?.close();
   };
@@ -59,6 +61,12 @@ const BankDepositDetails = () => {
       ref?.current?.open();
     }
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearStatebankdeposit());
+    };
+  }, []);
 
   const onChange = (name: string, value: any) => {
     console.log(value);
@@ -70,9 +78,6 @@ const BankDepositDetails = () => {
       handleOpen();
       // router.replace("/TransactionDeposit/BankDepositSuccess");
     }
-    return () => {
-      dispatch(clearStatebankdeposit());
-    };
   }, [bankdeposit?.status]);
 
   return (
@@ -179,7 +184,7 @@ const BankDepositDetails = () => {
             <TransactionTextLabel
               label="Amount"
               onChangeText={(value: number) => onChange("amount", value)}
-              placeholder="Enter amount $0.00"
+              placeholder="Enter amount 0.00"
             />
           </View>
           {authenticatingbankdeposit ? (
@@ -302,7 +307,7 @@ const BankDepositDetails = () => {
                   <View className="gap-1">
                     <Text className="font-[10px]">Bank name</Text>
                     <Text style={{ color: "#000000", fontWeight: "bold" }}>
-                      Rise Bank
+                      {bankdeposit?.data?.bank_name}
                     </Text>
                   </View>
                 </View>
@@ -311,7 +316,7 @@ const BankDepositDetails = () => {
                   <View className="gap-1">
                     <Text className="font-[10px]">Account number</Text>
                     <Text style={{ color: "#000000", fontWeight: "bold" }}>
-                      2033901929
+                      {bankdeposit?.data?.account_number}
                     </Text>
                   </View>
                   <Copyname />
@@ -321,7 +326,7 @@ const BankDepositDetails = () => {
                   <View className="gap-1">
                     <Text className="font-[10px]">Account name</Text>
                     <Text style={{ color: "#000000", fontWeight: "bold" }}>
-                      Wiremi
+                      {bankdeposit?.data?.account_name}
                     </Text>
                   </View>
                 </View>
@@ -335,29 +340,29 @@ const BankDepositDetails = () => {
                 </View>
               ) :
                ( */}
-                <View className="items-center justify-center mb-2">
-                  <BlueSignInButton
-                    title="I have transferred"
-                    onPress={() => {
-                      // if (!amount) {
-                      //   setIsVisible(true);
-                      //   setShow("Emergency fund percentage must not exceed 7");
-                      //   return;
-                      // }
+              <View className="items-center justify-center mb-2">
+                <BlueSignInButton
+                  title="I have transferred"
+                  onPress={() => {
+                    // if (!amount) {
+                    //   setIsVisible(true);
+                    //   setShow("Emergency fund percentage must not exceed 7");
+                    //   return;
+                    // }
 
-                      // dispatch(
-                      //   BankDeposit({
-                      //     router: router.push,
-                      //     setIsVisible: setIsVisible,
-                      //     setShow: setShow
-                      //   })
-                      // );
-                      router.replace("/TransactionDeposit/BankDepositSuccess");
-                    }}
-                    // router.push("/TransactionDeposit/BankDepositSuccess")
-                    // onPress={() => router.push('/TransactionDeposit/BankDepositVerify')}
-                  />
-                </View>
+                    // dispatch(
+                    //   BankDeposit({
+                    //     router: router.push,
+                    //     setIsVisible: setIsVisible,
+                    //     setShow: setShow
+                    //   })
+                    // );
+                    router.replace(`/TransactionDeposit/BankDepositSuccess?amount=${amount}`);
+                  }}
+                  // router.push("/TransactionDeposit/BankDepositSuccess")
+                  // onPress={() => router.push('/TransactionDeposit/BankDepositVerify')}
+                />
+              </View>
               {/* )} */}
             </ScrollView>
           </BottomSheet>

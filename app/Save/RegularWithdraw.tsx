@@ -163,7 +163,7 @@ const RegularWithdraw = () => {
           <TransactionTextLabel
             label="Amount"
             onChangeText={(value: number) => onChange("amount", value)}
-            placeholder="Enter amount $0.00"
+            placeholder="Enter amount 0.00"
           />
         </View>
         <View

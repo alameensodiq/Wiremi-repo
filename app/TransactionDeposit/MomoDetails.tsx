@@ -65,6 +65,14 @@ const MomoDetails = () => {
   console.log(summary);
 
   useEffect(() => {
+    return () => {
+      dispatch(clearStatemomodeposit());
+      dispatch(clearStatesummary());
+      ref?.current?.close()
+    };
+  }, []);
+
+  useEffect(() => {
     const fetchCountry = async () => {
       const ownercountry = await AsyncStorage.getItem("country"); // ✅ Wait for the Promise
       setCountry(ownercountry || ""); // ✅ Ensure it's always a string
@@ -85,9 +93,11 @@ const MomoDetails = () => {
 
   useEffect(() => {
     if (momodeposit?.status) {
+      handleCloseModal ();
       router.replace("/TransactionDeposit/MomoSuccess");
     }
     return () => {
+      handleCloseModal()
       dispatch(clearStatemomodeposit());
       dispatch(clearStatesummary());
     };
@@ -185,7 +195,7 @@ const MomoDetails = () => {
           <View className="items-center justify-center mb-2">
             <TransactionTextLabel
               label="Amount"
-              placeholder="Enter amount $0.00"
+              placeholder="Enter amount 0.00"
               onChangeText={(value: number) => onChange("amount", value)}
             />
           </View>

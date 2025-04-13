@@ -41,6 +41,8 @@ import { AccountNameSlice } from './Reducers/AccountName';
 import { BankTransferSlice } from './Reducers/BankTransfer';
 import { MobileTransferInstitutionSlice } from './Reducers/MobileTransferInstitution';
 import { MobileTransferSlice } from './Reducers/MobileTransfer';
+import { BankWithdrawalInstitutionSlice } from './Reducers/BankWithdrawalInstitution';
+import { BankWithdrawalSlice } from './Reducers/BankWithdrawal';
 
 const store = configureStore({
   reducer: {
@@ -84,7 +86,9 @@ const store = configureStore({
     accountname: AccountNameSlice?.reducer,
     banktransfer: BankTransferSlice?.reducer,
     mobiletransferinstitution: MobileTransferInstitutionSlice?.reducer,
-    mobiletransfer: MobileTransferSlice?.reducer
+    mobiletransfer: MobileTransferSlice?.reducer,
+    bankwithdrawalinstitution: BankWithdrawalInstitutionSlice?.reducer,
+    bankwithdrawal: BankWithdrawalSlice?.reducer
   },
 });
 

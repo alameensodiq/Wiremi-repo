@@ -4,9 +4,10 @@ import {
   StatusBar as RNStatusBar,
   Dimensions,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Pressable
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Back from "../../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,11 +15,67 @@ import Forgotsuccess from "../../../assets/forgotsuccess.svg";
 import ReceiptWiremi from "../../../assets/receiptwiremi.svg";
 import Copy from "../../../assets/copy.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
+import * as Clipboard from "expo-clipboard";
 
 const WithdrawReceipt = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const {
+    amount,
+    fee,
+    currency,
+    receivername,
+    receiverbank,
+    type,
+    date,
+    status,
+    reference,
+    reason,
+    receivernumber
+  } = useLocalSearchParams();
+  console.log(amount, fee);
+  const amountNumber = +amount;
+  const feeNumber = +fee;
+
+  const formatNumberWithCommas = (number: any) => {
+    if (number == null) return "0"; // Handle null or undefined
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  const formatDateWithTime = (isoString: any) => {
+    const date = new Date(isoString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${hours}:${minutes}`;
+
+    // return `${day}-${month}-${year} ${hours}:${minutes}`;
+  };
+
+  const formatDate = (isoString: any) => {
+    const date = new Date(isoString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${day}/${month}/${year}`;
+  };
+
+  const handleCopy = () => {
+    const referenceString =
+      typeof reference === "string" ? reference : reference?.[0] || "";
+    Clipboard.setString(referenceString);
+  };
   return (
     <View className="flex-1">
       <StatusBar hidden={false} style="dark" />
@@ -71,71 +128,83 @@ const WithdrawReceipt = () => {
               <Text className="text-lighttextdark font-[14px]">
                 You transferred
               </Text>
-              <Text className="text-darktext font-bold">$500</Text>
+              <Text className="text-darktext font-bold">
+                {" "}
+                {currency}
+                {formatNumberWithCommas(amountNumber)}
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
               <Text className="text-lighttextdark font-[14px]">Fees</Text>
-              <Text className="text-darktext font-bold">$10</Text>
+              <Text className="text-darktext font-bold">
+                {" "}
+                {currency}
+                {formatNumberWithCommas(feeNumber)}
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
               <Text className="text-lighttextdark font-[14px]">
                 Recipient name
               </Text>
-              <Text className="text-darktext font-bold">Susan Sheidu</Text>
+              <Text className="text-darktext font-bold">{receivername}</Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
               <Text className="text-lighttextdark font-[14px]">
                 Recipient account number
               </Text>
-              <Text className="text-darktext font-bold">0040759354</Text>
+              <Text className="text-darktext font-bold">{receivernumber}</Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
               <Text className="text-lighttextdark font-[14px]">
                 Destination bank
               </Text>
-              <Text className="text-darktext font-bold">Union bank</Text>
+              <Text className="text-darktext font-bold">{receiverbank}</Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
               <Text className="text-lighttextdark font-[14px]">
                 Transfer type
               </Text>
-              <Text className="text-darktext font-bold">Direct transfer</Text>
+              <Text className="text-darktext font-bold">{type}</Text>
             </View>
-            <View className="flex-row items-center justify-between p-3">
+            {/* <View className="flex-row items-center justify-between p-3">
               <Text className="text-lighttextdark font-[14px]">Country</Text>
               <Text className="text-darktext font-bold">Nigeria</Text>
-            </View>
+            </View> */}
             <View className="flex-row items-center justify-between p-3">
               <Text className="text-lighttextdark font-[14px]">Date</Text>
-              <Text className="text-darktext font-bold">13/09/2024</Text>
+              <Text className="text-darktext font-bold">
+                {" "}
+                {formatDate(date)}
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
               <Text className="text-lighttextdark font-[14px]">Time</Text>
-              <Text className="text-darktext font-bold">12:09:10AM</Text>
+              <Text className="text-darktext font-bold">
+                {" "}
+                {formatDateWithTime(date)}
+              </Text>
             </View>
-            <View className="flex-row items-center justify-between p-3">
+            {/* <View className="flex-row items-center justify-between p-3">
               <Text className="text-lighttextdark font-[14px]">Address</Text>
               <Text className="text-darktext font-bold">
                 No 32a Berkely Street
               </Text>
-            </View>
+            </View> */}
             <View className="flex-row items-center justify-between p-3">
               <Text className="text-lighttextdark font-[14px]">
                 Description
               </Text>
-              <Text className="text-darktext font-bold">
-                Direct bank transfer
-              </Text>
+              <Text className="text-darktext font-bold">{reason}</Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
               <Text className="text-lighttextdark font-[14px]">
                 Transaction ref
               </Text>
               <View className="flex-row">
-                <Text className="text-darktext font-bold">
-                  55678878900765342561
-                </Text>
-                <Copy />
+                <Text className="text-darktext font-bold">{reference}</Text>
+                <Pressable onPress={() => handleCopy()}>
+                  <Copy />
+                </Pressable>
               </View>
             </View>
           </View>

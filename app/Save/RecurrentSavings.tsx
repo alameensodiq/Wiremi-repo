@@ -296,7 +296,7 @@ const RecurrentSavings = () => {
               onChangeText={(value: number) =>
                 onChange("amount_per_interval", value)
               }
-              placeholder="Enter amount $0.00"
+              placeholder="Enter amount 0.00"
             />
           </View>
           <TouchableOpacity onPress={() => ref.current?.open()}>

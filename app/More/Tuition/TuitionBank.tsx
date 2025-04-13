@@ -77,7 +77,7 @@ import {
           <View className="items-center justify-center">
             <TextLabelBox
               label="Amount"
-              placeholder="Enter amount $0.00"
+              placeholder="Enter amount 0.00"
             />
           </View>
          <View>

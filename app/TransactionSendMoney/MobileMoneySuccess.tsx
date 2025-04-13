@@ -18,6 +18,7 @@ const MobileMoneySuccess = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  
   return (
     <View className="flex-1 ">
       <View className="flex-1 bg-white">

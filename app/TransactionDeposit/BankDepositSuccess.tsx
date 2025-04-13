@@ -6,7 +6,7 @@ import {
   } from "react-native";
   import React from "react";
   import { StatusBar } from "expo-status-bar";
-  import { useRouter } from "expo-router";
+  import { useLocalSearchParams, useRouter } from "expo-router";
   import Forgotsuccess from "../../assets/forgotsuccess.svg";
   import ShortBlueButton from "@/components/ShortBlueButton";
   import ShortWhiteButton from "@/components/ShortWhiteButton";
@@ -16,6 +16,10 @@ import {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
+
+      const { amount } = useLocalSearchParams();
+      console.log(amount);
+      const amountNumber = +amount;
     return (
       <View className="flex-1 ">
         <View className="flex-1 bg-white">
@@ -47,7 +51,7 @@ import {
                   </Text>
                 </View>
                 <Text className="text-forgotsuccesslight text-[13px]">
-                  Your deposit of $500 was successful .
+                  Your deposit of {amountNumber} was successful .
                 </Text>
               </View>
   
@@ -57,14 +61,15 @@ import {
                   color1
                   onPress={() => {
                     // router.push("/TransactionDeposit/BankDepositSummary")
-                    router.push("/TransactionDeposit/BankDepositDetails")
+                    // router.push("/TransactionDeposit/BankDepositDetails")
+                    router.push("/(PersonalAccount)")
                   }}
                 />
-                <ShortWhiteButton
+                {/* <ShortWhiteButton
                   title="View receipt"
                   color1
                   onPress={() => router.push('/TransactionDeposit/BankDepositReceipt')}
-                />
+                /> */}
               </View>
             </View>
           </SafeAreaView>

@@ -153,15 +153,14 @@ const Dashboard = () => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-
   const formatNumberWithCommastrans = (number: string | number) => {
     const num = parseFloat(number as string); // Convert to number
     if (isNaN(num)) return "0.00"; // Handle invalid values
 
     return num
-        .toFixed(2) // Ensure two decimal places
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Add commas
-};
+      .toFixed(2) // Ensure two decimal places
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Add commas
+  };
 
   useEffect(() => {
     dispatch(UserTransactions({ router: router.push }));
@@ -250,9 +249,7 @@ const Dashboard = () => {
               </View>
               <View className="flex-row gap-2 items-center">
                 <Barcode />
-                <TouchableOpacity
-                  onPress={() => router.push("/Notification")}
-                >
+                <TouchableOpacity onPress={() => router.push("/Notification")}>
                   <Notification />
                 </TouchableOpacity>
               </View>
@@ -304,15 +301,11 @@ const Dashboard = () => {
               <DashboardTransactionButton
                 color1
                 title="Payment"
-                onPress={() =>
-                  router.push("/TransactionSendMoney")
-                }
+                onPress={() => router.push("/TransactionSendMoney")}
               />
               <DashboardTransactionButton
                 title="Add Money"
-                onPress={() =>
-                  router.push("/TransactionDeposit")
-                }
+                onPress={() => router.push("/TransactionDeposit")}
               />
             </View>
           </View>
@@ -330,9 +323,7 @@ const Dashboard = () => {
               <Text className="text-darktext">Quick services</Text>
             </View>
             <View className="flex-row justify-between">
-              <TouchableOpacity
-                onPress={() => router.push("/Save")}
-              >
+              <TouchableOpacity onPress={() => router.push("/Save")}>
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
                     style={{
@@ -354,9 +345,7 @@ const Dashboard = () => {
                   <Text className="text-[14px] font-bold">Save</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => router.push("/Loan")}
-              >
+              <TouchableOpacity onPress={() => router.push("/Loan")}>
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
                     style={{
@@ -379,9 +368,7 @@ const Dashboard = () => {
                   <Text className="text-[14px] font-bold">Loan</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => router.push("/Invest")}
-              >
+              <TouchableOpacity onPress={() => router.push("/Invest")}>
                 <View className="flex-col gap-1 justify-center items-center">
                   <View
                     style={{
@@ -441,9 +428,7 @@ const Dashboard = () => {
               <Text className="text-darktext text-[14px] font-bold">
                 Recent Transactions
               </Text>
-              <Pressable
-                onPress={() => router.push("/Transactions")}
-              >
+              <Pressable onPress={() => router.push("/Transactions")}>
                 <Text className="text-buttonprimary text-[12px]">See all</Text>
               </Pressable>
             </View>
@@ -487,7 +472,9 @@ const Dashboard = () => {
                           <Text className="text-[14px] text-darktext">
                             {item?.symbol || ""}
                             {""}
-                            {formatNumberWithCommastrans(parseFloat(item?.total || "0"))}
+                            {formatNumberWithCommastrans(
+                              parseFloat(item?.total || "0")
+                            )}
                           </Text>
                           {/* Failed */}
                           {item?.status === "completed" ? (

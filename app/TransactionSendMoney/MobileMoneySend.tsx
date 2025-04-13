@@ -42,6 +42,11 @@ import { AccountName } from "@/Store/Apis/AccountName";
 import { Summary } from "@/Store/Apis/Summary";
 import SixDigitsPin from "@/components/SixDigitsPin";
 import { MobileTransfer } from "@/Store/Apis/MobileTransfer";
+import { clearStatesummary } from "@/Store/Reducers/Summary";
+import { clearStateaccountname } from "@/Store/Reducers/AccountName";
+import { clearStatesupportedcountries } from "@/Store/Reducers/SupportedCountries";
+import { clearStatemobiletransferinstitution } from "@/Store/Reducers/MobileTransferInstitution";
+import { clearStatemobiletransfer } from "@/Store/Reducers/MobileTransfer";
 
 type BottomSheetRef = {
   open: () => void;
@@ -73,6 +78,7 @@ const MobileMoneySend = () => {
   const [show5, setShow5] = useState("");
   const [isVisible6, setIsVisible6] = useState<boolean>(false);
   const [show6, setShow6] = useState("");
+  const [showreason, setShowreason] = useState(false);
   const [pin, setPin] = useState<string[]>(Array(6).fill(""));
   const handleCloseModal = () => {
     ref.current?.close();
@@ -141,6 +147,8 @@ const MobileMoneySend = () => {
     errorsmobiletransferinstitution
   } = useAppSelector((state) => state.mobiletransferinstitution);
 
+  console.log(mobiletransferinstitution);
+
   const { accountname, authenticatingaccountname, errorsaccountname } =
     useAppSelector((state) => state.accountname);
   console.log(accountname);
@@ -150,6 +158,11 @@ const MobileMoneySend = () => {
   console.log(mobiletransfer);
 
   useEffect(() => {
+    dispatch(clearStatesummary());
+    dispatch(clearStateaccountname());
+    dispatch(clearStatemobiletransfer());
+    dispatch(clearStatemobiletransferinstitution());
+    dispatch(clearStatesupportedcountries());
     dispatch(
       SupportedCountries({
         router: router.push,
@@ -163,6 +176,14 @@ const MobileMoneySend = () => {
     };
 
     fetchCountry(); // Call the async function
+
+    return () => {
+      dispatch(clearStatesummary());
+      dispatch(clearStateaccountname());
+      dispatch(clearStatemobiletransfer());
+      dispatch(clearStatemobiletransferinstitution());
+      dispatch(clearStatesupportedcountries());
+    };
     return () => {};
   }, []);
 
@@ -191,8 +212,10 @@ const MobileMoneySend = () => {
     }
   }, [countries?.code]);
 
+  console.log(mobiletransferinstitution);
+
   useEffect(() => {
-    if (bank?.code && mobilemoneydetails?.account_number?.length === 10) {
+    if (bank?.code && mobilemoneydetails?.account_number?.length >= 12) {
       dispatch(
         AccountName({
           router: router.push,
@@ -228,13 +251,15 @@ const MobileMoneySend = () => {
           setShow: setShow5
         })
       );
+      // setPin(Array(6).fill(""));
       // setPin([])
     }
   }, [pin]);
 
   useEffect(() => {
     if (mobiletransfer?.status) {
-      router.replace("/TransactionSendMoney/MobileMoneyReceipt");
+      setPin(Array(6).fill(""));
+      router.replace(`/TransactionSendMoney/MobileMoneyReceipt?amount=${mobiletransfer?.data?.amount}&fee=${mobiletransfer?.data?.fee}&currency=${mobiletransfer?.data?.currency}&receivername=${mobiletransfer?.data?.counterparty?.account_name}&receiverbank=${mobiletransfer?.data?.counterparty?.bank_name}&receivernumber=${mobiletransfer?.data?.counterparty?.account_number}&type=${mobiletransfer?.data?.type}&date=${mobiletransfer?.data?.updated_at}&status=${mobiletransfer?.data?.status}&reference=${mobiletransfer?.data?.reference}&reason=${mobiletransfer?.data?.reason}`);
     }
   }, [mobiletransfer?.status]);
 
@@ -517,6 +542,29 @@ const MobileMoneySend = () => {
                 </View>
               </Pressable>
             </Modal>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={showreason}
+            >
+              <Pressable
+                style={{
+                  flex: 1,
+                  backgroundColor: "#8080808C",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                onPress={() => setShowreason(false)}
+              >
+                <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+                  <Text className="mb-3">You must add a Narration</Text>
+                  <ShortBlueButton
+                    title="Close"
+                    onPress={() => setShowreason(false)}
+                  />
+                </View>
+              </Pressable>
+            </Modal>
             <View className="flex-row justify-between items-center mb-1">
               <TouchableOpacity
                 onPress={() =>
@@ -531,7 +579,7 @@ const MobileMoneySend = () => {
             <View className="items-center justify-center">
               <TransactionTextLabel
                 label="Amount"
-                placeholder="Enter amount $0.00"
+                placeholder="Enter amount 0.00"
                 onChangeText={(value: number) => onChange("amount", value)}
               />
             </View>
@@ -539,22 +587,26 @@ const MobileMoneySend = () => {
               <View className="items-center justify-center">
                 <TransparentSelectButton
                   label="Country"
-                  placeholder="Select Country"
+                  placeholder={
+                    countries?.name ? countries?.name : "Select Country"
+                  }
                   onPress={() => ref2?.current?.open()}
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => ref.current?.open()}>
+            <TouchableOpacity onPress={() => ref?.current?.open()}>
               <View className="items-center justify-center">
                 <TransparentSelectButton
                   label="Institute"
-                  placeholder="Select institute"
+                  placeholder={bank?.name ? bank?.name : "Select Institute"}
+                  onPress={() => ref?.current?.open()}
                 />
               </View>
             </TouchableOpacity>
             <View>
               <View className="items-center justify-center">
                 <TextLabelBox
+                  number
                   label="Account number"
                   placeholder="Enter account number"
                   onChangeText={(value: any) => onChangeAccountnumber(value)}
@@ -577,6 +629,7 @@ const MobileMoneySend = () => {
               <TextLabelBox
                 label="Narration"
                 placeholder="Enter narration (optional)"
+                onChangeText={(value: any) => onChange("reason", value)}
               />
             </View>
             {authenticatingsummary || authenticatingmobiletransfer ? (
@@ -597,17 +650,21 @@ const MobileMoneySend = () => {
                   //   router.push("/TransactionSendMoney/MobileMoneySummary")
                   // }
                   onPress={() => {
-                    dispatch(
-                      Summary({
-                        amount: mobilemoneydetails?.amount,
-                        country: country,
-                        type: "MOMO_TRANSFER",
-                        router: router.push,
-                        transfer: "true",
-                        setIsVisible: setIsVisible6,
-                        setShow: setShow6
-                      })
-                    );
+                    if (!mobilemoneydetails?.reason) {
+                      setShowreason(true);
+                    } else {
+                      dispatch(
+                        Summary({
+                          amount: mobilemoneydetails?.amount,
+                          country: country,
+                          type: "MOMO_TRANSFER",
+                          router: router.push,
+                          transfer: "true",
+                          setIsVisible: setIsVisible6,
+                          setShow: setShow6
+                        })
+                      );
+                    }
                   }}
                 />
               </View>

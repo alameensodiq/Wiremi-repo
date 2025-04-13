@@ -99,12 +99,8 @@ const MobilemoneyDetails = () => {
 
   useEffect(() => {
     if (summary?.amount && amount) {
-      if (ref?.current) {
-        setTimeout(() => {
           ref.current?.open();
-        }, 3000);
       }
-    }
   }, [summary?.amount, amount]);
 
   useEffect(() => {
@@ -213,7 +209,7 @@ const MobilemoneyDetails = () => {
           <View className="items-center justify-center">
             <TransactionTextLabel
               label="Amount"
-              placeholder="Enter amount $0.00"
+              placeholder="Enter amount 0.00"
               onChangeText={(value: number) => onChange("amount", value)}
             />
           </View>

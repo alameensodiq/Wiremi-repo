@@ -6,7 +6,7 @@ import {
     Platform,
     TouchableOpacity
   } from "react-native";
-  import React from "react";
+  import React, { useEffect } from "react";
   import { useRouter } from "expo-router";
   import Back from "../../assets/Back.svg";
   import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,11 +14,21 @@ import {
   import Momo from "../../assets/momo.svg";
   import Mobile from "../../assets/mobile.svg";
   import Rightcarat from "../../assets/rightcarat.svg";
+import { useAppDispatch } from "@/Store/ConfigureStore";
+import { clearStatemomodeposit } from "@/Store/Reducers/MomoDeposit";
+import { clearStatesummary } from "@/Store/Reducers/Summary";
 
 const MobileMoney = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+      dispatch(clearStatemomodeposit());
+      dispatch(clearStatesummary());
+
+    },[])
   return (
     <View className="flex-1">
     <StatusBar hidden={false} style="dark" />
