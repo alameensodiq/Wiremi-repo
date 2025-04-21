@@ -43,6 +43,8 @@ import { MobileTransferInstitutionSlice } from './Reducers/MobileTransferInstitu
 import { MobileTransferSlice } from './Reducers/MobileTransfer';
 import { BankWithdrawalInstitutionSlice } from './Reducers/BankWithdrawalInstitution';
 import { BankWithdrawalSlice } from './Reducers/BankWithdrawal';
+import { MobileWithdrawInstitutionSlice } from './Reducers/MobileWithdrawInstitution';
+import { MobileWithdrawsSlice } from './Reducers/MobileWithdraws';
 
 const store = configureStore({
   reducer: {
@@ -88,7 +90,9 @@ const store = configureStore({
     mobiletransferinstitution: MobileTransferInstitutionSlice?.reducer,
     mobiletransfer: MobileTransferSlice?.reducer,
     bankwithdrawalinstitution: BankWithdrawalInstitutionSlice?.reducer,
-    bankwithdrawal: BankWithdrawalSlice?.reducer
+    bankwithdrawal: BankWithdrawalSlice?.reducer,
+    mobilewithdrawinstitution: MobileWithdrawInstitutionSlice?.reducer,
+    mobilewithdraws: MobileWithdrawsSlice?.reducer
   },
 });
 

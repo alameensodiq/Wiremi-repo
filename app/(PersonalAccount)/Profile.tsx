@@ -98,7 +98,7 @@ const Profile = () => {
               <Mark />
               <Text style={{ color: "#6F7071" }}>Account Information</Text>
             </View>
-            <Pressable onPress={() => router.push("/Profiles/ProfileInfo")}>
+            <Pressable onPress={() => router.push("/Profiles")}>
               <View className="flex-row justify-between items-center">
                 <View className="flex-row justify-start items-center gap-2">
                   <ProfInfo />

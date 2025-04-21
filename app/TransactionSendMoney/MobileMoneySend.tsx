@@ -61,7 +61,7 @@ const MobileMoneySend = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchQuery3, setSearchQuery3] = useState("");
   const router = useRouter();
-  const [selectedIndex, setIndex] = React.useState<number>(0);
+  const [selectedIndex, setIndex] = React.useState<number>(10000);
   const [selectedIndex3, setIndex3] = React.useState<number>(10000000000);
   const [checked, setChecked] = React.useState(true);
   const toggleCheckbox = () => setChecked(!checked);
