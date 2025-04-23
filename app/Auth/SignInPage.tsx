@@ -66,6 +66,7 @@ const SignInPage = () => {
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | null>(null);
+  const [biomet, setBiomet] = useState<string | null>(null);
   NotsavedwiremiId;
 
   useEffect(() => {
@@ -91,8 +92,10 @@ const SignInPage = () => {
       try {
         const wiremiIds = await AsyncStorage.getItem("Wiremi_Id");
         const pincodes = await AsyncStorage.getItem("Pin_code");
+        const biometric = await AsyncStorage.getItem("biometric");
         console.log(wiremiIds);
         console.log(pincodes);
+        if(biometric)  setBiomet(biometric);
         if (wiremiIds) setWiremiId(wiremiIds);
         if (pincodes) setPincode(pincodes);
       } catch (error) {
@@ -505,23 +508,31 @@ const SignInPage = () => {
                   </View>
                   {/* </KeyboardAvoidingView> */}
                   <View className="flex-col justify-end items-center">
-                    {Platform.OS === "ios" && pincode && wiremiId ? (
-                      <View className="items-center gap-2">
-                        <TouchableOpacity onPress={handleBiometricAuth}>
-                          <Face />
-                        </TouchableOpacity>
-                        <Text>Scan Face ID to Login</Text>
-                      </View>
-                    ) : Platform.OS === "android" && pincode && wiremiId ? (
-                      <View className="items-center gap-2">
-                        <TouchableOpacity onPress={handleBiometricAuth}>
-                          <Finger />
-                        </TouchableOpacity>
-                        <Text>Scan Fingerprint to Login</Text>
-                      </View>
-                    ) : (
+                    {
+                      biomet === 'no'
+                      ?
                       <Text></Text>
-                    )}
+                      :
+                      <>
+                      {Platform.OS === "ios" && pincode && wiremiId ? (
+                        <View className="items-center gap-2">
+                          <TouchableOpacity onPress={handleBiometricAuth}>
+                            <Face />
+                          </TouchableOpacity>
+                          <Text>Scan Face ID to Login</Text>
+                        </View>
+                      ) : Platform.OS === "android" && pincode && wiremiId ? (
+                        <View className="items-center gap-2">
+                          <TouchableOpacity onPress={handleBiometricAuth}>
+                            <Finger />
+                          </TouchableOpacity>
+                          <Text>Scan Fingerprint to Login</Text>
+                        </View>
+                      ) : (
+                        <Text></Text>
+                      )}
+                      </>
+                    }
                   </View>
                 </View>
               </View>
