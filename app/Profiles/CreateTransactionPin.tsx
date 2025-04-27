@@ -5,51 +5,76 @@ import {
   Dimensions,
   TouchableOpacity,
   Pressable,
-  ActivityIndicator,
   Modal,
+  ActivityIndicator,
   KeyboardAvoidingView,
-  ScrollView,
-  Platform
+  Platform,
+  ScrollView
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import SixDigits from "@/components/SixDigits";
-import { SafeAreaView } from "react-native-safe-area-context";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 import FourDigits from "@/components/FourDigits";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import ShortBlueButton from "@/components/ShortBlueButton";
-import { Resetingpin } from "@/Store/Apis/ResetingPin";
+import SixDigits from "@/components/SixDigits";
+import { clearStatetransactionchange } from "@/Store/Reducers/TransactionChange";
+import { TransactionChange } from "@/Store/Apis/TransactionChange";
+import { AccountDetails } from "@/Store/Apis/AccountDetails";
+import { CreateTransactionPins } from "@/Store/Apis/CreateTransactionPin";
+import { clearStatecreatetransactionpin } from "@/Store/Reducers/CreateTransactionPin";
 
-const ResetPinConfirm = () => {
+const CreateTransactionPin = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
-  const [pin, setPin] = useState("");
-  const [confirmpin, setConfirmpin] = useState("");
-  const dispatch = useAppDispatch();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isVisible2, setIsVisible2] = useState<boolean>(false);
   const [show, setShow] = useState("");
+  const [isVisible3, setIsVisible3] = useState<boolean>(false);
+  const [show3, setShow3] = useState("");
+  const [isVisible4, setIsVisible4] = useState<boolean>(false);
+  const [pin, setPin] = useState("");
+  const dispatch = useAppDispatch();
+
+  const {
+    createtransactionpin,
+    authenticatingcreatetransactionpin,
+    errorscreatetransactionpin
+  } = useAppSelector((state) => state.createtransactionpin);
+
+  console.log(createtransactionpin);
+  console.log(errorscreatetransactionpin);
+
+  useEffect(() => {
+    dispatch(
+      AccountDetails({
+        router: router.push,
+        setIsVisible: setIsVisible3,
+        setShow: setShow3
+      })
+    );
+  }, []);
+
+  const { accountdetails, authenticatingaccountdetails, errorsaccountdetails } =
+    useAppSelector((state) => state.accountdetails);
+
+  useEffect(() => {
+    if (createtransactionpin?.status) {
+      router.push("/Profiles/CreateTransactionPinSuccess");
+    }
+    return () => {
+      dispatch(clearStatecreatetransactionpin());
+    };
+  }, [createtransactionpin?.status]);
+
   const onChangepin = (value: string) => {
     setPin(value);
   };
 
-  const onChangeconfirmpin = (value: string) => {
-    setConfirmpin(value);
-  };
-
-  const { resetingpin, authenticatingresetingpin, errorsresetingpin } =
-    useAppSelector((state) => state.resetingpin);
-  console.log(resetingpin, authenticatingresetingpin, "resetingpin");
-
-  useEffect(() => {
-    if (resetingpin?.status) {
-      router.push("/Profiles/ResetPinSuccess");
-    }
-  }, [resetingpin?.status]);
   return (
     <View className="flex-1 ">
       <StatusBar hidden={false} style="dark" />
@@ -89,20 +114,24 @@ const ResetPinConfirm = () => {
                         <Text>{item}</Text>
                       })}
                       </View> */}
-                  {errorsresetingpin?.error &&
-                    typeof errorsresetingpin?.error === "object" &&
-                    !Array.isArray(errorsresetingpin?.error) &&
-                    Object.keys(errorsresetingpin?.error).map((key, index) => (
-                      <Text key={index}>
-                        {key}:{" "}
-                        {Array.isArray(errorsresetingpin?.error[key])
-                          ? errorsresetingpin?.error[key].join(", ") // Handle arrays by joining the elements
-                          : errorsresetingpin?.error[key]}{" "}
+                  {createtransactionpin?.error &&
+                    typeof createtransactionpin?.error === "object" &&
+                    !Array.isArray(createtransactionpin?.error) &&
+                    Object.keys(createtransactionpin?.error).map(
+                      (key, index) => (
+                        <Text key={index}>
+                          {key}:{" "}
+                          {Array.isArray(createtransactionpin?.error[key])
+                            ? createtransactionpin?.error[key].join(", ") // Handle arrays by joining the elements
+                            : createtransactionpin?.error[key]}{" "}
+                        </Text>
+                      )
+                    )}
+                  {createtransactionpin?.error &&
+                    typeof createtransactionpin?.error !== "object" && (
+                      <Text className="mb-3">
+                        {createtransactionpin?.error}
                       </Text>
-                    ))}
-                  {errorsresetingpin?.error &&
-                    typeof errorsresetingpin?.error !== "object" && (
-                      <Text className="mb-3">{errorsresetingpin?.error}</Text>
                     )}
                   <ShortBlueButton
                     title="Close"
@@ -132,9 +161,7 @@ const ResetPinConfirm = () => {
                 }}
               >
                 <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
-                  <Text className="mb-3">
-                    Either of the two pin is not correct
-                  </Text>
+                  <Text className="mb-3">Pin is not up to required length</Text>
 
                   <ShortBlueButton
                     title="Close"
@@ -151,19 +178,17 @@ const ResetPinConfirm = () => {
               className="flex-1  justify-start gap-6"
             >
               <View className="flex-row justify-between items-center">
-                <TouchableOpacity
-                  onPress={() => router.push("/Profiles/ResetPin")}
-                >
+                <TouchableOpacity onPress={() => router.push("/Profile")}>
                   <Back />
                 </TouchableOpacity>
                 <Text className="text-[18px] text-textblack font-bold">
-                  Reset pin
+                  Create pincode
                 </Text>
                 <Text></Text>
               </View>
               <View className="flex-col items-start justify-center gap-2">
                 <Text className="text-textblack text-[16px] font-bold">
-                  Reset your pin for transaction
+                  create your pin for transaction
                 </Text>
               </View>
               <View
@@ -174,31 +199,19 @@ const ResetPinConfirm = () => {
                   className="text-textblack text-[12px]"
                   style={{ marginBottom: height * 0.01 }}
                 >
-                  Old pin.
+                  Enter pin
                 </Text>
-                {/* <FourDigits left/> */}
+                {/* <FourDigits
+              left
+              onChangeText={(value: string) => onChangepin(value)}
+            /> */}
                 <SixDigits
                   onChangeText={(value: string) => onChangepin(value)}
                 />
               </View>
-              <View
-                style={{ paddingLeft: width * 0.02 }}
-                className="flex-col items-start"
-              >
-                <Text
-                  className="text-textblack text-[12px]"
-                  style={{ marginBottom: height * 0.01 }}
-                >
-                  New pin.
-                </Text>
-                <SixDigits
-                  onChangeText={(value: string) => onChangeconfirmpin(value)}
-                />
-                {/* <FourDigits left/> */}
-              </View>
 
               <View className="items-center">
-                {authenticatingresetingpin ? (
+                {authenticatingcreatetransactionpin ? (
                   <View className="flex-row justify-center items-center">
                     <ActivityIndicator
                       color={"#105CE2"}
@@ -209,25 +222,20 @@ const ResetPinConfirm = () => {
                   <BlueSignInButton
                     title="Proceed"
                     onPress={() => {
-                      if (
-                        pin?.length === 6 &&
-                        confirmpin?.length === 6 &&
-                        confirmpin === pin
-                      ) {
+                      if (pin?.length === 6) {
                         dispatch(
-                          Resetingpin({
+                          CreateTransactionPins({
                             router: router.push,
                             setIsVisible: setIsVisible,
                             setShow: setShow,
-                            oldpin: pin,
-                            pin: confirmpin
+                            pin: pin
                           })
                         );
                       } else {
                         setIsVisible2(true);
                       }
                     }}
-                    // onPress={() => router.push("/Profiles/ResetPinSuccess")}
+                    // onPress={() => router.push("/Profiles/ChangePinSuccess")}
                   />
                 )}
               </View>
@@ -239,4 +247,4 @@ const ResetPinConfirm = () => {
   );
 };
 
-export default ResetPinConfirm;
+export default CreateTransactionPin;

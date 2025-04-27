@@ -49,7 +49,7 @@ const SignInPage = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [uuid, setUuid] = useState<string>("");
   const [navigated, setNavigated] = useState(false);
-  const { isAuthenticated, checkUser } = useAppContext();
+  // const { isAuthenticated, checkUser } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const { height, width } = useWindowDimensions();

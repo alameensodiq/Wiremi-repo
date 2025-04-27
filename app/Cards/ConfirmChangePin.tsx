@@ -35,7 +35,7 @@ import {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ backgroundColor: "#ffffff" }}
+        // style={{ backgroundColor: "#ffffff" }}
         className="flex-1"
       >
         <StatusBar hidden={false} style="dark" />

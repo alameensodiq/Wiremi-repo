@@ -30,7 +30,7 @@ import {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ backgroundColor: "#ffffff" }}
+        // style={{ backgroundColor: "#ffffff" }}
         className="flex-1"
       >
         <StatusBar hidden={false} style="dark" />
@@ -80,6 +80,17 @@ import {
                   <ChangePin />
                   <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
                   Change pin
+                  </Text>
+                </View>
+                <RightCarat />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => router.push("/Profiles/CreateTransactionPin")}>
+              <View className="flex-row items-center justify-between p-2">
+                <View className="flex-row gap-1 items-center">
+                  <ChangePin />
+                  <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+                  Create pin
                   </Text>
                 </View>
                 <RightCarat />

@@ -22,6 +22,8 @@ const Profiles = () => {
       <Stack.Screen name="TransactionHist" options={{ headerShown: false }} />
       <Stack.Screen name="Wallet" options={{ headerShown: false }} />
       <Stack.Screen name="TransactionPin" options={{ headerShown: false }} />
+      <Stack.Screen name="CreateTransactionPin" options={{ headerShown: false }} />
+      <Stack.Screen name="CreateTransactionPinSuccess" options={{ headerShown: false }} />
       <Stack.Screen
         name="TransactionChangepin"
         options={{ headerShown: false }}

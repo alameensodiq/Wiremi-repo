@@ -140,7 +140,9 @@ const SimulateSavings = () => {
     }
   ];
   return (
-    <ScrollView style={{ backgroundColor: "#ffffff" }} showsVerticalScrollIndicator={false} className="flex-1">
+    <ScrollView 
+    // style={{ backgroundColor: "#ffffff" }}
+     showsVerticalScrollIndicator={false} className="flex-1">
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{

@@ -34,7 +34,8 @@ const Expenses = () => {
   const series5 = [721, 100];
   const sliceColor5 = ["#024949", "#E9EBF3"];
   return (
-    <View style={{ backgroundColor: "#ffffff" }} className="flex-1">
+    <View // style={{ backgroundColor: "#ffffff" }} 
+    className="flex-1">
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{

@@ -20,6 +20,7 @@ import ShortBlueButton from "@/components/ShortBlueButton";
 import SixDigits from "@/components/SixDigits";
 import { clearStatetransactionchange } from "@/Store/Reducers/TransactionChange";
 import { TransactionChange } from "@/Store/Apis/TransactionChange";
+import { AccountDetails } from "@/Store/Apis/AccountDetails";
 
 const TransactionChangePin = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -28,6 +29,9 @@ const TransactionChangePin = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isVisible2, setIsVisible2] = useState<boolean>(false);
   const [show, setShow] = useState("");
+  const [isVisible3, setIsVisible3] = useState<boolean>(false);
+  const [show3, setShow3] = useState("");
+  const [isVisible4, setIsVisible4] = useState<boolean>(false);
   const [pin, setPin] = useState("");
   const [confirmpin, setConfirmpin] = useState("");
   const [confirmpin2, setConfirmpin2] = useState("");
@@ -40,6 +44,20 @@ const TransactionChangePin = () => {
   } = useAppSelector((state) => state.transactionchange);
 
   console.log(transactionchange);
+  console.log(errorstransactionchange);
+
+  useEffect(() => {
+    dispatch(
+      AccountDetails({
+        router: router.push,
+        setIsVisible: setIsVisible3,
+        setShow: setShow3
+      })
+    );
+  }, []);
+
+  const { accountdetails, authenticatingaccountdetails, errorsaccountdetails } =
+    useAppSelector((state) => state.accountdetails);
 
   useEffect(() => {
     if (transactionchange?.status) {
@@ -143,6 +161,32 @@ const TransactionChangePin = () => {
             </View>
           </Pressable>
         </Modal>
+        <Modal animationType="slide" transparent={true} visible={isVisible4}>
+          <Pressable
+            style={{
+              flex: 1,
+              backgroundColor: "#8080808C",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+            onPress={() => {
+              setIsVisible4(false);
+              // ref?.current?.close();
+            }}
+          >
+            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+              <Text className="mb-3">Transaction pin hasn't be created</Text>
+
+              <ShortBlueButton
+                title="Close"
+                onPress={() => {
+                  setIsVisible4(false);
+                  // ref?.current?.close();
+                }}
+              />
+            </View>
+          </Pressable>
+        </Modal>
         <View
           style={{ paddingHorizontal: 8 }}
           className="flex-1  justify-start gap-6"
@@ -223,24 +267,30 @@ const TransactionChangePin = () => {
               <BlueSignInButton
                 title="Proceed"
                 onPress={() => {
-                  if (
-                    pin?.length === 6 &&
-                    confirmpin?.length === 6 &&
-                    confirmpin2?.length === 6 &&
-                    confirmpin2 === confirmpin
-                  ) {
-                    dispatch(
-                      TransactionChange({
-                        router: router.push,
-                        setIsVisible: setIsVisible,
-                        setShow: setShow,
-                        oldpin: pin,
-                        pin: confirmpin
-                      })
-                    );
+                  if(accountdetails?.is_pin?.is_transaction_pin){
+                    if (
+                      pin?.length === 6 &&
+                      confirmpin?.length === 6 &&
+                      confirmpin2?.length === 6 &&
+                      confirmpin2 === confirmpin
+                    ) {
+                      dispatch(
+                        TransactionChange({
+                          router: router.push,
+                          setIsVisible: setIsVisible,
+                          setShow: setShow,
+                          oldpin: pin,
+                          pin: confirmpin
+                        })
+                      );
+                    } else {
+                      setIsVisible2(true);
+                    }
+
                   } else {
-                    setIsVisible2(true);
+                    setIsVisible4(true)
                   }
+                  
                 }}
                 // onPress={() => router.push("/Profiles/ChangePinSuccess")}
               />

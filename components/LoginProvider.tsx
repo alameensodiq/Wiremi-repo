@@ -2,17 +2,20 @@ import { AppContext } from "@/Context/AppContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Redirect } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   children: React.ReactNode;
 };
+
+type ThemeType = "light" | "dark";
 
 const LoginProvider: React.FC<Props> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | undefined>(
     undefined
   );
   const [loading, setLoading] = useState(false);
+  const [theme, setTheme] = useState<ThemeType>("light"); // default
 
   const checkUser = async () => {
     const user = await AsyncStorage.getItem("token");
@@ -34,14 +37,31 @@ const LoginProvider: React.FC<Props> = ({ children }) => {
       : await AsyncStorage.getItem("token");
 
     setTimeout(() => {
-    //   setIsAuthenticated(!isAuthenticated);
+      //   setIsAuthenticated(!isAuthenticated);
       setLoading(false);
     }, 3000);
   };
 
+  useEffect(() => {
+    const loadTheme = async () => {
+      const storedTheme = await AsyncStorage.getItem("theme");
+      if (storedTheme === "light" || storedTheme === "dark") {
+        setTheme(storedTheme);
+      }
+    };
+    loadTheme();
+  }, []);
+
   return (
     <AppContext.Provider
-      value={{ isAuthenticated, toggleIsAuthenticated, loading, checkUser }}
+      value={{
+        isAuthenticated,
+        toggleIsAuthenticated,
+        loading,
+        checkUser,
+        theme,
+        setTheme
+      }}
     >
       {children}
     </AppContext.Provider>

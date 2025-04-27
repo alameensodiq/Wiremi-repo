@@ -38,7 +38,8 @@ const VirtualCard = () => {
     return () => {};
   }, []);
   return (
-    <ScrollView style={{ backgroundColor: "#ffffff" }} className="flex-1">
+    <ScrollView // style={{ backgroundColor: "#ffffff" }} 
+    className="flex-1">
       <StatusBar hidden={true} style="dark" />
         {authenticatinggetcards && (
           <View

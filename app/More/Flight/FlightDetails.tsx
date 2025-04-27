@@ -26,7 +26,7 @@ const FlightDetails = () => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      className="flex-1 bg-white"
+      className="flex-1"
     >
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView

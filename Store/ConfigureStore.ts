@@ -50,6 +50,8 @@ import { GetAllPlansSlice } from './Reducers/GetAllPlans';
 import { UpgradingPlanSlice } from './Reducers/UpgradingPlan';
 import { ChangepinSlice } from './Reducers/Changepin';
 import { TransactionChangeSlice } from './Reducers/TransactionChange';
+import { CreateTransactionPinsSlice } from './Reducers/CreateTransactionPin';
+import { ResetingpinSlice } from './Reducers/ResetingPin';
 
 const store = configureStore({
   reducer: {
@@ -102,7 +104,9 @@ const store = configureStore({
     getallplans: GetAllPlansSlice?.reducer,
     upgradingplan: UpgradingPlanSlice?.reducer,
     changepin: ChangepinSlice?.reducer,
-    transactionchange: TransactionChangeSlice?.reducer
+    transactionchange: TransactionChangeSlice?.reducer,
+    createtransactionpin: CreateTransactionPinsSlice?.reducer,
+    resetingpin: ResetingpinSlice?.reducer
   },
 });
 

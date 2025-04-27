@@ -115,7 +115,7 @@ const RegularSavingsSummary = () => {
 
   return (
     <ScrollView
-      style={{ backgroundColor: "#ffffff" }}
+      // style={{ backgroundColor: "#ffffff" }}
       showsVerticalScrollIndicator={false}
       className="flex-1"
     >

@@ -99,7 +99,8 @@ const CryptoSend = () => {
     }
   ];
   return (
-    <View style={{ backgroundColor: "#ffffff" }} className="flex-1">
+    <View // style={{ backgroundColor: "#ffffff" }} 
+    className="flex-1">
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{

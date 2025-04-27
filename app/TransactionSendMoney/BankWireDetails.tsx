@@ -38,7 +38,8 @@ const BankWireDetails = () => {
     ref.current?.close();
   };
   return (
-    <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} style={{ backgroundColor: "#ffffff" }} className="flex-1">
+    <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} // style={{ backgroundColor: "#ffffff" }} 
+    className="flex-1">
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
