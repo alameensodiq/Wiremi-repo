@@ -165,7 +165,7 @@ const Profile = () => {
                   <RightDarkCarat />
                 </View>
               </Pressable>
-              <Pressable
+              {/* <Pressable
                 onPress={() => router.push("/Profiles/PaymentSettings")}
               >
                 <View className="flex-row justify-between items-center">
@@ -177,7 +177,7 @@ const Profile = () => {
                   </View>
                   <RightDarkCarat />
                 </View>
-              </Pressable>
+              </Pressable> */}
               <Pressable onPress={() => router.push("/Profiles/InviteFriend")}>
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
