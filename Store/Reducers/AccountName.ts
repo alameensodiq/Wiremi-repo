@@ -58,7 +58,7 @@ export const AccountNameSlice = createSlice({
 
 export const { clearStateaccountname } = AccountNameSlice.actions;
 
-export const AllnotificationSelector = (state: {
+export const AccountNameSelector = (state: {
   accountname: AccountNameState;
 }) => state.accountname;
 

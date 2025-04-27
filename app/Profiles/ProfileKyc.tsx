@@ -13,9 +13,11 @@ import { StatusBar } from "expo-status-bar";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import Copyname from "../../assets/copyname.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import TextLabelBox from "@/components/TextLabelBox";
 import SelectAndText from "@/components/SelectAndText";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { AccountDetails } from "@/Store/Apis/AccountDetails";
 
 type BottomSheetRef = {
   open: () => void;
@@ -27,12 +29,31 @@ const ProfileKyc = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [show, setShow] = useState("");
 
   const ref = useRef<BottomSheetRef>(null);
 
   const handleCloseModal = () => {
     ref.current?.close();
   };
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(
+      AccountDetails({
+        router: router.push,
+        setIsVisible: setIsVisible,
+        setShow: setShow
+      })
+    );
+  }, []);
+
+  const { accountdetails, authenticatingaccountdetails, errorsaccountdetails } =
+    useAppSelector((state) => state.accountdetails);
+
+  console.log(accountdetails);
   return (
     <View className="flex-1">
       <StatusBar hidden={false} style="dark" />
@@ -52,31 +73,47 @@ const ProfileKyc = () => {
           <Text></Text>
         </View>
         <View className="flex-1 relative  justify-start gap-2">
-            <View className="flex-row justify-start items-start pb-10">
-                <Text style={{color:'#413D43'}} className="text-[14px]">We need your basic information</Text>
-            </View>
-          <View>
-            <SelectAndText title="Where do you live?" />
+          <View className="flex-row justify-start items-start pb-10">
+            <Text style={{ color: "#413D43" }} className="text-[14px]">
+              We need your basic information
+            </Text>
           </View>
           <View>
-            <SelectAndText title="Phone number" />
+            <TextLabelBox
+              label="where do you live?"
+              placeholder={accountdetails?.user?.address?.street}
+              disabled
+            />
+            {/* <SelectAndText title={`${accountdetails?.address?.street}`} /> */}
+          </View>
+          <View>
+            <TextLabelBox
+              label="Phone Number"
+              placeholder={accountdetails?.user?.telephone}
+              disabled
+            />
+            {/* <SelectAndText title={accountdetails?.user?.first_name} /> */}
           </View>
           <View>
             <TextLabelBox
               label="First name"
-              placeholder="Enter your first name"
+              placeholder={accountdetails?.user?.first_name}
+              disabled
             />
           </View>
           <View>
             <TextLabelBox
               label="Last name"
-              placeholder="Enter your last name"
+              placeholder={accountdetails?.user?.last_name}
+              disabled
             />
           </View>
           <View className="pt-20">
             <BlueSignInButton
-              title="Send verification code"
-              onPress={() => router.push('/Profiles/ConfirmKycInfo')}
+              // title="Send verification code"
+               title="Proceed"
+              onPress={() => router.push("/Profiles/ProfileKycAddress")}
+              // onPress={() => router.push("/Profiles/ConfirmKycInfo")}
             />
           </View>
         </View>
