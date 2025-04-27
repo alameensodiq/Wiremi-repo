@@ -17,11 +17,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FourDigits from "@/components/FourDigits";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import ShortBlueButton from "@/components/ShortBlueButton";
-import { Changepin } from "@/Store/Apis/Changepin";
 import SixDigits from "@/components/SixDigits";
-import { clearStatechangepin } from "@/Store/Reducers/Changepin";
+import { clearStatetransactionchange } from "@/Store/Reducers/TransactionChange";
+import { TransactionChange } from "@/Store/Apis/TransactionChange";
 
-const ChangePin = () => {
+const TransactionChangePin = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -33,19 +33,22 @@ const ChangePin = () => {
   const [confirmpin2, setConfirmpin2] = useState("");
   const dispatch = useAppDispatch();
 
-  const { changepin, authenticatingchangepin, errorschangepin } =
-    useAppSelector((state) => state.changepin);
+  const {
+    transactionchange,
+    authenticatingtransactionchange,
+    errorstransactionchange
+  } = useAppSelector((state) => state.transactionchange);
 
-  console.log(changepin);
+  console.log(transactionchange);
 
   useEffect(() => {
-    if (changepin?.status) {
-      router.push("/Profiles/ChangePinSuccess");
+    if (transactionchange?.status) {
+      router.push("/Profiles/TransactionChangepinSuccess");
     }
     return () => {
-      dispatch(clearStatechangepin())
-    }
-  }, [changepin?.status]);
+      dispatch(clearStatetransactionchange());
+    };
+  }, [transactionchange?.status]);
 
   const onChangepin = (value: string) => {
     setPin(value);
@@ -89,20 +92,20 @@ const ChangePin = () => {
                         <Text>{item}</Text>
                       })}
                       </View> */}
-              {errorschangepin?.error &&
-                typeof errorschangepin?.error === "object" &&
-                !Array.isArray(errorschangepin?.error) &&
-                Object.keys(errorschangepin?.error).map((key, index) => (
+              {errorstransactionchange?.error &&
+                typeof transactionchange?.error === "object" &&
+                !Array.isArray(transactionchange?.error) &&
+                Object.keys(transactionchange?.error).map((key, index) => (
                   <Text key={index}>
                     {key}:{" "}
-                    {Array.isArray(errorschangepin?.error[key])
-                      ? errorschangepin?.error[key].join(", ") // Handle arrays by joining the elements
-                      : errorschangepin?.error[key]}{" "}
+                    {Array.isArray(transactionchange?.error[key])
+                      ? transactionchange?.error[key].join(", ") // Handle arrays by joining the elements
+                      : transactionchange?.error[key]}{" "}
                   </Text>
                 ))}
-              {errorschangepin?.error &&
-                typeof errorschangepin?.error !== "object" && (
-                  <Text className="mb-3">{errorschangepin?.error}</Text>
+              {transactionchange?.error &&
+                typeof transactionchange?.error !== "object" && (
+                  <Text className="mb-3">{transactionchange?.error}</Text>
                 )}
               <ShortBlueButton
                 title="Close"
@@ -155,7 +158,7 @@ const ChangePin = () => {
           </View>
           <View className="flex-col items-start justify-center gap-2">
             <Text className="text-textblack text-[16px] font-bold">
-              Reset your pin for transaction
+              change your pin for transaction
             </Text>
           </View>
           <View
@@ -166,7 +169,7 @@ const ChangePin = () => {
               className="text-textblack text-[12px]"
               style={{ marginBottom: height * 0.01 }}
             >
-              Old pincode
+              Old pin
             </Text>
             {/* <FourDigits
               left
@@ -182,7 +185,7 @@ const ChangePin = () => {
               className="text-textblack text-[12px]"
               style={{ marginBottom: height * 0.01 }}
             >
-              New pincode
+              New pin
             </Text>
             {/* <FourDigits
               left
@@ -200,7 +203,7 @@ const ChangePin = () => {
               className="text-textblack text-[12px]"
               style={{ marginBottom: height * 0.01 }}
             >
-              Confirm pincode.
+              Confirm pin
             </Text>
             <SixDigits
               onChangeText={(value: string) => onChangeconfirmpin2(value)}
@@ -209,7 +212,7 @@ const ChangePin = () => {
           </View>
 
           <View className="items-center">
-            {authenticatingchangepin ? (
+            {authenticatingtransactionchange ? (
               <View className="flex-row justify-center items-center">
                 <ActivityIndicator
                   color={"#105CE2"}
@@ -227,7 +230,7 @@ const ChangePin = () => {
                     confirmpin2 === confirmpin
                   ) {
                     dispatch(
-                      Changepin({
+                      TransactionChange({
                         router: router.push,
                         setIsVisible: setIsVisible,
                         setShow: setShow,
@@ -249,4 +252,4 @@ const ChangePin = () => {
   );
 };
 
-export default ChangePin;
+export default TransactionChangePin;

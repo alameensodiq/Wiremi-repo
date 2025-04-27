@@ -74,7 +74,7 @@ import {
                 <RightCarat />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push("/Profiles/ChangePin")}>
+            <TouchableOpacity onPress={() => router.push("/Profiles/TransactionChangepin")}>
               <View className="flex-row items-center justify-between p-2">
                 <View className="flex-row gap-1 items-center">
                   <ChangePin />

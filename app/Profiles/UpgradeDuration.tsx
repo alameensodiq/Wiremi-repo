@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Pressable,
-  ActivityIndicator
+  ActivityIndicator,
+  Modal
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
@@ -28,6 +29,8 @@ import { GetAllPlans } from "@/Store/Apis/GetAllPlans";
 import { clearStategetallplans } from "@/Store/Reducers/GetAllPlans";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AccountDetails } from "@/Store/Apis/AccountDetails";
+import { UpgradingPlan } from "@/Store/Apis/UpgradingPlan";
+import ShortBlueButton from "@/components/ShortBlueButton";
 
 type BottomSheetRef = {
   open: () => void;
@@ -43,7 +46,9 @@ const UpgradeDuration = () => {
   const [indexNumber, setIndexNumber] = useState<number>(0);
   const [selectedIndex, setIndex] = useState<number>(0);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible2, setIsVisible2] = useState<boolean>(false);
   const [show, setShow] = useState("");
+  const [show2, setShow2] = useState("");
   const router = useRouter();
   const { index } = useLocalSearchParams();
   console.log(index);
@@ -92,15 +97,32 @@ const UpgradeDuration = () => {
 
   console.log(accountdetails);
 
+  const { upgradingplan, authenticatingupgradingplan, errorsupgradingplan } =
+    useAppSelector((state) => state.upgradingplan);
+
+  console.log(upgradingplan);
+
+  console.log(errorsupgradingplan?.error);
 
   useEffect(() => {
-    setIndex(accountdetails?.subscription_plan)
+    if (getallplans?.data[indexNumber]?.subscription_plan) {
+      setIndex(accountdetails?.subscription_plan);
+    } else {
+      setIndex(100000)
+    }
+  }, [
+    accountdetails?.subscription_plan,
+    getallplans?.data[indexNumber]?.subscription_plan
+  ]);
 
-  },[accountdetails?.subscription_plan])
+  useEffect(() => {
+    if (upgradingplan?.status) {
+      router.push("/Profiles/UpgradeSuccess");
+    }
+  }, [upgradingplan?.status]);
 
-
-  console.log(selectedIndex)
-  console.log(accountdetails?.subscription_plan)
+  console.log(selectedIndex);
+  console.log(accountdetails?.subscription_plan);
   return (
     <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
       <StatusBar hidden={false} style="dark" />
@@ -120,6 +142,50 @@ const UpgradeDuration = () => {
             <ActivityIndicator size={200} color="#ffffff" />
           </View>
         )}
+        <Modal animationType="slide" transparent={true} visible={isVisible2}>
+          <Pressable
+            style={{
+              flex: 1,
+              backgroundColor: "#8080808C",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+            onPress={() => {
+              setIsVisible2(false);
+              // ref?.current?.close();
+            }}
+          >
+            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+              {/* <View className="flex-col">
+                      {errors?.error?.map((item: any) => {
+                        <Text>{item}</Text>
+                      })}
+                      </View> */}
+              {errorsupgradingplan?.error &&
+                typeof errorsupgradingplan?.error === "object" &&
+                !Array.isArray(errorsupgradingplan?.error) &&
+                Object.keys(errorsupgradingplan?.error).map((key, index) => (
+                  <Text key={index}>
+                    {key}:{" "}
+                    {Array.isArray(errorsupgradingplan?.error[key])
+                      ? errorsupgradingplan?.error[key].join(", ") // Handle arrays by joining the elements
+                      : errorsupgradingplan?.error[key]}{" "}
+                  </Text>
+                ))}
+              {errorsupgradingplan?.error &&
+                typeof errorsupgradingplan?.error !== "object" && (
+                  <Text className="mb-3">{errorsupgradingplan?.error}</Text>
+                )}
+              <ShortBlueButton
+                title="Close"
+                onPress={() => {
+                  setIsVisible2(false);
+                  // ref?.current?.close();
+                }}
+              />
+            </View>
+          </Pressable>
+        </Modal>
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Profile")}>
             <Back />
@@ -141,40 +207,42 @@ const UpgradeDuration = () => {
                 Wiremi {getallplans?.data[indexNumber]?.plan_name}
               </Text>
             </View>
-            {
-              accountdetails?.account_type === getallplans?.data[indexNumber]?.plan_name
-              ?
+            {accountdetails?.account_type ===
+            getallplans?.data[indexNumber]?.plan_name ? (
               <Pressable onPress={() => ref?.current?.open()}>
-              <View
-                className="flex-row justify-center items-center"
-                style={{
-                  width: width * 0.25,
-                  height: 40,
-                  borderColor: "#EBEBEB",
-                  borderWidth: 1
-                }}
-              >
-                <Text className="text-buttonprimary text-[16px]">{accountdetails?.subscription_plan} months</Text>
-                <Down />
-              </View>
-            </Pressable>
-              :
+                <View
+                  className="flex-row justify-center items-center"
+                  style={{
+                    width: width * 0.25,
+                    height: 40,
+                    borderColor: "#EBEBEB",
+                    borderWidth: 1
+                  }}
+                >
+                  <Text className="text-buttonprimary text-[16px]">
+                    {accountdetails?.subscription_plan} months
+                  </Text>
+                  <Down />
+                </View>
+              </Pressable>
+            ) : (
               <Pressable onPress={() => ref?.current?.open()}>
-              <View
-                className="flex-row justify-center items-center"
-                style={{
-                  width: width * 0.45,
-                  height: 40,
-                  borderColor: "#EBEBEB",
-                  borderWidth: 1
-                }}
-              >
-                <Text className="text-buttonprimary text-[16px]">Click to Upgrade Plan</Text>
-                <Down />
-              </View>
-            </Pressable>
-
-            }
+                <View
+                  className="flex-row justify-center items-center"
+                  style={{
+                    width: width * 0.45,
+                    height: 40,
+                    borderColor: "#EBEBEB",
+                    borderWidth: 1
+                  }}
+                >
+                  <Text className="text-buttonprimary text-[16px]">
+                    Click to Upgrade Plan
+                  </Text>
+                  <Down />
+                </View>
+              </Pressable>
+            )}
           </View>
           <View
             style={{
@@ -325,6 +393,15 @@ const UpgradeDuration = () => {
             <TouchableOpacity
               onPress={() => {
                 //   router.push("/TransactionSendMoney/DirectTransferDetails");
+                dispatch(
+                  UpgradingPlan({
+                    router: router.push,
+                    setIsVisible: setIsVisible2,
+                    setShow: setShow2,
+                    plan: 3,
+                    account_type: getallplans?.data[indexNumber]?.plan_name
+                  })
+                );
                 handleCloseModal();
               }}
             >
@@ -356,6 +433,15 @@ const UpgradeDuration = () => {
             <TouchableOpacity
               onPress={() => {
                 //   router.push("/TransactionSendMoney/DirectTransferDetails");
+                dispatch(
+                  UpgradingPlan({
+                    router: router.push,
+                    setIsVisible: setIsVisible2,
+                    setShow: setShow2,
+                    plan: 6,
+                    account_type: getallplans?.data[indexNumber]?.plan_name
+                  })
+                );
                 handleCloseModal();
               }}
             >
@@ -377,7 +463,7 @@ const UpgradeDuration = () => {
                   </Text>
                 </View>
                 <CheckBox
-                  checked={selectedIndex == 6 }
+                  checked={selectedIndex == 6}
                   onPress={() => setIndex(6)}
                   checkedIcon="dot-circle-o"
                   uncheckedIcon="circle-o"
@@ -387,6 +473,15 @@ const UpgradeDuration = () => {
             <TouchableOpacity
               onPress={() => {
                 //   router.push("/TransactionSendMoney/DirectTransferDetails");
+                dispatch(
+                  UpgradingPlan({
+                    router: router.push,
+                    setIsVisible: setIsVisible2,
+                    setShow: setShow2,
+                    plan: 12,
+                    account_type: getallplans?.data[indexNumber]?.plan_name
+                  })
+                );
                 handleCloseModal();
               }}
             >

@@ -14,7 +14,7 @@ import {
   import BlueSignInButton from "@/components/BlueSignInButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
   
-  const ChangePinSuccess = () => {
+  const TransactionChangePinSuccess = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
@@ -55,7 +55,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
                 </View>
                 <View className="flex-col justify-center items-center">
                   <Text className="text-forgotsuccesslight text-[13px]">
-                  Your login pincode has been changed  
+                  Your transaction pin has been changed  
                   </Text>
                   <Text className="text-forgotsuccesslight text-[13px]">
                   successfully. 
@@ -68,11 +68,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
                 className="items-center justify-center"
               >
                 <BlueSignInButton
-                  title="Back to Login"
+                  title="Back to Profile"
                   onPress={() => {
-                    AsyncStorage.removeItem("token");
-                    AsyncStorage.removeItem("Pin_code");
-                    router.push("/Auth/SignInPage")
+                    router.push("/Profiles")
                   }}
                 />
               </View>
@@ -83,5 +81,5 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
     );
   };
   
-  export default ChangePinSuccess;
+  export default TransactionChangePinSuccess;
   

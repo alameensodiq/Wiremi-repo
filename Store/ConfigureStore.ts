@@ -47,6 +47,9 @@ import { MobileWithdrawInstitutionSlice } from './Reducers/MobileWithdrawInstitu
 import { MobileWithdrawsSlice } from './Reducers/MobileWithdraws';
 import { AccountDetailsSlice } from './Reducers/AccountDetails';
 import { GetAllPlansSlice } from './Reducers/GetAllPlans';
+import { UpgradingPlanSlice } from './Reducers/UpgradingPlan';
+import { ChangepinSlice } from './Reducers/Changepin';
+import { TransactionChangeSlice } from './Reducers/TransactionChange';
 
 const store = configureStore({
   reducer: {
@@ -96,7 +99,10 @@ const store = configureStore({
     mobilewithdrawinstitution: MobileWithdrawInstitutionSlice?.reducer,
     mobilewithdraws: MobileWithdrawsSlice?.reducer,
     accountdetails: AccountDetailsSlice?.reducer,
-    getallplans: GetAllPlansSlice?.reducer
+    getallplans: GetAllPlansSlice?.reducer,
+    upgradingplan: UpgradingPlanSlice?.reducer,
+    changepin: ChangepinSlice?.reducer,
+    transactionchange: TransactionChangeSlice?.reducer
   },
 });
 

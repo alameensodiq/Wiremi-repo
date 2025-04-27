@@ -18,16 +18,19 @@ const Profiles = () => {
       <Stack.Screen name="PassportSuccess" options={{ headerShown: false }} />
       <Stack.Screen name="ResidencySuccess" options={{ headerShown: false }} />
       <Stack.Screen name="PaymentSettings" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="InviteFriend"
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="InviteFriend" options={{ headerShown: false }} />
       <Stack.Screen name="TransactionHist" options={{ headerShown: false }} />
       <Stack.Screen name="Wallet" options={{ headerShown: false }} />
+      <Stack.Screen name="TransactionPin" options={{ headerShown: false }} />
       <Stack.Screen
-        name="TransactionPin"
+        name="TransactionChangepin"
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="TransactionChangepinSuccess"
+        options={{ headerShown: false }}
+      />
+
       <Stack.Screen name="ResetPin" options={{ headerShown: false }} />
       <Stack.Screen name="ResetPinNumber" options={{ headerShown: false }} />
       <Stack.Screen name="ResetPinConfirm" options={{ headerShown: false }} />
@@ -35,14 +38,14 @@ const Profiles = () => {
       <Stack.Screen name="ChangePinSuccess" options={{ headerShown: false }} />
       <Stack.Screen name="ChangePin" options={{ headerShown: false }} />
       <Stack.Screen name="Biometric" options={{ headerShown: false }} />
-       <Stack.Screen name="Language" options={{ headerShown: false }} />
+      <Stack.Screen name="Language" options={{ headerShown: false }} />
       <Stack.Screen name="Theme" options={{ headerShown: false }} />
       <Stack.Screen name="About" options={{ headerShown: false }} />
       <Stack.Screen name="HelpSupport" options={{ headerShown: false }} />
       <Stack.Screen name="LiveChat" options={{ headerShown: false }} />
       <Stack.Screen name="Upgrade" options={{ headerShown: false }} />
       <Stack.Screen name="UpgradeDuration" options={{ headerShown: false }} />
-       <Stack.Screen name="UpgradeSuccess" options={{ headerShown: false }} />
+      <Stack.Screen name="UpgradeSuccess" options={{ headerShown: false }} />
     </Stack>
   );
 };

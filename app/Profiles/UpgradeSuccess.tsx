@@ -68,7 +68,7 @@ const UpgradeSuccess = () => {
             </View>
 
             <View
-              style={{ height: height * 0.2 }}
+              style={{ height: height * 0.13 }}
               className="items-center justify-center"
             >
               <BlueSignInButton
