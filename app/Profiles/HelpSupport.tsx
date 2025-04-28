@@ -106,7 +106,7 @@ const HelpSupport = () => {
           <Helpprofile />
           <Text className="text-[16px] text-buttonprimary">Chat with us</Text>
         </View>
-        <Pressable onPress={() => router.push("/Profiles/LiveChat")}>
+        {/* <Pressable onPress={() => router.push("/Profiles/LiveChat")}> */}
           <View className="flex-row items-center justify-between p-5">
             <View className="flex-col gap-1 items-start">
               <Text>Chat us for help</Text>
@@ -119,7 +119,7 @@ const HelpSupport = () => {
             </View>
             <RightCarat />
           </View>
-        </Pressable>
+        {/* </Pressable> */}
       </SafeAreaView>
     </View>
   );

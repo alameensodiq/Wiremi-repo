@@ -71,7 +71,7 @@ import {
               </View>
   
               <View
-                style={{ height: height * 0.2 }}
+                style={{ height: height * 0.11 }}
                 className="items-center justify-center"
               >
                 <BlueSignInButton

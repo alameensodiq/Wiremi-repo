@@ -29,12 +29,12 @@ import {
             style={{
               flex: 1,
               marginTop: statusBarHeight,
-              paddingTop: height * 0.02
+              paddingTop: height * 0.02,
             }}
           >
             <View className="flex-row justify-between items-center mb-1">
               <TouchableOpacity
-                onPress={() => router.push("/More/Agents/AgentFundWallet")}
+                onPress={() => router.push("/Profiles/DriverLicense")}
               >
                 <Back />
               </TouchableOpacity>
@@ -73,7 +73,7 @@ import {
               </View>
   
               <View
-                style={{ height: height * 0.2 }}
+                style={{ height: height * 0.10 }}
                 className="items-center justify-center"
               >
                 <BlueSignInButton
