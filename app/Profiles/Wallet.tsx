@@ -27,6 +27,8 @@ import { GetAllwallet } from "@/Store/Apis/GetAllwallet";
 import { CreateWallet } from "@/Store/Apis/CreateWallet";
 import ShortBlueButton from "@/components/ShortBlueButton";
 import { AccountDetails } from "@/Store/Apis/AccountDetails";
+import { clearStateaccountdetails } from "@/Store/Reducers/AccountDetails";
+import { clearStategetallwallets } from "@/Store/Reducers/GetAllwallet";
 
 type BottomSheetRef = {
   open: () => void;
@@ -70,6 +72,11 @@ const Wallet = () => {
       })
     );
     ref?.current?.close();
+
+    return () => {
+      dispatch(clearStateaccountdetails());
+      dispatch(clearStategetallwallets());
+    };
   }, []);
 
   const { getallwallets, authenticatinggetallwallets, errorsgetallwallets } =
