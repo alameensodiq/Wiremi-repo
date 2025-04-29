@@ -53,6 +53,8 @@ import { TransactionChangeSlice } from './Reducers/TransactionChange';
 import { CreateTransactionPinsSlice } from './Reducers/CreateTransactionPin';
 import { ResetingpinSlice } from './Reducers/ResetingPin';
 import { KycAddressSlice } from './Reducers/KycAddress';
+import { GetAllwalletSlice } from './Reducers/GetAllwallet';
+import { CreateWalletSlice } from './Reducers/CreateWallet';
 
 const store = configureStore({
   reducer: {
@@ -108,7 +110,9 @@ const store = configureStore({
     transactionchange: TransactionChangeSlice?.reducer,
     createtransactionpin: CreateTransactionPinsSlice?.reducer,
     resetingpin: ResetingpinSlice?.reducer,
-    kycaddress: KycAddressSlice?.reducer
+    kycaddress: KycAddressSlice?.reducer,
+    getallwallets: GetAllwalletSlice?.reducer,
+    createwallet: CreateWalletSlice?.reducer
   },
 });
 

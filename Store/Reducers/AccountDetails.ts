@@ -41,7 +41,7 @@ export const AccountDetailsSlice = createSlice({
       .addCase(
         AccountDetails.fulfilled,
         (state, action: PayloadAction<any>) => {
-          console.log("accountname.fulfilled payload:", action.payload);
+          console.log("accountdetails.fulfilled payload:", action.payload);
           state.authenticatingaccountdetails = false;
           state.authenticated = true;
           state.accountdetails = action.payload;
@@ -61,7 +61,7 @@ export const AccountDetailsSlice = createSlice({
 
 export const { clearStateaccountdetails } = AccountDetailsSlice.actions;
 
-export const AllnotificationSelector = (state: {
+export const AccountDetailsSelector = (state: {
   accountdetails: AccountDetailsState;
 }) => state.accountdetails;
 
