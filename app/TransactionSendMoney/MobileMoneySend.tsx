@@ -10,7 +10,8 @@ import {
   TextInput,
   ScrollView,
   ActivityIndicator,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Keyboard
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
@@ -185,6 +186,7 @@ const MobileMoneySend = () => {
     }
     if (summary?.receiver) {
       if (ref3) {
+         Keyboard.dismiss();
         ref3?.current?.open();
       }
     }

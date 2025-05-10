@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
-  ActivityIndicator
+  ActivityIndicator,
+  Keyboard
 } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -200,6 +201,7 @@ const RegularWithdraw = () => {
                 title="Accept and Continue"
                 onPress={() => {
                   handleCloseModal();
+                   Keyboard.dismiss();
                   ref2?.current?.open();
                   // router.push("/Save/RegularWithdrawSuccess");
                 }}

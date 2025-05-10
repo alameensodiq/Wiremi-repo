@@ -12,7 +12,8 @@ import {
   Modal,
   Pressable,
   ScrollView,
-  useWindowDimensions
+  useWindowDimensions,
+  Keyboard
 } from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -305,6 +306,7 @@ const SignInPage = () => {
 
   useEffect(() => {
     if (isVisible && ref?.current) {
+      Keyboard.dismiss();
       ref?.current?.open();
     }
   }, [isVisible, ref?.current]);

@@ -8,7 +8,8 @@ import {
   ScrollView,
   Modal,
   Pressable,
-  ActivityIndicator
+  ActivityIndicator,
+  Keyboard
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
@@ -58,6 +59,7 @@ const BankDepositDetails = () => {
 
   const handleOpen = () => {
     if (ref?.current) {
+       Keyboard.dismiss();
       ref?.current?.open();
     }
   };

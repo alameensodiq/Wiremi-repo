@@ -33,9 +33,9 @@ export const Login = createAsyncThunk<
         // account_id: "WI082400003",
         //         device_id:"30242e13-3f4e-42b6-a558-aae98cad4844",
         pin,
-        // account_id,
+        account_id,
         // device_id,
-            account_id:"WI082400121",
+            // account_id:"WI082400121",
         device_id:"B15C0D33-9C3C-4E39-8CBF-E2D307411DE7"
       },
       {

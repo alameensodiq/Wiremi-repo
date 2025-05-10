@@ -9,7 +9,8 @@ import {
   Pressable,
   ActivityIndicator,
   KeyboardAvoidingView,
-  ScrollView
+  ScrollView,
+  Alert
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
@@ -32,6 +33,7 @@ import SixDigits from "@/components/SixDigits";
 import SixDigitsPin from "@/components/SixDigitsPin";
 import { WiremiTransaction } from "@/Store/Apis/WiremiTransaction";
 import { clearStatesummary } from "@/Store/Reducers/Summary";
+// import { Camera, CameraView } from "expo-camera";
 
 type BottomSheetRef = {
   open: () => void;
@@ -53,6 +55,35 @@ const WiremiDetails = () => {
   const [show3, setShow3] = useState("");
   const ref = useRef<BottomSheetRef>(null);
   const [pin, setPin] = useState<string[]>(Array(6).fill(""));
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [scanned, setScanned] = useState(false);
+  const [scanning, setScanning] = useState(false);
+  const [scansend, setScansend] = useState(false);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status } = await BarCodeScanner.requestPermissionsAsync();
+  //     setHasPermission(status === "granted");
+  //   })();
+  // }, []);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+
+  const handleBarCodeScanned = ({ data }: { data: string }) => {
+    setScanned(true);
+    setScanning(false);
+    onChange("wiremiId", data); // set scanned wiremiId
+    ref?.current?.open(); // open the bottom sheet for PIN entry
+    setScansend(true);
+  };
+
+  if (hasPermission === null) return <Text>Requesting permission...</Text>;
+  if (!hasPermission) return <Text>No access to camera</Text>;
 
   const handleCloseModal = () => {
     ref.current?.close();
@@ -147,6 +178,28 @@ const WiremiDetails = () => {
     }
   }, [summary?.receiver, wiremidetails?.wiremiId, wiremidetails?.amount, pin]);
 
+  useEffect(() => {
+    if (
+      pin.join("").length === 6 &&
+      wiremidetails?.amount &&
+      wiremidetails?.wiremiId &&
+      scansend
+    ) {
+      ref?.current?.close();
+      dispatch(
+        WiremiTransaction({
+          amount: wiremidetails.amount,
+          recipient_account_number: wiremidetails.wiremiId,
+          pin: pin.join(""),
+          router: router.push,
+          setIsVisible: setIsVisible3,
+          setShow: setShow3
+        })
+      );
+      setScansend(false);
+    }
+  }, [pin, scansend]);
+
   const handlePinChange = (newPin: string) => {
     if (newPin === "backspace") {
       setPin((prevPin) => prevPin.slice(0, -1)); // Remove last character
@@ -183,8 +236,9 @@ const WiremiDetails = () => {
     }
   }, [wiremitransaction?.status]);
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
+    <View // style={{ backgroundColor: "#ffffff" }}
+      className="flex-1"
+    >
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
@@ -324,69 +378,176 @@ const WiremiDetails = () => {
               <Text className="text-[20px] text-pagetitle">Wiremi user</Text>
               <Text></Text>
             </View>
-            <View className="items-center justify-center">
-              <TransactionTextLabel
-                label="Amount"
-                placeholder="Enter amount 0.00"
-                onChangeText={(value: number) => onChange("amount", value)}
-              />
-            </View>
-            <View className="flex-col gap-2">
-              <View className="items-center justify-center">
-                <TextLabelBoxBarcode
-                  label="Wiremi ID"
-                  placeholder="Enter wiremi ID"
-                  onChangeText={(value: number) => onChange("wiremiId", value)}
-                />
-              </View>
-              <View className="justify-start">
-                <View
-                  style={{ paddingHorizontal: 10 }}
-                  className="flex-row items-start justify-end gap-2"
-                >
-                  <Ladypics />
-                  <Text className="text-buttonprimary">
-                    {summary?.receiver?.first_name}{" "}
-                    {summary?.receiver?.last_name}
-                  </Text>
+            <>
+                <View className="items-center justify-center">
+                  <TransactionTextLabel
+                    label="Amount"
+                    placeholder="Enter amount 0.00"
+                    onChangeText={(value: number) => onChange("amount", value)}
+                  />
                 </View>
-              </View>
-            </View>
-            <View className="items-center justify-center">
-              <TextLabelBox
-                label="Narration"
-                placeholder="Enter narration (optional)"
-                value={wiremidetails?.narration}
-                both
-                onChangeText={(value: any) => onChangenarration(value)}
-              />
-            </View>
-            {authenticatingwiremitransaction ? (
-              <View className="flex-row justify-center items-center">
-                <ActivityIndicator
-                  color={"#105CE2"}
-                  style={{ width: 30, height: 30 }}
-                />
-              </View>
+                <View className="flex-col gap-2">
+                  <View className="items-center justify-center">
+                    <TextLabelBoxBarcode
+                      label="Wiremi ID"
+                      placeholder="Enter wiremi ID"
+                      onPress={() => {
+                        if (
+                          !wiremidetails?.amount ||
+                          isNaN(Number(wiremidetails.amount))
+                        ) {
+                          Alert.alert(
+                            "Invalid amount",
+                            "Please enter a valid number."
+                          );
+                        } else {
+                          setScanned(false);
+                          setScanning(true); // open scanner
+                        }
+                      }}
+                      onChangeText={(value: number) =>
+                        onChange("wiremiId", value)
+                      }
+                    />
+                  </View>
+                  <View className="justify-start">
+                    <View
+                      style={{ paddingHorizontal: 10 }}
+                      className="flex-row items-start justify-end gap-2"
+                    >
+                      <Ladypics />
+                      <Text className="text-buttonprimary">
+                        {summary?.receiver?.first_name}{" "}
+                        {summary?.receiver?.last_name}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <View className="items-center justify-center">
+                  <TextLabelBox
+                    label="Narration"
+                    placeholder="Enter narration (optional)"
+                    value={wiremidetails?.narration}
+                    both
+                    onChangeText={(value: any) => onChangenarration(value)}
+                  />
+                </View>
+                {authenticatingwiremitransaction ? (
+                  <View className="flex-row justify-center items-center">
+                    <ActivityIndicator
+                      color={"#105CE2"}
+                      style={{ width: 30, height: 30 }}
+                    />
+                  </View>
+                ) : (
+                  <View
+                    style={{ height: height * 0.1 }}
+                    className="items-center justify-center"
+                  >
+                    <BlueSignInButton
+                      title="Proceed"
+                      // onPress={() => router.push("/TransactionSendMoney/WiremiSummary")}
+                      onPress={() => {
+                        if (!wiremidetails?.amount) {
+                          setIsVisible2(true);
+                          setShow2("Input Amount to Proceed");
+                          return;
+                        }
+                        ref?.current?.open();
+                      }}
+                    />
+                  </View>
+                )}
+              </>
+            {/* {!scanning ? (
+              <>
+                <View className="items-center justify-center">
+                  <TransactionTextLabel
+                    label="Amount"
+                    placeholder="Enter amount 0.00"
+                    onChangeText={(value: number) => onChange("amount", value)}
+                  />
+                </View>
+                <View className="flex-col gap-2">
+                  <View className="items-center justify-center">
+                    <TextLabelBoxBarcode
+                      label="Wiremi ID"
+                      placeholder="Enter wiremi ID"
+                      onPress={() => {
+                        if (
+                          !wiremidetails?.amount ||
+                          isNaN(Number(wiremidetails.amount))
+                        ) {
+                          Alert.alert(
+                            "Invalid amount",
+                            "Please enter a valid number."
+                          );
+                        } else {
+                          setScanned(false);
+                          setScanning(true); // open scanner
+                        }
+                      }}
+                      onChangeText={(value: number) =>
+                        onChange("wiremiId", value)
+                      }
+                    />
+                  </View>
+                  <View className="justify-start">
+                    <View
+                      style={{ paddingHorizontal: 10 }}
+                      className="flex-row items-start justify-end gap-2"
+                    >
+                      <Ladypics />
+                      <Text className="text-buttonprimary">
+                        {summary?.receiver?.first_name}{" "}
+                        {summary?.receiver?.last_name}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <View className="items-center justify-center">
+                  <TextLabelBox
+                    label="Narration"
+                    placeholder="Enter narration (optional)"
+                    value={wiremidetails?.narration}
+                    both
+                    onChangeText={(value: any) => onChangenarration(value)}
+                  />
+                </View>
+                {authenticatingwiremitransaction ? (
+                  <View className="flex-row justify-center items-center">
+                    <ActivityIndicator
+                      color={"#105CE2"}
+                      style={{ width: 30, height: 30 }}
+                    />
+                  </View>
+                ) : (
+                  <View
+                    style={{ height: height * 0.1 }}
+                    className="items-center justify-center"
+                  >
+                    <BlueSignInButton
+                      title="Proceed"
+                      // onPress={() => router.push("/TransactionSendMoney/WiremiSummary")}
+                      onPress={() => {
+                        if (!wiremidetails?.amount) {
+                          setIsVisible2(true);
+                          setShow2("Input Amount to Proceed");
+                          return;
+                        }
+                        ref?.current?.open();
+                      }}
+                    />
+                  </View>
+                )}
+              </>
+              
             ) : (
-              <View
-                style={{ height: height * 0.1 }}
-                className="items-center justify-center"
-              >
-                <BlueSignInButton
-                  title="Proceed"
-                  // onPress={() => router.push("/TransactionSendMoney/WiremiSummary")}
-                  onPress={() => {
-                    if (!wiremidetails?.amount) {
-                      setIsVisible2(true);
-                      setShow2("Input Amount to Proceed");
-                      return;
-                    }
-                    ref?.current?.open();
-                  }}
-                />
-              </View>
-            )}
+              <CameraView
+                style={{ flex: 1 }}
+                onBarcodeScanned={handleBarCodeScanned}
+              />
+            )} */}
 
             <BottomSheet height={580} ref={ref}>
               <View>

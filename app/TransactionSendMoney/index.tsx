@@ -5,7 +5,7 @@ import {
   Dimensions,
   TouchableOpacity
 } from "react-native";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
@@ -29,6 +29,8 @@ import Paypalpayment from "../../assets/paypalpayment.svg";
 import Mobilemoneypayment from "../../assets/mobilepayment.svg";
 import BankPayment from "../../assets/bankpayment.svg";
 import CardPayment from "../../assets/cardpayment.svg";
+import { Mainwallet } from "@/Store/Apis/Mainwallet";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 
 type BottomSheetRef = {
   open: () => void;
@@ -40,6 +42,7 @@ const ListSendMoney = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [selectedIndex, setIndex] = React.useState<number>(0);
   const ref = useRef<BottomSheetRef>(null);
   const ref2 = useRef<BottomSheetRef>(null);
@@ -57,9 +60,29 @@ const ListSendMoney = () => {
     ref3.current?.close();
   };
 
+  const formatNumberWithCommas = (number: any) => {
+    if (number == null) return "0"; // Handle null or undefined
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  useEffect(() => {
+    dispatch(Mainwallet());
+  }, []);
+
+  const { mainwallet, authenticatingmainwallet } = useAppSelector(
+    (state) => state.mainwallet
+  );
+  console.log(
+    mainwallet,
+    authenticatingmainwallet,
+    mainwallet?.user?.profile_image,
+    "mainwallet"
+  );
+
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
+    <View // style={{ backgroundColor: "#ffffff" }}
+      className="flex-1"
+    >
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
@@ -248,7 +271,8 @@ const ListSendMoney = () => {
               </View>
               <View className="flex flex-row gap-2 items-center">
                 <Text className="text-[rgba(10, 10, 10, 1)]  text-[16px] font-bold">
-                  $23,400
+                  {mainwallet?.symbol}
+                  {formatNumberWithCommas(mainwallet?.balance)}
                 </Text>
                 <Downcarat />
               </View>
@@ -343,11 +367,9 @@ const ListSendMoney = () => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() =>
-                {
-                  router.push("/More/Withdraw")
-                }
-                }
+                onPress={() => {
+                  router.push("/More/Withdraw");
+                }}
               >
                 <View
                   style={{
@@ -622,13 +644,17 @@ const ListSendMoney = () => {
                       }}
                       className="justify-center items-center"
                     >
-                      <SendMoneyWiremi/>
+                      <SendMoneyWiremi />
                     </View>
-                    <Text style={{ color: "rgba(65, 61, 67, 1)", fontSize: 16 }}>
+                    <Text
+                      style={{ color: "rgba(65, 61, 67, 1)", fontSize: 16 }}
+                    >
                       Wiremi wallet
                     </Text>
                   </View>
-                  <Text className="text-['rgba(153, 153, 153, 1)'] text-[14px]">$ 99,923,923,400</Text>
+                  <Text className="text-['rgba(153, 153, 153, 1)'] text-[14px]">
+                    $ 99,923,923,400
+                  </Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity

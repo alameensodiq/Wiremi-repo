@@ -10,7 +10,8 @@ import {
   TextInput,
   ScrollView,
   ActivityIndicator,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Keyboard
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
@@ -177,6 +178,7 @@ const DirectTransferDetails = () => {
     }
     if (summary?.receiver) {
       if (ref3) {
+         Keyboard.dismiss();
         ref3?.current?.open();
       }
     }
@@ -656,7 +658,6 @@ const DirectTransferDetails = () => {
                 />
               </View>
             )}
-
             <BottomSheet height={650} ref={ref}>
               <View style={{ padding: 20, gap: 30, paddingBottom: 50 }}>
                 {/* <Text>Bottom Sheet Content</Text>

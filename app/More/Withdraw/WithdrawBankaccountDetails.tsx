@@ -9,7 +9,8 @@ import {
   FlatList,
   Pressable,
   Modal,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Keyboard
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -181,6 +182,7 @@ const WithdrawBankaccountDetails = () => {
     }
     if (summary?.receiver) {
       if (ref3) {
+         Keyboard.dismiss();
         ref3?.current?.open();
       }
     }

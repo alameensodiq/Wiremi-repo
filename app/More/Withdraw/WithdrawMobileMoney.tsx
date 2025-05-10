@@ -11,7 +11,8 @@ import {
   TextInput,
   Modal,
   Pressable,
-  ActivityIndicator
+  ActivityIndicator,
+  Keyboard
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
@@ -198,6 +199,7 @@ const WithdrawMobileMoney = () => {
     }
     if (summary?.receiver) {
       if (ref3) {
+         Keyboard.dismiss();
         ref3?.current?.open();
       }
     }

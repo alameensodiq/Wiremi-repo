@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   Pressable
 } from "react-native";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import Notification from "../../assets/notification.svg";
 import Barcode from "../../assets/barcode.svg";
@@ -16,8 +16,11 @@ import pics from "../../assets/pics.png";
 import USD from "../../assets/usa.svg";
 import Downcarat from "../../assets/downcarat.svg";
 import Dashboardeye from "../../assets/dashboardeye.svg";
+import Cancel from "../../assets/cancel.svg";
 import Save from "../../assets/save.svg";
 import Loan from "../../assets/loan.svg";
+import SelectPlanWarning from "../../assets/selectplanwarning.svg";
+import SelectMark from "../../assets/selectmark.svg";
 import Invest from "../../assets/invest.svg";
 import More from "../../assets/more.svg";
 import Sendheader from "../../assets/sendheading.svg";
@@ -41,16 +44,42 @@ import { clearStatesavedashboard } from "@/Store/Reducers/SavingDashboard";
 import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
 import { clearStategetcard } from "@/Store/Reducers/GetCard";
 import { ScrollView } from "react-native";
+import { BottomSheet } from "@/components/Bottom";
+import { AccountDetails } from "@/Store/Apis/AccountDetails";
+import ShortBlueButton from "@/components/ShortBlueButton";
+import ShortWhiteButton from "@/components/ShortWhiteButton";
+import Copy from "../../assets/copy.svg";
+import QRCode from "react-native-qrcode-svg";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+type BottomSheetRef = {
+  open: () => void;
+  close: () => void;
+  // Add any other methods you expect from the BottomSheet component
+};
 
 const Dashboard = () => {
   const { height, width } = Dimensions.get("window");
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const [loader, setLoader] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [show2, setShow2] = useState("");
   const [shownumber, setShownumber] = useState<boolean>(false);
   const [greeting, setGreeting] = useState<string>("");
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [wiremiId, setWiremiId] = useState<string>("");
+  const ref = useRef<BottomSheetRef>(null);
+  const ref2 = useRef<BottomSheetRef>(null);
+
+  const handleCloseModal = () => {
+    ref.current?.close();
+  };
+
+  const handleCloseModal2 = () => {
+    ref2.current?.close();
+  };
   const { usertransactions, authenticatingusertransactions } = useAppSelector(
     (state) => state.usertransactions
   );
@@ -162,9 +191,31 @@ const Dashboard = () => {
       .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Add commas
   };
 
+  const { accountdetails, authenticatingaccountdetails, errorsaccountdetails } =
+    useAppSelector((state) => state.accountdetails);
+
+  console.log(accountdetails);
+
   useEffect(() => {
     dispatch(UserTransactions({ router: router.push }));
     dispatch(Mainwallet());
+    dispatch(
+      AccountDetails({
+        router: router.push,
+        setIsVisible: setIsVisible,
+        setShow: setShow
+      })
+    );
+    const fetchStoredData = async () => {
+      try {
+        const wiremiIds = await AsyncStorage.getItem("Wiremi_Id");
+        console.log(wiremiIds);
+        if (wiremiIds) setWiremiId(wiremiIds);
+      } catch (error) {
+        console.error("Error fetching data from AsyncStorage:", error);
+      }
+    };
+    fetchStoredData();
     dispatch(clearStatelogin());
     dispatch(clearStategetcard());
     const now = new Date();
@@ -177,6 +228,9 @@ const Dashboard = () => {
     } else {
       setGreeting("Good Evening");
     }
+    if (!accountdetails?.user?.is_kyc) {
+      ref?.current?.open();
+    }
     return () => {
       dispatch(clearStatemainwallet());
       dispatch(clearStateusertransactions());
@@ -185,13 +239,32 @@ const Dashboard = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (accountdetails?.user?.is_kyc === undefined) return;
+
+    if (!accountdetails?.user?.is_kyc) {
+      ref?.current?.open();
+    }
+    if (accountdetails?.user?.is_kyc) {
+      ref?.current?.close();
+    }
+  }, [accountdetails?.user?.is_kyc]);
+
   // useEffect(() => {
-  //   if (usertransactions && mainwallet?.user) {
-  //     setTimeout(() => {
-  //       setLoader(true);
-  //     }, 2000);
-  //   }
-  // }, [usertransactions, mainwallet?.user]);
+  //   if (!accountdetails?.user) return; // Wait for accountdetails to be populated
+
+  //   const timeout = setTimeout(() => {
+  //     if (ref.current) {
+  //       if (accountdetails.user.is_kyc) {
+  //         ref?.current.open?.(); // Optional chaining
+  //       } else {
+  //         ref.current.close?.();
+  //       }
+  //     }
+  //   }, 300); // Slight delay to ensure BottomSheet is mounted
+
+  //   return () => clearTimeout(timeout); // Cleanup
+  // }, [accountdetails?.user?.is_kyc]);
 
   return (
     <View className="flex-1 bg-buttonprimary">
@@ -248,7 +321,15 @@ const Dashboard = () => {
                 </View>
               </View>
               <View className="flex-row gap-2 items-center">
-                <Barcode />
+                <TouchableOpacity
+                  onPress={() => {
+                    console.log("pressed"); // Make sure this shows in console
+                    ref2.current?.open(); // Or .expand() depending on your library
+                  }}
+                >
+                  <Barcode />
+                </TouchableOpacity>
+
                 <TouchableOpacity onPress={() => router.push("/Notification")}>
                   <Notification />
                 </TouchableOpacity>
@@ -523,6 +604,87 @@ const Dashboard = () => {
               />
             </View>
           </View>
+          <BottomSheet height={460} ref={ref}>
+            <View className="flex-col justify-center  gap-2 pt-4">
+              <View className="flex-row justify-end items-center pr-2">
+                <Pressable onPress={() => handleCloseModal()}>
+                  <Cancel />
+                </Pressable>
+              </View>
+              <View className="flex-col gap-2 items-center justify-center">
+                <SelectPlanWarning />
+                <Text
+                  style={{ color: "#105CE2", fontSize: 14, fontWeight: 600 }}
+                >
+                  Action Required!
+                </Text>
+              </View>
+              <View className="flex-col items-start gap-2 pl-2">
+                <Text className="text-[#606162] text-[12px]">
+                  Welcome to Wiremi 2.0!
+                </Text>
+                <Text className="text-[#606162] text-[12px]">
+                  Enjoy three (3) months of freemium access to start!
+                </Text>
+              </View>
+              <View className="flex-col items-start gap-2">
+                <View className="flex-row justify-start gap-2 items-center">
+                  <SelectMark />
+                  <Text className="text-[12px] text-[#414142]">
+                    <Text className="text-[12px] text-[#242329]">
+                      Choose your plan
+                    </Text>
+                    - Select the plan that fits your needs
+                  </Text>
+                </View>
+                <View className="flex-row justify-start gap-2 items-center">
+                  <SelectMark />
+                  <Text className="text-[12px] text-[#414142]">
+                    <Text className="text-[12px] text-[#242329]">
+                      Complete KYC
+                    </Text>
+                    - Verify your identity for security
+                  </Text>
+                </View>
+              </View>
+              <View className="items-center justify-between flex-row p-4">
+                <ShortBlueButton
+                  title="Select Plan"
+                  color1
+                  onPress={() => router.push("/Profiles/Upgrade")}
+                />
+                <ShortWhiteButton
+                  title="Verify Now"
+                  onPress={() => router.push("/Profiles/ProfileKyc")}
+                />
+              </View>
+            </View>
+          </BottomSheet>
+          <BottomSheet height={480} ref={ref2}>
+            <View className="flex-col justify-center  gap-2 pt-4">
+              <View className="flex-row justify-end items-center pr-2">
+                <Pressable onPress={() => handleCloseModal2()}>
+                  <Cancel />
+                </Pressable>
+              </View>
+              <View className="flex-row justify-center items-center">
+                <Text className="text-[#2A94F4] text-[15px]">Scan QR code</Text>
+              </View>
+              {/* <View className="flex-row justify-center items-center gap-2">
+                <Text className="text-buttonprimary text-[14px]">
+                  {wiremiId}
+                </Text>
+                <Copy />
+              </View> */}
+              <View className="flex-row justify-center items-center gap-2">
+                <Text className="text-[#413D43] text-[12px] text-center">
+                  Here you is your unique QR code for another user to scan and
+                  make payments to your wiremiaccount.
+                </Text>
+              </View>
+              {/* <QRCode value={wiremiId} size={200} /> */}
+            </View>
+          </BottomSheet>
         </ScrollView>
       </SafeAreaView>
     </View>

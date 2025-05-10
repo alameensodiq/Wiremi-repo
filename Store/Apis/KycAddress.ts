@@ -26,7 +26,19 @@ export const KycAddress = createAsyncThunk<
   { rejectValue: { error: string; status?: number; details?: any } }
 >(
   "kycaddress",
-  async ({ address, postalCode, country, city, state }, thunkAPI) => {
+  async (
+    {
+      address,
+      postalCode,
+      country,
+      city,
+      state,
+      router,
+      setIsVisible,
+      setShow
+    },
+    thunkAPI
+  ) => {
     const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
     const accessToken = await AsyncStorage.getItem("token");
     // const accessToken = sessionStorage.getItem("token");
@@ -40,8 +52,8 @@ export const KycAddress = createAsyncThunk<
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
+            Authorization: `Bearer ${accessToken}`
+          }
         }
       );
 
@@ -54,13 +66,36 @@ export const KycAddress = createAsyncThunk<
       //       status: response.status,
       //     });
       //   }
-
       return response.data;
     } catch (e: any) {
-      // console.log(e.message, "account error");
-      return thunkAPI.rejectWithValue({
-        error: e.message || "Failed to connect to the server.",
-      });
+      setIsVisible(true);
+      console.log(e, "error Creatings");
+      if (e.response) {
+        const { data, status } = e.response;
+        // console.error("Error response data:", data);
+
+        // Show error message if available
+        setShow(data.message || "An error occurred.");
+
+        if (status === 401) {
+          setIsVisible(false);
+          await AsyncStorage.removeItem("token");
+          router("/Auth/SignInPage");
+        }
+
+        // Return error details for further processing
+        return thunkAPI.rejectWithValue({
+          error: data.message || "Failed to process the request.",
+          details: data
+        });
+      } else {
+        // Handle network or unexpected errors
+        console.error("Unexpected error:", e);
+        setShow(e.message || "An unexpected error occurred.");
+        return thunkAPI.rejectWithValue({
+          error: e.message || "Failed to connect to the server."
+        });
+      }
     }
   }
 );

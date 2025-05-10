@@ -1,19 +1,22 @@
 import { View, Text, TextInput, Dimensions } from "react-native";
 import React from "react";
 import TextBarcode from "../assets/textbarcode.svg";
+import { Pressable } from "react-native-gesture-handler";
 
 interface TextLabelBoxProps {
   label: string;
   placeholder: string;
   onChangeText?: (text: any) => void;
   value?: string;
+  onPress?: () => void;
 }
 
 const TextLabelBoxBarcode = ({
   label,
   placeholder,
   onChangeText,
-  value
+  value,
+  onPress
 }: TextLabelBoxProps) => {
   const { height, width } = Dimensions.get("window");
   const handleChangeText = (text: string) => {
@@ -40,7 +43,9 @@ const TextLabelBoxBarcode = ({
         onChangeText={handleChangeText}
       />
       <View className="absolute top-10 right-2">
-        <TextBarcode />
+        {/* <Pressable onPress={onPress}> */}
+          <TextBarcode />
+        {/* </Pressable> */}
       </View>
     </View>
   );

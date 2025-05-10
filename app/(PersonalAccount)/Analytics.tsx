@@ -69,7 +69,7 @@ const Analytics = () => {
               >
                 <Pressable
                   onPress={() => {
-                    router.push("/Analytic/SetBudget");
+                    router.push("/Analytic");
                     setIsVisible(!isVisible);
                   }}
                 >
