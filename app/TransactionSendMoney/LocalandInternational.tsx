@@ -144,7 +144,7 @@ const LocalandInternational = () => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => ref2.current?.open()}>
+        {/* <TouchableOpacity onPress={() => ref2.current?.open()}>
           <View
             style={{
               paddingHorizontal: width * 0.03
@@ -176,7 +176,7 @@ const LocalandInternational = () => {
               <Rightcarat />
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         {/* <BottomSheetModal
           ref={bottomSheetModalRef}
@@ -232,7 +232,7 @@ const LocalandInternational = () => {
                   </Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => {
                   router.push("/TransactionSendMoney/BankWireDetails");
                   handleCloseModal();
@@ -254,7 +254,7 @@ const LocalandInternational = () => {
                     Bank Wire
                   </Text>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
         </BottomSheet>
@@ -401,7 +401,7 @@ const LocalandInternational = () => {
                   </Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => {
                   router.push("/TransactionSendMoney/BankWireDetailsSchedule");
                   handleCloseModal3();
@@ -423,7 +423,7 @@ const LocalandInternational = () => {
                     Bank Wire
                   </Text>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
         </BottomSheet>

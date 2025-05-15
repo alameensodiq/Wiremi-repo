@@ -224,7 +224,7 @@ const RegularSavingsSummary = () => {
           </View>
         )}
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/Save/SaveDashboard")}>
+          <TouchableOpacity onPress={() => router.push("/Save")}>
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">
@@ -388,7 +388,7 @@ const RegularSavingsSummary = () => {
                     Expected amount
                   </Text>
                   <Text style={{ color: "#292D32" }} className="text-[14px]">
-                    {/* {getsaving?.data?.symbol}{getsaving?.data?.amount_saved} */}
+                    {getsaving?.data?.symbol}{getsaving?.data?.total_amount}
                   </Text>
                 </View>
                 <View

@@ -46,7 +46,6 @@ const ListofDeposits = () => {
           <Text></Text>
         </View>
         <TouchableOpacity
-          // onPress={() => router.push("/TransactionDeposit/CardDeposits")}
           onPress={() => router.push('/TransactionDeposit/CardDepositDetails')}
         >
           <View
@@ -82,7 +81,7 @@ const ListofDeposits = () => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => router.push("/TransactionDeposit/InteracDetails")}
         >
           <View
@@ -116,7 +115,7 @@ const ListofDeposits = () => {
               <Rightcarat />
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           onPress={() => router.push("/TransactionDeposit/Banks")}
         >
@@ -145,7 +144,7 @@ const ListofDeposits = () => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => router.push("/TransactionDeposit/Ewallets")}
         >
           <View
@@ -174,7 +173,7 @@ const ListofDeposits = () => {
               <Rightcarat />
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           onPress={() => router.push("/TransactionDeposit/MobileMoney")}
         >
@@ -205,7 +204,7 @@ const ListofDeposits = () => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => router.push("/TransactionDeposit/RequestDetails")}
         >
           <View
@@ -234,7 +233,7 @@ const ListofDeposits = () => {
               <Rightcarat />
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </SafeAreaView>
     </View>
   );

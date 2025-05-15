@@ -397,8 +397,9 @@ const RecurrentSavings = () => {
                     isNumber(parsedEmergencyFundPercentage) &&
                     isNumber(parsedPenaltyPercentage) &&
                     status &&
-                    saving_type &&
-                    schedule
+                    saving_type 
+                    // &&
+                    // schedule
                   ) {
                     if (parsedEmergencyFundPercentage > 7) {
                       setIsVisible(true);

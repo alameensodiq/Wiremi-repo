@@ -29,6 +29,7 @@ import frame3 from "../../assets/frame3.png";
 import { Image } from "expo-image";
 import { UserTransactions } from "@/Store/Apis/UserTransactions";
 import { clearStateusertransactions } from "@/Store/Reducers/UserTransactions";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -38,6 +39,7 @@ type BottomSheetRef = {
 
 const TransactionList = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
+  const { theme } = useAppContext();
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const ref = useRef<BottomSheetRef>(null);
@@ -103,9 +105,9 @@ const TransactionList = () => {
     if (isNaN(num)) return "0.00"; // Handle invalid values
 
     return num
-        .toFixed(2) // Ensure two decimal places
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Add commas
-};
+      .toFixed(2) // Ensure two decimal places
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Add commas
+  };
 
   const DATA = usertransactions?.length
     ? usertransactions?.map((item: any) => ({
@@ -130,9 +132,10 @@ const TransactionList = () => {
     };
   }, []);
   return (
-    <View 
-    // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
+    <View
+      // style={{ backgroundColor: "#ffffff" }}
+      className="flex-1"
+    >
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
@@ -154,7 +157,15 @@ const TransactionList = () => {
           <TouchableOpacity onPress={() => router.push("/(PersonalAccount)")}>
             <Back />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Transactions</Text>
+          <Text
+            className={` ${
+              theme === "dark"
+                ? "text-[#ffffff] text-[20px]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Transactions
+          </Text>
           <Text></Text>
         </View>
         <View className="flex-row">

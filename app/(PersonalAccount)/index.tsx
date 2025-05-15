@@ -51,6 +51,7 @@ import ShortWhiteButton from "@/components/ShortWhiteButton";
 import Copy from "../../assets/copy.svg";
 import QRCode from "react-native-qrcode-svg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -60,6 +61,7 @@ type BottomSheetRef = {
 
 const Dashboard = () => {
   const { height, width } = Dimensions.get("window");
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const [loader, setLoader] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
@@ -279,7 +281,7 @@ const Dashboard = () => {
           </View>
         )}
         <ScrollView
-          className="bg-white flex-1"
+          className={`flex-1 ${theme === "dark" ? "bg-[#000000]" : "bg-white"}`}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 10 }}
         >
@@ -398,10 +400,18 @@ const Dashboard = () => {
               paddingTop: height * 0.03
               // height: height * 1.
             }}
-            className="text-[14px] gap-1 bg-white"
+            className={`text-[14px] gap-1 ${
+              theme === "dark" ? "bg-[#000000]" : "bg-white"
+            }`}
           >
             <View>
-              <Text className="text-darktext">Quick services</Text>
+              <Text
+                className={`text-[14px] font-bold ${
+                  theme === "dark" ? "text-[#ffffff]" : "text-darktext"
+                }`}
+              >
+                Quick services
+              </Text>
             </View>
             <View className="flex-row justify-between">
               <TouchableOpacity onPress={() => router.push("/Save")}>
@@ -423,7 +433,13 @@ const Dashboard = () => {
                   >
                     <Save width={70} height={70} />
                   </View>
-                  <Text className="text-[14px] font-bold">Save</Text>
+                  <Text
+                    className={`text-[14px] font-bold ${
+                      theme === "dark" ? "text-[#ffffff]" : ""
+                    }`}
+                  >
+                    Save
+                  </Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => router.push("/Loan")}>
@@ -446,7 +462,13 @@ const Dashboard = () => {
                     <Loan />
                   </View>
 
-                  <Text className="text-[14px] font-bold">Loan</Text>
+                  <Text
+                    className={`text-[14px] font-bold ${
+                      theme === "dark" ? "text-[#ffffff]" : ""
+                    }`}
+                  >
+                    Loan
+                  </Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => router.push("/Invest")}>
@@ -468,7 +490,13 @@ const Dashboard = () => {
                   >
                     <Invest />
                   </View>
-                  <Text className="text-[14px] font-bold">Invest</Text>
+                  <Text
+                    className={`text-[14px] font-bold ${
+                      theme === "dark" ? "text-[#ffffff]" : ""
+                    }`}
+                  >
+                    Invest
+                  </Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => router.push("/More")}>
@@ -490,7 +518,13 @@ const Dashboard = () => {
                   >
                     <More />
                   </View>
-                  <Text className="text-[14px] font-bold">More</Text>
+                  <Text
+                    className={`text-[14px] font-bold ${
+                      theme === "dark" ? "text-[#ffffff]" : ""
+                    }`}
+                  >
+                    More
+                  </Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -506,11 +540,25 @@ const Dashboard = () => {
               />
             </View>
             <View className="flex-row items-center justify-between">
-              <Text className="text-darktext text-[14px] font-bold">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-bold"
+                    : "text-darktext text-[14px] font-bold"
+                }`}
+              >
                 Recent Transactions
               </Text>
               <Pressable onPress={() => router.push("/Transactions")}>
-                <Text className="text-buttonprimary text-[12px]">See all</Text>
+                <Text
+                  className={` ${
+                    theme === "dark"
+                      ? "text-[#ffffff] text-[12px]"
+                      : "text-buttonprimary text-[12px]"
+                  }`}
+                >
+                  See all
+                </Text>
               </Pressable>
             </View>
             <View style={{ height: height * 0.7 }}>
@@ -539,18 +587,36 @@ const Dashboard = () => {
                             <Senddeposit />
                           )}
                           <View className="flex-col gap-1 justify-center items-start">
-                            <Text className="text-[14px] text-darktext font-bold">
+                            <Text
+                              className={` ${
+                                theme === "dark"
+                                  ? "text-[#ffffff] text-[14px] font-bold"
+                                  : "text-[14px] text-darktext font-bold"
+                              }`}
+                            >
                               {item?.method} to
                               {""} {item?.receiver?.first_name}
                             </Text>
-                            <Text className="text-[12px] text-transdate">
+                            <Text
+                              className={` ${
+                                theme === "dark"
+                                  ? "text-[#ffffff] text-[12px]"
+                                  : "text-[12px] text-transdate"
+                              }`}
+                            >
                               {/* Sep 2nd, 7:45am */}
                               {formatDateWithTime(item?.created_at)}
                             </Text>
                           </View>
                         </View>
                         <View className="flex-col justify-center items-center">
-                          <Text className="text-[14px] text-darktext">
+                          <Text
+                            className={` ${
+                              theme === "dark"
+                                ? "text-[#ffffff] text-[14px]"
+                                : "text-[14px] text-darktext"
+                            }`}
+                          >
                             {item?.symbol || ""}
                             {""}
                             {formatNumberWithCommastrans(
@@ -583,7 +649,13 @@ const Dashboard = () => {
                   </TouchableOpacity>
                 )}
                 renderSectionHeader={({ section: { title } }) => (
-                  <Text className="text-[12px] text-sectionheader">
+                  <Text
+                    className={` ${
+                      theme === "dark"
+                        ? "text-[#ffffff] text-[12px]"
+                        : "text-[12px] text-sectionheader"
+                    }`}
+                  >
                     {title}
                   </Text>
                 )}

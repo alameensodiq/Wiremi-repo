@@ -653,7 +653,7 @@ const MobileMoneySend = () => {
                           country: country,
                           type: "MOMO_TRANSFER",
                           router: router.push,
-                          transfer: "true",
+                          transfer: "false",
                           setIsVisible: setIsVisible6,
                           setShow: setShow6
                         })

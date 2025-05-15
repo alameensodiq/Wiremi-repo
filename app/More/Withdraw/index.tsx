@@ -6,7 +6,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import React, { useCallback, useRef, useState } from "react";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Back from "../../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -35,6 +35,10 @@ const WithdrawList = () => {
   const ref = useRef<BottomSheetRef>(null);
   const ref2 = useRef<BottomSheetRef>(null);
   const ref3 = useRef<BottomSheetRef>(null);
+  const { more } = useLocalSearchParams();
+  console.log(more);
+  const pay = +more;
+  console.log(pay);
 
   const handleCloseModal = () => {
     ref.current?.close();
@@ -49,8 +53,9 @@ const WithdrawList = () => {
   };
 
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
+    <View // style={{ backgroundColor: "#ffffff" }}
+      className="flex-1"
+    >
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
@@ -63,7 +68,13 @@ const WithdrawList = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
-            onPress={() => router.push("/(PersonalAccount)")}
+            onPress={() => {
+              if (pay === 1) {
+                router.push("/TransactionSendMoney");
+              } else {
+                router.push("/More");
+              }
+            }}
           >
             <Back />
           </TouchableOpacity>
@@ -142,7 +153,7 @@ const WithdrawList = () => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => router.push("/More/Withdraw/WithdrawInterac")}
         >
           <View
@@ -176,8 +187,8 @@ const WithdrawList = () => {
               <Rightcarat />
             </View>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableOpacity> */}
+        {/* <TouchableOpacity
         // onPress={() => ref2.current?.open()}
         >
           <View
@@ -209,8 +220,8 @@ const WithdrawList = () => {
               <Rightcarat />
             </View>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableOpacity> */}
+        {/* <TouchableOpacity
         // onPress={() => ref2.current?.open()}
         >
           <View
@@ -242,7 +253,7 @@ const WithdrawList = () => {
               <Rightcarat />
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <BottomSheet height={290} ref={ref}>
           <View style={{ padding: 20, gap: 15 }}>
             {/* <Text>Bottom Sheet Content</Text>

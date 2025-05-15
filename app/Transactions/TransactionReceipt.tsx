@@ -21,10 +21,12 @@ import { useEffect, useState } from "react";
 import { UserTransactions } from "@/Store/Apis/UserTransactions";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import * as Clipboard from "expo-clipboard";
+import { useAppContext } from "@/Context/useAppContext";
 
 const TransactioReceipt = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
+  const { theme } = useAppContext();
   const [content, setcontent] = useState<any>(null);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -117,10 +119,20 @@ const TransactioReceipt = () => {
         className="gap-1"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/(PersonalAccount)")}>
+          <TouchableOpacity className={` ${
+                theme === "dark"
+                  ? "bg-[#ffffff]"
+                  : ""
+              }`} onPress={() => router.push("/(PersonalAccount)")}>
             <Back />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">
+          <Text
+            className={` ${
+              theme === "dark"
+                ? "text-[#ffffff] text-[20px]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
             Transaction receipt
           </Text>
           <Text></Text>
@@ -137,8 +149,11 @@ const TransactioReceipt = () => {
           >
             <Forgotsuccess />
             <Text
-              style={{ color: "#1E1B39" }}
-              className="text text-[18px] font-bold"
+              className={` ${
+                theme === "dark"
+                  ? "text-[#ffffff] text-[18px] font-bold"
+                  : "text-[18px] font-bold text-[#1E1B39]"
+              }`}
             >
               Successful
             </Text>
@@ -154,43 +169,123 @@ const TransactioReceipt = () => {
             }}
           >
             <View className="flex-row items-center justify-between py-1 px-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-[14px]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 {content?.type}
               </Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-bold"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 {formatCurrencyAmount(content?.symbol, content?.amount)}
               </Text>
             </View>
             <View className="flex-row items-center justify-between py-1 px-3">
-              <Text className="text-lighttextdark font-[14px]">Fees</Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-[14px]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
+                Fees
+              </Text>
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-bold"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 {content?.currency}
                 {formatNumberWithCommas(content?.fee)}
               </Text>
             </View>
             <View className="flex-row items-center justify-between py-1 px-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-[14px]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Recipient details
               </Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-bold"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 {content?.receiver?.last_name} {content?.receiver?.first_name}
               </Text>
             </View>
             <View className="flex-row items-center justify-between py-1 px-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-[14px]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Payment method
               </Text>
-              <Text className="text-darktext font-bold">{content?.method}</Text>
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-bold"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                {content?.method}
+              </Text>
             </View>
             <View className="flex-row items-center justify-between py-1 px-3">
-              <Text className="text-lighttextdark font-[14px]">Date</Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-[14px]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
+                Date
+              </Text>
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-bold"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 {formatDateWithTime(content?.created_at)}
               </Text>
             </View>
             <View className="flex-row items-center justify-between py-1 px-3">
-              <Text className="text-lighttextdark font-[14px]">Time</Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-[14px]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
+                Time
+              </Text>
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-bold"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 {formatTime(content?.created_at)}
               </Text>
             </View>
@@ -211,10 +306,22 @@ const TransactioReceipt = () => {
               </Text>
             </View> */}
             <View className="flex-row items-center justify-between py-1 px-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-[14px]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Saving Instance
               </Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-bold"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 {content?.instance_name}
               </Text>
             </View>
@@ -227,11 +334,23 @@ const TransactioReceipt = () => {
               </Text>
             </View> */}
             <View className="flex-row items-center justify-between py-1 px-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-[14px]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Transaction ref
               </Text>
               <View className="flex-row">
-                <Text className="text-darktext font-bold">
+                <Text
+                  className={` ${
+                    theme === "dark"
+                      ? "text-[#ffffff] font-bold"
+                      : "text-darktext font-bold"
+                  }`}
+                >
                   {content?.trans_ref}
                 </Text>
                 <Pressable onPress={() => handleCopy()}>
@@ -248,8 +367,22 @@ const TransactioReceipt = () => {
             }}
           >
             <View className="flex-row items-center justify-between py-1 px-3">
-              <Text className="text-darktext font-bold">Total amount:</Text>
-              <Text className="text-buttonprimary font-bold">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-bold"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                Total amount:
+              </Text>
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-bold"
+                    : "text-buttonprimary font-bold"
+                }`}
+              >
                 {content?.currency}
                 {formatNumberWithCommas(content?.total)}
               </Text>
@@ -259,7 +392,13 @@ const TransactioReceipt = () => {
             className="flex-col gap-1 pl-2"
             style={{ marginBottom: height * 0.03 }}
           >
-            <Text className="text-[12px] text-lighttextdark">
+            <Text
+              className={` ${
+                theme === "dark"
+                  ? "text-[#ffffff] text-[12px]"
+                  : "text-[12px] text-lighttextdark"
+              }`}
+            >
               Transaction status
             </Text>
             <View
@@ -297,7 +436,15 @@ const TransactioReceipt = () => {
             className="flex-col gap-1 pl-2"
             style={{ marginBottom: height * 0.005 }}
           >
-            <Text className="text-[12px] text-lighttextdark">Note</Text>
+            <Text
+              className={` ${
+                theme === "dark"
+                  ? "text-[#ffffff] text-[12px]"
+                  : "text-[12px] text-lighttextdark"
+              }`}
+            >
+              Note
+            </Text>
             <View className="flex-col">
               <Text className="font-bold text-dark">
                 Your savings instance tuition was{" "}
@@ -307,7 +454,13 @@ const TransactioReceipt = () => {
                   ? "pending"
                   : "terminated"}
               </Text>
-              <Text className="font-bold text-dark">
+              <Text
+                className={` ${
+                  theme === "dark"
+                    ? "text-[#ffffff] font-bold"
+                    : "font-bold text-dark"
+                }`}
+              >
                 and funds paid to you main balance
               </Text>
             </View>

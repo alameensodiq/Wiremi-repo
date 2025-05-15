@@ -70,7 +70,6 @@ const Profile = () => {
     <View
       className="flex-1"
       style={{ backgroundColor: "#105CE2" }}
-      // showsVerticalScrollIndicator={false}
     >
       <StatusBar hidden={false} style="light" />
       <SafeAreaView
@@ -84,7 +83,8 @@ const Profile = () => {
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{ height: height }}
+          // style={{ height: height }}
+          contentContainerStyle={{  flexGrow: 1}}
         >
           <View
             style={{
@@ -135,7 +135,8 @@ const Profile = () => {
               paddingHorizontal: width * 0.03,
               paddingVertical: height * 0.05,
               gap: 50,
-              height: height
+              flex: 1
+              // height: height
             }}
           >
             <View className="flex-col gap-5">
@@ -260,7 +261,7 @@ const Profile = () => {
                   <RightDarkCarat />
                 </View>
               </Pressable>
-              <Pressable onPress={() => router.push("/Profiles/Language")}>
+              {/* <Pressable onPress={() => router.push("/Profiles/Language")}>
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <Proflang />
@@ -270,7 +271,7 @@ const Profile = () => {
                   </View>
                   <RightDarkCarat />
                 </View>
-              </Pressable>
+              </Pressable> */}
               <Pressable onPress={() => router.push("/Profiles/Theme")}>
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
@@ -305,7 +306,7 @@ const Profile = () => {
                 </View>
               </Pressable>
             </View>
-            <View className="flex-col gap-5">
+            <View className="flex-col gap-5 mb-10">
               <Pressable onPress={() => ref?.current?.open()}>
                 <View className="flex-row justify-start items-center">
                   <Logout />

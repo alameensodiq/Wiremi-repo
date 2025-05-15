@@ -192,7 +192,7 @@ const TransferMoney = () => {
                   </View>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => {
                   router.push("/TransactionSendMoney/LocalandInternational");
                 }}
@@ -230,12 +230,12 @@ const TransferMoney = () => {
                     <Rightcarat />
                   </View>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
         </View>
 
-        <View className="mt-5">
+        {/* <View className="mt-5">
           <View className="flex flex-row justify-between items-center mb-6">
             <Text className="text-['rgba(0, 9, 30, 1)'] text-[16px] font-bold">
               Recent transfers
@@ -353,7 +353,7 @@ const TransferMoney = () => {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </View> */}
         <BottomSheet height={290} ref={ref2}>
           <View style={{ padding: 20, gap: 15 }}>
             <View className="items-start flex-col">

@@ -570,25 +570,41 @@ const DirectTransferDetails = () => {
                 onChangeText={(value: number) => onChange("amount", value)}
               />
             </View>
-            <TouchableOpacity onPress={() => ref2?.current?.open()}>
+            <TouchableOpacity onPress={() => {
+              Keyboard.dismiss()
+              ref2?.current?.open()
+              
+            }}>
               <View className="items-center justify-center">
                 <TransparentSelectButton
                   label="Country"
                   placeholder={
                     countries?.name ? countries?.name : "Select Country"
                   }
-                  onPress={() => ref2?.current?.open()}
+                  onPress={() => {
+                    Keyboard.dismiss()
+                    ref2?.current?.open()
+                    
+                  }}
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => ref?.current?.open()}>
+            <TouchableOpacity onPress={() => {
+              Keyboard.dismiss()
+              ref?.current?.open()
+              
+            }}>
               <View className="items-center justify-center">
                 <TransparentSelectButton
                   label="Destination bank"
                   placeholder={
                     bank?.name ? bank?.name : "Select destination bank"
                   }
-                  onPress={() => ref?.current?.open()}
+                  onPress={() => {
+                    Keyboard.dismiss()
+                    ref?.current?.open()
+                    
+                  }}
                 />
               </View>
             </TouchableOpacity>
@@ -645,7 +661,7 @@ const DirectTransferDetails = () => {
                           country: country,
                           type: "BANK_TRANSFER",
                           router: router.push,
-                          transfer: "true",
+                          transfer: "false",
                           setIsVisible: setIsVisible6,
                           setShow: setShow6
                         })
@@ -896,7 +912,7 @@ const DirectTransferDetails = () => {
                 >
                   <Text className="text-lighttextdark font-[14px]">Fees</Text>
                   <Text className="text-darktext font-[14px]">
-                    {summary?.currency}
+                    {summary?.sender_currency}
                     {summary?.fee}
                   </Text>
                 </View>
@@ -904,10 +920,40 @@ const DirectTransferDetails = () => {
                   style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                   className="flex-row items-center justify-between p-3"
                 >
+                  <Text className="text-lighttextdark font-[14px]">Rate</Text>
+                  <Text className="text-darktext font-[14px]">
+                    {summary?.rate}
+                  
+                  </Text>
+                </View>
+                {/* <View
+                  style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+                  className="flex-row items-center justify-between p-3"
+                >
+                  <Text className="text-lighttextdark font-[14px]">Receiver Amount</Text>
+                  <Text className="text-darktext font-[14px]">
+                    {summary?.receiver_currency}
+                    {summary?.amount_received}
+                  </Text>
+                </View> */}
+                <View
+                  style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+                  className="flex-row items-center justify-between p-3"
+                >
                   <Text className="text-lighttextdark font-[14px]">Tax</Text>
                   <Text className="text-darktext font-[14px]">
-                    {summary?.currency}
+                    {summary?.sender_currency}
                     {summary?.tax}
+                  </Text>
+                </View>
+                <View
+                  style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+                  className="flex-row items-center justify-between p-3"
+                >
+                  <Text className="text-lighttextdark font-[14px]">Total Amount</Text>
+                  <Text className="text-darktext font-[14px]">
+                    {summary?.receiver_currency}
+                    {summary?.total}
                   </Text>
                 </View>
                 <View

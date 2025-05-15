@@ -9,7 +9,7 @@ import {
   Pressable,
   ActivityIndicator
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
@@ -33,12 +33,16 @@ import { clearStatecreatingsavings } from "@/Store/Reducers/CreateSavings";
 import { clearStatecreategroupsavings } from "@/Store/Reducers/CreateGroupSavings";
 import { clearStategetsavinganalytics } from "@/Store/Reducers/GetSavingAnalytics";
 import { clearStategetsaving } from "@/Store/Reducers/GetSaving";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SaveDashboard = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [symbol, setSymbol] = useState<string | null>(null);
+
+
 
   const widthAndHeight = 180;
 
@@ -105,6 +109,19 @@ const SaveDashboard = () => {
     dispatch(clearStategetsavinganalytics());
     dispatch(clearStategetsaving());
 
+    const initialize = async () => {
+      try {
+        const symbol = await AsyncStorage.getItem("symbol");
+        setSymbol(symbol)
+        console.log("Loaded symbol:", symbol);
+  
+      } catch (error) {
+        console.error("Error loading symbol from AsyncStorage", error);
+      }
+    };
+  
+    initialize();
+
     return () => {
       // dispatch(clearStatesavedashboard());
       // dispatch(clearStatesaveactive());
@@ -164,11 +181,11 @@ const SaveDashboard = () => {
               Total Amount Saved
             </Text>
             <Text className="font-bold text-[20px] text-buttonprimary">
-              ${savedashboard?.data?.total_amount}
+              {symbol}{savedashboard?.data?.total_amount}
             </Text>
             <View className="flex-row gap-2 items-center">
               <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
-                +${savedashboard?.data?.monthly_gain}
+                +{symbol}{savedashboard?.data?.monthly_gain}
               </Text>
               <View className="flex-row">
                 <Text style={{ color: "#00A85A" }} className="text-[10px]">
@@ -387,12 +404,12 @@ const SaveDashboard = () => {
                       {saveactive?.data["today"][0]?.name}
                     </Text>
                     <Text className="text-[14px]" style={{ color: "#00091E" }}>
-                      -${saveactive?.data["today"][0]?.amount}
+                      -{symbol}{saveactive?.data["today"][0]?.amount}
                     </Text>
                   </View>
                   <View className="flex-row gap-2 items-center">
                     <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
-                      +${saveactive?.data["today"][0]?.amount}
+                      +{symbol}{saveactive?.data["today"][0]?.amount}
                     </Text>
                     {/* <View className="flex-row">
                       <Text
@@ -430,12 +447,12 @@ const SaveDashboard = () => {
                       {saveactive?.data["today"][1]?.name}
                     </Text>
                     <Text className="text-[14px]" style={{ color: "#00091E" }}>
-                      -${saveactive?.data["today"][1]?.amount}
+                      -{symbol}{saveactive?.data["today"][1]?.amount}
                     </Text>
                   </View>
                   <View className="flex-row gap-2 items-center">
                     <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
-                      +${saveactive?.data["today"][1]?.amount}
+                      +{symbol}{saveactive?.data["today"][1]?.amount}
                     </Text>
                     {/* <View className="flex-row">
                       <Text

@@ -59,7 +59,8 @@ const RegularSavings = () => {
   const [page, setPage] = useState(1);
   const [show, setShow] = useState([]);
   const toggleCheckbox = () => setChecked(!checked);
-  const [selectedIndex, setIndex] = useState(0);
+  const [selectedIndex, setIndex] = useState(10000);
+  const [selectedIndex2, setIndex2] = useState(10000);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [savingcreate, setSavingscreate] = useState({
     goal_name: "",
@@ -69,7 +70,7 @@ const RegularSavings = () => {
     emergency_fund_percentage: 0,
     penalty_percentage: 0,
     status: "active",
-    saving_type: "recurrent",
+    saving_type: "regular",
     schedule: "",
     schedule_info: {
       bankName: ""
@@ -388,8 +389,9 @@ const RegularSavings = () => {
                     isNumber(parsedEmergencyFundPercentage) &&
                     isNumber(parsedPenaltyPercentage) &&
                     status &&
-                    saving_type &&
-                    schedule
+                    saving_type 
+                    // &&
+                    // schedule
                   ) {
                     if (parsedEmergencyFundPercentage > 10) {
                       console.log(
@@ -522,11 +524,11 @@ const RegularSavings = () => {
                   onPress={() => {
                     if (index === 0) {
                       ref3.current?.open();
-                      setIndex(index);
+                      setIndex2(index);
                     }
                     if (index === 1) {
                       ref4.current?.open();
-                      setIndex(index);
+                      setIndex2(index);
                       setSavingscreate((prev) => ({
                         ...prev, // Spread the previous state correctly
                         schedule: item?.name // Update the "country" property
@@ -534,7 +536,7 @@ const RegularSavings = () => {
                     }
                     if (index === 2) {
                       ref5.current?.open();
-                      setIndex(index);
+                      setIndex2(index);
                       setSavingscreate((prev) => ({
                         ...prev, // Spread the previous state correctly
                         schedule: item?.name // Update the "country" property
@@ -542,7 +544,7 @@ const RegularSavings = () => {
                     }
                     if (index === 3) {
                       ref7.current?.open();
-                      setIndex(index);
+                      setIndex2(index);
                       setSavingscreate((prev) => ({
                         ...prev, // Spread the previous state correctly
                         schedule: item?.name // Update the "country" property
@@ -560,7 +562,7 @@ const RegularSavings = () => {
                     </View>
                     <View className="flex-col items-end">
                       <CheckBox
-                        checked={selectedIndex === index}
+                        checked={selectedIndex2 === index}
                         checkedIcon="dot-circle-o"
                         uncheckedIcon="circle-o"
                       />

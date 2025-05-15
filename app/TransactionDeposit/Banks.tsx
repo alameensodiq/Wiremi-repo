@@ -70,7 +70,7 @@ const Banks = () => {
           </View>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/TransactionDeposit/LinkBankDetails')}>
+        {/* <TouchableOpacity onPress={() => router.push('/TransactionDeposit/LinkBankDetails')}>
         <View
           style={{
             paddingHorizontal: width * 0.03
@@ -102,7 +102,7 @@ const Banks = () => {
             <Rightcarat />
           </View>
         </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </SafeAreaView>
     </View>
   );

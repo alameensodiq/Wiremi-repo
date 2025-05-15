@@ -108,6 +108,7 @@ const CustomDarkTheme = {
   colors: {
     ...NavigationDarkTheme.colors,
     background: "#eee9e9",  // Your dark background color
+    // background: "#000000",  
     card: "#1f1f1f",         // Navigation header color
     text: "#ffffff",         // Text color
     border: "#272727",       // Border color

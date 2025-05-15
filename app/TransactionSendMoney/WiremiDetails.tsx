@@ -67,12 +67,12 @@ const WiremiDetails = () => {
   //   })();
   // }, []);
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     // const { status } = await Camera.requestCameraPermissionsAsync();
+  //     setHasPermission(status === "granted");
+  //   })();
+  // }, []);
 
   const handleBarCodeScanned = ({ data }: { data: string }) => {
     setScanned(true);
@@ -82,8 +82,8 @@ const WiremiDetails = () => {
     setScansend(true);
   };
 
-  if (hasPermission === null) return <Text>Requesting permission...</Text>;
-  if (!hasPermission) return <Text>No access to camera</Text>;
+  // if (hasPermission === null) return <Text>Requesting permission...</Text>;
+  // if (!hasPermission) return <Text>No access to camera</Text>;
 
   const handleCloseModal = () => {
     ref.current?.close();

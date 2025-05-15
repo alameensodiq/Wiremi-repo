@@ -368,7 +368,7 @@ const ListSendMoney = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  router.push("/More/Withdraw");
+                  router.push(`/More/Withdraw?more=1`);
                 }}
               >
                 <View
@@ -403,7 +403,7 @@ const ListSendMoney = () => {
                   </View>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => {
                   // ref2.current?.open()
                 }}
@@ -439,7 +439,7 @@ const ListSendMoney = () => {
                     <Rightcarat />
                   </View>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
         </View>
@@ -653,7 +653,8 @@ const ListSendMoney = () => {
                     </Text>
                   </View>
                   <Text className="text-['rgba(153, 153, 153, 1)'] text-[14px]">
-                    $ 99,923,923,400
+                  {mainwallet?.symbol}
+                  {formatNumberWithCommas(mainwallet?.balance)}
                   </Text>
                 </View>
               </TouchableOpacity>
