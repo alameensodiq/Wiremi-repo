@@ -127,7 +127,8 @@ const NotificationDetails = () => {
           {singlenotification?.data[0]?.title.includes("Savings") ? (
             <Wiremi width={100} />
           ) : (
-            <MobileMoney />
+            // <MobileMoney />
+            <Wiremi width={100} />
           )}
           <Text style={{ color: "#5F5F5F" }}>
             {/* <Text style={{ color: "#5F5F5F" }}>Transfer to</Text>{" "} */}

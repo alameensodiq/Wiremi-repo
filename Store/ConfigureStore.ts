@@ -55,6 +55,7 @@ import { ResetingpinSlice } from './Reducers/ResetingPin';
 import { KycAddressSlice } from './Reducers/KycAddress';
 import { GetAllwalletSlice } from './Reducers/GetAllwallet';
 import { CreateWalletSlice } from './Reducers/CreateWallet';
+import { HistorySavingSlice } from './Reducers/HistorySaving';
 
 const store = configureStore({
   reducer: {
@@ -112,7 +113,8 @@ const store = configureStore({
     resetingpin: ResetingpinSlice?.reducer,
     kycaddress: KycAddressSlice?.reducer,
     getallwallets: GetAllwalletSlice?.reducer,
-    createwallet: CreateWalletSlice?.reducer
+    createwallet: CreateWalletSlice?.reducer,
+    historysaving: HistorySavingSlice?.reducer
   },
 });
 

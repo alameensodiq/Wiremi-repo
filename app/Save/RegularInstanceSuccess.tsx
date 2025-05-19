@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Forgotsuccess from "../../assets/forgotsuccess.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
 
@@ -17,6 +17,9 @@ const RegularInstanceSuccess = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const { id } = useLocalSearchParams();
+  const ids = +id;
+  console.log(ids);
   return (
     <View className="flex-1 ">
       <View className="flex-1 bg-white">
@@ -67,7 +70,9 @@ const RegularInstanceSuccess = () => {
             <View className="items-center justify-between flex-row p-4">
               <BlueSignInButton
                 title="View"
-                onPress={() => router.push("/Save/RegularSavingsSummary")}
+                onPress={() =>
+                  router.push(`/Save/RegularSavingsSummary?id=${ids}`)
+                }
               />
             </View>
           </View>

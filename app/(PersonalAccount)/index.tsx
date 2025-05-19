@@ -750,7 +750,7 @@ const Dashboard = () => {
               </View> */}
               <View className="flex-row justify-center items-center gap-2">
                 <Text className="text-[#413D43] text-[12px] text-center">
-                  Here you is your unique QR code for another user to scan and
+                  Here is your unique QR code for another user to scan and
                   make payments to your wiremiaccount.
                 </Text>
               </View>

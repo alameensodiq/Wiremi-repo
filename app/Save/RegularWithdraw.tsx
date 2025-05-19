@@ -154,7 +154,7 @@ const RegularWithdraw = () => {
         </Modal>
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
-            onPress={() => router.push("/Save/RegularSavingsSummary")}
+            onPress={() => router.push(`/Save/RegularSavingsSummary?id=${ids}`)}
           >
             <Back />
           </TouchableOpacity>

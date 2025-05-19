@@ -31,6 +31,7 @@ import { AccountDetails } from "@/Store/Apis/AccountDetails";
 import { Image } from "expo-image";
 import { BottomSheet } from "@/components/Bottom";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -48,6 +49,7 @@ const Profile = () => {
   const handleCloseModal = () => {
     ref.current?.close();
   };
+  const { theme } = useAppContext();
 
   const dispatch = useAppDispatch();
 
@@ -67,10 +69,7 @@ const Profile = () => {
   console.log(accountdetails);
 
   return (
-    <View
-      className="flex-1"
-      style={{ backgroundColor: "#105CE2" }}
-    >
+    <View className="flex-1" style={{ backgroundColor: "#105CE2" }}>
       <StatusBar hidden={false} style="light" />
       <SafeAreaView
         style={{
@@ -84,7 +83,7 @@ const Profile = () => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           // style={{ height: height }}
-          contentContainerStyle={{  flexGrow: 1}}
+          contentContainerStyle={{ flexGrow: 1 }}
         >
           <View
             style={{
@@ -129,7 +128,7 @@ const Profile = () => {
           <View
             style={{
               // height: height * 0.85,
-              backgroundColor: "#ffffff",
+              backgroundColor: theme === 'dark' ? "#000000" : "#ffffff",
               borderTopLeftRadius: 40,
               borderTopRightRadius: 40,
               paddingHorizontal: width * 0.03,
@@ -142,13 +141,13 @@ const Profile = () => {
             <View className="flex-col gap-5">
               <View className="flex-row justify-start items-center">
                 <Mark />
-                <Text style={{ color: "#6F7071" }}>Account Information</Text>
+                <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#6F7071" }}>Account Information</Text>
               </View>
               <Pressable onPress={() => router.push("/Profiles")}>
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <ProfInfo />
-                    <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    <Text style={{ color:  theme === 'dark' ? "#ffffff"  : "#00091E", fontSize: 16 }}>
                       Personal information
                     </Text>
                   </View>
@@ -159,7 +158,7 @@ const Profile = () => {
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <Kyc />
-                    <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#00091E", fontSize: 16 }}>
                       Update KYC information
                     </Text>
                   </View>
@@ -183,7 +182,7 @@ const Profile = () => {
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <Invite />
-                    <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    <Text style={{ color:  theme === 'dark' ? "#ffffff"  :"#00091E", fontSize: 16 }}>
                       Invite a friend
                     </Text>
                   </View>
@@ -194,7 +193,7 @@ const Profile = () => {
             <View className="flex-col gap-5">
               <View className="flex-row justify-start items-center">
                 <Mark />
-                <Text style={{ color: "#6F7071" }}>Finances</Text>
+                <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#6F7071" }}>Finances</Text>
               </View>
               <Pressable
                 onPress={() => router.push("/Profiles/TransactionHist")}
@@ -202,7 +201,7 @@ const Profile = () => {
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <Transhist />
-                    <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#00091E", fontSize: 16 }}>
                       Transaction history
                     </Text>
                   </View>
@@ -213,7 +212,7 @@ const Profile = () => {
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <Wallet />
-                    <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#00091E", fontSize: 16 }}>
                       Wallets
                     </Text>
                   </View>
@@ -224,7 +223,7 @@ const Profile = () => {
             <View className="flex-col gap-5">
               <View className="flex-row justify-start items-center">
                 <Mark />
-                <Text style={{ color: "#6F7071" }}>Security</Text>
+                <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#6F7071" }}>Security</Text>
               </View>
               <Pressable
                 onPress={() => router.push("/Profiles/TransactionPin")}
@@ -232,7 +231,7 @@ const Profile = () => {
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <Transhist />
-                    <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#00091E", fontSize: 16 }}>
                       Transaction pin
                     </Text>
                   </View>
@@ -243,7 +242,7 @@ const Profile = () => {
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <Profchangepin />
-                    <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#00091E", fontSize: 16 }}>
                       Change pincode
                     </Text>
                   </View>
@@ -254,7 +253,7 @@ const Profile = () => {
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <Profbiometric />
-                    <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    <Text style={{ color:  theme === 'dark' ? "#ffffff"  :"#00091E", fontSize: 16 }}>
                       Biometrics
                     </Text>
                   </View>
@@ -276,7 +275,7 @@ const Profile = () => {
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <Proftheme />
-                    <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#00091E", fontSize: 16 }}>
                       Theme
                     </Text>
                   </View>
@@ -287,7 +286,7 @@ const Profile = () => {
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <Profhelp />
-                    <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#00091E", fontSize: 16 }}>
                       Help & Support
                     </Text>
                   </View>
@@ -298,7 +297,7 @@ const Profile = () => {
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-start items-center gap-2">
                     <Profabout />
-                    <Text style={{ color: "#00091E", fontSize: 16 }}>
+                    <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#00091E", fontSize: 16 }}>
                       About Wiremi
                     </Text>
                   </View>
@@ -310,14 +309,16 @@ const Profile = () => {
               <Pressable onPress={() => ref?.current?.open()}>
                 <View className="flex-row justify-start items-center">
                   <Logout />
-                  <Text style={{ color: "#DE1E04" }}>Log out</Text>
+                  <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#DE1E04" }}>Log out</Text>
                 </View>
               </Pressable>
             </View>
           </View>
           <BottomSheet height={280} ref={ref}>
             <View className="flex-col justify-center items-center gap-3 pt-10">
-              <Text style={{ color: "#DE1E04", fontSize: 14, fontWeight: 600 }}>Log out</Text>
+              <Text style={{ color:  theme === 'dark' ? "#ffffff"  :"#DE1E04", fontSize: 14, fontWeight: 600 }}>
+                Log out
+              </Text>
               <Text
                 style={{ color: "#292D32", fontSize: 18, textAlign: "center" }}
               >
@@ -329,7 +330,7 @@ const Profile = () => {
                     style={{ width: width * 0.3, height: 50, borderRadius: 10 }}
                     className="flex-row justify-center items-center bg-[#105CE21A]"
                   >
-                    <Text style={{ color: "#105CE2", fontSize: 14 }}>No</Text>
+                    <Text style={{ color:"#105CE2", fontSize: 14 }}>No</Text>
                   </View>
                 </Pressable>
 

@@ -18,6 +18,7 @@ import TextLabelBox from "@/components/TextLabelBox";
 import SelectAndText from "@/components/SelectAndText";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { AccountDetails } from "@/Store/Apis/AccountDetails";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -31,6 +32,7 @@ const ProfileKyc = () => {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [show, setShow] = useState("");
+  const { theme } = useAppContext();
 
   const ref = useRef<BottomSheetRef>(null);
 
@@ -55,8 +57,8 @@ const ProfileKyc = () => {
 
   console.log(accountdetails);
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View className={`${theme === 'dark' ?  "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"}`}>
+      <StatusBar hidden={false} style={`${theme === 'dark' ?  "light" : "dark"}`}  />
       <SafeAreaView
         style={{
           flex: 1,
@@ -67,14 +69,14 @@ const ProfileKyc = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Profile")}>
-            <Back />
+          <Back style={{backgroundColor: theme ? "#ffffff" : ""}} />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Update KYC info</Text>
+          <Text className={`${theme === 'dark' ? "text-[20px] text-[#ffffff]" : "text-[20px] text-pagetitle"}`}>Update KYC info</Text>
           <Text></Text>
         </View>
         <View className="flex-1 relative  justify-start gap-2">
           <View className="flex-row justify-start items-start pb-10">
-            <Text style={{ color: "#413D43" }} className="text-[14px]">
+            <Text style={{ color: theme === 'dark' ? "#ffffff"   : "#413D43" }} className="text-[14px]">
               We need your basic information
             </Text>
           </View>
@@ -111,7 +113,7 @@ const ProfileKyc = () => {
           <View className="pt-20">
             <BlueSignInButton
               // title="Send verification code"
-               title="Proceed"
+              title="Proceed"
               onPress={() => router.push("/Profiles/ProfileKycAddress")}
               // onPress={() => router.push("/Profiles/ConfirmKycInfo")}
             />

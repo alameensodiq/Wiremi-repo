@@ -20,6 +20,7 @@ import Pluswallet from "../../assets/pluswallet.svg";
 import Usa from "../../assets/usa.svg";
 import UK from "../../assets/uk.svg";
 import Canada from "../../assets/canada.svg";
+import Naija from "../../assets/Naija.svg";
 import { FlatList } from "react-native";
 import { CheckBox } from "@rneui/themed";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
@@ -29,6 +30,7 @@ import ShortBlueButton from "@/components/ShortBlueButton";
 import { AccountDetails } from "@/Store/Apis/AccountDetails";
 import { clearStateaccountdetails } from "@/Store/Reducers/AccountDetails";
 import { clearStategetallwallets } from "@/Store/Reducers/GetAllwallet";
+import { Image } from "expo-image";
 
 type BottomSheetRef = {
   open: () => void;
@@ -318,11 +320,19 @@ const Wallet = () => {
                     {item?.name === "USD Dollar" ? (
                       <Usa height={40} width={40} />
                     ) : item?.name === "European" ? (
-                      <Usa height={40} width={40} />
+                       <View className="bg-black w-[40] h-[40]">
+
+                       </View>
+                      // <Usa height={40} width={40} />
                     ) : item?.name === "Great British Pounds" ? (
                       <UK height={40} width={40} />
+                    ) : item?.name === "Nigerian Naira" ? (
+                      <Naija height={40} width={40} />
                     ) : (
-                      <Canada height={40} width={40} />
+                      <View className="bg-black w-[40] h-[40]">
+
+                       </View>
+                      // <Canada height={40} width={40} />
                     )}
                     <View className="flex-col">
                       <Text

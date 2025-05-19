@@ -40,6 +40,7 @@ const RegularEditInstance = () => {
   const [checked, setChecked] = React.useState(true);
   const toggleCheckbox = () => setChecked(!checked);
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const [isVisible2, setIsVisible2] = React.useState<boolean>(false);
   const [editing, setEditing] = React.useState({
     amount_per_interval: "",
     duration: 0
@@ -63,7 +64,7 @@ const RegularEditInstance = () => {
         amount_per_interval: "",
         duration: 0
       });
-      router.push("/Save/RegularInstanceSuccess");
+      router.push(`/Save/RegularInstanceSuccess?id=${ids}`);
     }
     return () => {
       dispatch(GetSaving({ id: ids, router: router.push }));
@@ -132,9 +133,28 @@ const RegularEditInstance = () => {
             </View>
           </Pressable>
         </Modal>
+        <Modal animationType="fade" transparent={true} visible={isVisible2}>
+          <Pressable
+            style={{
+              flex: 1,
+              backgroundColor: "#8080808C",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+            onPress={() => setIsVisible2(false)}
+          >
+            <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
+                <Text className="mb-3">Input all Fields</Text>
+              <ShortBlueButton
+                title="Close"
+                onPress={() => setIsVisible2(false)}
+              />
+            </View>
+          </Pressable>
+        </Modal>
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity
-            onPress={() => router.push("/Save/RegularSavingsSummary")}
+            onPress={() => router.push(`/Save/RegularSavingsSummary?id=${ids}`)}
           >
             <Back />
           </TouchableOpacity>
@@ -182,6 +202,9 @@ const RegularEditInstance = () => {
                     duration: editing?.duration,
                     status: "inactive"
                   }))
+                }
+                else {
+                  setIsVisible2(true)
                 }
               }}
             />

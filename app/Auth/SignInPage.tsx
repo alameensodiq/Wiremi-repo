@@ -50,6 +50,7 @@ const SignInPage = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [uuid, setUuid] = useState<string>("");
   const [navigated, setNavigated] = useState(false);
+  const { theme } = useAppContext();
   // const { isAuthenticated, checkUser } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -390,7 +391,7 @@ const SignInPage = () => {
                   }}
                 ></View>
                 <View
-                  className="bg-creamwhite"
+                  className={`${ theme === 'dark' ? "bg-[#000000]" :"bg-creamwhite"}`}
                   style={{
                     height: height * 0.9,
                     zIndex: 1000,
@@ -421,8 +422,8 @@ const SignInPage = () => {
                     <Logo />
                   </View>
                   <View className="flex-col items-center justify-center gap-2">
-                    <Text className="text-textblack text-[18px]">Sign in</Text>
-                    <Text className="text-lighttextblack text-[13px]">
+                    <Text className={`${ theme === 'dark' ?  "text-[#ffffff] text-[18px]"  : "text-textblack text-[18px]"}`} >Sign in</Text>
+                    <Text className={`${ theme === 'dark' ?  "text-[#ffffff] text-[13px]"  : "text-lighttextblack text-[13px]"}`}>
                       Welcome back! Please sign in to continue
                     </Text>
                   </View>
@@ -472,7 +473,7 @@ const SignInPage = () => {
                           checkedIcon="checkbox-outline"
                           uncheckedIcon={"checkbox-blank-outline"}
                         />
-                        <Text>Remember Me</Text>
+                        <Text >Remember Me</Text>
                       </View>
                       <View>
                         <TouchableOpacity
@@ -500,7 +501,7 @@ const SignInPage = () => {
                     />
                   )}
                   <View className="flex-row items-center justify-center">
-                    <Text className="text-textinputtext">
+                    <Text className={`${ theme === 'dark' ? "text-[#ffffff]"  : "text-textinputtext"}`}>
                       Don’t have an account?{" "}
                     </Text>
                     <TouchableOpacity

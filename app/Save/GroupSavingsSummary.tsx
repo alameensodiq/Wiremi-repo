@@ -206,7 +206,7 @@ const GroupSavingsSummary = () => {
           <TouchableOpacity onPress={() => router.push("/Save")}>
             <Back />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">House rent</Text>
+          <Text className="text-[20px] text-pagetitle"> {getgroupsaving?.data?.goal_name}</Text>
           <Pressable
             onPress={() => {
               setIsVisible(!isVisible);
@@ -270,12 +270,13 @@ const GroupSavingsSummary = () => {
                   Group Savings Balance
                 </Text>
                 <Text className="text-buttonprimary text-[24px] font-bold">
-                  $2,112.23
+                {getgroupsaving?.data?.symbol}
+                {getgroupsaving?.data?.amount_saved}
                 </Text>
                 <View className="flex-row gap-3 items-center">
                   <View className="flex-row justify-center items-center">
                     <Text style={{ color: "#DE1E04" }} className="text-[10px]">
-                      2.3%
+                      {getgroupsaving?.data?.interest_earn}%
                     </Text>
                     <Decrease />
                   </View>

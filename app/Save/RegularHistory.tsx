@@ -2,7 +2,7 @@ import {
   View,
   Text,
   ImageBackground,
-//   SafeAreaView,
+  //   SafeAreaView,
   StatusBar as RNStatusBar,
   Dimensions,
   Platform,
@@ -11,13 +11,20 @@ import {
   FlatList,
   SectionList
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import SearchLabelBox from "@/components/SearchLabelBox";
-import Card from '../../assets/historycard.svg'
+import Card from "../../assets/historycard.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { GetSaving } from "@/Store/Apis/GetSaving";
+import { GetSavingAnalytics } from "@/Store/Apis/GetSavingAnalytics";
+import { clearStatesavingspayout } from "@/Store/Reducers/SavingsPayout";
+import { clearStategetsaving } from "@/Store/Reducers/GetSaving";
+import { clearStategetsavinganalytics } from "@/Store/Reducers/GetSavingAnalytics";
+import { HistorySavings } from "@/Store/Apis/HistorySavings";
 
 type BottomSheetRef = {
   open: () => void;
@@ -30,6 +37,33 @@ const RegularHistory = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const ref = useRef<BottomSheetRef>(null);
+  const { id } = useLocalSearchParams();
+  const ids = +id;
+  console.log(ids);
+
+    const dispatch = useAppDispatch();
+  
+    const { historysaving, authenticatinghistorysaving, errors } = useAppSelector(
+      (state) => state.historysaving
+    );
+  
+    console.log(historysaving);
+  
+    useEffect(() => {
+      dispatch(clearStategetsaving());
+      dispatch(clearStategetsavinganalytics());
+      dispatch(clearStatesavingspayout());
+      dispatch(HistorySavings({ id: ids, router: router.push }));
+      // if (savingspayout?.status === true) {
+      //   setAmount(0)
+      //   router.push("/Save/RegularWithdrawSuccess");
+      // }
+      return () => {
+        dispatch(GetSaving({ id: ids, router: router.push }));
+        dispatch(GetSavingAnalytics({ id: ids, router: router.push }));
+        dispatch(clearStatesavingspayout());
+      };
+    }, []);
 
   const handleCloseModal = () => {
     ref.current?.close();
@@ -46,8 +80,9 @@ const RegularHistory = () => {
     }
   ];
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
+    <View // style={{ backgroundColor: "#ffffff" }}
+      className="flex-1"
+    >
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
@@ -58,7 +93,9 @@ const RegularHistory = () => {
         className="gap-6"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity onPress={() => router.push("/Save/RegularSavingsSummary")}>
+          <TouchableOpacity
+            onPress={() => router.push(`/Save/RegularSavingsSummary?id=${ids}`)}
+          >
             <Back />
           </TouchableOpacity>
           <Text className="text-[20px] text-pagetitle">History</Text>
@@ -68,7 +105,7 @@ const RegularHistory = () => {
           <SearchLabelBox placeholder="Search" />
         </View>
         <View style={{ height: height * 0.72 }}>
-        <SectionList
+          <SectionList
             scrollEnabled={false}
             sections={DATA}
             showsHorizontalScrollIndicator={false}
@@ -81,18 +118,16 @@ const RegularHistory = () => {
                     <Card />
                     <View className="flex-col gap-1 justify-center items-start">
                       <Text className="text-[14px] text-darktext font-bold">
-                      Regular savings
+                        Regular savings
                       </Text>
                       <Text className="text-[12px] text-transdate">
-                      Withdrawal from Susan plan 
+                        Withdrawal from Susan plan
                       </Text>
                     </View>
                   </View>
                   <View className="flex-col justify-center items-start">
                     <Text className="text-[14px] text-successtrans">$90</Text>
-                    <Text className="text-[12px] text-darktext">
-                    10:30am
-                    </Text>
+                    <Text className="text-[12px] text-darktext">10:30am</Text>
                   </View>
                 </View>
                 <View className="flex-row justify-end">
