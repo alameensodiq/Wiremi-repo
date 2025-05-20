@@ -40,8 +40,15 @@ const Theme = () => {
     ref.current?.close();
   };
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -52,21 +59,38 @@ const Theme = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Profile")}>
-            <Back />
+            <Back style={{ backgroundColor: theme ? "#ffffff" : "" }} />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Theme</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Theme
+          </Text>
           <Text></Text>
         </View>
         <View className="flex-1 relative  justify-start gap-2">
           <View className="flex-col justify-start items-start pb-10">
-            <Text className="text-black text-[16px] font-bold">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] text-[16px] font-bold"
+                  : "text-black text-[16px] font-bold"
+              }`}
+            >
               Select your preferred theme
             </Text>
           </View>
           <TouchableOpacity onPress={() => handleSelectTheme("light")}>
             <View className="flex-row items-center justify-between p-2">
               <View className="flex-row gap-1 items-center">
-                <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+                <Text
+                  className="text-[16px]"
+                  style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+                >
                   Light mode
                 </Text>
               </View>
@@ -76,7 +100,10 @@ const Theme = () => {
           <TouchableOpacity onPress={() => handleSelectTheme("dark")}>
             <View className="flex-row items-center justify-between p-2">
               <View className="flex-row gap-1 items-center">
-                <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+                <Text
+                  className="text-[16px]"
+                  style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+                >
                   Dark mode
                 </Text>
               </View>

@@ -16,11 +16,13 @@ import {
   import Passport from "../../assets/kycpassport.svg";
   import Residency from "../../assets/kycresidency.svg";
   import RightCarat from "../../assets/rightcarat.svg";
+import { useAppContext } from "@/Context/useAppContext";
   
   const KycCertificates = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
+      const { theme } = useAppContext();
   
     const widthAndHeight = 180;
     const series = [721, 120, 123, 189];
@@ -32,7 +34,9 @@ import {
       <ScrollView
         showsVerticalScrollIndicator={false}
         // style={{ backgroundColor: "#ffffff" }}
-        className="flex-1"
+        className={`${
+          theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+        }`} 
       >
         <StatusBar hidden={false} style="dark" />
         <SafeAreaView
@@ -51,15 +55,19 @@ import {
               <TouchableOpacity
                 onPress={() => router.push("/Profiles/ProfileKycAddress")}
               >
-                <Back />
+                <Back style={{ backgroundColor: theme ? "#ffffff" : "" }} />
               </TouchableOpacity>
-              <Text className="text-[20px] text-pagetitle">Update KYC info</Text>
+              <Text className={`${
+                    theme === "dark"
+                      ? "text-[20px] text-[#ffffff]"
+                      : "text-[20px] text-pagetitle"
+                  }`}>Update KYC info</Text>
               <Text></Text>
             </View>
             <View className="flex-col justify-between">
               <Text
                 className="text-[16px] font-bold"
-                style={{ color: "#00091E" }}
+                style={{ color:theme === "dark" ? "#ffffff" : "#00091E" }}
               >
                 We need a picture of any of your selected ID
               </Text>
@@ -68,7 +76,7 @@ import {
               <View className="flex-row items-center justify-between p-5">
                 <View className="flex-row gap-1 items-center">
                   <Driver />
-                  <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+                  <Text className="text-[16px]" style={{ color:theme === "dark" ? "#ffffff" : "#0A0A0A" }}>
                   Driver’s liscense
                   </Text>
                 </View>
@@ -79,7 +87,7 @@ import {
               <View className="flex-row items-center justify-between p-5">
                 <View className="flex-row gap-1 items-center">
                   <Card />
-                  <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+                  <Text className="text-[16px]" style={{ color:theme === "dark" ? "#ffffff" : "#0A0A0A" }}>
                   ID Card
                   </Text>
                 </View>
@@ -92,7 +100,7 @@ import {
               <View className="flex-row items-center justify-between p-5">
                 <View className="flex-row gap-1 items-center">
                   <Passport />
-                  <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+                  <Text className="text-[16px]" style={{ color:theme === "dark" ? "#ffffff" : "#0A0A0A" }}>
                   Passport 
                   </Text>
                 </View>
@@ -103,7 +111,7 @@ import {
               <View className="flex-row items-center justify-between p-5">
                 <View className="flex-row gap-1 items-center">
                   <Residency />
-                  <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+                  <Text className="text-[16px]" style={{ color:theme === "dark" ? "#ffffff" : "#0A0A0A" }}>
                   Residency permit card
                   </Text>
                 </View>

@@ -20,14 +20,14 @@ const TextLabelBox = ({
   reduce,
   onChangeText,
   disabled,
-  value= "",
+  value = "",
   number,
   max,
   both
 }: TextLabelBoxProps) => {
   const { height, width } = Dimensions.get("window");
   const [internalValue, setInternalValue] = useState(value || ""); // Internal state for input value
-    const { theme } = useAppContext();
+  const { theme } = useAppContext();
 
   useEffect(() => {
     setInternalValue(value);
@@ -64,16 +64,20 @@ const TextLabelBox = ({
         elevation: 3
       }}
     >
-      <Text className={`${theme === 'dark' ?  "text-[#ffffff]" : "text-textblack" }`}>{label}</Text>
+      <Text
+        className={`${theme === "dark" ? "text-[#ffffff]" : "text-textblack"}`}
+      >
+        {label}
+      </Text>
       <TextInput
         style={{
           width: reduce ? width * 0.4 : width * 0.9,
           borderWidth: 1,
           height: height * 0.06,
-          color: theme === "dark" ? "#ffffff" : "",
+          backgroundColor: theme === "dark" ? "#ffffff" : ""
         }}
         className={` text-[14px] rounded-ten border-customgray  p-2 ${
-          theme === "dark" ? "text-white" : "text-textinputtext"
+          theme === "dark" ? "text-textinputtext" : "text-textinputtext"
         }`}
         placeholder={placeholder}
         editable={!disabled}

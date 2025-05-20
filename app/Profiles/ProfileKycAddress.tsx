@@ -27,6 +27,7 @@ import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import ShortBlueButton from "@/components/ShortBlueButton";
 import { KycAddress } from "@/Store/Apis/KycAddress";
 import { clearStatekycaddress } from "@/Store/Reducers/KycAddress";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -43,6 +44,7 @@ const ProfileKycAddress = () => {
   const [isVisible2, setIsVisible2] = useState<boolean>(false);
   const [show, setShow] = useState("");
   const router = useRouter();
+  const { theme } = useAppContext();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     address: "",
@@ -72,11 +74,11 @@ const ProfileKycAddress = () => {
   };
 
   useEffect(() => {
-    dispatch(clearStatekycaddress())
-    return() => {
-      dispatch(clearStatekycaddress())
-    }
-  },[])
+    dispatch(clearStatekycaddress());
+    return () => {
+      dispatch(clearStatekycaddress());
+    };
+  }, []);
 
   const { kycaddress, authenticatingkycaddress, errorskycaddress } =
     useAppSelector((state) => state.kycaddress);
@@ -88,8 +90,10 @@ const ProfileKycAddress = () => {
   }, [kycaddress?.status]);
 
   return (
-    <View // style={{ backgroundColor: "#ffffff" }}
-      className="flex-1"
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`} // style={{ backgroundColor: "#ffffff" }}
     >
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
@@ -191,20 +195,30 @@ const ProfileKycAddress = () => {
                 <TouchableOpacity
                   onPress={() => router.push("/Profiles/ProfileKyc")}
                 >
-                  <Back />
+                  <Back style={{ backgroundColor: theme ? "#ffffff" : "" }} />
                 </TouchableOpacity>
-                <Text className="text-[20px] text-pagetitle">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[20px] text-[#ffffff]"
+                      : "text-[20px] text-pagetitle"
+                  }`}
+                >
                   Update KYC info
                 </Text>
                 <Text></Text>
               </View>
               <View className="mb-4">
-                <Text style={{ color: "#413D43" }} className="text-[14px]">
+                <Text
+                  style={{ color: theme === "dark" ? "#ffffff" : "#413D43" }}
+                  className="text-[14px]"
+                >
                   We need your basic information
                 </Text>
               </View>
               <View className="items-center justify-center">
                 <TextLabelBox
+                  both
                   label="Address"
                   placeholder="Enter your address"
                   onChangeText={(value: any) => onChange("address", value)}
