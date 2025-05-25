@@ -37,6 +37,7 @@ import { SavingDashboard } from "@/Store/Apis/SavingDashboard";
 import { SavingActive } from "@/Store/Apis/SavingActive";
 import { clearStatesavedashboard } from "@/Store/Reducers/SavingDashboard";
 import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -219,13 +220,17 @@ const GroupSavings = () => {
     }));
   };
 
+    const { theme } = useAppContext();
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       // style={{ backgroundColor: "#ffffff" }}
-      className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
     >
-      <StatusBar hidden={false} style="dark" />
+      <StatusBar hidden={false} style={`${theme === "dark" ? "light" : "dark"}`}/>
       <Modal animationType="slide" transparent={true} visible={isVisible2}>
         <Pressable
           style={{
@@ -334,7 +339,9 @@ const GroupSavings = () => {
             <TouchableOpacity
               onPress={() => router.push("/Save/CreateSavingsList")}
             >
-              <Back />
+              <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
             </TouchableOpacity>
             <Text className="text-[20px] text-pagetitle">Group Savings</Text>
             <Text></Text>

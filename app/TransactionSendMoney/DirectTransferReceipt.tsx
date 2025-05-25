@@ -17,11 +17,13 @@ import ReceiptWiremi from "../../assets/receiptwiremi.svg";
 import Copy from "../../assets/copy.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import * as Clipboard from "expo-clipboard";
+import { useAppContext } from "@/Context/useAppContext";
 
 const DirectTransferReceipt = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const { theme } = useAppContext();
   const {
     amount,
     fee,
@@ -78,8 +80,15 @@ const DirectTransferReceipt = () => {
     Clipboard.setString(referenceString);
   };
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -90,9 +99,17 @@ const DirectTransferReceipt = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.back()}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
             Transaction receipt
           </Text>
           <Text></Text>
@@ -109,7 +126,7 @@ const DirectTransferReceipt = () => {
           >
             <Forgotsuccess />
             <Text
-              style={{ color: "#1E1B39" }}
+              style={{ color: theme === "dark" ? "#ffffff" : "#1E1B39" }}
               className="text text-[18px] font-bold"
             >
               Successful
@@ -126,79 +143,233 @@ const DirectTransferReceipt = () => {
             }}
           >
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 You transferred
               </Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 {currency}
                 {formatNumberWithCommas(amountNumber)}
               </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">Fees</Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
+                Fees
+              </Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 {currency}
                 {formatNumberWithCommas(feeNumber)}
               </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Recipient name
               </Text>
-              <Text className="text-darktext font-bold">{receivername}</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                {receivername}
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Recipient account number
               </Text>
-              <Text className="text-darktext font-bold">{receivernumber}</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                {receivernumber}
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Destination bank
               </Text>
-              <Text className="text-darktext font-bold">{receiverbank}</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                {receiverbank}
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Transfer type
               </Text>
-              <Text className="text-darktext font-bold">{type}</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                {type}
+              </Text>
             </View>
             {/* <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">Country</Text>
-              <Text className="text-darktext font-bold">Nigeria</Text>
+              <Text     className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}>Country</Text>
+              <Text  className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}>Nigeria</Text>
             </View> */}
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">Date</Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
+                Date
+              </Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 {formatDate(date)}
               </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">Time</Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
+                Time
+              </Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 {formatDateWithTime(date)}
               </Text>
             </View>
             {/* <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">Address</Text>
-              <Text className="text-darktext font-bold">
+              <Text     className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}>Address</Text>
+              <Text  className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}>
                 No 32a Berkely Street
               </Text>
             </View> */}
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Description
               </Text>
-              <Text className="text-darktext font-bold">{reason}</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                {reason}
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Transaction ref
               </Text>
               <View className="flex-row">
-                <Text className="text-darktext font-bold">{reference}</Text>
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-bold text-[#ffffff]"
+                      : "text-darktext font-bold"
+                  }`}
+                >
+                  {reference}
+                </Text>
                 <Pressable onPress={() => handleCopy()}>
                   <Copy />
                 </Pressable>
@@ -213,7 +384,15 @@ const DirectTransferReceipt = () => {
             }}
           >
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-darktext font-bold">Total amount:</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                Total amount:
+              </Text>
               <Text className="text-buttonprimary font-bold">
                 {currency}
                 {formatNumberWithCommas(amountNumber + feeNumber)}
@@ -224,7 +403,13 @@ const DirectTransferReceipt = () => {
             className="flex-col gap-2 pl-2"
             style={{ marginBottom: height * 0.03 }}
           >
-            <Text className="text-[12px] text-lighttextdark">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[12px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
               Transaction status
             </Text>
             {status === "PENDING" ? (
@@ -261,12 +446,32 @@ const DirectTransferReceipt = () => {
             className="flex-col gap-2 pl-2"
             style={{ marginBottom: height * 0.03 }}
           >
-            <Text className="text-[12px] text-lighttextdark">Note</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[12px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Note
+            </Text>
             <View className="flex-col">
-              <Text className="font-bold text-dark">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-dark font-bold"
+                }`}
+              >
                 we have successfully deposited the amount
               </Text>
-              <Text className="font-bold text-dark">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-dark font-bold"
+                }`}
+              >
                 to the recipient account
               </Text>
             </View>

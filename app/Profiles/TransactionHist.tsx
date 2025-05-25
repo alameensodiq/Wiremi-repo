@@ -24,6 +24,7 @@ import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { Image } from "expo-image";
 import { UserTransactions } from "@/Store/Apis/UserTransactions";
 import { clearStateusertransactions } from "@/Store/Reducers/UserTransactions";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -40,6 +41,7 @@ const TransactionHist = () => {
   const dispatch = useAppDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
+  const { theme } = useAppContext();
 
   const handleCloseModal = () => {
     ref.current?.close();
@@ -125,9 +127,16 @@ const TransactionHist = () => {
     };
   }, []);
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View // style={{ backgroundColor: "#ffffff" }}
+      // className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -147,9 +156,17 @@ const TransactionHist = () => {
         <View>
           <View className="flex-row justify-between items-center mb-1">
             <TouchableOpacity onPress={() => router.push("/Profile")}>
-              <Back />
+              <Back
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[20px] text-[#ffffff]"
+                  : "text-[20px] text-pagetitle"
+              }`}
+            >
               Transaction history
             </Text>
             <Text></Text>
@@ -187,18 +204,36 @@ const TransactionHist = () => {
                           <Senddeposit />
                         )}
                         <View className="flex-col gap-1 justify-center items-start">
-                          <Text className="text-[14px] text-darktext font-bold">
+                          <Text
+                            className={`${
+                              theme === "dark"
+                                ? "text-[14px]  font-bold text-[#ffffff]"
+                                : "text-[14px] text-darktext font-bold"
+                            }`}
+                          >
                             {item?.method} to {item?.receiver?.last_name}
                             {""} {item?.receiver?.first_name}
                           </Text>
-                          <Text className="text-[12px] text-transdate">
+                          <Text
+                            className={`${
+                              theme === "dark"
+                                ? "text-[12px] text-[#ffffff]"
+                                : "text-[12px] text-transdate"
+                            }`}
+                          >
                             {/* Sep 2nd, 7:45am */}
                             {formatDateWithTime(item?.created_at)}
                           </Text>
                         </View>
                       </View>
                       <View className="flex-col justify-center items-center">
-                        <Text className="text-[14px] text-darktext">
+                        <Text
+                          className={`${
+                            theme === "dark"
+                              ? "text-[14px]  text-[#ffffff]"
+                              : "text-[14px] text-darktext"
+                          }`}
+                        >
                           {item?.symbol || ""}
                           {""}
                           {formatNumberWithCommas(
@@ -231,7 +266,15 @@ const TransactionHist = () => {
                 </TouchableOpacity>
               )}
               renderSectionHeader={({ section: { title } }) => (
-                <Text className="text-[12px] text-sectionheader">{title}</Text>
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[12px]  text-[#ffffff]"
+                      : "text-[12px] text-sectionheader"
+                  }`}
+                >
+                  {title}
+                </Text>
               )}
               ItemSeparatorComponent={() => (
                 <View

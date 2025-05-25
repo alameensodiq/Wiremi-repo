@@ -31,6 +31,7 @@ import BankPayment from "../../assets/bankpayment.svg";
 import CardPayment from "../../assets/cardpayment.svg";
 import { Mainwallet } from "@/Store/Apis/Mainwallet";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -39,6 +40,7 @@ type BottomSheetRef = {
 };
 
 const ListSendMoney = () => {
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -81,9 +83,14 @@ const ListSendMoney = () => {
 
   return (
     <View // style={{ backgroundColor: "#ffffff" }}
-      className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
     >
-      <StatusBar hidden={false} style="dark" />
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -94,10 +101,20 @@ const ListSendMoney = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/(PersonalAccount)")}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
           {/* <Text className="text-[20px] text-pagetitle">Send money</Text> */}
-          <Text className="text-[20px] text-pagetitle">Payments</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Payments
+          </Text>
           <Text></Text>
         </View>
         {/* <TouchableOpacity onPress={() => ref.current?.open()}>
@@ -240,7 +257,13 @@ const ListSendMoney = () => {
         </TouchableOpacity> */}
         <View>
           <View className="flex flex-row justify-start mb-3">
-            <Text className="text-[rgba(0, 9, 30, 1)]  text-[14px] font-bold">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[14px] font-bold text-[#ffffff]"
+                  : "text-[rgba(0, 9, 30, 1)]  text-[14px] font-bold"
+              }`}
+            >
               Make payment from
             </Text>
           </View>
@@ -264,13 +287,25 @@ const ListSendMoney = () => {
                   <SendMoneyWiremi />
                 </View>
                 <View className="items-start">
-                  <Text className="text-[14px] font-bold text-black">
+                  <Text
+                    className={`${
+                      theme === "dark"
+                        ? "text-[14px] font-bold text-[#ffffff]"
+                        : "text-[14px] font-bold text-black"
+                    }`}
+                  >
                     Wiremi wallet
                   </Text>
                 </View>
               </View>
               <View className="flex flex-row gap-2 items-center">
-                <Text className="text-[rgba(10, 10, 10, 1)]  text-[16px] font-bold">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[16px] font-bold text-[#ffffff]"
+                      : "text-[rgba(10, 10, 10, 1)]  text-[16px] font-bold"
+                  }`}
+                >
                   {mainwallet?.symbol}
                   {formatNumberWithCommas(mainwallet?.balance)}
                 </Text>
@@ -281,7 +316,13 @@ const ListSendMoney = () => {
         </View>
         <View className="mt-5">
           <View className="flex flex-row items-start mb-6">
-            <Text className="text-['rgba(0, 9, 30, 1)'] text-[16px] font-bold">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[16px] font-bold text-[#ffffff]"
+                  : "text-['rgba(0, 9, 30, 1)'] text-[16px] font-bold"
+              }`}
+            >
               Select payment mode
             </Text>
           </View>
@@ -316,10 +357,22 @@ const ListSendMoney = () => {
                       <SendMoneyWiremi />
                     </View>
                     <View className="items-start">
-                      <Text className="text-[14px] font-bold text-black">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[14px] font-bold   text-black"
+                            : "text-[14px] font-bold text-black"
+                        }`}
+                      >
                         Pay with wiremi
                       </Text>
-                      <Text className="text-[10px] text-deposistsub">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[10px]  text-deposistsub"
+                            : "text-[10px] text-deposistsub"
+                        }`}
+                      >
                         Make payment for goods & services
                       </Text>
                     </View>
@@ -353,10 +406,22 @@ const ListSendMoney = () => {
                       <Transfermoneypayment />
                     </View>
                     <View className="items-start">
-                      <Text className="text-[14px] font-bold text-black">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[14px] font-bold  text-black"
+                            : "text-[14px] font-bold text-black"
+                        }`}
+                      >
                         Transfer Money
                       </Text>
-                      <Text className="text-[10px] text-deposistsub">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[10px]  text-deposistsub"
+                            : "text-[10px] text-deposistsub"
+                        }`}
+                      >
                         make transfer to any other bank accounts
                       </Text>
                     </View>
@@ -390,10 +455,22 @@ const ListSendMoney = () => {
                       <Doawithdrawal />
                     </View>
                     <View className="items-start">
-                      <Text className="text-[14px] font-bold text-black">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[14px] font-bold  text-black"
+                            : "text-[14px] font-bold text-black"
+                        }`}
+                      >
                         Do a withdrawal
                       </Text>
-                      <Text className="text-[10px] text-deposistsub">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[10px]  text-deposistsub"
+                            : "text-[10px] text-deposistsub"
+                        }`}
+                      >
                         make a withdrawal from your account
                       </Text>
                     </View>
@@ -653,8 +730,8 @@ const ListSendMoney = () => {
                     </Text>
                   </View>
                   <Text className="text-['rgba(153, 153, 153, 1)'] text-[14px]">
-                  {mainwallet?.symbol}
-                  {formatNumberWithCommas(mainwallet?.balance)}
+                    {mainwallet?.symbol}
+                    {formatNumberWithCommas(mainwallet?.balance)}
                   </Text>
                 </View>
               </TouchableOpacity>

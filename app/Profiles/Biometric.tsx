@@ -17,6 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import Confirm from "../../assets/Confirm.svg";
 import NotConfirm from "../../assets/Notconfirm.svg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -31,6 +32,7 @@ const Biometric = () => {
   const [biomet, setBiomet] = useState<string | null>(null);
 
   const ref = useRef<BottomSheetRef>(null);
+  const { theme } = useAppContext();
 
   const handleCloseModal = () => {
     ref.current?.close();
@@ -48,8 +50,15 @@ const Biometric = () => {
     fetchStoredData();
   }, []);
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -60,20 +69,39 @@ const Biometric = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Profile")}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Biometrics</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Biometrics
+          </Text>
           <Text></Text>
         </View>
         <View className="flex-1 relative  justify-start gap-2">
           <View className="flex-col justify-start items-start pb-10">
-            <Text className="text-black text-[16px] font-bold">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "ext-[16px] font-bold text-[#ffffff]"
+                  : "text-black text-[16px] font-bold"
+              }`}
+            >
               Turn on biometrics scan
             </Text>
           </View>
           <View className="flex-row items-center justify-between p-2">
             <View className="flex-row gap-1 items-center">
-              <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+              <Text
+                className="text-[16px]"
+                style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+              >
                 Yes
               </Text>
             </View>

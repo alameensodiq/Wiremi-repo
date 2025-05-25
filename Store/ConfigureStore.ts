@@ -56,6 +56,7 @@ import { KycAddressSlice } from './Reducers/KycAddress';
 import { GetAllwalletSlice } from './Reducers/GetAllwallet';
 import { CreateWalletSlice } from './Reducers/CreateWallet';
 import { HistorySavingSlice } from './Reducers/HistorySaving';
+import { ReceiptSlice } from './Reducers/Receipt';
 
 const store = configureStore({
   reducer: {
@@ -114,7 +115,8 @@ const store = configureStore({
     kycaddress: KycAddressSlice?.reducer,
     getallwallets: GetAllwalletSlice?.reducer,
     createwallet: CreateWalletSlice?.reducer,
-    historysaving: HistorySavingSlice?.reducer
+    historysaving: HistorySavingSlice?.reducer,
+    receipt: ReceiptSlice?.reducer
   },
 });
 

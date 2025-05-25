@@ -12,8 +12,10 @@ import { StatusBar } from "expo-status-bar";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import Forgotsuccess from "../../assets/forgotsuccess.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
+import { useAppContext } from "@/Context/useAppContext";
 
 const RegularInstanceSuccess = () => {
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -22,8 +24,15 @@ const RegularInstanceSuccess = () => {
   console.log(ids);
   return (
     <View className="flex-1 ">
-      <View className="flex-1 bg-white">
-        <StatusBar hidden={false} style="dark" />
+      <View
+        className={`${
+          theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+        }`}
+      >
+        <StatusBar
+          hidden={false}
+          style={`${theme === "dark" ? "light" : "dark"}`}
+        />
         <SafeAreaView
           className="justify-between"
           style={{
@@ -38,7 +47,7 @@ const RegularInstanceSuccess = () => {
           >
             <View className="flex-row justify-center items-center">
               <Text
-                style={{ color: "#242329" }}
+                style={{ color: theme === "dark" ? "#ffffff" : "#242329" }}
                 className="text-[20px] font-bold"
               >
                 Edit Instance
@@ -51,17 +60,29 @@ const RegularInstanceSuccess = () => {
               <View className="flex-col gap-3">
                 <Forgotsuccess />
                 <Text
-                  style={{ color: "#1E1B39" }}
+                  style={{ color: theme === "dark" ? "#ffffff" : "#1E1B39" }}
                   className="text text-[18px] font-bold"
                 >
                   Successful!
                 </Text>
               </View>
               <View className="flex-col items-center">
-                <Text className="text-forgotsuccesslight text-[13px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[13px] text-[#ffffff]"
+                      : "text-forgotsuccesslight text-[13px]"
+                  }`}
+                >
                   Your have successfully edited your savings
                 </Text>
-                <Text className="text-forgotsuccesslight text-[13px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[13px] text-[#ffffff]"
+                      : "text-forgotsuccesslight text-[13px]"
+                  }`}
+                >
                   instance.
                 </Text>
               </View>

@@ -25,6 +25,7 @@ import { clearStatesavingspayout } from "@/Store/Reducers/SavingsPayout";
 import { clearStategetsaving } from "@/Store/Reducers/GetSaving";
 import { clearStategetsavinganalytics } from "@/Store/Reducers/GetSavingAnalytics";
 import { HistorySavings } from "@/Store/Apis/HistorySavings";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -33,6 +34,7 @@ type BottomSheetRef = {
 };
 
 const RegularHistory = () => {
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -41,29 +43,29 @@ const RegularHistory = () => {
   const ids = +id;
   console.log(ids);
 
-    const dispatch = useAppDispatch();
-  
-    const { historysaving, authenticatinghistorysaving, errors } = useAppSelector(
-      (state) => state.historysaving
-    );
-  
-    console.log(historysaving);
-  
-    useEffect(() => {
-      dispatch(clearStategetsaving());
-      dispatch(clearStategetsavinganalytics());
+  const dispatch = useAppDispatch();
+
+  const { historysaving, authenticatinghistorysaving, errors } = useAppSelector(
+    (state) => state.historysaving
+  );
+
+  console.log(historysaving);
+
+  useEffect(() => {
+    dispatch(clearStategetsaving());
+    dispatch(clearStategetsavinganalytics());
+    dispatch(clearStatesavingspayout());
+    dispatch(HistorySavings({ id: ids, router: router.push }));
+    // if (savingspayout?.status === true) {
+    //   setAmount(0)
+    //   router.push("/Save/RegularWithdrawSuccess");
+    // }
+    return () => {
+      dispatch(GetSaving({ id: ids, router: router.push }));
+      dispatch(GetSavingAnalytics({ id: ids, router: router.push }));
       dispatch(clearStatesavingspayout());
-      dispatch(HistorySavings({ id: ids, router: router.push }));
-      // if (savingspayout?.status === true) {
-      //   setAmount(0)
-      //   router.push("/Save/RegularWithdrawSuccess");
-      // }
-      return () => {
-        dispatch(GetSaving({ id: ids, router: router.push }));
-        dispatch(GetSavingAnalytics({ id: ids, router: router.push }));
-        dispatch(clearStatesavingspayout());
-      };
-    }, []);
+    };
+  }, []);
 
   const handleCloseModal = () => {
     ref.current?.close();
@@ -81,9 +83,14 @@ const RegularHistory = () => {
   ];
   return (
     <View // style={{ backgroundColor: "#ffffff" }}
-      className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
     >
-      <StatusBar hidden={false} style="dark" />
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -96,9 +103,19 @@ const RegularHistory = () => {
           <TouchableOpacity
             onPress={() => router.push(`/Save/RegularSavingsSummary?id=${ids}`)}
           >
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">History</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            History
+          </Text>
           <Text></Text>
         </View>
         <View className="flex-row">
@@ -117,17 +134,37 @@ const RegularHistory = () => {
                   <View className="flex-row gap-1">
                     <Card />
                     <View className="flex-col gap-1 justify-center items-start">
-                      <Text className="text-[14px] text-darktext font-bold">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[14px] font-bold text-[#ffffff]"
+                            : "text-[14px] text-darktext font-bold"
+                        }`}
+                      >
                         Regular savings
                       </Text>
-                      <Text className="text-[12px] text-transdate">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[12px]  text-[#ffffff]"
+                            : "text-[12px] text-transdate"
+                        }`}
+                      >
                         Withdrawal from Susan plan
                       </Text>
                     </View>
                   </View>
                   <View className="flex-col justify-center items-start">
                     <Text className="text-[14px] text-successtrans">$90</Text>
-                    <Text className="text-[12px] text-darktext">10:30am</Text>
+                    <Text
+                      className={`${
+                        theme === "dark"
+                          ? "text-[12px]   text-[#ffffff]"
+                          : "text-[12px] text-darktext"
+                      }`}
+                    >
+                      10:30am
+                    </Text>
                   </View>
                 </View>
                 <View className="flex-row justify-end">

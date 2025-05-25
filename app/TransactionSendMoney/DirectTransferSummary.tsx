@@ -18,6 +18,7 @@ import BlueSignInButton from "@/components/BlueSignInButton";
 import { BottomSheet } from "@/components/Bottom";
 import { useRef } from "react";
 import FourDigits from "@/components/FourDigits";
+import { useAppContext } from "@/Context/useAppContext";
 type BottomSheetRef = {
   open: () => void;
   close: () => void;
@@ -29,14 +30,21 @@ const DirectTransferSummary = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const ref = useRef<BottomSheetRef>(null);
+  const { theme } = useAppContext();
 
   const handleCloseModal = () => {
     ref.current?.close();
   };
   return (
-    <ScrollView // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <ScrollView // style={{ backgroundColor: "#ffffff" }}
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -51,9 +59,17 @@ const DirectTransferSummary = () => {
               router.push("/TransactionSendMoney/DirectTransferDetails")
             }
           >
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
             Transaction Summary
           </Text>
           <Text></Text>
@@ -62,72 +78,222 @@ const DirectTransferSummary = () => {
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Transfer type</Text>
-          <Text className="text-darktext font-bold">Direct transfer</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Transfer type
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            Direct transfer
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Amount</Text>
-          <Text className="text-darktext font-bold">$500</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Amount
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            $500
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Fees</Text>
-          <Text className="text-darktext font-bold">$0.00</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Fees
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            $0.00
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Rate</Text>
-          <Text className="text-darktext font-bold">$1=₦1,650.00</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Rate
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            $1=₦1,650.00
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Recipient gets</Text>
-          <Text className="text-darktext font-bold">₦806,320.00</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Recipient gets
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            ₦806,320.00
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Country</Text>
-          <Text className="text-darktext font-bold">Nigeria</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Country
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            Nigeria
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Recipient bank</Text>
-          <Text className="text-darktext font-bold">Sterling bank</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Recipient bank
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            Sterling bank
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
             Recipient account
           </Text>
-          <Text className="text-darktext font-bold">2391028711</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            2391028711
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Recipient name</Text>
-          <Text className="text-darktext font-bold">Susan Sheidu</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Recipient name
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            Susan Sheidu
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Total</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Total
+          </Text>
           <Text className="text-buttonprimary  font-bold">$501</Text>
         </View>
         <View className="items-center justify-center">

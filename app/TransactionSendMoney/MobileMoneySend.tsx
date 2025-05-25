@@ -39,6 +39,7 @@ import { clearStateaccountname } from "@/Store/Reducers/AccountName";
 import { clearStatesupportedcountries } from "@/Store/Reducers/SupportedCountries";
 import { clearStatemobiletransferinstitution } from "@/Store/Reducers/MobileTransferInstitution";
 import { clearStatemobiletransfer } from "@/Store/Reducers/MobileTransfer";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -47,6 +48,7 @@ type BottomSheetRef = {
 };
 
 const MobileMoneySend = () => {
+  const { theme } = useAppContext();
   const [hasMounted, setHasMounted] = useState(false);
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
@@ -186,7 +188,7 @@ const MobileMoneySend = () => {
     }
     if (summary?.receiver) {
       if (ref3) {
-         Keyboard.dismiss();
+        Keyboard.dismiss();
         ref3?.current?.open();
       }
     }
@@ -252,7 +254,9 @@ const MobileMoneySend = () => {
   useEffect(() => {
     if (mobiletransfer?.status) {
       setPin(Array(6).fill(""));
-      router.replace(`/TransactionSendMoney/MobileMoneyReceipt?amount=${mobiletransfer?.data?.amount}&fee=${mobiletransfer?.data?.fee}&currency=${mobiletransfer?.data?.currency}&receivername=${mobiletransfer?.data?.counterparty?.account_name}&receiverbank=${mobiletransfer?.data?.counterparty?.bank_name}&receivernumber=${mobiletransfer?.data?.counterparty?.account_number}&type=${mobiletransfer?.data?.type}&date=${mobiletransfer?.data?.updated_at}&status=${mobiletransfer?.data?.status}&reference=${mobiletransfer?.data?.reference}&reason=${mobiletransfer?.data?.reason}`);
+      router.replace(
+        `/TransactionSendMoney/MobileMoneyReceipt?amount=${mobiletransfer?.data?.amount}&fee=${mobiletransfer?.data?.fee}&currency=${mobiletransfer?.data?.currency}&receivername=${mobiletransfer?.data?.counterparty?.account_name}&receiverbank=${mobiletransfer?.data?.counterparty?.bank_name}&receivernumber=${mobiletransfer?.data?.counterparty?.account_number}&type=${mobiletransfer?.data?.type}&date=${mobiletransfer?.data?.updated_at}&status=${mobiletransfer?.data?.status}&reference=${mobiletransfer?.data?.reference}&reason=${mobiletransfer?.data?.reason}`
+      );
     }
   }, [mobiletransfer?.status]);
 
@@ -295,9 +299,14 @@ const MobileMoneySend = () => {
     }
   };
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View // style={{ backgroundColor: "#ffffff" }}
+      className="flex-1"
+      style={{ backgroundColor: theme === "dark" ? "#000000" : "#ffffff" }}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,

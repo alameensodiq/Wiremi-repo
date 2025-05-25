@@ -134,9 +134,12 @@ const TransactionList = () => {
   return (
     <View
       // style={{ backgroundColor: "#ffffff" }}
-      className="flex-1"
+      // className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
     >
-      <StatusBar hidden={false} style="dark" />
+      <StatusBar hidden={false}  style={`${theme === "dark" ? "light" : "dark"}`} />
       <SafeAreaView
         style={{
           flex: 1,
@@ -155,7 +158,7 @@ const TransactionList = () => {
         )}
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/(PersonalAccount)")}>
-            <Back />
+            <Back   style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }} />
           </TouchableOpacity>
           <Text
             className={` ${
@@ -199,18 +202,36 @@ const TransactionList = () => {
                         <Senddeposit />
                       )}
                       <View className="flex-col gap-1 justify-center items-start">
-                        <Text className="text-[14px] text-darktext font-bold">
+                        <Text
+                          className={`${
+                            theme === "dark"
+                              ? "text-[14px]  font-bold text-[#ffffff]"
+                              : "text-[14px] text-darktext font-bold"
+                          }`}
+                        >
                           {item?.method} to {item?.receiver?.last_name}
                           {""} {item?.receiver?.first_name}
                         </Text>
-                        <Text className="text-[12px] text-transdate">
+                        <Text
+                          className={`${
+                            theme === "dark"
+                              ? "text-[12px]  text-[#ffffff]"
+                              : "text-[12px] text-transdate"
+                          }`}
+                        >
                           {/* Sep 2nd, 7:45am */}
                           {formatDateWithTime(item?.created_at)}
                         </Text>
                       </View>
                     </View>
                     <View className="flex-col justify-center items-center">
-                      <Text className="text-[14px] text-darktext">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[14px]  text-[#ffffff]"
+                            : "text-[14px] text-darktext"
+                        }`}
+                      >
                         {item?.symbol || ""}
                         {""}
                         {formatNumberWithCommas(parseFloat(item?.total || "0"))}
@@ -241,7 +262,15 @@ const TransactionList = () => {
               </TouchableOpacity>
             )}
             renderSectionHeader={({ section: { title } }) => (
-              <Text className="text-[12px] text-sectionheader">{title}</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "text-[12px]  text-[#ffffff]"
+                    : "text-[12px] text-sectionheader"
+                }`}
+              >
+                {title}
+              </Text>
             )}
             ItemSeparatorComponent={() => (
               <View

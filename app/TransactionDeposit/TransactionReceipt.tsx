@@ -15,14 +15,23 @@ import Forgotsuccess from "../../assets/forgotsuccess.svg";
 import ReceiptWiremi from "../../assets/receiptwiremi.svg";
 import Copy from "../../assets/copy.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
+import { useAppContext } from "@/Context/useAppContext";
 
 const TransactionReceipt = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const { theme } = useAppContext();
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -33,9 +42,17 @@ const TransactionReceipt = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.back()}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
             Transaction receipt
           </Text>
           <Text></Text>
@@ -52,7 +69,7 @@ const TransactionReceipt = () => {
           >
             <Forgotsuccess />
             <Text
-              style={{ color: "#1E1B39" }}
+              style={{ color: theme === "dark" ? "#ffffff" : "#1E1B39" }}
               className="text text-[18px] font-bold"
             >
               Successful
@@ -69,61 +86,203 @@ const TransactionReceipt = () => {
             }}
           >
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 You desposited
               </Text>
-              <Text className="text-darktext font-bold">$500</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                $500
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">Fees</Text>
-              <Text className="text-darktext font-bold">$10</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
+                Fees
+              </Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                $10
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Recipient details
               </Text>
-              <Text className="text-darktext font-bold">Susan Sheidu</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                Susan Sheidu
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Payment method
               </Text>
-              <Text className="text-darktext font-bold">Debit card</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                Debit card
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">Date</Text>
-              <Text className="text-darktext font-bold">13/09/2024</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
+                Date
+              </Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                13/09/2024
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">Time</Text>
-              <Text className="text-darktext font-bold">12:09:10AM</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
+                Time
+              </Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                12:09:10AM
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Contact info
               </Text>
-              <Text className="text-darktext font-bold">+1 90 345 67895</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                +1 90 345 67895
+              </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">Address</Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
+                Address
+              </Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 No 32a Berkely Street
               </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Description
               </Text>
-              <Text className="text-darktext font-bold">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
                 Credit card deposit
               </Text>
             </View>
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-lighttextdark font-[14px]">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}
+              >
                 Transaction ref
               </Text>
               <View className="flex-row">
-                <Text className="text-darktext font-bold">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-bold text-[#ffffff]"
+                      : "text-darktext font-bold"
+                  }`}
+                >
                   55678878900765342561
                 </Text>
                 <Copy />
@@ -138,7 +297,15 @@ const TransactionReceipt = () => {
             }}
           >
             <View className="flex-row items-center justify-between p-3">
-              <Text className="text-darktext font-bold">Total amount:</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold text-[#ffffff]"
+                    : "text-darktext font-bold"
+                }`}
+              >
+                Total amount:
+              </Text>
               <Text className="text-buttonprimary font-bold">$500.00</Text>
             </View>
           </View>
@@ -168,10 +335,22 @@ const TransactionReceipt = () => {
           >
             <Text className="text-[12px] text-lighttextdark">Note</Text>
             <View className="flex-col">
-              <Text className="font-bold text-dark">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold  text-[#ffffff]"
+                    : "font-bold text-dark"
+                }`}
+              >
                 we have successfully deposited the amount
               </Text>
-              <Text className="font-bold text-dark">
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "font-bold  text-[#ffffff]"
+                    : "font-bold text-dark"
+                }`}
+              >
                 to the recipient account
               </Text>
             </View>
@@ -185,7 +364,7 @@ const TransactionReceipt = () => {
             />
           </View>
           <View className="items-center justify-center mt-4">
-            <ReceiptWiremi/>
+            <ReceiptWiremi />
           </View>
         </ScrollView>
       </SafeAreaView>

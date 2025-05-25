@@ -22,6 +22,7 @@ import FourDigits from "@/components/FourDigits";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import ShortBlueButton from "@/components/ShortBlueButton";
 import { Resetingpin } from "@/Store/Apis/ResetingPin";
+import { useAppContext } from "@/Context/useAppContext";
 
 const ResetPinConfirm = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -33,6 +34,8 @@ const ResetPinConfirm = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isVisible2, setIsVisible2] = useState<boolean>(false);
   const [show, setShow] = useState("");
+  const { theme } = useAppContext();
+
   const onChangepin = (value: string) => {
     setPin(value);
   };
@@ -51,8 +54,15 @@ const ResetPinConfirm = () => {
     }
   }, [resetingpin?.status]);
   return (
-    <View className="flex-1 ">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         className="justify-between"
         style={{
@@ -154,15 +164,31 @@ const ResetPinConfirm = () => {
                 <TouchableOpacity
                   onPress={() => router.push("/Profiles/ResetPin")}
                 >
-                  <Back />
+                  <Back
+                    style={{
+                      backgroundColor: theme === "dark" ? "#ffffff" : ""
+                    }}
+                  />
                 </TouchableOpacity>
-                <Text className="text-[18px] text-textblack font-bold">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[18px] text-[#ffffff] font-bold"
+                      : "text-[18px] text-textblack font-bold"
+                  }`}
+                >
                   Reset pin
                 </Text>
                 <Text></Text>
               </View>
               <View className="flex-col items-start justify-center gap-2">
-                <Text className="text-textblack text-[16px] font-bold">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[16px] text-[#ffffff] font-bold"
+                      : "text-[16px] text-textblack font-bold"
+                  }`}
+                >
                   Reset your pin for transaction
                 </Text>
               </View>
@@ -171,7 +197,11 @@ const ResetPinConfirm = () => {
                 className="flex-col items-start"
               >
                 <Text
-                  className="text-textblack text-[12px]"
+                  className={`${
+                    theme === "dark"
+                      ? "text-[12px] text-[#ffffff]"
+                      : "text-[12px] text-textblack"
+                  }`}
                   style={{ marginBottom: height * 0.01 }}
                 >
                   Old pin.
@@ -186,7 +216,11 @@ const ResetPinConfirm = () => {
                 className="flex-col items-start"
               >
                 <Text
-                  className="text-textblack text-[12px]"
+                  className={`${
+                    theme === "dark"
+                      ? "text-[12px] text-[#ffffff]"
+                      : "text-[12px] text-textblack"
+                  }`}
                   style={{ marginBottom: height * 0.01 }}
                 >
                   New pin.

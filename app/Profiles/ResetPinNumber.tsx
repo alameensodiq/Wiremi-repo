@@ -19,12 +19,14 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { EmailVerifyCode } from "@/Store/Apis/Emailverifycode";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
+import { useAppContext } from "@/Context/useAppContext";
 
 const ResetPinNumber = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { theme } = useAppContext();
   const [confirmpin, setConfirmpin] = useState("");
   const onChangeconfirmpin = (value: string) => {
     setConfirmpin(value);
@@ -50,8 +52,15 @@ const ResetPinNumber = () => {
     }
   }, [emailverifycode?.status]);
   return (
-    <View className="flex-1 ">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         className="justify-between"
         style={{
@@ -77,24 +86,47 @@ const ResetPinNumber = () => {
                 <TouchableOpacity
                   onPress={() => router.push("/Profiles/ResetPin")}
                 >
-                  <Back />
+                  <Back
+                    style={{
+                      backgroundColor: theme === "dark" ? "#ffffff" : ""
+                    }}
+                  />
                 </TouchableOpacity>
-                <Text className="text-[18px] text-textblack font-bold">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[18px]  font-bold text-[#ffffff]"
+                      : "text-[18px] text-textblack font-bold"
+                  }`}
+                >
                   Reset pin
                 </Text>
                 <Text></Text>
               </View>
               <View className="flex-col items-start justify-center gap-2">
-                <Text className="text-textblack text-[16px] font-bold">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[16px]  font-bold text-[#ffffff]"
+                      : "text-[16px] text-textblack font-bold"
+                  }`}
+                >
                   Email Verification
                 </Text>
-                <Text style={{ color: "#6E7073" }} className="text-[12px]">
+                <Text
+                  style={{ color: theme === "dark" ? "#ffffff" : "#6E7073" }}
+                  className="text-[12px]"
+                >
                   Verify your email
                 </Text>
               </View>
               <View style={{ paddingLeft: width * 0.02 }} className="flex-col">
                 <Text
-                  className="text-textblack text-[12px]"
+                  className={`${
+                    theme === "dark"
+                      ? "text-[12px] text-[#ffffff]"
+                      : "text-textblack text-[12px]"
+                  }`}
                   style={{ marginBottom: height * 0.01 }}
                 >
                   Enter the 6 (Six) digit OTP code sent to your email

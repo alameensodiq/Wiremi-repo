@@ -14,21 +14,28 @@ import { useRouter } from "expo-router";
 import SixDigits from "@/components/SixDigits";
 import { useAppDispatch } from "@/Store/ConfigureStore";
 import { clearStateforgetpin } from "@/Store/Reducers/ForgetPin";
+import { useAppContext } from "@/Context/useAppContext";
 
 const ForgetSuccess = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const dispatch = useAppDispatch();
-
-
+  const { theme } = useAppContext();
 
   useEffect(() => {
-      dispatch(clearStateforgetpin())
-  },[])
+    dispatch(clearStateforgetpin());
+  }, []);
   return (
-    <View className="flex-1 ">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         className="justify-between"
         style={{
@@ -42,7 +49,13 @@ const ForgetSuccess = () => {
           className="flex-1  justify-between gap-6"
         >
           <View className="flex-row justify-center items-center">
-            <Text className="text-[18px] text-textblack font-bold">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[18px] font-bold text-[#ffffff]"
+                  : "text-[18px] text-textblack font-bold"
+              }`}
+            >
               Forgot PinCode
             </Text>
           </View>
@@ -51,10 +64,22 @@ const ForgetSuccess = () => {
             className="flex-col items-center justify-center gap-2"
           >
             <Forgotsuccess />
-            <Text className="text-lighttextblack text-[18px] font-bold">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[18px] font-bold text-[#ffffff]"
+                  : "text-lighttextblack text-[18px] font-bold"
+              }`}
+            >
               Successful!
             </Text>
-            <Text className="text-forgotsuccesslight text-[13px]">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[13px] text-[#ffffff]"
+                  : "text-forgotsuccesslight text-[13px]"
+              }`}
+            >
               Your login pincode has been reset successfully.
             </Text>
           </View>

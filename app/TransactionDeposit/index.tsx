@@ -18,15 +18,19 @@ import Ewallet from "../../assets/ewallet.svg";
 import MobileMoney from "../../assets/mobilemoney.svg";
 import Request from "../../assets/request.svg";
 import Rightcarat from "../../assets/rightcarat.svg";
+import { useAppContext } from "@/Context/useAppContext";
 
 const ListofDeposits = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+    const { theme } = useAppContext();
   return (
     <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    className={`${
+      theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+    }`}>
+      <StatusBar hidden={false}   style={`${theme === "dark" ? "light" : "dark"}`}/>
       <SafeAreaView
         style={{
           flex: 1,
@@ -40,9 +44,15 @@ const ListofDeposits = () => {
           <TouchableOpacity
             onPress={() => router.push("/(PersonalAccount)")}
           >
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Deposit</Text>
+          <Text className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}>Deposit</Text>
           <Text></Text>
         </View>
         <TouchableOpacity
@@ -66,9 +76,17 @@ const ListofDeposits = () => {
               >
                 <Cards />
               </View>
-              {/* <Text className="text-[14px] font-bold text-black">Cards</Text> */}
+              {/* <Text className={`${
+                  theme === "dark"
+                    ? "text-[14px] font-bold text-[#ffffff]"
+                    : "text-black text-[14px] font-bold"
+                }`}>Cards</Text> */}
               <View className="items-start">
-                <Text className="text-[14px] font-bold text-black">
+                <Text className={`${
+                  theme === "dark"
+                    ? "text-[14px] font-bold text-[#ffffff]"
+                    : "text-black text-[14px] font-bold"
+                }`}>
                   Cards deposit
                 </Text>
                 <Text className="text-[10px] text-deposistsub">
@@ -103,7 +121,11 @@ const ListofDeposits = () => {
                 <Interac />
               </View>
               <View className="items-start">
-                <Text className="text-[14px] font-bold text-black">
+                <Text className={`${
+                  theme === "dark"
+                    ? "text-[14px] font-bold text-[#ffffff]"
+                    : "text-black text-[14px] font-bold"
+                }`}>
                   Interac e-transfer{" "}
                 </Text>
                 <Text className="text-[10px] text-deposistsub">
@@ -137,7 +159,11 @@ const ListofDeposits = () => {
               >
                 <Bank />
               </View>
-              <Text className="text-[14px] font-bold text-black">Banks</Text>
+              <Text className={`${
+                  theme === "dark"
+                    ? "text-[14px] font-bold text-[#ffffff]"
+                    : "text-black text-[14px] font-bold"
+                }`}>Banks</Text>
             </View>
             <View>
               <Rightcarat />
@@ -165,7 +191,11 @@ const ListofDeposits = () => {
               >
                 <Ewallet />
               </View>
-              <Text className="text-[14px] font-bold text-black">
+              <Text className={`${
+                  theme === "dark"
+                    ? "text-[14px] font-bold text-[#ffffff]"
+                    : "text-black text-[14px] font-bold"
+                }`}>
                 E-wallets
               </Text>
             </View>
@@ -195,7 +225,11 @@ const ListofDeposits = () => {
               >
                 <MobileMoney />
               </View>
-              <Text className="text-[14px] font-bold text-black">
+              <Text className={`${
+                  theme === "dark"
+                    ? "text-[14px] font-bold text-[#ffffff]"
+                    : "text-black text-[14px] font-bold"
+                }`}>
                 Mobile Money
               </Text>
             </View>
@@ -225,7 +259,11 @@ const ListofDeposits = () => {
               >
                 <Request />
               </View>
-              <Text className="text-[14px] font-bold text-black">
+              <Text className={`${
+                  theme === "dark"
+                    ? "text-[14px] font-bold text-[#ffffff]"
+                    : "text-black text-[14px] font-bold"
+                }`}>
                 Request Money
               </Text>
             </View>

@@ -26,6 +26,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MomoDeposit } from "@/Store/Apis/MomoDeposit";
 import { clearStatemomodeposit } from "@/Store/Reducers/MomoDeposit";
 import { clearStatesummary } from "@/Store/Reducers/Summary";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -46,6 +47,7 @@ const MomoDetails = () => {
   const [isVisible2, setIsVisible2] = useState<boolean>(false);
   const [show2, setShow2] = useState("");
 
+  const { theme } = useAppContext();
   const [amount, setAmount] = useState("");
 
   const { summary, authenticatingsummary, errors } = useAppSelector(
@@ -68,7 +70,7 @@ const MomoDetails = () => {
     return () => {
       dispatch(clearStatemomodeposit());
       dispatch(clearStatesummary());
-      ref?.current?.close()
+      ref?.current?.close();
     };
   }, []);
 
@@ -93,11 +95,11 @@ const MomoDetails = () => {
 
   useEffect(() => {
     if (momodeposit?.status) {
-      handleCloseModal ();
+      handleCloseModal();
       router.replace("/TransactionDeposit/MomoSuccess");
     }
     return () => {
-      handleCloseModal()
+      handleCloseModal();
       dispatch(clearStatemomodeposit());
       dispatch(clearStatesummary());
     };
@@ -107,8 +109,15 @@ const MomoDetails = () => {
     ref.current?.close();
   };
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -187,9 +196,19 @@ const MomoDetails = () => {
             <TouchableOpacity
               onPress={() => router.push("/TransactionDeposit/MobileMoney")}
             >
-              <Back />
+              <Back
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Momo USSD</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[20px] text-[#ffffff]"
+                  : "text-[20px] text-pagetitle"
+              }`}
+            >
+              Momo USSD
+            </Text>
             <Text></Text>
           </View>
           <View className="items-center justify-center mb-2">
@@ -244,7 +263,13 @@ const MomoDetails = () => {
               >
                 <Back />
               </TouchableOpacity> */}
-                <Text className="text-[20px] text-pagetitle">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[20px] text-[#ffffff]"
+                      : "text-[20px] text-pagetitle"
+                  }`}
+                >
                   Transaction Summary
                 </Text>
                 <Text></Text>
@@ -253,8 +278,22 @@ const MomoDetails = () => {
                 style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                 className="flex-row items-center justify-between p-3"
               >
-                <Text className="text-lighttextdark font-[14px]">Amount</Text>
-                <Text className="text-darktext font-[14px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-lighttextdark font-[14px]"
+                  }`}
+                >
+                  Amount
+                </Text>
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-darktext font-[14px]"
+                  }`}
+                >
                   {summary?.currency}
                   {summary?.amount}
                 </Text>
@@ -263,8 +302,22 @@ const MomoDetails = () => {
                 style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                 className="flex-row items-center justify-between p-3"
               >
-                <Text className="text-lighttextdark font-[14px]">Fees</Text>
-                <Text className="text-darktext font-[14px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-lighttextdark font-[14px]"
+                  }`}
+                >
+                  Fees
+                </Text>
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-darktext font-[14px]"
+                  }`}
+                >
                   {summary?.currency}
                   {summary?.fee}
                 </Text>
@@ -273,8 +326,22 @@ const MomoDetails = () => {
                 style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                 className="flex-row items-center justify-between p-3"
               >
-                <Text className="text-lighttextdark font-[14px]">Tax</Text>
-                <Text className="text-darktext font-[14px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-lighttextdark font-[14px]"
+                  }`}
+                >
+                  Tax
+                </Text>
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-darktext font-[14px]"
+                  }`}
+                >
                   {summary?.currency}
                   {summary?.tax}
                 </Text>
@@ -283,10 +350,24 @@ const MomoDetails = () => {
                 style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                 className="flex-row items-center justify-between p-3"
               >
-                <Text className="text-lighttextdark font-[14px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-lighttextdark font-[14px]"
+                  }`}
+                >
                   Deposit type
                 </Text>
-                <Text className="text-darktext font-bold">Momo USSD</Text>
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-bold text-[#ffffff]"
+                      : "text-darktext font-bold"
+                  }`}
+                >
+                  Momo USSD
+                </Text>
               </View>
               <View
                 style={{ height: height * 0.2 }}
@@ -302,7 +383,11 @@ const MomoDetails = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Total</Text>
+            <Text className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}>Total</Text>
             <Text className="text-buttonprimary font-[14px]">$500</Text>
           </View> */}
               <View className="items-center justify-center mb-4">

@@ -26,6 +26,7 @@ import { clearStateusertransactions } from "@/Store/Reducers/UserTransactions";
 import { clearStateallnotification } from "@/Store/Reducers/AllNotification";
 import { clearStatesinglenotification } from "@/Store/Reducers/SingleNotification";
 import { clearStateopenednotification } from "@/Store/Reducers/OpenedNotification";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -38,8 +39,9 @@ const NotificationList = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const ref = useRef<BottomSheetRef>(null);
-  const [notificationSearch, setnotificationSearch] = useState<string>("")
+  const [notificationSearch, setnotificationSearch] = useState<string>("");
   const dispatch = useAppDispatch();
+  const { theme } = useAppContext();
 
   const handleCloseModal = () => {
     ref.current?.close();
@@ -67,12 +69,12 @@ const NotificationList = () => {
   console.log(allnotification);
 
   useEffect(() => {
-    dispatch(AllNotification({notificationSearch, router: router.push}));
+    dispatch(AllNotification({ notificationSearch, router: router.push }));
     dispatch(clearStatemainwallet());
     dispatch(clearStateusertransactions());
     dispatch(clearStatesinglenotification());
     dispatch(clearStateopenednotification());
-    console.log(notificationSearch)
+    console.log(notificationSearch);
     return () => {
       dispatch(clearStateallnotification());
     };
@@ -80,10 +82,13 @@ const NotificationList = () => {
 
   const data = allnotification?.data;
   return (
-    <View 
-    // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      // style={{ backgroundColor: "#ffffff" }}
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar hidden={false}  style={`${theme === "dark" ? "light" : "dark"}`} />
       <SafeAreaView
         style={{
           flex: 1,
@@ -102,13 +107,26 @@ const NotificationList = () => {
         )}
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/(PersonalAccount)")}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Notifications</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Notifications
+          </Text>
           <Text></Text>
         </View>
         <View className="flex-row">
-          <NotificationSearchLabel onChangeText={(text) => setnotificationSearch(text)} placeholder="Search" />
+          <NotificationSearchLabel
+            onChangeText={(text) => setnotificationSearch(text)}
+            placeholder="Search"
+          />
           <Filter />
         </View>
         <View style={{ height: height * 0.72 }}>
@@ -126,17 +144,26 @@ const NotificationList = () => {
                     }}
                     className="justify-center items-center"
                   >
-                    {item?.opened ?  <SendMoneyWiremi /> : <Openednotify />}
+                    {item?.opened ? <SendMoneyWiremi /> : <Openednotify />}
                   </View>
                   <View>
                     <Text className="text-black font-[13px]">
                       {item?.title}
                     </Text>
-                    <Text style={{ color: "#989AAF" }}>{item?.message}</Text>
+                    <Text
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#989AAF"
+                      }}
+                    >
+                      {item?.message}
+                    </Text>
                   </View>
                 </View>
                 <View className="flex-row justify-between px-2">
-                  <Text style={{ color: "#606162" }} className="font-[10px]">
+                  <Text
+                    style={{ color: theme === "dark" ? "#ffffff" : "#606162" }}
+                    className="font-[10px]"
+                  >
                     {formatDateWithTime(item?.createdAt)}
                   </Text>
                   <TouchableOpacity

@@ -18,6 +18,7 @@ import BlueSignInButton from "@/components/BlueSignInButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
+import { useAppContext } from "@/Context/useAppContext";
 
 type FileType = {
   uri: string;
@@ -33,6 +34,7 @@ const Passport = () => {
   const [documentFront, setDocumentFront] = useState<FileType | null>(null);
   const [documentBack, setDocumentBack] = useState<FileType | null>(null);
   const [selfie, setSelfie] = useState<FileType | null>(null);
+  const { theme } = useAppContext();
 
   const captureImage = async (type: "front" | "back" | "selfie") => {
     console.log("type");
@@ -133,7 +135,7 @@ const Passport = () => {
         documentsData?.documentFrontImage &&
         selfieData?.selfieImage
       ) {
-        router.push("/Profiles/PassportSuccess")
+        router.push("/Profiles/PassportSuccess");
       }
     } catch (error) {
       console.error("Upload failed:", error);
@@ -144,9 +146,15 @@ const Passport = () => {
     <ScrollView
       showsVerticalScrollIndicator={false}
       // style={{ backgroundColor: "#ffffff" }}
-      className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+      // className="flex-1"
     >
-      <StatusBar hidden={false} style="dark" />
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -163,15 +171,25 @@ const Passport = () => {
             <TouchableOpacity
               onPress={() => router.push("/Profiles/KycCertificates")}
             >
-              <Back />
+              <Back
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Update KYC info</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[20px] text-[#ffffff]"
+                  : "text-[20px] text-pagetitle"
+              }`}
+            >
+              Update KYC info
+            </Text>
             <Text></Text>
           </View>
           <View className="flex-col justify-between">
             <Text
               className="text-[16px] font-bold"
-              style={{ color: "#00091E" }}
+              style={{ color: theme === "dark" ? "[#ffffff]" : "#00091E" }}
             >
               Upload passport
             </Text>

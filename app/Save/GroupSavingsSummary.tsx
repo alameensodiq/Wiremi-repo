@@ -37,6 +37,7 @@ import { clearStategetgroupsaving } from "@/Store/Reducers/GetGroupSaving";
 import ShortBlueButton from "@/components/ShortBlueButton";
 import { SavingActive } from "@/Store/Apis/SavingActive";
 import { clearStatesaveactive } from "@/Store/Reducers/SavingActive";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -45,6 +46,7 @@ type BottomSheetRef = {
 };
 
 const GroupSavingsSummary = () => {
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -96,9 +98,14 @@ const GroupSavingsSummary = () => {
     <ScrollView
       // style={{ backgroundColor: "#ffffff" }}
       showsVerticalScrollIndicator={false}
-      className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
     >
-      <StatusBar hidden={false} style="dark" />
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <Modal animationType="slide" transparent={true} visible={isVisible}>
         <Pressable
           style={{
@@ -204,9 +211,14 @@ const GroupSavingsSummary = () => {
         )}
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Save")}>
-            <Back />
+          <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle"> {getgroupsaving?.data?.goal_name}</Text>
+          <Text className="text-[20px] text-pagetitle">
+            {" "}
+            {getgroupsaving?.data?.goal_name}
+          </Text>
           <Pressable
             onPress={() => {
               setIsVisible(!isVisible);
@@ -270,8 +282,8 @@ const GroupSavingsSummary = () => {
                   Group Savings Balance
                 </Text>
                 <Text className="text-buttonprimary text-[24px] font-bold">
-                {getgroupsaving?.data?.symbol}
-                {getgroupsaving?.data?.amount_saved}
+                  {getgroupsaving?.data?.symbol}
+                  {getgroupsaving?.data?.amount_saved}
                 </Text>
                 <View className="flex-row gap-3 items-center">
                   <View className="flex-row justify-center items-center">
@@ -285,12 +297,12 @@ const GroupSavingsSummary = () => {
                       style={{
                         width: 6,
                         height: 6,
-                        backgroundColor: "#6E6E6E",
+                        backgroundColor: theme === "dark" ? "#ffffff" : "#6E6E6E",
                         borderRadius: 50,
                         marginRight: 5
                       }}
                     ></View>
-                    <Text style={{ color: "#6E6E6E", fontSize: 8 }}>
+                    <Text style={{ color: theme === "dark" ? "#ffffff" : "#6E6E6E", fontSize: 8 }}>
                       Lost in 1 month
                     </Text>
                   </View>
@@ -302,18 +314,18 @@ const GroupSavingsSummary = () => {
               className="flex-row justify-center pt-4 gap-4"
             >
               <View className="flex-col gap-1">
-                <Text style={{ color: "#505050" }} className="text-[14px]">
+                <Text style={{ color: theme === "dark" ? "#ffffff" : "#505050" }} className="text-[14px]">
                   My Contribution
                 </Text>
                 <Text className="text-buttonprimary text-[16px] font-bold">
                   $2,112.23
                 </Text>
-                <Text style={{ color: "#505050" }} className="text-[10px]">
+                <Text style={{ color: theme === "dark" ? "#ffffff" : "#505050" }} className="text-[10px]">
                   Last saved 11/09
                 </Text>
               </View>
               <View className="flex-col gap-1">
-                <Text style={{ color: "#505050" }} className="text-[14px]">
+                <Text style={{ color:  theme === "dark" ? "#ffffff" :"#505050" }} className="text-[14px]">
                   Accumulated fine
                 </Text>
                 <Text className="text-buttonprimary text-[16px] font-bold">
@@ -361,7 +373,7 @@ const GroupSavingsSummary = () => {
                 <View className="flex-col gap-1 items-center">
                   <EditInstance />
                   <Text
-                    style={{ color: "#292D32" }}
+                    style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }}
                     className="text-[14px] font-bold"
                   >
                     Edit Instance
@@ -372,7 +384,7 @@ const GroupSavingsSummary = () => {
                 <View className="flex-col gap-1 items-center">
                   <SaveHistory />
                   <Text
-                    style={{ color: "#292D32" }}
+                    style={{ color: theme === "dark" ? "#ffffff" :"#292D32" }}
                     className="text-[14px] font-bold"
                   >
                     History
@@ -382,7 +394,7 @@ const GroupSavingsSummary = () => {
             </View>
             <View className="flex-col justify-center pt-4 gap-4">
               <Text
-                style={{ color: "#1E1B39" }}
+                style={{ color: theme === "dark" ? "#ffffff" : "#1E1B39" }}
                 className="text-[14px] font-bold"
               >
                 Summary
@@ -392,10 +404,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color:  theme === "dark" ? "#ffffff" :"#292D32" }} className="text-[14px]">
                     Name
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Tuition
                   </Text>
                 </View>
@@ -403,10 +415,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Expected amount
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     $2,900.00
                   </Text>
                 </View>
@@ -414,10 +426,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Saved amount
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     $0.00
                   </Text>
                 </View>
@@ -425,10 +437,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Interest earned
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     $0.00
                   </Text>
                 </View>
@@ -436,10 +448,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Amount
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     $2,112.23
                   </Text>
                 </View>
@@ -447,10 +459,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Start date
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     23/09/2024
                   </Text>
                 </View>
@@ -458,10 +470,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     End date
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     23/11/20124
                   </Text>
                 </View>
@@ -469,10 +481,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Duration
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     2 months
                   </Text>
                 </View>
@@ -480,10 +492,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color:  theme === "dark" ? "#ffffff" :"#292D32" }} className="text-[14px]">
                     Saving type
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Regular
                   </Text>
                 </View>
@@ -491,10 +503,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Interval
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     $0.00
                   </Text>
                 </View>
@@ -502,10 +514,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Schedule ID
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     WI2356718268
                   </Text>
                 </View>
@@ -513,10 +525,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Interest rate
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     0.00%
                   </Text>
                 </View>
@@ -524,10 +536,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Emergency fund %
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color:  theme === "dark" ? "#ffffff" :"#292D32" }} className="text-[14px]">
                     0.00%
                   </Text>
                 </View>
@@ -535,10 +547,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color:  theme === "dark" ? "#ffffff" :"#292D32" }} className="text-[14px]">
                     Emergency fund amount
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color:  theme === "dark" ? "#ffffff" :"#292D32" }} className="text-[14px]">
                     $1
                   </Text>
                 </View>
@@ -546,10 +558,10 @@ const GroupSavingsSummary = () => {
                   className="flex-row justify-between pb-4"
                   style={{ borderBottomColor: "#D2D4FF", borderBottomWidth: 1 }}
                 >
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     Next saving schedule
                   </Text>
-                  <Text style={{ color: "#292D32" }} className="text-[14px]">
+                  <Text style={{ color: theme === "dark" ? "#ffffff" : "#292D32" }} className="text-[14px]">
                     30/09/2024
                   </Text>
                 </View>
@@ -559,7 +571,7 @@ const GroupSavingsSummary = () => {
         ) : (
           <View className="flex-col gap-6">
             <View className="flex-col gap-1">
-              <Text style={{ color: "#344054" }} className="text-[12px]">
+              <Text style={{ color:  theme === "dark" ? "#ffffff" :"#344054" }} className="text-[12px]">
                 Show data in
               </Text>
               <View
@@ -608,12 +620,12 @@ const GroupSavingsSummary = () => {
             >
               <View className="flex-col gap-1">
                 <Text
-                  style={{ color: "#00091E", fontSize: 14 }}
+                  style={{ color: theme === "dark" ? "#ffffff" : "#00091E", fontSize: 14 }}
                   className="font-bold"
                 >
                   $2112.23
                 </Text>
-                <Text style={{ color: "#98A2B3", fontSize: 12 }}>
+                <Text style={{ color: theme === "dark" ? "#ffffff" : "#98A2B3", fontSize: 12 }}>
                   Total interest ($367.00)
                 </Text>
               </View>
@@ -650,7 +662,7 @@ const GroupSavingsSummary = () => {
             <View className="flex-row justify-between items-center">
               <Leftdrop />
               <View className="flex-col items-center">
-                <Text style={{ color: "#858D9D" }}>14 Aug - 20 Aug</Text>
+                <Text style={{ color: theme === "dark" ? "#ffffff" : "#858D9D" }}>14 Aug - 20 Aug</Text>
                 <Text className="text-buttonprimary">16 days left to view</Text>
               </View>
               <Rightdrop />
@@ -661,7 +673,7 @@ const GroupSavingsSummary = () => {
           <View style={{ padding: 20, gap: 30 }}>
             <View className="items-center">
               <Text
-                style={{ fontSize: 18, color: "#292D32", fontWeight: "bold" }}
+                style={{ fontSize: 18, color:  theme === "dark" ? "#ffffff" :"#292D32", fontWeight: "bold" }}
               >
                 Delete Plan
               </Text>

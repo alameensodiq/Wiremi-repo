@@ -16,6 +16,7 @@ import {
   import TransactionTextLabel from "@/components/TransactionTextLabel";
   import TextLabelBox from "@/components/TextLabelBox";
   import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppContext } from "@/Context/useAppContext";
   
   type BottomSheetRef = {
     open: () => void;
@@ -35,10 +36,13 @@ import {
     const handleCloseModal = () => {
       ref.current?.close();
     };
+      const { theme } = useAppContext();
     return (
       <View // style={{ backgroundColor: "#ffffff" }} 
-      className="flex-1">
-        <StatusBar hidden={false} style="dark" />
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}>
+        <StatusBar hidden={false}  style={`${theme === "dark" ? "light" : "dark"}`}/>
         <SafeAreaView
           style={{
             flex: 1,
@@ -51,9 +55,15 @@ import {
             <TouchableOpacity
               onPress={() => router.push("/Save/GroupSavingsSummary")}
             >
-              <Back />
+               <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Edit Instance</Text>
+            <Text className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}>Edit Instance</Text>
             <Text></Text>
           </View>
           <View className="items-center justify-center">

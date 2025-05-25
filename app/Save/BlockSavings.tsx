@@ -45,6 +45,7 @@ import { AllwithdrawalBanks } from "@/Store/Apis/AllwithdrawalBanks";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { SavingDashboard } from "@/Store/Apis/SavingDashboard";
 import { SavingActive } from "@/Store/Apis/SavingActive";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -53,6 +54,7 @@ type BottomSheetRef = {
 };
 
 const BlockSavings = () => {
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const [checked, setChecked] = React.useState(true);
@@ -220,9 +222,14 @@ const BlockSavings = () => {
     <ScrollView
       showsVerticalScrollIndicator={false}
       // style={{ backgroundColor: "#ffffff" }}
-      className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
     >
-      <StatusBar hidden={false} style="dark" />
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -273,9 +280,15 @@ const BlockSavings = () => {
             <TouchableOpacity
               onPress={() => router.push("/Save/CreateSavingsList")}
             >
-              <Back />
+               <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Block Savings</Text>
+            <Text className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}>Block Savings</Text>
             <Text></Text>
           </View>
           <View className="items-center justify-center">

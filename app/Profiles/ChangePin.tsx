@@ -23,6 +23,7 @@ import { Changepin } from "@/Store/Apis/Changepin";
 import SixDigits from "@/components/SixDigits";
 import { clearStatechangepin } from "@/Store/Reducers/Changepin";
 import { KeyboardAvoidingView } from "react-native";
+import { useAppContext } from "@/Context/useAppContext";
 
 const ChangePin = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -35,6 +36,7 @@ const ChangePin = () => {
   const [confirmpin, setConfirmpin] = useState("");
   const [confirmpin2, setConfirmpin2] = useState("");
   const dispatch = useAppDispatch();
+  const { theme } = useAppContext();
 
   const { changepin, authenticatingchangepin, errorschangepin } =
     useAppSelector((state) => state.changepin);
@@ -63,8 +65,15 @@ const ChangePin = () => {
   };
 
   return (
-    <View className="flex-1 ">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         className="justify-between"
         style={{
@@ -164,15 +173,31 @@ const ChangePin = () => {
             >
               <View className="flex-row justify-between items-center">
                 <TouchableOpacity onPress={() => router.push("/Profile")}>
-                  <Back />
+                  <Back
+                    style={{
+                      backgroundColor: theme === "dark" ? "#ffffff" : ""
+                    }}
+                  />
                 </TouchableOpacity>
-                <Text className="text-[18px] text-textblack font-bold">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[18px]font-bold text-[#ffffff]"
+                      : "text-[18px] text-textblack font-bold"
+                  }`}
+                >
                   Change pincode
                 </Text>
                 <Text></Text>
               </View>
               <View className="flex-col items-start justify-center gap-2">
-                <Text className="text-textblack text-[16px] font-bold">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[16px] font-bold text-[#ffffff]"
+                      : "text-textblack text-[16px] font-bold"
+                  }`}
+                >
                   Reset your pin for transaction
                 </Text>
               </View>
@@ -181,7 +206,11 @@ const ChangePin = () => {
                 className="flex-col items-start"
               >
                 <Text
-                  className="text-textblack text-[12px]"
+                  className={`${
+                    theme === "dark"
+                      ? "text-[12px] text-[#ffffff]"
+                      : "text-textblack text-[12px]"
+                  }`}
                   style={{ marginBottom: height * 0.01 }}
                 >
                   Old pincode
@@ -199,7 +228,11 @@ const ChangePin = () => {
                 className="flex-col items-start"
               >
                 <Text
-                  className="text-textblack text-[12px]"
+                  className={`${
+                    theme === "dark"
+                      ? "text-[12px] text-[#ffffff]"
+                      : "text-textblack text-[12px]"
+                  }`}
                   style={{ marginBottom: height * 0.01 }}
                 >
                   New pincode
@@ -217,7 +250,11 @@ const ChangePin = () => {
                 className="flex-col items-start"
               >
                 <Text
-                  className="text-textblack text-[12px]"
+                  className={`${
+                    theme === "dark"
+                      ? "text-[12px] text-[#ffffff]"
+                      : "text-textblack text-[12px]"
+                  }`}
                   style={{ marginBottom: height * 0.01 }}
                 >
                   Confirm pincode.

@@ -108,8 +108,15 @@ const TransactioReceipt = () => {
 
   console.log(content);
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -119,11 +126,10 @@ const TransactioReceipt = () => {
         className="gap-1"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity className={` ${
-                theme === "dark"
-                  ? "bg-[#ffffff]"
-                  : ""
-              }`} onPress={() => router.push("/(PersonalAccount)")}>
+          <TouchableOpacity
+            className={` ${theme === "dark" ? "bg-[#ffffff]" : ""}`}
+            onPress={() => router.push("/(PersonalAccount)")}
+          >
             <Back />
           </TouchableOpacity>
           <Text

@@ -21,6 +21,7 @@ import SixDigits from "@/components/SixDigits";
 import { clearStatetransactionchange } from "@/Store/Reducers/TransactionChange";
 import { TransactionChange } from "@/Store/Apis/TransactionChange";
 import { AccountDetails } from "@/Store/Apis/AccountDetails";
+import { useAppContext } from "@/Context/useAppContext";
 
 const TransactionChangePin = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -36,6 +37,7 @@ const TransactionChangePin = () => {
   const [confirmpin, setConfirmpin] = useState("");
   const [confirmpin2, setConfirmpin2] = useState("");
   const dispatch = useAppDispatch();
+  const { theme } = useAppContext();
 
   const {
     transactionchange,
@@ -81,8 +83,15 @@ const TransactionChangePin = () => {
   };
 
   return (
-    <View className="flex-1 ">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         className="justify-between"
         style={{
@@ -193,15 +202,29 @@ const TransactionChangePin = () => {
         >
           <View className="flex-row justify-between items-center">
             <TouchableOpacity onPress={() => router.push("/Profile")}>
-              <Back />
+              <Back
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </TouchableOpacity>
-            <Text className="text-[18px] text-textblack font-bold">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[18px] font-bold text-[#ffffff]"
+                  : "text-[18px] text-textblack font-bold"
+              }`}
+            >
               Change pincode
             </Text>
             <Text></Text>
           </View>
           <View className="flex-col items-start justify-center gap-2">
-            <Text className="text-textblack text-[16px] font-bold">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[16px] font-bold text-[#ffffff]"
+                  : "text-[16px] text-textblack font-bold"
+              }`}
+            >
               change your pin for transaction
             </Text>
           </View>
@@ -210,7 +233,11 @@ const TransactionChangePin = () => {
             className="flex-col items-start"
           >
             <Text
-              className="text-textblack text-[12px]"
+              className={`${
+                theme === "dark"
+                  ? "text-[12px]  text-[#ffffff]"
+                  : "text-[12px] text-textblack "
+              }`}
               style={{ marginBottom: height * 0.01 }}
             >
               Old pin
@@ -226,7 +253,11 @@ const TransactionChangePin = () => {
             className="flex-col items-start"
           >
             <Text
-              className="text-textblack text-[12px]"
+              className={`${
+                theme === "dark"
+                  ? "text-[12px]  text-[#ffffff]"
+                  : "text-[12px] text-textblack "
+              }`}
               style={{ marginBottom: height * 0.01 }}
             >
               New pin
@@ -244,7 +275,11 @@ const TransactionChangePin = () => {
             className="flex-col items-start"
           >
             <Text
-              className="text-textblack text-[12px]"
+              className={`${
+                theme === "dark"
+                  ? "text-[12px]  text-[#ffffff]"
+                  : "text-[12px] text-textblack "
+              }`}
               style={{ marginBottom: height * 0.01 }}
             >
               Confirm pin
@@ -267,7 +302,7 @@ const TransactionChangePin = () => {
               <BlueSignInButton
                 title="Proceed"
                 onPress={() => {
-                  if(accountdetails?.is_pin?.is_transaction_pin){
+                  if (accountdetails?.is_pin?.is_transaction_pin) {
                     if (
                       pin?.length === 6 &&
                       confirmpin?.length === 6 &&
@@ -286,11 +321,9 @@ const TransactionChangePin = () => {
                     } else {
                       setIsVisible2(true);
                     }
-
                   } else {
-                    setIsVisible4(true)
+                    setIsVisible4(true);
                   }
-                  
                 }}
                 // onPress={() => router.push("/Profiles/ChangePinSuccess")}
               />

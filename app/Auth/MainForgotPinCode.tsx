@@ -19,6 +19,7 @@ import { BottomSheet } from "@/components/Bottom";
 import { CheckBox } from "@rneui/themed";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { VerificationCode } from "@/Store/Apis/VerificationCode";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -40,6 +41,7 @@ interface CountryItemProps {
 }
 
 const MainForgotPinCode = () => {
+  const { theme } = useAppContext();
   const [searchQuery, setSearchQuery] = useState("");
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
@@ -232,8 +234,15 @@ const MainForgotPinCode = () => {
     }
   }, [verification]);
   return (
-    <View className="flex-1 ">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         className="justify-between"
         style={{
@@ -248,18 +257,38 @@ const MainForgotPinCode = () => {
         >
           <View className="flex-row justify-between items-center">
             <TouchableOpacity onPress={() => router.push("/Auth/SignInPage")}>
-              <Back />
+              <Back
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </TouchableOpacity>
-            <Text className="text-[18px] text-textblack font-bold">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] text-[18px] font-bold"
+                  : "text-[18px] text-textblack font-bold"
+              }`}
+            >
               Forgot PinCode
             </Text>
             <Text></Text>
           </View>
           <View className="flex-col items-start justify-center gap-2">
-            <Text className="text-textblack text-[18px] font-bold">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] text-[18px] font-bold"
+                  : "text-[18px] text-textblack font-bold"
+              }`}
+            >
               Reset PinCode
             </Text>
-            <Text className="text-lighttextblack text-[14px]">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff]  text-[14px]"
+                  : "text-lighttextblack text-[14px]"
+              }`}
+            >
               Enter your phone number to receive OTP for pincode reset.
             </Text>
           </View>

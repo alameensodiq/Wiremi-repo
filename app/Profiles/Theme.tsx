@@ -59,7 +59,7 @@ const Theme = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Profile")}>
-            <Back style={{ backgroundColor: theme ? "#ffffff" : "" }} />
+            <Back style={{ backgroundColor: theme === 'dark' ? "#ffffff" : "" }} />
           </TouchableOpacity>
           <Text
             className={`${

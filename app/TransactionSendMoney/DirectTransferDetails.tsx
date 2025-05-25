@@ -39,6 +39,7 @@ import SixDigitsPin from "@/components/SixDigitsPin";
 import { clearStatebanktransfer } from "@/Store/Reducers/BankTransfer";
 import { clearStatebanktransferinstitution } from "@/Store/Reducers/BankTransferInstitution";
 import { clearStatesupportedcountries } from "@/Store/Reducers/SupportedCountries";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -47,6 +48,7 @@ type BottomSheetRef = {
 };
 
 const DirectTransferDetails = () => {
+    const { theme } = useAppContext();
   const [hasMounted, setHasMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchQuery3, setSearchQuery3] = useState("");
@@ -292,8 +294,10 @@ const DirectTransferDetails = () => {
   return (
     <View 
     // style={{ backgroundColor: "#ffffff" }}
-     className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    className={`${
+      theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+    }`}>
+      <StatusBar hidden={false}    style={`${theme === "dark" ? "light" : "dark"}`} />
       <SafeAreaView
         style={{
           flex: 1,
@@ -556,9 +560,15 @@ const DirectTransferDetails = () => {
               <TouchableOpacity
                 onPress={() => router.push("/TransactionSendMoney")}
               >
-                <Back />
+                  <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
               </TouchableOpacity>
-              <Text className="text-[20px] text-pagetitle">
+              <Text   className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}>
                 Direct Transfer
               </Text>
               <Text></Text>

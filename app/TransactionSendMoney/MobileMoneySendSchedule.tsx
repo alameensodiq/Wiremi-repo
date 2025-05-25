@@ -27,6 +27,7 @@ import TDBANK from "../../assets/tdbank.svg";
 import Scotia from "../../assets/scotiabank.svg";
 import BMO from "../../assets/bmo.svg";
 import SearchLabelBox from "@/components/SearchLabelBox";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -42,15 +43,19 @@ const MobileMoneySendSchedule = () => {
   const [checked, setChecked] = React.useState(true);
   const toggleCheckbox = () => setChecked(!checked);
   const ref = useRef<BottomSheetRef>(null);
+  const { theme } = useAppContext();
 
   const handleCloseModal = () => {
     ref.current?.close();
   };
   return (
-    <ScrollView showsVerticalScrollIndicator={false} 
-    // style={{ backgroundColor: "#ffffff" }}
-     className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      // style={{ backgroundColor: "#ffffff" }}
+      style={{ backgroundColor: theme === "dark" ? "#000000" : "#ffffff" }}
+      className="flex-1"
+    >
+      <StatusBar hidden={false}         style={`${theme === "dark" ? "light" : "dark"}`} />
       <SafeAreaView
         style={{
           flex: 1,
@@ -63,9 +68,15 @@ const MobileMoneySendSchedule = () => {
           <TouchableOpacity
             onPress={() => router.push("/TransactionSendMoney")}
           >
-            <Back />
+               <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Mobile money</Text>
+          <Text  className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}>Mobile money</Text>
           <Text></Text>
         </View>
         <View className="items-center justify-center">

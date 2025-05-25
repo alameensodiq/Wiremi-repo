@@ -24,7 +24,7 @@ import Tuition from "../../assets/Tuition.svg";
 import { BottomSheet } from "@/components/Bottom";
 import BlueSignInButton from "@/components/BlueSignInButton";
 import WhiteSignInButton from "@/components/WhiteSignInButton";
-
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -33,6 +33,7 @@ type BottomSheetRef = {
 };
 
 const MoreList = () => {
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -43,9 +44,15 @@ const MoreList = () => {
     ref.current?.close();
   };
   return (
-    <ScrollView // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <ScrollView // style={{ backgroundColor: "#ffffff" }}
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -56,15 +63,23 @@ const MoreList = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/(PersonalAccount)")}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">More</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            More
+          </Text>
           <Text></Text>
         </View>
         <View className="flex-row px-2 items-center justify-between">
-          <TouchableOpacity
-            onPress={() => router.push("/More/Crypto")}
-          >
+          <TouchableOpacity onPress={() => router.push("/More/Crypto")}>
             <View className="flex-col gap-1 justify-center items-center">
               <View
                 style={{
@@ -83,12 +98,12 @@ const MoreList = () => {
               >
                 <Crypto width={70} height={70} />
               </View>
-              <Text>Crypto</Text>
+              <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+                Crypto
+              </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => router.push("/More/Escrow")}
-          >
+          <TouchableOpacity onPress={() => router.push("/More/Escrow")}>
             <View className="flex-col gap-1 justify-center items-center">
               <View
                 style={{
@@ -107,34 +122,36 @@ const MoreList = () => {
               >
                 <Escrow width={70} height={70} />
               </View>
-              <Text>Escrow</Text>
+              <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+                Escrow
+              </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => router.push("/More/Flight")}>
-          <View className="flex-col gap-1 justify-center items-center">
-            <View
-              style={{
-                width: 70, // Set the width according to the icon size
-                height: 70, // Set the height according to the icon size
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "white",
-                borderRadius: 50,
-                shadowColor: "#0A0A0A",
-                shadowOffset: { width: 0, height: 0.58 },
-                shadowOpacity: 0.17,
-                shadowRadius: 1.16,
-                elevation: 2 // For Android
-              }}
-            >
-              <Flight width={70} height={70} />
+            <View className="flex-col gap-1 justify-center items-center">
+              <View
+                style={{
+                  width: 70, // Set the width according to the icon size
+                  height: 70, // Set the height according to the icon size
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "white",
+                  borderRadius: 50,
+                  shadowColor: "#0A0A0A",
+                  shadowOffset: { width: 0, height: 0.58 },
+                  shadowOpacity: 0.17,
+                  shadowRadius: 1.16,
+                  elevation: 2 // For Android
+                }}
+              >
+                <Flight width={70} height={70} />
+              </View>
+              <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+                Travel
+              </Text>
             </View>
-            <Text>Travel</Text>
-          </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => router.push("/More/Withdraw")}
-          >
+          <TouchableOpacity onPress={() => router.push("/More/Withdraw")}>
             <View className="flex-col gap-1 justify-center items-center">
               <View
                 style={{
@@ -153,7 +170,9 @@ const MoreList = () => {
               >
                 <Withdraw width={70} height={70} />
               </View>
-              <Text>Withdraw</Text>
+              <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+                Withdraw
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -177,7 +196,9 @@ const MoreList = () => {
               >
                 <Payqr width={70} height={70} />
               </View>
-              <Text>Pay QR</Text>
+              <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+                Pay QR
+              </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => router.push("/More/Swap")}>
@@ -199,7 +220,9 @@ const MoreList = () => {
               >
                 <Swap width={70} height={70} />
               </View>
-              <Text>Swap</Text>
+              <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+                Swap
+              </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => ref?.current?.open()}>
@@ -221,7 +244,9 @@ const MoreList = () => {
               >
                 <Agents width={70} height={70} />
               </View>
-              <Text>Agents</Text>
+              <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+                Agents
+              </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => router.push("/More/Tuition")}>
@@ -243,7 +268,9 @@ const MoreList = () => {
               >
                 <Tuition width={70} height={70} />
               </View>
-              <Text>Tuition</Text>
+              <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+                Tuition
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -265,7 +292,7 @@ const MoreList = () => {
                 title="Accept and Pay now"
                 onPress={() => {
                   handleCloseModal();
-                  router.push("/More/Agents")
+                  router.push("/More/Agents");
                 }}
               />
               <WhiteSignInButton

@@ -17,11 +17,13 @@ import Filelive from "../../assets/filelive.svg";
 import Gallery from "../../assets/gallerylive.svg";
 import Ellipse from "../../assets/ellipselive.svg";
 import { useRouter } from "expo-router";
+import { useAppContext } from "@/Context/useAppContext";
 
 const LiveChat = () => {
   const { height, width } = Dimensions.get("window");
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const router = useRouter();
+  const { theme } = useAppContext();
 
   const datas = [
     {
@@ -51,7 +53,12 @@ const LiveChat = () => {
     }
   ];
   return (
-    <ScrollView showsVerticalScrollIndicator={false} className="flex-1 bg-buttonprimary">
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-buttonprimary"
+      }`}
+    >
       <StatusBar hidden={false} style="light" />
       <SafeAreaView style={{ flex: 1, marginTop: statusBarHeight }}>
         <View
@@ -70,7 +77,9 @@ const LiveChat = () => {
             className="bg-buttonprimary"
           >
             <View className="flex-row justify-between items-center mb-1">
-              <TouchableOpacity onPress={() => router.push("/Profiles/HelpSupport")}>
+              <TouchableOpacity
+                onPress={() => router.push("/Profiles/HelpSupport")}
+              >
                 <Back />
               </TouchableOpacity>
               <Text className="text-[20px] text-white">Live chat</Text>
@@ -111,8 +120,18 @@ const LiveChat = () => {
                 }}
                 className="w-[65%] h-[66px] flex-col p-3"
               >
-                <Text style={{color:'#242329'}} className="text-[12px]">Hello, is there something we can</Text>
-                <Text style={{color:'#242329'}} className="text-[12px]">help you with today?</Text>
+                <Text
+                  style={{ color: theme === "dark" ? "#ffffff" : "#242329" }}
+                  className="text-[12px]"
+                >
+                  Hello, is there something we can
+                </Text>
+                <Text
+                  style={{ color: theme === "dark" ? "#ffffff" : "#242329" }}
+                  className="text-[12px]"
+                >
+                  help you with today?
+                </Text>
               </View>
             </View>
             <View className="flex-row justify-end items-center mt-2">
@@ -125,17 +144,30 @@ const LiveChat = () => {
                 }}
                 className="w-[65%] h-[66px] flex-col p-3"
               >
-                <Text style={{color:'#FFFFFF'}} className="text-[12px]">Hello, is there something we can</Text>
-                <Text style={{color:'#FFFFFF'}} className="text-[12px]">help you with today?</Text>
+                <Text style={{ color: "#FFFFFF" }} className="text-[12px]">
+                  Hello, is there something we can
+                </Text>
+                <Text style={{ color: "#FFFFFF" }} className="text-[12px]">
+                  help you with today?
+                </Text>
               </View>
             </View>
           </View>
           <View className="flex-row justify-between gap-5 items-center absolute bottom-2 px-2">
-                <TextInput placeholder="Write a reply......."  style={{backgroundColor:'#EFEFF0', width: width * 0.6, height: height * 0.05, borderRadius: 10, paddingLeft: 10}} />
-                <Filelive />
-                <Gallery/>
-                <Ellipse/>
-            </View>
+            <TextInput
+              placeholder="Write a reply......."
+              style={{
+                backgroundColor: "#EFEFF0",
+                width: width * 0.6,
+                height: height * 0.05,
+                borderRadius: 10,
+                paddingLeft: 10
+              }}
+            />
+            <Filelive />
+            <Gallery />
+            <Ellipse />
+          </View>
         </View>
       </SafeAreaView>
     </ScrollView>

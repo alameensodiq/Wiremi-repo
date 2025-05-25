@@ -31,6 +31,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AccountDetails } from "@/Store/Apis/AccountDetails";
 import { UpgradingPlan } from "@/Store/Apis/UpgradingPlan";
 import ShortBlueButton from "@/components/ShortBlueButton";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -54,6 +55,7 @@ const UpgradeDuration = () => {
   console.log(index);
   const indexValue = Array.isArray(index) ? index[0] : index;
   AsyncStorage.setItem("indexing", indexValue);
+  const { theme } = useAppContext();
 
   const ref = useRef<BottomSheetRef>(null);
 
@@ -108,7 +110,7 @@ const UpgradeDuration = () => {
     if (getallplans?.data[indexNumber]?.subscription_plan) {
       setIndex(accountdetails?.subscription_plan);
     } else {
-      setIndex(100000)
+      setIndex(100000);
     }
   }, [
     accountdetails?.subscription_plan,
@@ -124,8 +126,16 @@ const UpgradeDuration = () => {
   console.log(selectedIndex);
   console.log(accountdetails?.subscription_plan);
   return (
-    <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -188,9 +198,19 @@ const UpgradeDuration = () => {
         </Modal>
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Profile")}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Upgrade account</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Upgrade account
+          </Text>
           <Text></Text>
         </View>
         <View className="flex-col items-center gap-3">
@@ -199,7 +219,10 @@ const UpgradeDuration = () => {
             style={{ width: width * 0.9 }}
           >
             <View
-              style={{ borderBottomColor: "#EBEBEB", borderBottomWidth: 1 }}
+              style={{
+                borderBottomColor: theme === "dark" ? "#000000" : "#EBEBEB",
+                borderBottomWidth: 1
+              }}
               className="flex-row justify-start items-center gap-2 py-3"
             >
               <Crownblue />
@@ -232,7 +255,7 @@ const UpgradeDuration = () => {
                   style={{
                     width: width * 0.45,
                     height: 40,
-                    borderColor: "#EBEBEB",
+                    borderColor: theme === "dark" ? "#000000" : "#EBEBEB",
                     borderWidth: 1
                   }}
                 >
@@ -256,7 +279,14 @@ const UpgradeDuration = () => {
             }}
           >
             <View>
-              <Text style={{ color: "#606162", fontSize: 12 }}>Plan fee</Text>
+              <Text
+                style={{
+                  color: theme === "dark" ? "#ffffff" : "#606162",
+                  fontSize: 12
+                }}
+              >
+                Plan fee
+              </Text>
               <Text className="text-[16px] text-buttonprimary font-bold">
                 {getallplans?.data[indexNumber]?.yearly_fee} per year
               </Text>
@@ -268,7 +298,12 @@ const UpgradeDuration = () => {
                   Wiremi {getallplans?.data[indexNumber]?.plan_name}
                 </Text>
               </View>
-              <Text style={{ color: "#606162", fontSize: 12 }}>
+              <Text
+                style={{
+                  color: theme === "dark" ? "#ffffff" : "#606162",
+                  fontSize: 12
+                }}
+              >
                 A text about wiremi {getallplans?.data[indexNumber]?.plan_name}{" "}
                 plan shows here
               </Text>
@@ -283,14 +318,19 @@ const UpgradeDuration = () => {
               </Pressable>
             </View>
             <View>
-              <Text style={{ color: "#606162", fontSize: 12 }}>
+              <Text
+                style={{
+                  color: theme === "dark" ? "#ffffff" : "#606162",
+                  fontSize: 12
+                }}
+              >
                 Plan benefits
               </Text>
             </View>
             <View className="flex-col gap-1">
               <View className="flex-row justify-start items-center gap-2">
                 <Confirm />
-                <Text>
+                <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
                   Maximum escrow transaction of{" "}
                   {formatNumberWithCommas(
                     getallplans?.data[indexNumber]?.escrow
@@ -299,7 +339,7 @@ const UpgradeDuration = () => {
               </View>
               <View className="flex-row justify-start items-center gap-2">
                 <Confirm />
-                <Text>
+                <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
                   Minimum of{" "}
                   {formatNumberWithCommas(
                     getallplans?.data[indexNumber]?.savings_instances
@@ -309,7 +349,7 @@ const UpgradeDuration = () => {
               </View>
               <View className="flex-row justify-start items-center gap-2">
                 <Confirm />
-                <Text>
+                <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
                   Maximum of{" "}
                   {formatNumberWithCommas(
                     getallplans?.data[indexNumber]?.crypto_swap_limit
@@ -323,11 +363,13 @@ const UpgradeDuration = () => {
               </View> */}
               <View className="flex-row justify-start items-center gap-2">
                 <Confirm />
-                <Text>Can perform cross border transactions</Text>
+                <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+                  Can perform cross border transactions
+                </Text>
               </View>
               <View className="flex-row justify-start items-center gap-2">
                 <Confirm />
-                <Text>
+                <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
                   Access to{" "}
                   {getallplans?.data[indexNumber]?.virtual_cards
                     ? "use"
@@ -337,7 +379,7 @@ const UpgradeDuration = () => {
               </View>
               <View className="flex-row justify-start items-center gap-2">
                 <Confirm />
-                <Text>
+                <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
                   {getallplans?.data[indexNumber]?.fundraising_feature
                     ? "Access"
                     : "no access"}{" "}
@@ -346,7 +388,7 @@ const UpgradeDuration = () => {
               </View>
               <View className="flex-row justify-start items-center gap-2">
                 <Confirm />
-                <Text>
+                <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
                   {getallplans?.data[indexNumber]?.payment_processing
                     ? "Access"
                     : "no access"}{" "}
@@ -379,7 +421,10 @@ const UpgradeDuration = () => {
             </Text>
           </View>
           <View className="flex-row justify-between items-center">
-            <Text style={{ color: "#BCBDC3" }} className="text-[16px]">
+            <Text
+              style={{ color: theme === "dark" ? "#ffffff" : "#BCBDC3" }}
+              className="text-[16px]"
+            >
               Select subscription plan
             </Text>
             <CheckBox
@@ -418,7 +463,12 @@ const UpgradeDuration = () => {
                   >
                     <Calendar />
                   </View>
-                  <Text style={{ color: "#413D43", fontSize: 16 }}>
+                  <Text
+                    style={{
+                      color: "#413D43",
+                      fontSize: 16
+                    }}
+                  >
                     3 months
                   </Text>
                 </View>
@@ -458,7 +508,12 @@ const UpgradeDuration = () => {
                   >
                     <Calendar />
                   </View>
-                  <Text style={{ color: "#413D43", fontSize: 16 }}>
+                  <Text
+                    style={{
+                      color: "#413D43",
+                      fontSize: 16
+                    }}
+                  >
                     6 months{" "}
                   </Text>
                 </View>
@@ -498,7 +553,12 @@ const UpgradeDuration = () => {
                   >
                     <Calendar />
                   </View>
-                  <Text style={{ color: "#413D43", fontSize: 16 }}>
+                  <Text
+                    style={{
+                      color: "#413D43",
+                      fontSize: 16
+                    }}
+                  >
                     12 months
                   </Text>
                 </View>

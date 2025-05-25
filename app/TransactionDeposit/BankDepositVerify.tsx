@@ -11,14 +11,23 @@ import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppContext } from "@/Context/useAppContext";
 
 const BankDepositVerify = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const { theme } = useAppContext();
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -30,14 +39,43 @@ const BankDepositVerify = () => {
           <TouchableOpacity
             onPress={() => router.push("/TransactionDeposit/Banks")}
           >
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Verifying</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Verifying
+          </Text>
           <Text></Text>
         </View>
-        <View style={{height: height * 0.5}} className="justify-center items-center">
-            <Text className="font-[14px] text-lighttextdark">We are verifying your payment and you will get</Text>
-            <Text className="font-[14px] text-lighttextdark">notified in few seconds once confirmed.</Text>
+        <View
+          style={{ height: height * 0.5 }}
+          className="justify-center items-center"
+        >
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "font-[14px] text-lighttextdark"
+            }`}
+          >
+            We are verifying your payment and you will get
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "font-[14px] text-lighttextdark"
+            }`}
+          >
+            notified in few seconds once confirmed.
+          </Text>
         </View>
       </SafeAreaView>
     </View>

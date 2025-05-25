@@ -34,15 +34,15 @@ import { clearStatecreategroupsavings } from "@/Store/Reducers/CreateGroupSaving
 import { clearStategetsavinganalytics } from "@/Store/Reducers/GetSavingAnalytics";
 import { clearStategetsaving } from "@/Store/Reducers/GetSaving";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAppContext } from "@/Context/useAppContext";
 
 const SaveDashboard = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const { theme } = useAppContext();
   const dispatch = useAppDispatch();
   const [symbol, setSymbol] = useState<string | null>(null);
-
-
 
   const widthAndHeight = 180;
 
@@ -112,14 +112,13 @@ const SaveDashboard = () => {
     const initialize = async () => {
       try {
         const symbol = await AsyncStorage.getItem("symbol");
-        setSymbol(symbol)
+        setSymbol(symbol);
         console.log("Loaded symbol:", symbol);
-  
       } catch (error) {
         console.error("Error loading symbol from AsyncStorage", error);
       }
     };
-  
+
     initialize();
 
     return () => {
@@ -132,9 +131,14 @@ const SaveDashboard = () => {
     <ScrollView
       showsVerticalScrollIndicator={false}
       // style={{ backgroundColor: "#ffffff" }}
-      className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
     >
-      <StatusBar hidden={false} style="dark" />
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -159,9 +163,19 @@ const SaveDashboard = () => {
         >
           <View className="flex-row justify-between items-center mb-1">
             <TouchableOpacity onPress={() => router.push("/(PersonalAccount)")}>
-              <Back />
+              <Back
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Save</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[20px] text-[#ffffff]"
+                  : "text-[20px] text-pagetitle"
+              }`}
+            >
+              Save
+            </Text>
             <Text></Text>
           </View>
           <View
@@ -181,11 +195,16 @@ const SaveDashboard = () => {
               Total Amount Saved
             </Text>
             <Text className="font-bold text-[20px] text-buttonprimary">
-              {symbol}{savedashboard?.data?.total_amount}
+              {symbol}
+              {savedashboard?.data?.total_amount}
             </Text>
             <View className="flex-row gap-2 items-center">
-              <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
-                +{symbol}{savedashboard?.data?.monthly_gain}
+              <Text
+                style={{ color: theme === "dark" ? "#ffffff" : "#6E6E6E" }}
+                className="text-[10px]"
+              >
+                +{symbol}
+                {savedashboard?.data?.monthly_gain}
               </Text>
               <View className="flex-row">
                 <Text style={{ color: "#00A85A" }} className="text-[10px]">
@@ -198,11 +217,14 @@ const SaveDashboard = () => {
                   style={{
                     height: height * 0.01,
                     width: width * 0.02,
-                    backgroundColor: "#6E6E6E",
+                    backgroundColor: theme === "dark" ? "#ffffff" : "#6E6E6E",
                     borderRadius: 10
                   }}
                 ></View>
-                <Text style={{ color: "#6E6E6E" }} className="text-[10px] ml-2">
+                <Text
+                  style={{ color: theme === "dark" ? "#ffffff" : "#6E6E6E" }}
+                  className="text-[10px] ml-2"
+                >
                   Gained in 1 month
                 </Text>
               </View>
@@ -215,7 +237,7 @@ const SaveDashboard = () => {
             />
             <CreateSavingsBlue
               title="Simulate savings"
-              onPress={() => console.log('yes')}
+              onPress={() => console.log("yes")}
               // onPress={() => router.push("/Save/SimulateSavings")}
             />
           </View>
@@ -244,7 +266,9 @@ const SaveDashboard = () => {
                   <View className="flex-col">
                     <View className="flex-row items-center">
                       <Text
-                        style={{ color: "#7B7B7B" }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#7B7B7B"
+                        }}
                         className="text-[14px]"
                       >
                         Regular
@@ -268,7 +292,9 @@ const SaveDashboard = () => {
                   <View className="flex-col">
                     <View className="flex-row items-center">
                       <Text
-                        style={{ color: "#7B7B7B" }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#7B7B7B"
+                        }}
                         className="text-[14px]"
                       >
                         Recurrent
@@ -294,7 +320,9 @@ const SaveDashboard = () => {
                   <View className="flex-col">
                     <View className="flex-row items-center">
                       <Text
-                        style={{ color: "#7B7B7B" }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#7B7B7B"
+                        }}
                         className="text-[14px]"
                       >
                         Block
@@ -318,7 +346,9 @@ const SaveDashboard = () => {
                   <View className="flex-col">
                     <View className="flex-row items-center">
                       <Text
-                        style={{ color: "#7B7B7B" }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#7B7B7B"
+                        }}
                         className="text-[14px]"
                       >
                         Group
@@ -400,16 +430,33 @@ const SaveDashboard = () => {
                 />
                 <View className="flex-col gap-1">
                   <View className="flex-row gap-1">
-                    <Text className="text-[14px]" style={{ color: "#413D43" }}>
+                    <Text
+                      className="text-[14px]"
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#413D43"
+                      }}
+                    >
                       {saveactive?.data["today"][0]?.name}
                     </Text>
-                    <Text className="text-[14px]" style={{ color: "#00091E" }}>
-                      -{symbol}{saveactive?.data["today"][0]?.amount}
+                    <Text
+                      className="text-[14px]"
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E"
+                      }}
+                    >
+                      -{symbol}
+                      {saveactive?.data["today"][0]?.amount}
                     </Text>
                   </View>
                   <View className="flex-row gap-2 items-center">
-                    <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
-                      +{symbol}{saveactive?.data["today"][0]?.amount}
+                    <Text
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#6E6E6E"
+                      }}
+                      className="text-[10px]"
+                    >
+                      +{symbol}
+                      {saveactive?.data["today"][0]?.amount}
                     </Text>
                     {/* <View className="flex-row">
                       <Text
@@ -443,16 +490,33 @@ const SaveDashboard = () => {
                 />
                 <View className="flex-col gap-1">
                   <View className="flex-row gap-1">
-                    <Text className="text-[14px]" style={{ color: "#413D43" }}>
+                    <Text
+                      className="text-[14px]"
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#413D43"
+                      }}
+                    >
                       {saveactive?.data["today"][1]?.name}
                     </Text>
-                    <Text className="text-[14px]" style={{ color: "#00091E" }}>
-                      -{symbol}{saveactive?.data["today"][1]?.amount}
+                    <Text
+                      className="text-[14px]"
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E"
+                      }}
+                    >
+                      -{symbol}
+                      {saveactive?.data["today"][1]?.amount}
                     </Text>
                   </View>
                   <View className="flex-row gap-2 items-center">
-                    <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
-                      +{symbol}{saveactive?.data["today"][1]?.amount}
+                    <Text
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#6E6E6E"
+                      }}
+                      className="text-[10px]"
+                    >
+                      +{symbol}
+                      {saveactive?.data["today"][1]?.amount}
                     </Text>
                     {/* <View className="flex-row">
                       <Text

@@ -1,11 +1,13 @@
 import { View, Text, Dimensions, TextInput } from "react-native";
 import React, { useRef, useState } from "react";
+import { useAppContext } from "@/Context/useAppContext";
 
 interface SixDigitsProps {
   onChangeText?: (text: string) => void;
 }
 
 const SixDigits = ({ onChangeText }: SixDigitsProps) => {
+  const { theme } = useAppContext();
   const { height, width } = Dimensions.get("window");
   const inputRefs = Array.from({ length: 6 }, () => useRef<TextInput>(null));
   const [inputs, setInputs] = useState<string[]>(Array(6).fill(""));
@@ -46,7 +48,7 @@ const SixDigits = ({ onChangeText }: SixDigitsProps) => {
           ref={inputRefs[index]}
           maxLength={1}
           style={{ width: width * 0.12, borderWidth: 2, height: height * 0.08 }}
-          className="border-landingdrop rounded-six text-[20px] p-4 flex-row justify-center items-center"
+          className={`${theme === "dark" ? "border-landingdrop rounded-six text-[20px] p-4 flex-row justify-center items-center text-white" : "border-landingdrop rounded-six text-[20px] p-4 flex-row justify-center items-center"}`}
           onChangeText={(text) => handleTextChange(index, text)}
           onKeyPress={({ nativeEvent: { key } }) => handleKeyPress(index, key)}
           value={inputs[index]}

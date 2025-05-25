@@ -27,6 +27,7 @@ import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { BankDeposit } from "@/Store/Apis/BankDeposit";
 import ShortBlueButton from "@/components/ShortBlueButton";
 import { clearStatebankdeposit } from "@/Store/Reducers/BankDeposit";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -35,6 +36,7 @@ type BottomSheetRef = {
 };
 
 const BankDepositDetails = () => {
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -59,7 +61,7 @@ const BankDepositDetails = () => {
 
   const handleOpen = () => {
     if (ref?.current) {
-       Keyboard.dismiss();
+      Keyboard.dismiss();
       ref?.current?.open();
     }
   };
@@ -83,8 +85,15 @@ const BankDepositDetails = () => {
   }, [bankdeposit?.status]);
 
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -178,9 +187,19 @@ const BankDepositDetails = () => {
             <TouchableOpacity
               onPress={() => router.push("/TransactionDeposit/Banks")}
             >
-              <Back />
+              <Back
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Direct deposit</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[20px] text-[#ffffff]"
+                  : "text-[20px] text-pagetitle"
+              }`}
+            >
+              Direct deposit
+            </Text>
           </View>
           <View className="items-center justify-center mb-2">
             <TransactionTextLabel
@@ -237,7 +256,7 @@ const BankDepositDetails = () => {
               >
                 <Back />
               </TouchableOpacity> */}
-                <Text className="text-[20px] text-pagetitle">
+                <Text className={`${"text-[20px] text-pagetitle"}`}>
                   Transaction Summary
                 </Text>
                 <Text></Text>
@@ -246,28 +265,52 @@ const BankDepositDetails = () => {
                 style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                 className="flex-row items-center justify-between p-3"
               >
-                <Text className="text-lighttextdark font-[14px]">Amount</Text>
-                <Text className="text-darktext font-[14px]">{amount}</Text>
+                <Text className={`${"text-lighttextdark font-[14px]"}`}>
+                  Amount
+                </Text>
+                <Text className={`${"text-darktext font-[14px]"}`}>
+                  {amount}
+                </Text>
               </View>
               {/* <View
               style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
               className="flex-row items-center justify-between p-3"
             >
-              <Text className="text-lighttextdark font-[14px]">Fees</Text>
-              <Text className="text-darktext font-[14px]">$0.00</Text>
+              <Text className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}>Fees</Text>
+              <Text className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-darktext font-[14px]"
+                }`}>$0.00</Text>
             </View>
             <View
               style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
               className="flex-row items-center justify-between p-3"
             >
-              <Text className="text-lighttextdark font-[14px]">Tax</Text>
-              <Text className="text-darktext font-[14px]">$0.00</Text>
+              <Text className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}>Tax</Text>
+              <Text className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-darktext font-[14px]"
+                }`}>$0.00</Text>
             </View>
             <View
               style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
               className="flex-row items-center justify-between p-3"
             >
-              <Text className="text-lighttextdark font-[14px]">
+              <Text className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}>
                 Deposit type
               </Text>
               <Text className="text-darktext font-bold">Bank deposit</Text>
@@ -276,7 +319,11 @@ const BankDepositDetails = () => {
               style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
               className="flex-row items-center justify-between p-3"
             >
-              <Text className="text-lighttextdark font-[14px]">Total</Text>
+              <Text className={`${
+                  theme === "dark"
+                    ? "font-[14px] text-[#ffffff]"
+                    : "text-lighttextdark font-[14px]"
+                }`}>Total</Text>
               <Text className="text-buttonprimary font-[14px]">$500</Text>
             </View> */}
               <View className="flex-col gap-1 items-start">
@@ -359,7 +406,9 @@ const BankDepositDetails = () => {
                     //     setShow: setShow
                     //   })
                     // );
-                    router.replace(`/TransactionDeposit/BankDepositSuccess?amount=${amount}`);
+                    router.replace(
+                      `/TransactionDeposit/BankDepositSuccess?amount=${amount}`
+                    );
                   }}
                   // router.push("/TransactionDeposit/BankDepositSuccess")
                   // onPress={() => router.push('/TransactionDeposit/BankDepositVerify')}

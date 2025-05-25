@@ -2,6 +2,7 @@ import { View, Text, TextInput, Dimensions } from "react-native";
 import React from "react";
 import TextBarcode from "../assets/textbarcode.svg";
 import { Pressable } from "react-native-gesture-handler";
+import { useAppContext } from "@/Context/useAppContext";
 
 interface TextLabelBoxProps {
   label: string;
@@ -23,6 +24,7 @@ const TextLabelBoxBarcode = ({
     onChangeText?.(text); // Notify the parent component
   };
 
+  const { theme } = useAppContext();
   return (
     <View
       className="flex-col items-start gap-2"
@@ -34,17 +36,30 @@ const TextLabelBoxBarcode = ({
         elevation: 3
       }}
     >
-      <Text className="text-textblack">{label}</Text>
+      <Text
+        className={`${theme === "dark" ? "text-[#ffffff]" : "text-textblack"}`}
+      >
+        {label}
+      </Text>
       <TextInput
-        style={{ width: width * 0.9, borderWidth: 1, height: height * 0.06 }}
-        className="text-textinputtext text-[14px] rounded-ten border-customgray p-2 relative"
+        style={{
+          width: width * 0.9,
+          borderWidth: 1,
+          height: height * 0.06,
+          backgroundColor: theme === "dark" ? "#ffffff" : ""
+        }}
+        className={`${
+          theme === "dark"
+            ? "text-[14px] rounded-ten border-customgray p-2 relative text-textinputtext"
+            : "text-textinputtext text-[14px] rounded-ten border-customgray p-2 relative"
+        }`}
         placeholder={placeholder}
         value={value}
         onChangeText={handleChangeText}
       />
       <View className="absolute top-10 right-2">
         {/* <Pressable onPress={onPress}> */}
-          <TextBarcode />
+        <TextBarcode />
         {/* </Pressable> */}
       </View>
     </View>

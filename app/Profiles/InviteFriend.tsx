@@ -21,7 +21,8 @@ import Back from "../../assets/Back.svg";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { AccountDetails } from "@/Store/Apis/AccountDetails";
 import * as Clipboard from "expo-clipboard";
-import Invite from '../../assets/invitelogo.svg'
+import Invite from "../../assets/invitelogo.svg";
+import { useAppContext } from "@/Context/useAppContext";
 
 const InviteFriend = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
@@ -32,6 +33,7 @@ const InviteFriend = () => {
 
   const dispatch = useAppDispatch();
 
+  const { theme } = useAppContext();
   useEffect(() => {
     dispatch(
       AccountDetails({
@@ -73,9 +75,16 @@ const InviteFriend = () => {
     }
   };
   return (
-    <ScrollView className="flex-1 bg-white" showsVerticalScrollIndicator={false}>
-      <View className="flex-1 bg-white">
-        <StatusBar hidden={false} style="dark" />
+    <ScrollView
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+      showsVerticalScrollIndicator={false}
+    >
+      <View className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}>
+        <StatusBar hidden={false} style={`${theme === "dark" ? "light" : "dark"}`} />
         <SafeAreaView
           className="justify-between"
           style={{
@@ -86,23 +95,46 @@ const InviteFriend = () => {
         >
           <View className="flex-row justify-between items-center mb-1">
             <TouchableOpacity onPress={() => router.push("/Profile")}>
-              <Back />
+              <Back
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Invite a friend</Text>
+            <Text  className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}>Invite a friend</Text>
             <Text></Text>
           </View>
           <View
-            style={{ paddingHorizontal: 8, paddingBottom: height * 0.03, paddingTop: height * 0.05 }}
+            style={{
+              paddingHorizontal: 8,
+              paddingBottom: height * 0.03,
+              paddingTop: height * 0.05
+            }}
             className="flex-1  justify-between gap-6"
           >
-            <View style={{position:'relative'}} className="flex-row justify-center items-center t-40">
+            <View
+              style={{ position: "relative" }}
+              className="flex-row justify-center items-center t-40"
+            >
               <Image
                 source={{ uri: accountdetails?.user?.profile_image }}
-                style={{ width: 150, height: 150, borderRadius: 50, marginTop: 20 }}
+                style={{
+                  width: 150,
+                  height: 150,
+                  borderRadius: 50,
+                  marginTop: 20
+                }}
               />
-              <Invite style={{position:'absolute', top: -20, left: 50}} />
-              <View style={{position:'absolute', right: 70}} className="bg-buttonprimary rounded-tr-ten rounded-b-ten  w-[60] h-[30] flex-row justify-center items-center bottom-0">
-                <Text className="text-white">{accountdetails?.base_currency}10</Text>
+              <Invite style={{ position: "absolute", top: -20, left: 50 }} />
+              <View
+                style={{ position: "absolute", right: 70 }}
+                className="bg-buttonprimary rounded-tr-ten rounded-b-ten  w-[60] h-[30] flex-row justify-center items-center bottom-0"
+              >
+                <Text className="text-white">
+                  {accountdetails?.base_currency}10
+                </Text>
               </View>
             </View>
             <View
@@ -111,18 +143,19 @@ const InviteFriend = () => {
             >
               <View className="flex-col items-start justify-center">
                 <Text className="text-[18px] text-buttonprimary font-bold">
-                  Invite a friend and get {accountdetails?.base_currency}5 - {accountdetails?.base_currency}200
+                  Invite a friend and get {accountdetails?.base_currency}5 -{" "}
+                  {accountdetails?.base_currency}200
                 </Text>
                 <Text className="text-[18px] text-buttonprimary font-bold">
                   cashback
                 </Text>
               </View>
               <View className="flex-col items-start justify-center">
-                <Text style={{ color: "#777A7E" }} className="text-[12px]">
+                <Text style={{ color:theme === "dark" ? "#ffffff" :  "#777A7E" }} className="text-[12px]">
                   Each time a friend signs up with your refferal code, you
                   receive a
                 </Text>
-                <Text style={{ color: "#777A7E" }} className="text-[12px]">
+                <Text style={{ color:theme === "dark" ? "#ffffff" :  "#777A7E" }} className="text-[12px]">
                   cashback instantly.
                 </Text>
               </View>

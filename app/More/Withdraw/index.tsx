@@ -20,6 +20,7 @@ import { BottomSheet } from "@/components/Bottom";
 import { CheckBox } from "@rneui/themed";
 import Wire from "../../../assets/wire.svg";
 import DirectTransfer from "../../../assets/directtransfer.svg";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -28,6 +29,7 @@ type BottomSheetRef = {
 };
 
 const WithdrawList = () => {
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -54,9 +56,14 @@ const WithdrawList = () => {
 
   return (
     <View // style={{ backgroundColor: "#ffffff" }}
-      className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
     >
-      <StatusBar hidden={false} style="dark" />
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -76,9 +83,19 @@ const WithdrawList = () => {
               }
             }}
           >
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Withdrawal</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Withdrawal
+          </Text>
           <Text></Text>
         </View>
         <TouchableOpacity
@@ -105,16 +122,30 @@ const WithdrawList = () => {
                 <SendMoneyAccount />
               </View>
               <View className="items-start">
-                <Text className="text-[14px] font-bold text-black">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[14px] font-bold  text-[#ffffff]"
+                      : "text-[14px] font-bold text-black"
+                  }`}
+                >
                   Bank account{" "}
                 </Text>
-                <Text className="text-[10px] text-deposistsub">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[10px]  text-[#ffffff]"
+                      : "text-[10px] text-deposistsub"
+                  }`}
+                >
                   Quick and convenient fund transfer
                 </Text>
               </View>
             </View>
             <View>
-              <Rightcarat />
+              <Rightcarat
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </View>
           </View>
         </TouchableOpacity>
@@ -140,16 +171,30 @@ const WithdrawList = () => {
                 <MobileMoney />
               </View>
               <View className="items-start">
-                <Text className="text-[14px] font-bold text-black">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[14px] font-bold  text-[#ffffff]"
+                      : "text-[14px] font-bold text-black"
+                  }`}
+                >
                   Mobile money{" "}
                 </Text>
-                <Text className="text-[10px] text-deposistsub">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[10px]  text-[#ffffff]"
+                      : "text-[10px] text-deposistsub"
+                  }`}
+                >
                   Easily access your funds anytime
                 </Text>
               </View>
             </View>
             <View>
-              <Rightcarat />
+              <Rightcarat
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </View>
           </View>
         </TouchableOpacity>

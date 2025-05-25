@@ -195,7 +195,7 @@ const ProfileKycAddress = () => {
                 <TouchableOpacity
                   onPress={() => router.push("/Profiles/ProfileKyc")}
                 >
-                  <Back style={{ backgroundColor: theme ? "#ffffff" : "" }} />
+                  <Back style={{ backgroundColor: theme === 'dark' ? "#ffffff" : "" }} />
                 </TouchableOpacity>
                 <Text
                   className={`${

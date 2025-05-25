@@ -30,6 +30,7 @@ import { SavingsPayout } from "@/Store/Apis/SavingsPayout";
 import SixDigits from "@/components/SixDigits";
 import ShortBlueButton from "@/components/ShortBlueButton";
 import { clearStatesavingspayout } from "@/Store/Reducers/SavingsPayout";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -38,6 +39,7 @@ type BottomSheetRef = {
 };
 
 const RegularWithdraw = () => {
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -65,7 +67,7 @@ const RegularWithdraw = () => {
     dispatch(clearStategetsavinganalytics());
     dispatch(clearStatesavingspayout());
     if (savingspayout?.status === true) {
-      setAmount(0)
+      setAmount(0);
       router.push("/Save/RegularWithdrawSuccess");
     }
     return () => {
@@ -104,9 +106,15 @@ const RegularWithdraw = () => {
     ref2.current?.close();
   };
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View // style={{ backgroundColor: "#ffffff" }}
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -156,9 +164,19 @@ const RegularWithdraw = () => {
           <TouchableOpacity
             onPress={() => router.push(`/Save/RegularSavingsSummary?id=${ids}`)}
           >
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Withdraw</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Withdraw
+          </Text>
           <Text></Text>
         </View>
         <View className="items-center justify-center">
@@ -186,7 +204,7 @@ const RegularWithdraw = () => {
           <View style={{ padding: 20, gap: 30 }}>
             <View className="items-center">
               <Text
-                style={{ fontSize: 18, color: "#292D32", fontWeight: "bold" }}
+                style={{ fontSize: 18, color:theme === "dark" ? "#ffffff" : "#292D32", fontWeight: "bold" }}
               >
                 Emergency Fund
               </Text>
@@ -201,7 +219,7 @@ const RegularWithdraw = () => {
                 title="Accept and Continue"
                 onPress={() => {
                   handleCloseModal();
-                   Keyboard.dismiss();
+                  Keyboard.dismiss();
                   ref2?.current?.open();
                   // router.push("/Save/RegularWithdrawSuccess");
                 }}
@@ -246,13 +264,13 @@ const RegularWithdraw = () => {
                   title="Accept and Continue"
                   onPress={() => {
                     handleCloseModal2();
-                    if (amount  && id) {
+                    if (amount && id) {
                       dispatch(
                         SavingsPayout({
                           id: ids,
                           router: router.push,
                           amount,
-                          type: 'normal',
+                          type: "normal",
                           pin,
                           setIsVisible: setIsVisible
                         })

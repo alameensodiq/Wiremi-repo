@@ -23,6 +23,7 @@ import { EmailVerify } from "@/Store/Apis/EmailVerify";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { clearStateemailverify } from "@/Store/Reducers/EmailVerify";
 import { KeyboardAvoidingView } from "react-native";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -35,6 +36,7 @@ const ResetPin = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { theme } = useAppContext();
   const [email, setEmail] = useState({
     email: ""
   });
@@ -64,8 +66,15 @@ const ResetPin = () => {
     };
   }, [emailverify?.status]);
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -87,17 +96,36 @@ const ResetPin = () => {
               <TouchableOpacity
                 onPress={() => router.push("/Profiles/TransactionPin")}
               >
-                <Back />
+                <Back
+                  style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+                />
               </TouchableOpacity>
-              <Text className="text-[20px] text-pagetitle">Reset pin</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "text-[20px] text-[#ffffff]"
+                    : "text-[20px] text-pagetitle"
+                }`}
+              >
+                Reset pin
+              </Text>
               <Text></Text>
             </View>
             <View className="flex-1 relative  justify-start gap-2">
               <View className="flex-col justify-start items-start pb-10">
-                <Text className="text-black text-[16px] font-bold">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[16px] font-bold text-[#ffffff]"
+                      : "text-black text-[16px] font-bold"
+                  }`}
+                >
                   Reset Pin
                 </Text>
-                <Text style={{ color: "#413D43" }} className="text-[14px]">
+                <Text
+                  style={{ color: theme === "dark" ? "#ffffff" : "#413D43" }}
+                  className="text-[14px]"
+                >
                   Enter your email to receive OTP for pin reset.
                 </Text>
               </View>

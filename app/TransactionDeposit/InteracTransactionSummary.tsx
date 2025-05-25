@@ -11,12 +11,14 @@ import {
   import { StatusBar } from "expo-status-bar";
   import { SafeAreaView } from "react-native-safe-area-context";
   import BlueSignInButton from "@/components/BlueSignInButton";
+import { useAppContext } from "@/Context/useAppContext";
 
   
   const InteracTransactionSummary = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
+      const { theme } = useAppContext();
     return (
       <View className="flex-1">
         <StatusBar hidden={false} style="dark" />

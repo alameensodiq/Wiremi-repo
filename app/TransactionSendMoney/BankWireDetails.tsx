@@ -18,6 +18,7 @@ import TransactionTextLabel from "@/components/TransactionTextLabel";
 import TransparentSelectButton from "@/components/TransparentSelectButton";
 import TextLabelBox from "@/components/TextLabelBox";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -33,13 +34,19 @@ const BankWireDetails = () => {
   const [checked, setChecked] = React.useState(true);
   const toggleCheckbox = () => setChecked(!checked);
   const ref = useRef<BottomSheetRef>(null);
+  const { theme } = useAppContext();
 
   const handleCloseModal = () => {
     ref.current?.close();
   };
   return (
-    <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
+    <ScrollView
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false} // style={{ backgroundColor: "#ffffff" }}
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
       <StatusBar hidden={false} style="dark" />
       <SafeAreaView
         style={{
@@ -52,9 +59,15 @@ const BankWireDetails = () => {
           <TouchableOpacity
             onPress={() => router.push("/TransactionSendMoney")}
           >
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Bank wire</Text>
+          <Text className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}>Bank wire</Text>
           <Text></Text>
         </View>
         <View className="items-center justify-center">
@@ -64,12 +77,12 @@ const BankWireDetails = () => {
           />
         </View>
         <TouchableOpacity onPress={() => ref.current?.open()}>
-        <View className="items-center justify-center">
-          <TransparentSelectButton
-            label="Country"
-            placeholder="Select Country"
-          />
-        </View>
+          <View className="items-center justify-center">
+            <TransparentSelectButton
+              label="Country"
+              placeholder="Select Country"
+            />
+          </View>
         </TouchableOpacity>
         <View className="items-center justify-center">
           <TextLabelBox
@@ -102,10 +115,7 @@ const BankWireDetails = () => {
           />
         </View>
         <View className="items-center justify-center">
-          <TextLabelBox
-            label="Branch code"
-            placeholder="Enter branch code"
-          />
+          <TextLabelBox label="Branch code" placeholder="Enter branch code" />
         </View>
         <View className="items-center justify-center">
           <TextLabelBox
@@ -125,9 +135,7 @@ const BankWireDetails = () => {
         >
           <BlueSignInButton
             title="Proceed"
-            onPress={() =>
-              router.push("/TransactionSendMoney/BankWireSummary")
-            }
+            onPress={() => router.push("/TransactionSendMoney/BankWireSummary")}
           />
         </View>
       </SafeAreaView>

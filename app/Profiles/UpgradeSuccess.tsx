@@ -13,15 +13,25 @@ import { useRouter } from "expo-router";
 import Back from "../../assets/Back.svg";
 import Forgotsuccess from "../../assets/forgotsuccess.svg";
 import BlueSignInButton from "@/components/BlueSignInButton";
+import { useAppContext } from "@/Context/useAppContext";
 
 const UpgradeSuccess = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const { theme } = useAppContext();
+
   return (
     <View className="flex-1 ">
-      <View className="flex-1 bg-white">
-        <StatusBar hidden={false} style="dark" />
+      <View
+        className={`${
+          theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+        }`}
+      >
+        <StatusBar
+          hidden={false}
+          style={`${theme === "dark" ? "light" : "dark"}`}
+        />
         <SafeAreaView
           className="justify-between"
           style={{
@@ -36,7 +46,15 @@ const UpgradeSuccess = () => {
             >
               <Back />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Upgrade account</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[20px] font-bold text-[#ffffff]"
+                  : "text-black text-[20px] font-bold"
+              }`}
+            >
+              Upgrade account
+            </Text>
             <Text></Text>
           </View>
           <View
@@ -51,17 +69,29 @@ const UpgradeSuccess = () => {
               <View className="flex-col gap-3">
                 <Forgotsuccess />
                 <Text
-                  style={{ color: "#1E1B39" }}
+                  style={{ color: theme === "dark" ? "#ffffff" : "#1E1B39" }}
                   className="text text-[18px] font-bold"
                 >
                   Successful
                 </Text>
               </View>
               <View className="flex-col justify-center items-center">
-                <Text className="text-forgotsuccesslight text-[13px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[13px] text-[#ffffff]"
+                      : "text-forgotsuccesslight text-[13px]"
+                  }`}
+                >
                   You have successfully upgraded your subscription
                 </Text>
-                <Text className="text-forgotsuccesslight text-[13px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[13px] text-[#ffffff]"
+                      : "text-forgotsuccesslight text-[13px]"
+                  }`}
+                >
                   plan to wiremi lite
                 </Text>
               </View>

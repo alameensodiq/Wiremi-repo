@@ -29,6 +29,7 @@ import Paypalpayment from "../../assets/paypalpayment.svg";
 import Mobilemoneypayment from "../../assets/mobilepayment.svg";
 import BankPayment from "../../assets/bankpayment.svg";
 import CardPayment from "../../assets/cardpayment.svg";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -57,10 +58,18 @@ const LocalandInternational = () => {
     ref3.current?.close();
   };
 
+  const { theme } = useAppContext();
+
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View // style={{ backgroundColor: "#ffffff" }}
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -71,9 +80,19 @@ const LocalandInternational = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/(PersonalAccount)")}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Send money</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Send money
+          </Text>
           <Text></Text>
         </View>
         <TouchableOpacity onPress={() => ref.current?.open()}>
@@ -96,10 +115,22 @@ const LocalandInternational = () => {
                 <SendMoneyAccount />
               </View>
               <View className="items-start">
-                <Text className="text-[14px] font-bold text-black">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[14px] font-bold  text-[#ffffff]"
+                      : "text-[14px] font-bold text-black"
+                  }`}
+                >
                   Bank account{" "}
                 </Text>
-                <Text className="text-[10px] text-deposistsub">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[10px]  text-[#ffffff]"
+                      : "text-[10px] text-deposistsub"
+                  }`}
+                >
                   Transfer funds anytime from your bank account
                 </Text>
               </View>
@@ -131,10 +162,22 @@ const LocalandInternational = () => {
                 <MobileMoney />
               </View>
               <View className="items-start">
-                <Text className="text-[14px] font-bold text-black">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[14px] font-bold  text-[#ffffff]"
+                      : "text-[14px] font-bold text-black"
+                  }`}
+                >
                   Mobile money{" "}
                 </Text>
-                <Text className="text-[10px] text-deposistsub">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "text-[10px]  text-[#ffffff]"
+                      : "text-[10px] text-deposistsub"
+                  }`}
+                >
                   Easily transfer your funds anytime
                 </Text>
               </View>

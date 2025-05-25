@@ -25,6 +25,7 @@ import { GetSavingAnalytics } from "@/Store/Apis/GetSavingAnalytics";
 import { clearStateeditsavingspayout } from "@/Store/Reducers/EditSavingsPayout";
 import ShortBlueButton from "@/components/ShortBlueButton";
 import { EditSavingsPayout } from "@/Store/Apis/EditSavingsPayout";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -33,6 +34,7 @@ type BottomSheetRef = {
 };
 
 const RegularEditInstance = () => {
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -85,9 +87,12 @@ const RegularEditInstance = () => {
     }));
   };
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View // style={{ backgroundColor: "#ffffff" }}
+    className={`${
+      theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+    }`}
+    >
+      <StatusBar hidden={false}  style={`${theme === "dark" ? "light" : "dark"}`} />
       <SafeAreaView
         style={{
           flex: 1,
@@ -144,7 +149,7 @@ const RegularEditInstance = () => {
             onPress={() => setIsVisible2(false)}
           >
             <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
-                <Text className="mb-3">Input all Fields</Text>
+              <Text className="mb-3">Input all Fields</Text>
               <ShortBlueButton
                 title="Close"
                 onPress={() => setIsVisible2(false)}
@@ -156,9 +161,19 @@ const RegularEditInstance = () => {
           <TouchableOpacity
             onPress={() => router.push(`/Save/RegularSavingsSummary?id=${ids}`)}
           >
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Edit Instance</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Edit Instance
+          </Text>
           <Text></Text>
         </View>
         <View className="items-center justify-center">
@@ -193,18 +208,19 @@ const RegularEditInstance = () => {
             <BlueSignInButton
               title="Proceed"
               onPress={() => {
-                if(editing?.amount_per_interval && editing?.duration){
-                  dispatch(EditSavingsPayout({
-                    router: router.push,
-                    setIsVisible: setIsVisible,
-                    id: ids,
-                    amount_per_interval: editing?.amount_per_interval,
-                    duration: editing?.duration,
-                    status: "inactive"
-                  }))
-                }
-                else {
-                  setIsVisible2(true)
+                if (editing?.amount_per_interval && editing?.duration) {
+                  dispatch(
+                    EditSavingsPayout({
+                      router: router.push,
+                      setIsVisible: setIsVisible,
+                      id: ids,
+                      amount_per_interval: editing?.amount_per_interval,
+                      duration: editing?.duration,
+                      status: "inactive"
+                    })
+                  );
+                } else {
+                  setIsVisible2(true);
                 }
               }}
             />

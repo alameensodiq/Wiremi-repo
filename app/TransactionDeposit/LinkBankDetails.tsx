@@ -13,14 +13,18 @@ import {
   import BlueSignInButton from "@/components/BlueSignInButton";
   import TransactionTextLabel from "@/components/TransactionTextLabel";
   import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppContext } from "@/Context/useAppContext";
   
   const LinkBankDetails = () => {
     const statusBarHeight = RNStatusBar.currentHeight || 0;
     const { height, width } = Dimensions.get("window");
     const router = useRouter();
+     const { theme } = useAppContext();
     return (
-      <View className="flex-1">
-        <StatusBar hidden={false} style="dark" />
+      <View className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}>
+        <StatusBar hidden={false}   style={`${theme === "dark" ? "light" : "dark"}`}/>
         <SafeAreaView
           style={{
             flex: 1,
@@ -32,9 +36,15 @@ import {
         >
           <View className="flex-row justify-between items-center mb-1">
             <TouchableOpacity onPress={() => router.push('/TransactionDeposit/Banks')}>
-              <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Link bank account</Text>
+            <Text className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}>Link bank account</Text>
             <Text></Text>
           </View>
           <View className="items-center justify-center">

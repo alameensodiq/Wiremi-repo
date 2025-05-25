@@ -27,6 +27,7 @@ import { CheckBox } from "@rneui/themed";
 import { useAppDispatch, useAppSelector } from "@/Store/ConfigureStore";
 import { GetAllPlans } from "@/Store/Apis/GetAllPlans";
 import { clearStategetallplans } from "@/Store/Reducers/GetAllPlans";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -41,6 +42,7 @@ const Upgrade = () => {
   const [selectedIndex, setIndex] = useState<number>(10000);
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { theme } = useAppContext();
 
   const ref = useRef<BottomSheetRef>(null);
 
@@ -52,8 +54,8 @@ const Upgrade = () => {
   useEffect(() => {
     dispatch(GetAllPlans({ router: router.push }));
     return () => {
-      dispatch(clearStategetallplans())
-    }
+      dispatch(clearStategetallplans());
+    };
   }, []);
 
   const { getallplans, authenticatinggetallplans, errorsgetallplans } =
@@ -66,8 +68,15 @@ const Upgrade = () => {
   };
 
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -86,9 +95,19 @@ const Upgrade = () => {
         )}
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Profile")}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Upgrade account</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px]  text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Upgrade account
+          </Text>
           <Text></Text>
         </View>
         <View className="flex-col items-center gap-3">
@@ -238,36 +257,60 @@ const Upgrade = () => {
                     </Text>
                   </View>
                   <View className="flex-row justify-between items-center px-5">
-                    <Text>Daily Withdrawal limit</Text>
                     <Text
-                      style={{ color: "#1E1B39" }}
+                      className={`${theme === "dark" ? "text-[#ffffff]" : ""}`}
+                    >
+                      Daily Withdrawal limit
+                    </Text>
+                    <Text
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#1E1B39"
+                      }}
                       className="text-[16px] font-bold"
                     >
                       {formatNumberWithCommas(item?.daily_withdrawal_limit)}
                     </Text>
                   </View>
                   <View className="flex-row justify-between items-center px-5">
-                    <Text>Monthly Withdrawal limit</Text>
                     <Text
-                      style={{ color: "#1E1B39" }}
+                      className={`${theme === "dark" ? "text-[#ffffff]" : ""}`}
+                    >
+                      Monthly Withdrawal limit
+                    </Text>
+                    <Text
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#1E1B39"
+                      }}
                       className="text-[16px] font-bold"
                     >
                       {formatNumberWithCommas(item?.monthly_withdrawal_limit)}
                     </Text>
                   </View>
                   <View className="flex-row justify-between items-center px-5">
-                    <Text>Quarterly Fee</Text>
                     <Text
-                      style={{ color: "#1E1B39" }}
+                      className={`${theme === "dark" ? "text-[#ffffff]" : ""}`}
+                    >
+                      Quarterly Fee
+                    </Text>
+                    <Text
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#1E1B39"
+                      }}
                       className="text-[16px] font-bold"
                     >
                       {formatNumberWithCommas(item?.quarterly_fee)}
                     </Text>
                   </View>
                   <View className="flex-row justify-between items-center px-5">
-                    <Text>Single Transaction limit</Text>
                     <Text
-                      style={{ color: "#1E1B39" }}
+                      className={`${theme === "dark" ? "text-[#ffffff]" : ""}`}
+                    >
+                      Single Transaction limit
+                    </Text>
+                    <Text
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#1E1B39"
+                      }}
                       className="text-[16px] font-bold"
                     >
                       {formatNumberWithCommas(item?.single_transaction_limit)}
@@ -309,7 +352,10 @@ const Upgrade = () => {
             </Text>
           </View>
           <View className="flex-row justify-between items-center">
-            <Text style={{ color: "#BCBDC3" }} className="text-[16px]">
+            <Text
+              style={{ color: theme === "dark" ? "#ffffff" : "#BCBDC3" }}
+              className="text-[16px]"
+            >
               Select subscription plan
             </Text>
             <CheckBox
@@ -342,7 +388,12 @@ const Upgrade = () => {
                       >
                         <Calendar />
                       </View>
-                      <Text style={{ color: "#413D43", fontSize: 16 }}>
+                      <Text
+                        style={{
+                          color: "#413D43",
+                          fontSize: 16
+                        }}
+                      >
                         {item?.plan_name}
                       </Text>
                     </View>

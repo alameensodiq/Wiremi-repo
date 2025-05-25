@@ -18,6 +18,7 @@ import BlueSignInButton from "@/components/BlueSignInButton";
 import { BottomSheet } from "@/components/Bottom";
 import { useRef } from "react";
 import FourDigits from "@/components/FourDigits";
+import { useAppContext } from "@/Context/useAppContext";
 type BottomSheetRef = {
   open: () => void;
   close: () => void;
@@ -29,6 +30,7 @@ const BankWireSummarySchedule = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
   const ref = useRef<BottomSheetRef>(null);
+  const { theme } = useAppContext();
 
   const handleCloseModal = () => {
     ref.current?.close();
@@ -36,10 +38,13 @@ const BankWireSummarySchedule = () => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      style={{ backgroundColor: "#ffffff" }}
+      style={{ backgroundColor: theme === "dark" ? "#000000" : "#ffffff" }}
       className="flex-1"
     >
-      <StatusBar hidden={false} style="dark" />
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -54,9 +59,17 @@ const BankWireSummarySchedule = () => {
               router.push("/TransactionSendMoney/BankWireDetailsSchedule")
             }
           >
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
             Transaction Summary
           </Text>
           <Text></Text>
@@ -65,86 +78,268 @@ const BankWireSummarySchedule = () => {
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Transfer type</Text>
-          <Text className="text-darktext font-bold">Bank wire</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Transfer type
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            Bank wire
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Amount</Text>
-          <Text className="text-darktext font-bold">$500</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Amount
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            $500
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Fees</Text>
-          <Text className="text-darktext font-bold">$0.00</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Fees
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            $0.00
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Rate</Text>
-          <Text className="text-darktext font-bold">$1=₦1,650.00</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Rate
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            $1=₦1,650.00
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Recipient gets</Text>
-          <Text className="text-darktext font-bold">₦806,320.00</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Recipient gets
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            ₦806,320.00
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Country</Text>
-          <Text className="text-darktext font-bold">Nigeria</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Country
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            Nigeria
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Recipient bank</Text>
-          <Text className="text-darktext font-bold">Sterling bank</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Recipient bank
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            Sterling bank
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
             Recipient IBAN/account number
           </Text>
-          <Text className="text-darktext font-bold">2391028711</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            2391028711
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Branch code</Text>
-          <Text className="text-darktext font-bold">2391028711</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Branch code
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            2391028711
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">BSB number</Text>
-          <Text className="text-darktext font-bold">2391028711</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            BSB number
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            2391028711
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Recipient name</Text>
-          <Text className="text-darktext font-bold">Susan Sheidu</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Recipient name
+          </Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-bold text-[#ffffff]"
+                : "text-darktext font-bold"
+            }`}
+          >
+            Susan Sheidu
+          </Text>
         </View>
         <View
           style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
           className="flex-row items-center justify-between p-3"
         >
-          <Text className="text-lighttextdark font-[14px]">Total</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "font-[14px] text-[#ffffff]"
+                : "text-lighttextdark font-[14px]"
+            }`}
+          >
+            Total
+          </Text>
           <Text className="text-buttonprimary  font-bold">$501</Text>
         </View>
         <View className="items-center justify-center">
@@ -160,7 +355,13 @@ const BankWireSummarySchedule = () => {
                 <Text>Close</Text>
               </TouchableOpacity> */}
             <View className="items-center justify-center gap-2 flex-col">
-              <Text className="mb-2" style={{ fontSize: 13, color: "#606162" }}>
+              <Text
+                className="mb-2"
+                style={{
+                  fontSize: 13,
+                  color: theme === "dark" ? "#ffffff" : "#606162"
+                }}
+              >
                 Enter a transactin pin
               </Text>
               <FourDigits />
@@ -178,7 +379,10 @@ const BankWireSummarySchedule = () => {
                   <View>
                     <Text
                       className="font-bold"
-                      style={{ color: "#00091E", fontSize: 20 }}
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E",
+                        fontSize: 20
+                      }}
                     >
                       1
                     </Text>
@@ -195,7 +399,10 @@ const BankWireSummarySchedule = () => {
                   <View>
                     <Text
                       className="font-bold"
-                      style={{ color: "#00091E", fontSize: 20 }}
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E",
+                        fontSize: 20
+                      }}
                     >
                       2
                     </Text>
@@ -212,7 +419,10 @@ const BankWireSummarySchedule = () => {
                   <View>
                     <Text
                       className="font-bold"
-                      style={{ color: "#00091E", fontSize: 20 }}
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E",
+                        fontSize: 20
+                      }}
                     >
                       3
                     </Text>
@@ -231,7 +441,10 @@ const BankWireSummarySchedule = () => {
                   <View>
                     <Text
                       className="font-bold"
-                      style={{ color: "#00091E", fontSize: 20 }}
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E",
+                        fontSize: 20
+                      }}
                     >
                       4
                     </Text>
@@ -248,7 +461,10 @@ const BankWireSummarySchedule = () => {
                   <View>
                     <Text
                       className="font-bold"
-                      style={{ color: "#00091E", fontSize: 20 }}
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E",
+                        fontSize: 20
+                      }}
                     >
                       5
                     </Text>
@@ -265,7 +481,10 @@ const BankWireSummarySchedule = () => {
                   <View>
                     <Text
                       className="font-bold"
-                      style={{ color: "#00091E", fontSize: 20 }}
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E",
+                        fontSize: 20
+                      }}
                     >
                       6
                     </Text>
@@ -284,7 +503,10 @@ const BankWireSummarySchedule = () => {
                   <View>
                     <Text
                       className="font-bold"
-                      style={{ color: "#00091E", fontSize: 20 }}
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E",
+                        fontSize: 20
+                      }}
                     >
                       7
                     </Text>
@@ -301,7 +523,10 @@ const BankWireSummarySchedule = () => {
                   <View>
                     <Text
                       className="font-bold"
-                      style={{ color: "#00091E", fontSize: 20 }}
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E",
+                        fontSize: 20
+                      }}
                     >
                       8
                     </Text>
@@ -318,7 +543,10 @@ const BankWireSummarySchedule = () => {
                   <View>
                     <Text
                       className="font-bold"
-                      style={{ color: "#00091E", fontSize: 20 }}
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E",
+                        fontSize: 20
+                      }}
                     >
                       9
                     </Text>
@@ -340,7 +568,10 @@ const BankWireSummarySchedule = () => {
                   <View>
                     <Text
                       className="font-bold"
-                      style={{ color: "#00091E", fontSize: 20 }}
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#00091E",
+                        fontSize: 20
+                      }}
                     >
                       0
                     </Text>

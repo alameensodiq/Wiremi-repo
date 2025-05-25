@@ -391,7 +391,9 @@ const SignInPage = () => {
                   }}
                 ></View>
                 <View
-                  className={`${ theme === 'dark' ? "bg-[#000000]" :"bg-creamwhite"}`}
+                  className={`${
+                    theme === "dark" ? "bg-[#000000]" : "bg-creamwhite"
+                  }`}
                   style={{
                     height: height * 0.9,
                     zIndex: 1000,
@@ -412,7 +414,11 @@ const SignInPage = () => {
                       <TouchableOpacity
                         onPress={() => router.push("/Auth/getStarted")}
                       >
-                        <Back />
+                        <Back
+                          style={{
+                            backgroundColor: theme === "dark" ? "#ffffff" : ""
+                          }}
+                        />
                       </TouchableOpacity>
                       <Wiremi height={30} />
                     </View>
@@ -422,8 +428,22 @@ const SignInPage = () => {
                     <Logo />
                   </View>
                   <View className="flex-col items-center justify-center gap-2">
-                    <Text className={`${ theme === 'dark' ?  "text-[#ffffff] text-[18px]"  : "text-textblack text-[18px]"}`} >Sign in</Text>
-                    <Text className={`${ theme === 'dark' ?  "text-[#ffffff] text-[13px]"  : "text-lighttextblack text-[13px]"}`}>
+                    <Text
+                      className={`${
+                        theme === "dark"
+                          ? "text-[#ffffff] text-[18px]"
+                          : "text-textblack text-[18px]"
+                      }`}
+                    >
+                      Sign in
+                    </Text>
+                    <Text
+                      className={`${
+                        theme === "dark"
+                          ? "text-[#ffffff] text-[13px]"
+                          : "text-lighttextblack text-[13px]"
+                      }`}
+                    >
                       Welcome back! Please sign in to continue
                     </Text>
                   </View>
@@ -473,7 +493,7 @@ const SignInPage = () => {
                           checkedIcon="checkbox-outline"
                           uncheckedIcon={"checkbox-blank-outline"}
                         />
-                        <Text >Remember Me</Text>
+                        <Text>Remember Me</Text>
                       </View>
                       <View>
                         <TouchableOpacity
@@ -501,7 +521,13 @@ const SignInPage = () => {
                     />
                   )}
                   <View className="flex-row items-center justify-center">
-                    <Text className={`${ theme === 'dark' ? "text-[#ffffff]"  : "text-textinputtext"}`}>
+                    <Text
+                      className={`${
+                        theme === "dark"
+                          ? "text-[#ffffff]"
+                          : "text-textinputtext"
+                      }`}
+                    >
                       Don’t have an account?{" "}
                     </Text>
                     <TouchableOpacity

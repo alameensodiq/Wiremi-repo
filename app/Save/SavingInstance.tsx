@@ -51,6 +51,7 @@ interface TransformedData {
 }
 
 const SavingInstance = () => {
+  const { theme } = useAppContext();
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
@@ -137,9 +138,15 @@ const SavingInstance = () => {
   const series2 = [721, 100];
   const sliceColor2 = ["#105CE2", "#E9EBF3"];
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View // style={{ backgroundColor: "#ffffff" }}
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -158,9 +165,19 @@ const SavingInstance = () => {
         )}
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Save")}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Saving instances</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Saving instances
+          </Text>
           <Text></Text>
         </View>
         <View className="flex-row">
@@ -196,13 +213,17 @@ const SavingInstance = () => {
                         <View className="flex-row gap-1">
                           <Text
                             className="text-[14px]"
-                            style={{ color: "#413D43" }}
+                            style={{
+                              color: theme === "dark" ? "#ffffff" : "#413D43"
+                            }}
                           >
                             {item?.name}
                           </Text>
                           <Text
                             className="text-[14px]"
-                            style={{ color: "#00091E" }}
+                            style={{
+                              color: theme === "dark" ? "#ffffff" : "#00091E"
+                            }}
                           >
                             -${item?.amount}
                           </Text>

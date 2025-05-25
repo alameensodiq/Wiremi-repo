@@ -30,6 +30,7 @@ import { clearStatedeposit } from "@/Store/Reducers/Deposit";
 import { clearStatesummary } from "@/Store/Reducers/Summary";
 import { clearStateallinstitution } from "@/Store/Reducers/AllInstitution";
 import { AllInstitution } from "@/Store/Apis/AllInstitution";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -38,6 +39,7 @@ type BottomSheetRef = {
 };
 
 const MobilemoneyDetails = () => {
+  const { theme } = useAppContext();
   const [searchQuery, setSearchQuery] = useState("");
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
@@ -99,8 +101,8 @@ const MobilemoneyDetails = () => {
 
   useEffect(() => {
     if (summary?.amount && amount) {
-          ref.current?.open();
-      }
+      ref.current?.open();
+    }
   }, [summary?.amount, amount]);
 
   useEffect(() => {
@@ -120,8 +122,15 @@ const MobilemoneyDetails = () => {
   );
 
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -201,9 +210,19 @@ const MobilemoneyDetails = () => {
             <TouchableOpacity
               onPress={() => router.push("/TransactionDeposit/MobileMoney")}
             >
-              <Back />
+              <Back
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Mobile money</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[20px] text-[#ffffff]"
+                  : "text-[20px] text-pagetitle"
+              }`}
+            >
+              Mobile money
+            </Text>
             <Text></Text>
           </View>
           <View className="items-center justify-center">
@@ -272,8 +291,22 @@ const MobilemoneyDetails = () => {
                 style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                 className="flex-row items-center justify-between p-3"
               >
-                <Text className="text-lighttextdark font-[14px]">Amount</Text>
-                <Text className="text-darktext font-[14px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-lighttextdark font-[14px]"
+                  }`}
+                >
+                  Amount
+                </Text>
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-darktext font-[14px]"
+                  }`}
+                >
                   {summary?.currency}
                   {summary?.amount || "N/A"}
                 </Text>
@@ -282,8 +315,22 @@ const MobilemoneyDetails = () => {
                 style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                 className="flex-row items-center justify-between p-3"
               >
-                <Text className="text-lighttextdark font-[14px]">Fees</Text>
-                <Text className="text-darktext font-[14px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-lighttextdark font-[14px]"
+                  }`}
+                >
+                  Fees
+                </Text>
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-darktext font-[14px]"
+                  }`}
+                >
                   {summary?.currency}
                   {summary?.fee || "N/A"}
                 </Text>
@@ -292,8 +339,22 @@ const MobilemoneyDetails = () => {
                 style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                 className="flex-row items-center justify-between p-3"
               >
-                <Text className="text-lighttextdark font-[14px]">Tax</Text>
-                <Text className="text-darktext font-[14px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-lighttextdark font-[14px]"
+                  }`}
+                >
+                  Tax
+                </Text>
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-darktext font-[14px]"
+                  }`}
+                >
                   {" "}
                   {summary?.currency}
                   {summary?.tax}
@@ -303,19 +364,41 @@ const MobilemoneyDetails = () => {
                 style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                 className="flex-row items-center justify-between p-3"
               >
-                <Text className="text-lighttextdark font-[14px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-lighttextdark font-[14px]"
+                  }`}
+                >
                   Deposit type
                 </Text>
-                <Text className="text-darktext font-bold">Mobile Money</Text>
+                <Text className={`${
+                    theme === "dark"
+                      ? "font-bold text-[#ffffff]"
+                      : "text-darktext font-bold"
+                  }`}>Mobile Money</Text>
               </View>
               <View
                 style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                 className="flex-row items-center justify-between p-3"
               >
-                <Text className="text-lighttextdark font-[14px]">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-lighttextdark font-[14px]"
+                  }`}
+                >
                   Institute
                 </Text>
-                <Text className="text-darktext font-bold">
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-bold text-[#ffffff]"
+                      : "text-darktext font-bold"
+                  }`}
+                >
                   {institution?.name}
                 </Text>
               </View>
@@ -323,7 +406,15 @@ const MobilemoneyDetails = () => {
                 style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
                 className="flex-row items-center justify-between p-3"
               >
-                <Text className="text-lighttextdark font-[14px]">Total</Text>
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? "font-[14px] text-[#ffffff]"
+                      : "text-lighttextdark font-[14px]"
+                  }`}
+                >
+                  Total
+                </Text>
                 <Text className="text-buttonprimary font-[14px]">
                   {summary?.currency}
                   {summary?.total || "N/A"}

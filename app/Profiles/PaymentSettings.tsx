@@ -19,6 +19,7 @@ import { BottomSheet } from "@/components/Bottom";
 import Redrightcarat from "../../assets/redrightcarat.svg";
 import Fingerprint from "../../assets/fingerprint.svg";
 import FourDigits from "@/components/FourDigits";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -31,14 +32,23 @@ const PaymentSettings = () => {
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
 
+  const { theme } = useAppContext();
+
   const ref = useRef<BottomSheetRef>(null);
 
   const handleCloseModal = () => {
     ref.current?.close();
   };
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -48,15 +58,19 @@ const PaymentSettings = () => {
         className="gap-2"
       >
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity
-            onPress={() =>
-              router.push("/Profile")
-            }
-          >
-            <Back />
+          <TouchableOpacity onPress={() => router.push("/Profile")}>
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">
-          Payment settings
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Payment settings
           </Text>
           <Text></Text>
         </View>
@@ -65,49 +79,60 @@ const PaymentSettings = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">
-            Daily transaction limit
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Daily transaction limit
             </Text>
-            <Text className="text-darktext font-[14px]">$1,200</Text>
-          </View>
-          <View
-            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
-            className="flex-row items-center justify-between p-3"
-          >
-            <Text className="text-lighttextdark font-[14px]">
-            Payment method
-            </Text>
-            <Text className="text-darktext font-[14px]">
-            Mobile money
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-darktext font-[14px]"
+              }`}
+            >
+              $1,200
             </Text>
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Cross border transfer</Text>
-            <On/>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Payment method
+            </Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-darktext font-[14px]"
+              }`}
+            >
+              Mobile money
+            </Text>
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Online payment</Text>
-            <On />
-          </View>
-          <View
-            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
-            className="flex-row items-center justify-between p-3"
-          >
-            <Text className="text-lighttextdark font-[14px]">QR payment</Text>
-            <On />
-          </View>
-          <View
-            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
-            className="flex-row items-center justify-between p-3"
-          >
-            <Text className="text-lighttextdark font-[14px]">
-            Bank transfer
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Cross border transfer
             </Text>
             <On />
           </View>
@@ -115,38 +140,122 @@ const PaymentSettings = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Accept online payment</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Online payment
+            </Text>
             <On />
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Early salary access</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              QR payment
+            </Text>
             <On />
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Mass payout</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Bank transfer
+            </Text>
             <On />
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Payroll access</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Accept online payment
+            </Text>
             <On />
           </View>
           <View
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className="text-lighttextdark font-[14px]">Tax report</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Early salary access
+            </Text>
             <On />
           </View>
-
+          <View
+            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+            className="flex-row items-center justify-between p-3"
+          >
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Mass payout
+            </Text>
+            <On />
+          </View>
+          <View
+            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+            className="flex-row items-center justify-between p-3"
+          >
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Payroll access
+            </Text>
+            <On />
+          </View>
+          <View
+            style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
+            className="flex-row items-center justify-between p-3"
+          >
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "font-[14px] text-[#ffffff]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Tax report
+            </Text>
+            <On />
+          </View>
 
           <BottomSheet height={450} ref={ref}>
             <View style={{ padding: 20, gap: 5 }}>
@@ -157,7 +266,10 @@ const PaymentSettings = () => {
               <View className="items-center justify-center gap-2 flex-col">
                 <Text
                   className="mb-2"
-                  style={{ fontSize: 13, color: "#606162" }}
+                  style={{
+                    fontSize: 13,
+                    color: theme === "dark" ? "#ffffff" : "#606162"
+                  }}
                 >
                   Enter a transactin pin
                 </Text>
@@ -174,7 +286,10 @@ const PaymentSettings = () => {
                     <View>
                       <Text
                         className="font-bold"
-                        style={{ color: "#00091E", fontSize: 20 }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#00091E",
+                          fontSize: 20
+                        }}
                       >
                         1
                       </Text>
@@ -182,14 +297,17 @@ const PaymentSettings = () => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/More/Tuition/TuitionSuccess");
+                      router.push("/More/Tuition/TuitionSuccess");
                       handleCloseModal();
                     }}
                   >
                     <View>
                       <Text
                         className="font-bold"
-                        style={{ color: "#00091E", fontSize: 20 }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#00091E",
+                          fontSize: 20
+                        }}
                       >
                         2
                       </Text>
@@ -197,14 +315,17 @@ const PaymentSettings = () => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/More/Tuition/TuitionSuccess");
+                      router.push("/More/Tuition/TuitionSuccess");
                       handleCloseModal();
                     }}
                   >
                     <View>
                       <Text
                         className="font-bold"
-                        style={{ color: "#00091E", fontSize: 20 }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#00091E",
+                          fontSize: 20
+                        }}
                       >
                         3
                       </Text>
@@ -214,14 +335,17 @@ const PaymentSettings = () => {
                 <View className="flex-row justify-between items-center">
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/More/Tuition/TuitionSuccess");
+                      router.push("/More/Tuition/TuitionSuccess");
                       handleCloseModal();
                     }}
                   >
                     <View>
                       <Text
                         className="font-bold"
-                        style={{ color: "#00091E", fontSize: 20 }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#00091E",
+                          fontSize: 20
+                        }}
                       >
                         4
                       </Text>
@@ -229,14 +353,17 @@ const PaymentSettings = () => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/More/Tuition/TuitionSuccess");
+                      router.push("/More/Tuition/TuitionSuccess");
                       handleCloseModal();
                     }}
                   >
                     <View>
                       <Text
                         className="font-bold"
-                        style={{ color: "#00091E", fontSize: 20 }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#00091E",
+                          fontSize: 20
+                        }}
                       >
                         5
                       </Text>
@@ -244,14 +371,17 @@ const PaymentSettings = () => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/More/Tuition/TuitionSuccess");
+                      router.push("/More/Tuition/TuitionSuccess");
                       handleCloseModal();
                     }}
                   >
                     <View>
                       <Text
                         className="font-bold"
-                        style={{ color: "#00091E", fontSize: 20 }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#00091E",
+                          fontSize: 20
+                        }}
                       >
                         6
                       </Text>
@@ -261,14 +391,17 @@ const PaymentSettings = () => {
                 <View className="flex-row justify-between items-center">
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/More/Tuition/TuitionSuccess");
+                      router.push("/More/Tuition/TuitionSuccess");
                       handleCloseModal();
                     }}
                   >
                     <View>
                       <Text
                         className="font-bold"
-                        style={{ color: "#00091E", fontSize: 20 }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#00091E",
+                          fontSize: 20
+                        }}
                       >
                         7
                       </Text>
@@ -276,14 +409,17 @@ const PaymentSettings = () => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/More/Tuition/TuitionSuccess");
+                      router.push("/More/Tuition/TuitionSuccess");
                       handleCloseModal();
                     }}
                   >
                     <View>
                       <Text
                         className="font-bold"
-                        style={{ color: "#00091E", fontSize: 20 }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#00091E",
+                          fontSize: 20
+                        }}
                       >
                         8
                       </Text>
@@ -291,14 +427,17 @@ const PaymentSettings = () => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/More/Tuition/TuitionSuccess");
+                      router.push("/More/Tuition/TuitionSuccess");
                       handleCloseModal();
                     }}
                   >
                     <View>
                       <Text
                         className="font-bold"
-                        style={{ color: "#00091E", fontSize: 20 }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#00091E",
+                          fontSize: 20
+                        }}
                       >
                         9
                       </Text>
@@ -311,14 +450,17 @@ const PaymentSettings = () => {
                   </View>
                   <TouchableOpacity
                     onPress={() => {
-                        router.push("/More/Tuition/TuitionSuccess");
+                      router.push("/More/Tuition/TuitionSuccess");
                       handleCloseModal();
                     }}
                   >
                     <View>
                       <Text
                         className="font-bold"
-                        style={{ color: "#00091E", fontSize: 20 }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#00091E",
+                          fontSize: 20
+                        }}
                       >
                         0
                       </Text>

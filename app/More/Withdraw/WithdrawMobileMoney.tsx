@@ -47,6 +47,7 @@ import { MobileWithdrawInstitution } from "@/Store/Apis/MobileWithdrawInstitutio
 import { clearStatemobilewithdrawinstitution } from "@/Store/Reducers/MobileWithdrawInstitution";
 import { MobileWithdraws } from "@/Store/Apis/MobileWithdraws";
 import { Summary } from "@/Store/Apis/Summary";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -55,6 +56,7 @@ type BottomSheetRef = {
 };
 
 const WithdrawMobileMoney = () => {
+  const { theme } = useAppContext();
   const [hasMounted, setHasMounted] = useState(false);
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
@@ -199,7 +201,7 @@ const WithdrawMobileMoney = () => {
     }
     if (summary?.receiver) {
       if (ref3) {
-         Keyboard.dismiss();
+        Keyboard.dismiss();
         ref3?.current?.open();
       }
     }
@@ -311,9 +313,15 @@ const WithdrawMobileMoney = () => {
     }
   };
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View // style={{ backgroundColor: "#ffffff" }}
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -579,9 +587,19 @@ const WithdrawMobileMoney = () => {
             </Modal>
             <View className="flex-row justify-between items-center mb-1">
               <TouchableOpacity onPress={() => router.push("/More/Withdraw")}>
-                <Back />
+                <Back
+                  style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+                />
               </TouchableOpacity>
-              <Text className="text-[20px] text-pagetitle">Mobile Money</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "text-[20px] text-[#ffffff]"
+                    : "text-[20px] text-pagetitle"
+                }`}
+              >
+                Mobile Money
+              </Text>
               <Text></Text>
             </View>
             <View className="items-center justify-center">

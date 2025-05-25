@@ -21,6 +21,7 @@ import RightCarat from "../../assets/rightcarat.svg";
 import Phone from "../../assets/phone.svg";
 import Email from "../../assets/email.svg";
 import Location from "../../assets/locationblue.svg";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -35,12 +36,21 @@ const HelpSupport = () => {
 
   const ref = useRef<BottomSheetRef>(null);
 
+  const { theme } = useAppContext();
+
   const handleCloseModal = () => {
     ref.current?.close();
   };
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -51,9 +61,19 @@ const HelpSupport = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Profile")}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Help & Support</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Help & Support
+          </Text>
           <Text></Text>
         </View>
         <View
@@ -65,10 +85,15 @@ const HelpSupport = () => {
         </View>
         <View className="flex-row items-center justify-between p-5">
           <View className="flex-col gap-1 items-start">
-            <Text>Call us via</Text>
+            <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+              Call us via
+            </Text>
             <View className="flex-row  items-center">
               <Phone />
-              <Text className="text-[16px] ml-2" style={{ color: "#0A0A0A" }}>
+              <Text
+                className="text-[16px] ml-2"
+                style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+              >
                 +1 343-453-9347
               </Text>
             </View>
@@ -77,10 +102,15 @@ const HelpSupport = () => {
         </View>
         <View className="flex-row items-center justify-between p-5">
           <View className="flex-col gap-1 items-start">
-            <Text>Email us via</Text>
+            <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+              Email us via
+            </Text>
             <View className="flex-row  items-center">
               <Email />
-              <Text className="text-[16px] ml-2" style={{ color: "#0A0A0A" }}>
+              <Text
+                className="text-[16px] ml-2"
+                style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+              >
                 @wiremi.ca
               </Text>
             </View>
@@ -89,10 +119,15 @@ const HelpSupport = () => {
         </View>
         <View className="flex-row items-center justify-between p-5">
           <View className="flex-col gap-1 items-start">
-            <Text>Visit us at</Text>
+            <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+              Visit us at
+            </Text>
             <View className="flex-row w-[90%] items-center">
               <Location />
-              <Text className="text-[16px] ml-2" style={{ color: "#0A0A0A" }}>
+              <Text
+                className="text-[16px] ml-2"
+                style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+              >
                 21 King Street West, L8P 4W7 Hamilton
               </Text>
             </View>
@@ -107,18 +142,23 @@ const HelpSupport = () => {
           <Text className="text-[16px] text-buttonprimary">Chat with us</Text>
         </View>
         {/* <Pressable onPress={() => router.push("/Profiles/LiveChat")}> */}
-          <View className="flex-row items-center justify-between p-5">
-            <View className="flex-col gap-1 items-start">
-              <Text>Chat us for help</Text>
-              <View className="flex-row  items-center">
-                <Chat />
-                <Text className="text-[16px] ml-2" style={{ color: "#0A0A0A" }}>
-                  Our support agents are active 24/7
-                </Text>
-              </View>
+        <View className="flex-row items-center justify-between p-5">
+          <View className="flex-col gap-1 items-start">
+            <Text style={{ color: theme === "dark" ? "#ffffff" : "" }}>
+              Chat us for help
+            </Text>
+            <View className="flex-row  items-center">
+              <Chat />
+              <Text
+                className="text-[16px] ml-2"
+                style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+              >
+                Our support agents are active 24/7
+              </Text>
             </View>
-            <RightCarat />
           </View>
+          <RightCarat />
+        </View>
         {/* </Pressable> */}
       </SafeAreaView>
     </View>

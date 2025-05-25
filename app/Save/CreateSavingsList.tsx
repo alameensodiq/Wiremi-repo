@@ -13,11 +13,13 @@ import Back from "../../assets/Back.svg";
 import Message from "../../assets/messageicon.svg";
 import RightCarat from "../../assets/rightcarat.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppContext } from "@/Context/useAppContext";
 
 const CreateSavingsList = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const { theme } = useAppContext();
 
   const widthAndHeight = 180;
   const series = [721, 120, 123, 189];
@@ -29,9 +31,14 @@ const CreateSavingsList = () => {
     <ScrollView
       showsVerticalScrollIndicator={false}
       // style={{ backgroundColor: "#ffffff" }}
-      className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
     >
-      <StatusBar hidden={false} style="dark" />
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -45,26 +52,34 @@ const CreateSavingsList = () => {
           className="gap-6"
         >
           <View
-            style={{ width: width * 0.63 }}
+            style={{ width: width * 0.54 }}
             className="flex-row justify-between items-center mb-1"
           >
-            <TouchableOpacity
-              onPress={() => router.push("/Save")}
-            >
-              <Back />
+            <TouchableOpacity onPress={() => router.push("/Save")}>
+              <Back
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </TouchableOpacity>
-            <Text className="text-[20px] text-pagetitle">Save</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[20px] text-[#ffffff]"
+                  : "text-[20px] text-pagetitle"
+              }`}
+            >
+              Save
+            </Text>
           </View>
           <View className="flex-col justify-between">
             <Text
               className="text-[16px] font-bold"
-              style={{ color: "#00091E" }}
+              style={{ color: theme === "dark" ? "#ffffff" : "#00091E" }}
             >
               Select any of these savings and watch your
             </Text>
             <Text
               className="text-[16px] font-bold"
-              style={{ color: "#00091E" }}
+              style={{ color: theme === "dark" ? "#ffffff" : "#00091E" }}
             >
               money grow
             </Text>
@@ -73,22 +88,32 @@ const CreateSavingsList = () => {
             <View className="flex-row items-center justify-between p-5">
               <View className="flex-row gap-1 items-center">
                 <Message />
-                <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+                <Text
+                  className="text-[16px]"
+                  style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+                >
                   Regular
                 </Text>
               </View>
-              <RightCarat />
+              <RightCarat
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => router.push("/Save/BlockSavings")}>
             <View className="flex-row items-center justify-between p-5">
               <View className="flex-row gap-1 items-center">
                 <Message />
-                <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+                <Text
+                  className="text-[16px]"
+                  style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+                >
                   Block
                 </Text>
               </View>
-              <RightCarat />
+              <RightCarat
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -97,22 +122,32 @@ const CreateSavingsList = () => {
             <View className="flex-row items-center justify-between p-5">
               <View className="flex-row gap-1 items-center">
                 <Message />
-                <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+                <Text
+                  className="text-[16px]"
+                  style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+                >
                   Recurrent
                 </Text>
               </View>
-              <RightCarat />
+              <RightCarat
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => router.push("/Save/GroupSavings")}>
             <View className="flex-row items-center justify-between p-5">
               <View className="flex-row gap-1 items-center">
                 <Message />
-                <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+                <Text
+                  className="text-[16px]"
+                  style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+                >
                   Group
                 </Text>
               </View>
-              <RightCarat />
+              <RightCarat
+                style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+              />
             </View>
           </TouchableOpacity>
         </View>

@@ -5,7 +5,7 @@ import {
   Pressable,
   Modal,
   Dimensions,
-  StatusBar as RNStatusBar,
+  StatusBar as RNStatusBar
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -20,6 +20,7 @@ import RightCarat from "../../assets/rightcarat.svg";
 import Investment from "../../assets/investment.svg";
 import Savings from "../../assets/savings.svg";
 import Expenses from "../../assets/expenses.svg";
+import { useAppContext } from "@/Context/useAppContext";
 
 const Analytics = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -35,6 +36,7 @@ const Analytics = () => {
   const sliceColor3 = ["#00091E", "#E9EBF3"];
   const series4 = [721, 100];
   const sliceColor4 = ["#2A94F4", "#E9EBF3"];
+  const { theme } = useAppContext();
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -73,7 +75,11 @@ const Analytics = () => {
                     setIsVisible(!isVisible);
                   }}
                 >
-                  <Text>Set budget</Text>
+                  <Text
+                    className={`${theme === "dark" ? " text-[#ffffff]" : ""}`}
+                  >
+                    Set budget
+                  </Text>
                 </Pressable>
               </View>
             </View>
@@ -90,7 +96,15 @@ const Analytics = () => {
       >
         <View className="flex-row justify-between items-center mb-1">
           <Text />
-          <Text className="text-[20px] text-pagetitle">Analytics</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px]  text-[#ffffff]"
+                : " text-[20px] text-pagetitle"
+            }`}
+          >
+            Analytics
+          </Text>
           <Pressable
             onPress={() => {
               setIsVisible(!isVisible);
@@ -116,17 +130,41 @@ const Analytics = () => {
             <View className="flex-row items-center gap-2">
               <Analyticprofile />
               <View className="flex-col">
-                <Text className="text-dark">Total income</Text>
-                <Text className="text-[11px]" style={{ color: "#777A7E" }}>
+                <Text
+                  className={`${
+                    theme === "dark" ? "text-[#ffffff]" : " text-dark"
+                  }`}
+                >
+                  Total income
+                </Text>
+                <Text
+                  className="text-[11px]"
+                  style={{ color: theme === "dark" ? "#ffffff" : "#777A7E" }}
+                >
                   WI2663783729
                 </Text>
               </View>
             </View>
-            <Text style={{ color: "#6e6e6e", fontSize: 16 }}>$146,950.00</Text>
+            <Text
+              style={{
+                color: theme === "dark" ? "#ffffff" : "#6e6e6e",
+                fontSize: 16
+              }}
+            >
+              $146,950.00
+            </Text>
           </View>
         </View>
         <View className="flex-col mt-2 gap-2">
-          <Text className="text-black text-[14px]">My Budget (status bar)</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[14px] text-[#ffffff]"
+                : "text-black text-[14px]"
+            }`}
+          >
+            My Budget (status bar)
+          </Text>
           <View
             style={{
               backgroundColor: "#E9EDF5",
@@ -145,7 +183,9 @@ const Analytics = () => {
               }}
             ></View>
           </View>
-          <Text style={{ color: "#606162" }}>Spent $1,200 out of $4,000</Text>
+          <Text style={{ color: theme === "dark" ? "#ffffff" : "#606162" }}>
+            Spent $1,200 out of $4,000
+          </Text>
         </View>
         <View className="flex-row justify-center items-center">
           <View
@@ -162,7 +202,15 @@ const Analytics = () => {
           >
             <View className="flex-row items-center gap-2">
               <View className="flex-row items-center gap-1">
-                <Text className="text-dark font-bold">Your expenses</Text>
+                <Text
+                  className={`${
+                    theme === "dark"
+                      ? " text-[#ffffff]font-bold"
+                      : "text-dark font-bold"
+                  }`}
+                >
+                  Your expenses
+                </Text>
                 <Text className="text-[11px]" style={{ color: "#00A85A" }}>
                   2.30%
                 </Text>
@@ -187,17 +235,23 @@ const Analytics = () => {
           <View className="flex-row justify-between items-center">
             <View className="flex-row items-center gap-1">
               <Investment />
-              <Text>Investments - $390.47</Text>
+              <Text className={`${theme === "dark" ? " text-[#ffffff]" : ""}`}>
+                Investments - $390.47
+              </Text>
             </View>
             <View className="flex-row items-center gap-1">
               <Savings />
-              <Text>Savings - $611.22</Text>
+              <Text className={`${theme === "dark" ? " text-[#ffffff]" : ""}`}>
+                Savings - $611.22
+              </Text>
             </View>
           </View>
           <View className="flex-row justify-start items-center mt-1">
             <View className="flex-row items-center gap-1">
               <Expenses />
-              <Text>Investments - $390.47</Text>
+              <Text className={`${theme === "dark" ? " text-[#ffffff]" : ""}`}>
+                Investments - $390.47
+              </Text>
             </View>
           </View>
         </View>
@@ -205,7 +259,7 @@ const Analytics = () => {
           <View className="flex-row justify-between">
             <Text className="text-[16px]">Recent expenses</Text>
           </View>
-          <Pressable onPress={() => router.push("/Save/SaveDashboard")}>
+          <Pressable onPress={() => router.push("/Save")}>
             <View className="flex-row items-center justify-between pl-3">
               <View className="flex-row gap-1">
                 <PieChart
@@ -216,12 +270,22 @@ const Analytics = () => {
                 />
                 <View className="flex-col gap-1">
                   <View className="flex-row gap-1">
-                    <Text className="text-[14px]" style={{ color: "#413D43" }}>
+                    <Text
+                      className="text-[14px]"
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#413D43"
+                      }}
+                    >
                       Savings
                     </Text>
                   </View>
                   <View className="flex-row gap-2 items-center">
-                    <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
+                    <Text
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#6E6E6E"
+                      }}
+                      className="text-[10px]"
+                    >
                       12 transactions
                     </Text>
                   </View>
@@ -230,32 +294,42 @@ const Analytics = () => {
               <RightCarat />
             </View>
           </Pressable>
-          <Pressable onPress={() => router.push('/Invest/InvestDashboard')}>
-          <View className="flex-row items-center justify-between pl-3">
-            <View className="flex-row gap-1">
-              <PieChart
-                widthAndHeight={70}
-                series={series3}
-                sliceColor={sliceColor3}
-                coverRadius={0.65}
-              />
-              <View className="flex-col gap-1">
-                <View className="flex-row gap-1">
-                  <Text className="text-[14px]" style={{ color: "#413D43" }}>
-                    Investments
-                  </Text>
-                </View>
-                <View className="flex-row gap-2 items-center">
-                  <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
-                    12 transactions
-                  </Text>
+          <Pressable onPress={() => router.push("/Invest")}>
+            <View className="flex-row items-center justify-between pl-3">
+              <View className="flex-row gap-1">
+                <PieChart
+                  widthAndHeight={70}
+                  series={series3}
+                  sliceColor={sliceColor3}
+                  coverRadius={0.65}
+                />
+                <View className="flex-col gap-1">
+                  <View className="flex-row gap-1">
+                    <Text
+                      className="text-[14px]"
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#413D43"
+                      }}
+                    >
+                      Investments
+                    </Text>
+                  </View>
+                  <View className="flex-row gap-2 items-center">
+                    <Text
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#6E6E6E"
+                      }}
+                      className="text-[10px]"
+                    >
+                      12 transactions
+                    </Text>
+                  </View>
                 </View>
               </View>
+              <RightCarat />
             </View>
-            <RightCarat />
-          </View>
           </Pressable>
-          <Pressable onPress={() => router.push('/Analytic/Expenses')}>
+          <Pressable onPress={() => router.push("/Analytic/Expenses")}>
             <View className="flex-row items-center justify-between pl-3">
               <View className="flex-row gap-1">
                 <PieChart
@@ -266,12 +340,22 @@ const Analytics = () => {
                 />
                 <View className="flex-col gap-1">
                   <View className="flex-row gap-1">
-                    <Text className="text-[14px]" style={{ color: "#413D43" }}>
+                    <Text
+                      className="text-[14px]"
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#413D43"
+                      }}
+                    >
                       Expenses
                     </Text>
                   </View>
                   <View className="flex-row gap-2 items-center">
-                    <Text style={{ color: "#6E6E6E" }} className="text-[10px]">
+                    <Text
+                      style={{
+                        color: theme === "dark" ? "#ffffff" : "#6E6E6E"
+                      }}
+                      className="text-[10px]"
+                    >
                       12 transactions
                     </Text>
                   </View>

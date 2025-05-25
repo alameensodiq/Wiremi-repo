@@ -35,6 +35,7 @@ import { clearStatebanktransfer } from "@/Store/Reducers/BankTransfer";
 import { clearStatebanktransferinstitution } from "@/Store/Reducers/BankTransferInstitution";
 import { clearStatesupportedcountries } from "@/Store/Reducers/SupportedCountries";
 import { useAppDispatch } from "@/Store/ConfigureStore";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -74,10 +75,17 @@ const TransferMoney = () => {
     };
   }, []);
 
+  const { theme } = useAppContext();
+
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View // style={{ backgroundColor: "#ffffff" }}
+      style={{ backgroundColor: theme === "dark" ? "#000000" : "#ffffff" }}
+      className="flex-1"
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -90,16 +98,32 @@ const TransferMoney = () => {
           <TouchableOpacity
             onPress={() => router.push("/TransactionSendMoney")}
           >
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
           {/* <Text className="text-[20px] text-pagetitle">Send money</Text> */}
-          <Text className="text-[20px] text-pagetitle">Transfer Money</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Transfer Money
+          </Text>
           <Text></Text>
         </View>
 
         <View>
           <View className="flex flex-row items-start mb-6">
-            <Text className="text-['rgba(0, 9, 30, 1)'] text-[16px] font-bold">
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[16px] font-bold text-[#ffffff]"
+                  : "text-['rgba(0, 9, 30, 1)'] text-[16px] font-bold"
+              }`}
+            >
               Select transfer mode
             </Text>
           </View>
@@ -140,10 +164,22 @@ const TransferMoney = () => {
                       <SendMoneyWiremi />
                     </View>
                     <View className="items-start">
-                      <Text className="text-[14px] font-bold text-black">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[14px] font-bold  text-black"
+                            : "text-[14px] font-bold text-black"
+                        }`}
+                      >
                         Wiremi transfer
                       </Text>
-                      <Text className="text-[10px] text-deposistsub">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[10px]  text-deposistsub"
+                            : "text-[10px] text-deposistsub"
+                        }`}
+                      >
                         make transfer to another wiremi users
                       </Text>
                     </View>
@@ -179,10 +215,22 @@ const TransferMoney = () => {
                       <LocalTransfer />
                     </View>
                     <View className="items-start">
-                      <Text className="text-[14px] font-bold text-black">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[14px] font-bold  text-black"
+                            : "text-[14px] font-bold text-black"
+                        }`}
+                      >
                         Local transfers
                       </Text>
-                      <Text className="text-[10px] text-deposistsub">
+                      <Text
+                        className={`${
+                          theme === "dark"
+                            ? "text-[10px]  text-deposistsub"
+                            : "text-[10px] text-deposistsub"
+                        }`}
+                      >
                         make transfer to any other bank accounts
                       </Text>
                     </View>

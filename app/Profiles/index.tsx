@@ -44,7 +44,7 @@ const ProfileInfo = () => {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [showreason, setShowreason] = useState(false);
   const router = useRouter();
-   const { theme } = useAppContext();
+  const { theme } = useAppContext();
 
   const ref = useRef<BottomSheetRef>(null);
 
@@ -137,8 +137,15 @@ const ProfileInfo = () => {
       : "";
 
   return (
-    <View className={`${theme === 'dark' ?  "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"}`}>
-      <StatusBar hidden={false} style={`${theme === 'dark' ?  "light" : "dark"}`} />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -178,9 +185,17 @@ const ProfileInfo = () => {
         </Modal>
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Profile")}>
-            <Back style={{backgroundColor: theme ? "#ffffff" : ""}} />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className={`${theme === 'dark' ? "text-[20px] text-[#ffffff]" : "text-[20px] text-pagetitle"}`}>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
             Personal information
           </Text>
           <Text></Text>
@@ -193,7 +208,12 @@ const ProfileInfo = () => {
                 source={{ uri: accountdetails?.user?.profile_image }}
                 style={{ width: 70, height: 70, borderRadius: 50 }}
               />
-              <Text style={{ color: theme === 'dark' ? "#ffffff"  : "#868E96", fontSize: 14 }}>
+              <Text
+                style={{
+                  color: theme === "dark" ? "#ffffff" : "#868E96",
+                  fontSize: 14
+                }}
+              >
                 Tap to change photo
               </Text>
             </View>
@@ -202,8 +222,22 @@ const ProfileInfo = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-lighttextdark font-[14px]" }`}>First Name</Text>
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-darktext font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              First Name
+            </Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-darktext font-[14px]"
+              }`}
+            >
               {capitalize(accountdetails?.user?.first_name)}
             </Text>
           </View>
@@ -211,8 +245,22 @@ const ProfileInfo = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-lighttextdark font-[14px]" }`}>Last Name</Text>
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-darktext font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Last Name
+            </Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-darktext font-[14px]"
+              }`}
+            >
               {capitalize(accountdetails?.user?.last_name)}
             </Text>
           </View>
@@ -220,10 +268,22 @@ const ProfileInfo = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-lighttextdark font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
               Date of birth
             </Text>
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-darktext font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-darktext font-[14px]"
+              }`}
+            >
               {accountdetails?.user?.date_of_birth}
             </Text>
           </View>
@@ -231,8 +291,22 @@ const ProfileInfo = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-lighttextdark font-[14px]" }`}>Postal code</Text>
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-darktext font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Postal code
+            </Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-darktext font-[14px]"
+              }`}
+            >
               {accountdetails?.user?.address?.post_code}
             </Text>
           </View>
@@ -240,8 +314,22 @@ const ProfileInfo = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-lighttextdark font-[14px]" }`}>Address</Text>
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-darktext font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Address
+            </Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-darktext font-[14px]"
+              }`}
+            >
               {accountdetails?.user?.address?.street}{" "}
               {accountdetails?.user?.address?.city}{" "}
               {accountdetails?.user?.address?.state}
@@ -251,8 +339,22 @@ const ProfileInfo = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-lighttextdark font-[14px]" }`}>Country</Text>
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-darktext font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Country
+            </Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-darktext font-[14px]"
+              }`}
+            >
               {accountdetails?.user?.address?.country}
             </Text>
           </View>
@@ -260,8 +362,22 @@ const ProfileInfo = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-lighttextdark font-[14px]" }`}>Wiremi ID</Text>
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-darktext font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
+              Wiremi ID
+            </Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-darktext font-[14px]"
+              }`}
+            >
               {accountdetails?.account_id}
             </Text>
           </View>
@@ -269,10 +385,22 @@ const ProfileInfo = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-lighttextdark font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
               Subscription plan
             </Text>
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-darktext font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-darktext font-[14px]"
+              }`}
+            >
               {accountdetails?.subscription_plan} months
             </Text>
           </View>
@@ -280,10 +408,22 @@ const ProfileInfo = () => {
             style={{ borderBottomWidth: 1, borderBottomColor: "#ebebeb" }}
             className="flex-row items-center justify-between p-3"
           >
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-lighttextdark font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-lighttextdark font-[14px]"
+              }`}
+            >
               Base currency
             </Text>
-            <Text className={`${theme === 'dark' ?  "text-[#ffffff] font-[14px]" : "text-darktext font-[14px]" }`}>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[#ffffff] font-[14px]"
+                  : "text-darktext font-[14px]"
+              }`}
+            >
               {accountdetails?.base_currency}
             </Text>
           </View>

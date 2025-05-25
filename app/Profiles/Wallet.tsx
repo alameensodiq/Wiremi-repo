@@ -31,6 +31,7 @@ import { AccountDetails } from "@/Store/Apis/AccountDetails";
 import { clearStateaccountdetails } from "@/Store/Reducers/AccountDetails";
 import { clearStategetallwallets } from "@/Store/Reducers/GetAllwallet";
 import { Image } from "expo-image";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -49,6 +50,7 @@ const Wallet = () => {
   const [show2, setShow2] = useState("");
   const [isVisible3, setIsVisible3] = useState<boolean>(false);
   const [show3, setShow3] = useState("");
+  const { theme } = useAppContext();
 
   const ref = useRef<BottomSheetRef>(null);
 
@@ -145,8 +147,15 @@ const Wallet = () => {
     }
   ];
   return (
-    <View className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -298,14 +307,27 @@ const Wallet = () => {
         </Modal>
         <View className="flex-row justify-between items-center mb-1">
           <TouchableOpacity onPress={() => router.push("/Profile")}>
-            <Back />
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Wallets</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Wallets
+          </Text>
           <Text></Text>
         </View>
         <View style={{ width: width * 0.9 }}>
           <View>
-            <Text style={{ color: "#00091E" }} className="text-[14px]">
+            <Text
+              style={{ color: theme === "dark" ? "#ffffff" : "#00091E" }}
+              className="text-[14px]"
+            >
               Below are your active wallets
             </Text>
           </View>
@@ -319,24 +341,34 @@ const Wallet = () => {
                   <View className="flex-row items-center gap-2">
                     {item?.name === "USD Dollar" ? (
                       <Usa height={40} width={40} />
-                    ) : item?.name === "European" ? (
-                       <View className="bg-black w-[40] h-[40]">
-
-                       </View>
-                      // <Usa height={40} width={40} />
-                    ) : item?.name === "Great British Pounds" ? (
+                    ) : item?.name === "European Euro" ? (
+                      <View
+                        className={`${
+                          theme === "dark"
+                            ? "bg-white w-[40] h-[40] rounded-[50%]"
+                            : "bg-black w-[40] h-[40] rounded-[50%]"
+                        }`}
+                      ></View>
+                    ) : // <Usa height={40} width={40} />
+                    item?.name === "Great British Pounds" ? (
                       <UK height={40} width={40} />
                     ) : item?.name === "Nigerian Naira" ? (
                       <Naija height={40} width={40} />
                     ) : (
-                      <View className="bg-black w-[40] h-[40]">
-
-                       </View>
+                      <View
+                        className={`${
+                          theme === "dark"
+                            ? "bg-white w-[40] h-[40] rounded-[50%]"
+                            : "bg-black w-[40] h-[40] rounded-[50%]"
+                        }`}
+                      ></View>
                       // <Canada height={40} width={40} />
                     )}
                     <View className="flex-col">
                       <Text
-                        style={{ color: "#00091E" }}
+                        style={{
+                          color: theme === "dark" ? "#ffffff" : "#00091E"
+                        }}
                         className="text-[16px]"
                       >
                         {item?.name}({item?.currency})
@@ -414,15 +446,27 @@ const Wallet = () => {
                   <View className="flex-row justify-between gap-3">
                     <View className="flex-row gap-2 items-center">
                       <View className="flex-row items-center gap-2">
-                        {item?.name === "USD Dollar" ? (
-                          <Usa height={40} width={40} />
-                        ) : item?.name === "European" ? (
-                          <Usa height={40} width={40} />
-                        ) : item?.name === "Great British Pounds" ? (
-                          <UK height={40} width={40} />
-                        ) : (
-                          <Canada height={40} width={40} />
-                        )}
+                      {item?.name === "USD Dollar" ? (
+                      <Usa height={40} width={40} />
+                    ) : item?.name === "European Euro" ? (
+                      <View
+                        className={`${
+                          "bg-black w-[40] h-[40] rounded-[50%]"
+                        }`}
+                      ></View>
+                    ) : // <Usa height={40} width={40} />
+                    item?.name === "Great British Pounds" ? (
+                      <UK height={40} width={40} />
+                    ) : item?.name === "Nigerian Naira" ? (
+                      <Naija height={40} width={40} />
+                    ) : (
+                      <View
+                        className={`${
+                          "bg-black w-[40] h-[40] rounded-[50%]"
+                        }`}
+                      ></View>
+                      // <Canada height={40} width={40} />
+                    )}
                       </View>
                       <View className="flex-col gap-1">
                         <Text className="text-[14px] font-bold">

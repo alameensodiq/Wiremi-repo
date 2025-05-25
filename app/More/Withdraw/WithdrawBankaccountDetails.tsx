@@ -47,6 +47,7 @@ import { AccountName } from "@/Store/Apis/AccountName";
 import { ActivityIndicator } from "react-native";
 import { Summary } from "@/Store/Apis/Summary";
 import { BankWithdrawal } from "@/Store/Apis/BankWithdrawal";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -55,6 +56,7 @@ type BottomSheetRef = {
 };
 
 const WithdrawBankaccountDetails = () => {
+  const { theme } = useAppContext();
   const [hasMounted, setHasMounted] = useState(false);
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
@@ -182,7 +184,7 @@ const WithdrawBankaccountDetails = () => {
     }
     if (summary?.receiver) {
       if (ref3) {
-         Keyboard.dismiss();
+        Keyboard.dismiss();
         ref3?.current?.open();
       }
     }
@@ -291,9 +293,15 @@ const WithdrawBankaccountDetails = () => {
   );
 
   return (
-    <View // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <View // style={{ backgroundColor: "#ffffff" }}
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar
+        hidden={false}
+        style={`${theme === "dark" ? "light" : "dark"}`}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -559,9 +567,19 @@ const WithdrawBankaccountDetails = () => {
               <TouchableOpacity
                 onPress={() => router.push("/TransactionSendMoney")}
               >
-                <Back />
+                <Back
+                  style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+                />
               </TouchableOpacity>
-              <Text className="text-[20px] text-pagetitle">Bank account</Text>
+              <Text
+                className={`${
+                  theme === "dark"
+                    ? "text-[20px] text-[#ffffff]"
+                    : "text-[20px] text-pagetitle"
+                }`}
+              >
+                Bank account
+              </Text>
               <Text></Text>
             </View>
             <View className="items-center justify-center">

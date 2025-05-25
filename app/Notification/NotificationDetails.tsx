@@ -24,6 +24,7 @@ import { clearStateallnotification } from "@/Store/Reducers/AllNotification";
 import { clearStatesinglenotification } from "@/Store/Reducers/SingleNotification";
 import { OpenedNotification } from "@/Store/Apis/OpenedNotification";
 import { clearStateopenednotification } from "@/Store/Reducers/OpenedNotification";
+import { useAppContext } from "@/Context/useAppContext";
 
 type BottomSheetRef = {
   open: () => void;
@@ -35,6 +36,7 @@ const NotificationDetails = () => {
   const statusBarHeight = RNStatusBar.currentHeight || 0;
   const { height, width } = Dimensions.get("window");
   const router = useRouter();
+  const { theme } = useAppContext();
   const ref = useRef<BottomSheetRef>(null);
   const dispatch = useAppDispatch();
   const { notificationid } = useLocalSearchParams();
@@ -95,9 +97,13 @@ const NotificationDetails = () => {
     };
   }, []);
   return (
-    <ScrollView // style={{ backgroundColor: "#ffffff" }} 
-    className="flex-1">
-      <StatusBar hidden={false} style="dark" />
+    <ScrollView // style={{ backgroundColor: "#ffffff" }}
+      // className="flex-1"
+      className={`${
+        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+      }`}
+    >
+      <StatusBar hidden={false}  style={`${theme === "dark" ? "light" : "dark"}`} />
       <SafeAreaView
         style={{
           flex: 1,
@@ -115,12 +121,20 @@ const NotificationDetails = () => {
           </View>
         )}
         <View className="flex-row justify-between items-center mb-1">
-          <TouchableOpacity
-            onPress={() => router.push("/Notification")}
-          >
-            <Back />
+          <TouchableOpacity onPress={() => router.push("/Notification")}>
+            <Back
+              style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
+            />
           </TouchableOpacity>
-          <Text className="text-[20px] text-pagetitle">Details</Text>
+          <Text
+            className={`${
+              theme === "dark"
+                ? "text-[20px] text-[#ffffff]"
+                : "text-[20px] text-pagetitle"
+            }`}
+          >
+            Details
+          </Text>
           <Text></Text>
         </View>
         <View className="items-center justify-center gap-1">
@@ -130,7 +144,7 @@ const NotificationDetails = () => {
             // <MobileMoney />
             <Wiremi width={100} />
           )}
-          <Text style={{ color: "#5F5F5F" }}>
+          <Text style={{ color:theme === "dark" ? "#ffffff" :  "#5F5F5F" }}>
             {/* <Text style={{ color: "#5F5F5F" }}>Transfer to</Text>{" "} */}
             <Text className="font-bold">
               {singlenotification?.data[0]?.title}
@@ -149,7 +163,7 @@ const NotificationDetails = () => {
         </View>
         <View className="pr-2 pt-5 gap-1">
           <Text
-            style={{ color: "#00091E", fontSize: 14 }}
+            style={{ color: theme === "dark" ? "#ffffff" : "#00091E", fontSize: 14 }}
             // className="font-bold"
           >
             Transaction details
@@ -176,21 +190,21 @@ const NotificationDetails = () => {
           </View> */}
           <View className="flex-row justify-between items-center">
             {/* <Text style={{ color: "#6E6E6E", fontSize: 14 }}>Remark</Text> */}
-            <Text style={{ color: "#00091E", fontSize: 14, width: width }}>
+            <Text style={{ color: theme === "dark" ? "#ffffff" : "#00091E", fontSize: 14, width: width }}>
               {singlenotification?.data[0]?.message}
             </Text>
           </View>
           <View className="flex-row justify-between items-center">
-            <Text style={{ color: "#6E6E6E", fontSize: 14 }}>
+            <Text style={{ color: theme === "dark" ? "#ffffff" : "#6E6E6E", fontSize: 14 }}>
               Transaction date
             </Text>
-            <Text style={{ color: "#00091E", fontSize: 14 }}>
+            <Text style={{ color:theme === "dark" ? "#ffffff" :  "#00091E", fontSize: 14 }}>
               {formatDate(singlenotification?.data[0]?.createdAt)}
             </Text>
           </View>
           <View className="flex-row justify-between items-center">
-            <Text style={{ color: "#6E6E6E" }}>Transaction time</Text>
-            <Text style={{ color: "#00091E", fontSize: 14 }}>
+            <Text style={{ color:theme === "dark" ? "#ffffff" :  "#6E6E6E" }}>Transaction time</Text>
+            <Text style={{ color: theme === "dark" ? "#ffffff" : "#00091E", fontSize: 14 }}>
               {formatDateWithTime(singlenotification?.data[0]?.createdAt)}
             </Text>
           </View>
@@ -206,7 +220,7 @@ const NotificationDetails = () => {
         </View>
         <View className="pr-2 pl-4 pt-3">
           <Text className="text-buttonprimary">Note:</Text>
-          <Text style={{ color: "#8D8F91", lineHeight: 24 }}>
+          <Text style={{ color:theme === "dark" ? "#ffffff" :  "#8D8F91", lineHeight: 24 }}>
             This transaction is recorded for reference. Please verify details
             and keep for future financial tracking or reconciliation.
           </Text>
