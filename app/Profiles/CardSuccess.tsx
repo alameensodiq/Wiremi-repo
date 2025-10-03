@@ -22,7 +22,11 @@ const CardSuccess = () => {
   const { theme } = useAppContext();
   return (
     <View className="flex-1 ">
-      <View className="flex-1 bg-white">
+      <View
+        className={`${
+          theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+        }`}
+      >
         <StatusBar
           hidden={false}
           style={`${theme === "dark" ? "light" : "dark"}`}

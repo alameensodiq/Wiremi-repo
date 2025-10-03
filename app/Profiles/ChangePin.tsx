@@ -198,7 +198,7 @@ const ChangePin = () => {
                       : "text-textblack text-[16px] font-bold"
                   }`}
                 >
-                  Reset your pin for transaction
+                  Reset your pin 
                 </Text>
               </View>
               <View

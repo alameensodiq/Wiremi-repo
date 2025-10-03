@@ -119,7 +119,10 @@ const Biometric = () => {
           </View>
           <View className="flex-row items-center justify-between p-2">
             <View className="flex-row gap-1 items-center">
-              <Text className="text-[16px]" style={{ color: "#0A0A0A" }}>
+              <Text
+                className="text-[16px]"
+                style={{ color: theme === "dark" ? "#ffffff" : "#0A0A0A" }}
+              >
                 No
               </Text>
             </View>

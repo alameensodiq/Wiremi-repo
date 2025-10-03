@@ -81,10 +81,15 @@ const InviteFriend = () => {
       }`}
       showsVerticalScrollIndicator={false}
     >
-      <View className={`${
-        theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
-      }`}>
-        <StatusBar hidden={false} style={`${theme === "dark" ? "light" : "dark"}`} />
+      <View
+        className={`${
+          theme === "dark" ? "flex-1 bg-[#000000]" : "flex-1 bg-[#ffffff]"
+        }`}
+      >
+        <StatusBar
+          hidden={false}
+          style={`${theme === "dark" ? "light" : "dark"}`}
+        />
         <SafeAreaView
           className="justify-between"
           style={{
@@ -99,11 +104,15 @@ const InviteFriend = () => {
                 style={{ backgroundColor: theme === "dark" ? "#ffffff" : "" }}
               />
             </TouchableOpacity>
-            <Text  className={`${
-              theme === "dark"
-                ? "text-[20px] text-[#ffffff]"
-                : "text-[20px] text-pagetitle"
-            }`}>Invite a friend</Text>
+            <Text
+              className={`${
+                theme === "dark"
+                  ? "text-[20px] text-[#ffffff]"
+                  : "text-[20px] text-pagetitle"
+              }`}
+            >
+              Invite a friend
+            </Text>
             <Text></Text>
           </View>
           <View
@@ -151,11 +160,17 @@ const InviteFriend = () => {
                 </Text>
               </View>
               <View className="flex-col items-start justify-center">
-                <Text style={{ color:theme === "dark" ? "#ffffff" :  "#777A7E" }} className="text-[12px]">
+                <Text
+                  style={{ color: theme === "dark" ? "#ffffff" : "#777A7E" }}
+                  className="text-[12px]"
+                >
                   Each time a friend signs up with your refferal code, you
                   receive a
                 </Text>
-                <Text style={{ color:theme === "dark" ? "#ffffff" :  "#777A7E" }} className="text-[12px]">
+                <Text
+                  style={{ color: theme === "dark" ? "#ffffff" : "#777A7E" }}
+                  className="text-[12px]"
+                >
                   cashback instantly.
                 </Text>
               </View>
@@ -163,18 +178,24 @@ const InviteFriend = () => {
                 <Text className="text-[14px] text-buttonprimary">
                   Refferal code
                 </Text>
-                <View className="flex-row justify-center gap-1">
-                  <Text className="text-[14px] text-buttonprimary font-bold">
-                    {accountdetails?.user?.referral_code}
-                  </Text>
-                  <Pressable
-                    onPress={() =>
-                      handleCopy(accountdetails?.user?.referral_code)
-                    }
-                  >
-                    <Copy />
-                  </Pressable>
-                </View>
+                <Pressable
+                  onPress={() =>
+                    handleCopy(accountdetails?.user?.referral_code)
+                  }
+                >
+                  <View className="flex-row justify-center gap-1">
+                    <Text className="text-[14px] text-buttonprimary font-bold">
+                      {accountdetails?.user?.referral_code}
+                    </Text>
+                    <Pressable
+                      onPress={() =>
+                        handleCopy(accountdetails?.user?.referral_code)
+                      }
+                    >
+                      <Copy />
+                    </Pressable>
+                  </View>
+                </Pressable>
               </View>
             </View>
             <View

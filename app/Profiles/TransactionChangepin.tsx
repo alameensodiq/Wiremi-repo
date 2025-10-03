@@ -60,6 +60,7 @@ const TransactionChangePin = () => {
 
   const { accountdetails, authenticatingaccountdetails, errorsaccountdetails } =
     useAppSelector((state) => state.accountdetails);
+  console.log(accountdetails);
 
   useEffect(() => {
     if (transactionchange?.status) {
@@ -302,7 +303,7 @@ const TransactionChangePin = () => {
               <BlueSignInButton
                 title="Proceed"
                 onPress={() => {
-                  if (accountdetails?.is_pin?.is_transaction_pin) {
+                  if (accountdetails?.is_transaction_pin) {
                     if (
                       pin?.length === 6 &&
                       confirmpin?.length === 6 &&

@@ -339,7 +339,8 @@ const IdCard = () => {
             <View className="pt-10 flex-row justify-center">
               <BlueSignInButton
                 title="Proceed"
-                onPress={() => router.push("/Profiles/CardSuccess")}
+                onPress={() => uploadAllDocuments()}
+                // onPress={() => router.push("/Profiles/CardSuccess")}
               />
             </View>
           )}

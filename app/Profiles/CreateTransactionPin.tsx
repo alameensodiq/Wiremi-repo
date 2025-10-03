@@ -123,23 +123,23 @@ const CreateTransactionPin = () => {
                         <Text>{item}</Text>
                       })}
                       </View> */}
-                  {createtransactionpin?.error &&
-                    typeof createtransactionpin?.error === "object" &&
-                    !Array.isArray(createtransactionpin?.error) &&
-                    Object.keys(createtransactionpin?.error).map(
+                  {errorscreatetransactionpin?.error &&
+                    typeof errorscreatetransactionpin?.error === "object" &&
+                    !Array.isArray(errorscreatetransactionpin?.error) &&
+                    Object.keys(errorscreatetransactionpin?.error).map(
                       (key, index) => (
                         <Text key={index}>
                           {key}:{" "}
-                          {Array.isArray(createtransactionpin?.error[key])
-                            ? createtransactionpin?.error[key].join(", ") // Handle arrays by joining the elements
-                            : createtransactionpin?.error[key]}{" "}
+                          {Array.isArray(errorscreatetransactionpin?.error[key])
+                            ? errorscreatetransactionpin?.error[key].join(", ") // Handle arrays by joining the elements
+                            : errorscreatetransactionpin?.error[key]}{" "}
                         </Text>
                       )
                     )}
-                  {createtransactionpin?.error &&
-                    typeof createtransactionpin?.error !== "object" && (
+                  {errorscreatetransactionpin?.error &&
+                    typeof errorscreatetransactionpin?.error !== "object" && (
                       <Text className="mb-3">
-                        {createtransactionpin?.error}
+                        {errorscreatetransactionpin?.error}
                       </Text>
                     )}
                   <ShortBlueButton
@@ -188,7 +188,11 @@ const CreateTransactionPin = () => {
             >
               <View className="flex-row justify-between items-center">
                 <TouchableOpacity onPress={() => router.push("/Profile")}>
-                  <Back />
+                  <Back
+                    style={{
+                      backgroundColor: theme === "dark" ? "#ffffff" : ""
+                    }}
+                  />
                 </TouchableOpacity>
                 <Text
                   className={`${

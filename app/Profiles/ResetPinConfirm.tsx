@@ -143,7 +143,7 @@ const ResetPinConfirm = () => {
               >
                 <View className="bg-white w-[70%] h-[30%] rounded-[10px] flex-col items-center justify-evenly py-3">
                   <Text className="mb-3">
-                    Either of the two pin is not correct
+                    Either of the two pin is not correct/Incomplete
                   </Text>
 
                   <ShortBlueButton
@@ -245,8 +245,9 @@ const ResetPinConfirm = () => {
                     onPress={() => {
                       if (
                         pin?.length === 6 &&
-                        confirmpin?.length === 6 &&
-                        confirmpin === pin
+                        confirmpin?.length === 6
+                        //  &&
+                        // confirmpin === pin
                       ) {
                         dispatch(
                           Resetingpin({
