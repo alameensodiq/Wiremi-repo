@@ -608,7 +608,7 @@ const PersonalAccountReg = () => {
                                   }
                                 }, 500);
                               }
-                              
+
                               // setShowemailerror(true);
                             }
                           }}
@@ -758,61 +758,61 @@ const PersonalAccountReg = () => {
                   )}
                 </View>
                 <BottomSheet height={550} ref={ref}>
-                <View style={{ padding: 20, gap: 30, paddingBottom: 50 }}>
-                  {/* <Text>Bottom Sheet Content</Text>
+                  <View style={{ padding: 20, gap: 30, paddingBottom: 50 }}>
+                    {/* <Text>Bottom Sheet Content</Text>
                 <TouchableOpacity onPress={handleCloseModal}>
                   <Text>Close</Text>
                 </TouchableOpacity> */}
-                  <View className="items-center">
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        color: "#2A94F4",
-                        fontWeight: "bold"
-                      }}
-                    >
-                      Countries
-                    </Text>
-                  </View>
-                  <View className="flex-row justify-between items-center">
-                    <TextInput
-                      style={{ color: "#606162" }}
-                      value={searchQuery}
-                      onChangeText={(text) => setSearchQuery(text)}
-                      placeholder="Search for Country"
-                    />
-                    {/* <CheckBox
+                    <View className="items-center">
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          color: "#2A94F4",
+                          fontWeight: "bold"
+                        }}
+                      >
+                        Countries
+                      </Text>
+                    </View>
+                    <View className="flex-row justify-between items-center">
+                      <TextInput
+                        style={{ color: "#606162" }}
+                        value={searchQuery}
+                        onChangeText={(text) => setSearchQuery(text)}
+                        placeholder="Search for Country"
+                      />
+                      {/* <CheckBox
                   checked={selectedIndex === 20}
                   onPress={() => setIndex(20)}
                   checkedIcon="dot-circle-o"
                   uncheckedIcon="circle-o"
                 /> */}
-                  </View>
-                  <View style={{ height: height * 0.47 }}>
-                    <FlatList
-                      data={filteredData}
-                      renderItem={({ item, index }) => (
-                        <TouchableOpacity
-                          onPress={() => {
-                            console.log(item?.name);
-                            setIndex(index);
-                            setIndividualregister((prev) => ({
-                              ...prev, // Spread the previous state correctly
-                              country: item?.name, // Update the "country" property,
-                              phoneCode: item?.phoneCode
-                            }));
-                            handleCloseModal();
-                          }}
-                        >
-                          <View className="flex-row justify-between gap-3">
-                            <View className="flex-col gap-2">
-                              <View className="flex-row items-center">
-                                {/* {item?.image} */}
-                                <Text className="text-[14px] font-bold">
-                                  {item?.name}
-                                </Text>
-                              </View>
-                              {/* <View className="flex-row">
+                    </View>
+                    <View style={{ height: height * 0.47 }}>
+                      <FlatList
+                        data={filteredData}
+                        renderItem={({ item, index }) => (
+                          <TouchableOpacity
+                            onPress={() => {
+                              console.log(item?.name);
+                              setIndex(index);
+                              setIndividualregister((prev) => ({
+                                ...prev, // Spread the previous state correctly
+                                country: item?.name, // Update the "country" property,
+                                phoneCode: item?.phoneCode
+                              }));
+                              handleCloseModal();
+                            }}
+                          >
+                            <View className="flex-row justify-between gap-3">
+                              <View className="flex-col gap-2">
+                                <View className="flex-row items-center">
+                                  {/* {item?.image} */}
+                                  <Text className="text-[14px] font-bold">
+                                    {item?.name}
+                                  </Text>
+                                </View>
+                                {/* <View className="flex-row">
                             <Text
                               className="text-[12px] ml-4"
                               style={{ color: "#105CE2" }}
@@ -820,73 +820,76 @@ const PersonalAccountReg = () => {
                               Active
                             </Text>
                           </View> */}
+                              </View>
+                              <View className="flex-col items-end">
+                                <CheckBox
+                                  checked={
+                                    selectedIndex === index ||
+                                    individualregister.country === item?.name
+                                  }
+                                  // onPress={() => setIndex(index)}
+                                  onPress={() => {
+                                    console.log(item?.name);
+                                    setIndex(index);
+                                    setIndividualregister((prev) => ({
+                                      ...prev, // Spread the previous state correctly
+                                      country: item?.name, // Update the "country" property,
+                                      phoneCode: item?.phoneCode
+                                    }));
+                                    handleCloseModal();
+                                  }}
+                                  checkedIcon="dot-circle-o"
+                                  uncheckedIcon="circle-o"
+                                />
+                              </View>
                             </View>
-                            <View className="flex-col items-end">
-                              <CheckBox
-                                checked={
-                                  selectedIndex === index ||
-                                  individualregister.country === item?.name
-                                }
-                                // onPress={() => setIndex(index)}
-                                onPress={() => {
-                                  console.log(item?.name);
-                                  setIndex(index);
-                                  setIndividualregister((prev) => ({
-                                    ...prev, // Spread the previous state correctly
-                                    country: item?.name, // Update the "country" property,
-                                    phoneCode: item?.phoneCode
-                                  }));
-                                  handleCloseModal();
-                                }}
-                                checkedIcon="dot-circle-o"
-                                uncheckedIcon="circle-o"
-                              />
-                            </View>
-                          </View>
-                        </TouchableOpacity>
-                      )}
-                      showsVerticalScrollIndicator={false}
-                      bounces={false}
-                      keyExtractor={(item) => item.id}
-                      contentContainerStyle={{
-                        gap: 0,
-                        paddingBottom: 50
-                      }}
-                    />
+                          </TouchableOpacity>
+                        )}
+                        showsVerticalScrollIndicator={false}
+                        bounces={false}
+                        keyExtractor={(item) => item.id}
+                        contentContainerStyle={{
+                          gap: 0,
+                          paddingBottom: 50
+                        }}
+                      />
+                    </View>
                   </View>
-                </View>
-              </BottomSheet>
-              <BottomSheet height={200} ref={ref2}>
-                <View className="bg-white rounded-[15px] flex-col items-center justify-between py-3 gap-3">
-                  <Text className="mb-10">Enter Email First</Text>
-                  <ShortBlueButton title="Close" onPress={handleCloseModal2} />
-                </View>
-              </BottomSheet>
-              <BottomSheet height={250} ref={ref3}>
-                <View className="bg-white rounded-[15px] flex-col items-center justify-center py-3 gap-3">
-                  <TextLabelBox
-                    label="Pin"
-                    number
-                    max
-                    placeholder="Enter your 6 digit Pin"
-                    onChangeText={(value: any) => onChangeIdpinemail(value)}
-                  />
-                  <View className="flex-col mt-10">
-                    <BlueSignInButton
+                </BottomSheet>
+                <BottomSheet height={200} ref={ref2}>
+                  <View className="bg-white rounded-[15px] flex-col items-center justify-between py-3 gap-3">
+                    <Text className="mb-10">Enter Email First</Text>
+                    <ShortBlueButton
                       title="Close"
-                      onPress={() => {
-                        dispatch(
-                          EmailVerifyCode({
-                            otp: wiremiIdpinemail,
-                            email: individualregister?.email
-                          })
-                        );
-                      }}
-                      // onPress={() => clearStateemailverify()}
+                      onPress={handleCloseModal2}
                     />
                   </View>
-                </View>
-              </BottomSheet>
+                </BottomSheet>
+                <BottomSheet height={250} ref={ref3}>
+                  <View className="bg-white rounded-[15px] flex-col items-center justify-center py-3 gap-3">
+                    <TextLabelBox
+                      label="Pin"
+                      number
+                      max
+                      placeholder="Enter your 6 digit Pin"
+                      onChangeText={(value: any) => onChangeIdpinemail(value)}
+                    />
+                    <View className="flex-col mt-10">
+                      <BlueSignInButton
+                        title="Close"
+                        onPress={() => {
+                          dispatch(
+                            EmailVerifyCode({
+                              otp: wiremiIdpinemail,
+                              email: individualregister?.email
+                            })
+                          );
+                        }}
+                        // onPress={() => clearStateemailverify()}
+                      />
+                    </View>
+                  </View>
+                </BottomSheet>
               </View>
             </ScrollView>
           </KeyboardAvoidingView>

@@ -14,7 +14,7 @@
 		96905EF65AED1B983A6B3ABC /* libPods-wireminew.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-wireminew.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		1AA1AB473E9F4982A8A1A6A6 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D273D5C377F43BE8666916B /* noop-file.swift */; };
+		33801F0839274CD696C327CA /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B748FA644504162BBF52EFB /* noop-file.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +31,8 @@
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-wireminew/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		4D273D5C377F43BE8666916B /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "wireminew/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
-		A06D3B0FC9134EB1ACE4E97F /* wireminew-Bridging-Header.h */ = {isa = PBXFileReference; name = "wireminew-Bridging-Header.h"; path = "wireminew/wireminew-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		8B748FA644504162BBF52EFB /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "wireminew/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		D50F85CE31A74E228C6F7F0E /* wireminew-Bridging-Header.h */ = {isa = PBXFileReference; name = "wireminew-Bridging-Header.h"; path = "wireminew/wireminew-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +57,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				4D273D5C377F43BE8666916B /* noop-file.swift */,
-				A06D3B0FC9134EB1ACE4E97F /* wireminew-Bridging-Header.h */,
+				8B748FA644504162BBF52EFB /* noop-file.swift */,
+				D50F85CE31A74E228C6F7F0E /* wireminew-Bridging-Header.h */,
 			);
 			name = wireminew;
 			sourceTree = "<group>";
@@ -198,7 +198,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				E415CA53415E47B3BFD59647 /* wireminew-Bridging-Header.h in Resources */,
+				0032F5A5E25749C1A9041EE9 /* wireminew-Bridging-Header.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +274,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				1AA1AB473E9F4982A8A1A6A6 /* noop-file.swift in Sources */,
+				33801F0839274CD696C327CA /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
